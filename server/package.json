@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "env NODE_ENV=production ts-node ./src/application",
-    "dev": "env NODE_ENV=development nodemon --exec ts-node ./src/application"
+    "start": "env NODE_ENV=production ts-node -r tsconfig-paths/register --files ./src/application.ts",
+    "dev": "env NODE_ENV=development nodemon --exec ts-node -r tsconfig-paths/register --files ./src/application.ts"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +23,7 @@
     "nodemon": "^2.0.6",
     "prettier": "^2.1.2",
     "ts-node": "^9.0.0",
+    "tsconfig-paths": "^3.9.0",
     "typescript": "^4.0.5"
   },
   "dependencies": {

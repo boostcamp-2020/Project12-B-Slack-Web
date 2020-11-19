@@ -8,5 +8,15 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@common/*": ["src/common/*"],
+      "@controller/*": ["src/controller/*"],
+      "@model/*": ["src/model/*"],
+      "@repository/*": ["src/repository/*"],
+      "@router/*": ["src/router/*"],
+      "@service/*": ["src/service/*"],
+    }
   },
 }
