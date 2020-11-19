@@ -4,7 +4,7 @@ import cors from 'cors';
 import 'reflect-metadata';
 import router from '@router/index';
 
-const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
+const envFile = `${process.env.NODE_ENV || 'development'}.env`;
 dotenv.config({ path: envFile });
 
 const app = express();
