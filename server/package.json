@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node ./src/application",
-    "dev": "nodemon --exec ts-node ./src/application"
+    "start": "env NODE_ENV=production ts-node ./src/application",
+    "dev": "env NODE_ENV=development nodemon --exec ts-node ./src/application"
   },
   "author": "",
   "license": "ISC",
@@ -28,6 +27,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "reflect-metadata": "^0.1.13"
   }

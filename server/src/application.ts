@@ -1,7 +1,11 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import 'reflect-metadata';
 import router from './router/index';
+
+const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
+dotenv.config({ path: envFile });
 
 const app = express();
 const PORT = process.env.PORT || 3000;
