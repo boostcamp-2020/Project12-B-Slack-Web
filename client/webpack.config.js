@@ -34,11 +34,18 @@ module.exports = (env, options) => {
             useBabel: true,
             babelCore: '@babel/core'
           }
+        },
+        {
+          test: /\.(png|jpg|svg)$/,
+          loader: 'file-loader',
+          option: {
+            outputPath: 'static/imgs'
+          }
         }
       ]
     },
     resolve: {
-      extensions: ['.js', 'jsx', '.ts', '.tsx'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
       alias: {
         '@components': path.resolve(__dirname, 'src/components'),
         '@pages': path.resolve(__dirname, 'src/pages'),
