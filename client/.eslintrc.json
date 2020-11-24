@@ -41,6 +41,7 @@
     ],
     "linebreak-style": 0,
     "no-use-before-define": "off",
+    "import/no-unresolved": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "import/extensions": [
       "error",
