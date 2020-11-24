@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { IsIn } from 'class-validator';
+import UserChatroom from '@model/user-chatroom';
 
 @Entity({ name: 'chatroom' })
 export default class Chatroom {
@@ -27,4 +28,7 @@ export default class Chatroom {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => UserChatroom, (userChatroom) => userChatroom.user)
+  userChatrooms: UserChatroom[];
 }

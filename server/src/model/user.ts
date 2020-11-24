@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { IsUrl } from 'class-validator';
 import Section from '@model/section';
+import UserChatroom from '@model/user-chatroom';
 
 @Entity({ name: 'user' })
 export default class User {
@@ -40,4 +41,7 @@ export default class User {
 
   @OneToMany(() => Section, (section) => section.user)
   sections: Section[];
+
+  @OneToMany(() => UserChatroom, (userChatroom) => userChatroom.user)
+  userChatrooms: UserChatroom[];
 }
