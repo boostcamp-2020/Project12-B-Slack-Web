@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, DeleteDateColumn } from 'typeorm';
 import { IsIn } from 'class-validator';
 import UserChatroom from '@model/user-chatroom';
 import Message from '@model/message';
@@ -29,6 +29,9 @@ export default class Chatroom {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 
   @OneToMany(() => UserChatroom, (userChatroom) => userChatroom.user)
   userChatrooms: UserChatroom[];

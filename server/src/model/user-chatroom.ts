@@ -1,4 +1,4 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, PrimaryGeneratedColumn, DeleteDateColumn } from 'typeorm';
 import User from '@model/user';
 import Chatroom from '@model/chatroom';
 
@@ -15,6 +15,9 @@ export default class UserChatroom {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 
   @ManyToOne(() => User, (user) => user.userId)
   @JoinColumn({ name: 'userId' })
