@@ -8,6 +8,20 @@
     "strict": true,            
     "typeRoots": ["./node_modules/@types","./src/types"],             
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true 
-  }
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@components": ["src/components/*"],
+      "@pages": ["src/pages/*"],
+      "@style": ["src/common/style/*"],
+      "@utils": ["src/common/utils/*"],
+      "@hook": ["src/common/hook/*"],
+      "@context": ["src/common/context/*"],
+      "@imgs": ["public/imgs/*"]
+    },
+    "moduleResolution": "node"
+  },
+  "exclude": ["node_modules"],
+  "include": ["**/*.ts", "**/*.tsx"]
 }
