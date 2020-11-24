@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { IsUrl } from 'class-validator';
+import Section from '@model/section';
 
 @Entity({ name: 'user' })
 export default class User {
@@ -36,4 +37,7 @@ export default class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => Section, (section) => section.user)
+  sections: Section[];
 }
