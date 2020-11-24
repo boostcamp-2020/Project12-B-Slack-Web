@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { IsIn } from 'class-validator';
 import UserChatroom from '@model/user-chatroom';
+import Message from '@model/message';
 
 @Entity({ name: 'chatroom' })
 export default class Chatroom {
@@ -31,4 +32,7 @@ export default class Chatroom {
 
   @OneToMany(() => UserChatroom, (userChatroom) => userChatroom.user)
   userChatrooms: UserChatroom[];
+
+  @OneToMany(() => Message, (message) => message.chatroom)
+  messages: Message[];
 }

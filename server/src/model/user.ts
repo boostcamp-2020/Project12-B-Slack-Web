@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 import { IsUrl } from 'class-validator';
 import Section from '@model/section';
 import UserChatroom from '@model/user-chatroom';
+import Message from '@model/message';
 
 @Entity({ name: 'user' })
 export default class User {
@@ -44,4 +45,7 @@ export default class User {
 
   @OneToMany(() => UserChatroom, (userChatroom) => userChatroom.user)
   userChatrooms: UserChatroom[];
+
+  @OneToMany(() => Message, (message) => message.user)
+  messages: Message[];
 }
