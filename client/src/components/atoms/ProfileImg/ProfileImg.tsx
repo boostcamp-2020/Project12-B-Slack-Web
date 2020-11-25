@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Logo } from '@imgs';
+import Logo from '@imgs/logo.png';
 
 interface ProfileImgProps {
   size?: 'small' | 'medium' | 'large';
