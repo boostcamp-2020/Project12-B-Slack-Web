@@ -1,19 +1,46 @@
-import dotenv from 'dotenv';
-import express from 'express';
-import cors from 'cors';
 import 'reflect-metadata';
+import dotenv from 'dotenv';
+import express, { Express } from 'express';
+import cors from 'cors';
+import { createConnection } from 'typeorm';
 import router from '@router/index';
 
-const envFile = `${process.env.NODE_ENV || 'development'}.env`;
-dotenv.config({ path: envFile });
+export default class Application {
+  app: Express;
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+  constructor() {
+    this.app = express();
+  }
 
-app.use(express.json());
-app.use(cors());
-app.use('/', router);
+  async init() {
+    this.initEnv();
+    await this.initDatabase();
+    this.registerMiddleware();
+    this.listen();
+  }
 
-app.listen(PORT, () => {
-  console.log(`server is running on ${PORT}`);
-});
+  initEnv() {
+    const envFile: string = `${process.env.NODE_ENV || 'development'}.env`;
+    dotenv.config({ path: envFile });
+  }
+
+  async initDatabase() {
+    await createConnection();
+  }
+
+  registerMiddleware() {
+    this.app.use(express.json());
+    this.app.use(cors());
+    this.app.use('/', router);
+  }
+
+  listen() {
+    const PORT = process.env.PORT || 3000;
+    this.app.listen(PORT, () => {
+      console.log(`server is running on ${PORT}`);
+    });
+  }
+}
+
+const application = new Application();
+application.init();
