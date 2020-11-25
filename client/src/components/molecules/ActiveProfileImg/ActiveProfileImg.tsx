@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ActiveLight, ProfileImg } from '@components/atoms';
+import Logo from '@imgs/logo.png';
 
 interface ActiveProfileImgProps {
   size?: 'small' | 'medium' | 'large';
@@ -32,7 +33,7 @@ const ActiveLightWrap = styled.div<any>`
   border-radius: 1rem;
 `;
 
-const ActiveProfileImg: React.FC<ActiveProfileImgProps> = ({ size = 'medium', isActive = false, isHover = false, src = '', ...props }) => {
+const ActiveProfileImg: React.FC<ActiveProfileImgProps> = ({ size = 'medium', isActive = true, isHover = false, src = Logo, ...props }) => {
   return (
     <ActiveProfileImgContainter size={size} {...props}>
       <ProfileImg size={size} isHover={isHover} src={src} />
