@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import express, { Express } from 'express';
 import cors from 'cors';
 import { createConnection } from 'typeorm';
+import { initializeTransactionalContext, patchTypeORMRepositoryWithBaseRepository } from 'typeorm-transactional-cls-hooked';
 import router from '@router/index';
 
 export default class Application {
@@ -25,6 +26,8 @@ export default class Application {
   }
 
   async initDatabase() {
+    initializeTransactionalContext();
+    patchTypeORMRepositoryWithBaseRepository();
     await createConnection();
   }
 
