@@ -9,6 +9,15 @@ const UserController = {
     } catch (err) {
       next(err);
     }
+  },
+  async getUser(req: Request, res: Response, next: NextFunction) {
+    const { userId } = req.params;
+    try {
+      const user = await UserService.getInstance().getUser(Number(userId));
+      res.status(200).json(user);
+    } catch (err) {
+      next(err);
+    }
   }
 };
 

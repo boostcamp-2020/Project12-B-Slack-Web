@@ -26,6 +26,12 @@ class UserService {
     });
     return { userCount, users };
   }
+
+  async getUser(userId: number) {
+    const user = await this.userRepository.findOne(userId);
+    const { id, profileUri, fullName, displayName, whatIDo, phoneNumber } = user;
+    return { userId, id, profileUri, fullName, displayName, whatIDo, phoneNumber };
+  }
 }
 
 export default UserService;
