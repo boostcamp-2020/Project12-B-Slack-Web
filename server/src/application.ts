@@ -5,6 +5,7 @@ import cors from 'cors';
 import { createConnection } from 'typeorm';
 import { initializeTransactionalContext, patchTypeORMRepositoryWithBaseRepository } from 'typeorm-transactional-cls-hooked';
 import router from '@router/index';
+import { errorHandler } from '@middleware/error-handler';
 
 export default class Application {
   app: Express;
@@ -35,6 +36,7 @@ export default class Application {
     this.app.use(express.json());
     this.app.use(cors());
     this.app.use('/', router);
+    this.app.use(errorHandler);
   }
 
   listen() {
