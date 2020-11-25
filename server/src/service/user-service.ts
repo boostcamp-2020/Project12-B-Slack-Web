@@ -20,11 +20,18 @@ class UserService {
 
   async getUsers() {
     const usersAndCount = await this.userRepository.findAndCount();
+
+    if (!usersAndCount) {
+      throw new NotFoundError();
+    }
+
     const userCount = usersAndCount[1];
+
     const users = usersAndCount[0].map((user) => {
       const { userId, displayName, profileUri } = user;
       return { userId, displayName, profileUri };
     });
+
     return { userCount, users };
   }
 
