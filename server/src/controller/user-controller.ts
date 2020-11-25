@@ -1,3 +1,4 @@
+import HttpStatusCode from '@constants/http-status-code';
 import UserService from '@service/user-service';
 import { NextFunction, Request, Response } from 'express';
 
@@ -5,7 +6,7 @@ const UserController = {
   async getUsers(req: Request, res: Response, next: NextFunction) {
     try {
       const users = await UserService.getInstance().getUsers();
-      res.status(200).json(users);
+      res.status(HttpStatusCode.OK).json(users);
     } catch (err) {
       next(err);
     }
@@ -14,7 +15,7 @@ const UserController = {
     const { userId } = req.params;
     try {
       const user = await UserService.getInstance().getUser(Number(userId));
-      res.status(200).json(user);
+      res.status(HttpStatusCode.OK).json(user);
     } catch (err) {
       next(err);
     }

@@ -1,5 +1,6 @@
 import { getCustomRepository } from 'typeorm';
 import UserRepository from '@repository/user-repository';
+import NotFoundError from '@error/not-found-error';
 
 class UserService {
   static instance: UserService;
@@ -29,6 +30,11 @@ class UserService {
 
   async getUser(userId: number) {
     const user = await this.userRepository.findOne(userId);
+
+    if (!user) {
+      throw new NotFoundError();
+    }
+
     const { id, profileUri, fullName, displayName, whatIDo, phoneNumber } = user;
     return { userId, id, profileUri, fullName, displayName, whatIDo, phoneNumber };
   }
