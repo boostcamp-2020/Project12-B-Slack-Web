@@ -1,3 +1,5 @@
-import { Button } from './Button/Button';
+import { ActiveLight } from './ActiveLight/ActiveLight';
+import { Icon } from './Icon/Icon';
+import { ProfileImg } from './ProfileImg/ProfileImg';
 
-export default { Button };
+export { ActiveLight, Icon, ProfileImg };

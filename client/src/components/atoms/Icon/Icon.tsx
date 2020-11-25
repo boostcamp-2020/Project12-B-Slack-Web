@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ProgressPlugin } from 'webpack';
 
 interface IconProps {
   size?: 'small' | 'medium' | 'large';
@@ -13,12 +12,12 @@ const IconContainter = styled.div<IconProps>`
     if (props.size === 'large') return '1.5rem';
     if (props.size === 'medium') return '1.3rem';
     return '1.0rem';
-  }}}
+  }};
   height: ${(props) => {
     if (props.size === 'large') return '1.5rem';
     if (props.size === 'medium') return '1.3rem';
     return '1.0rem';
-  }}}
+  }};
 `;
 
 const Img = styled.img<any>`

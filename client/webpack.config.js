@@ -38,8 +38,9 @@ module.exports = (env, options) => {
         {
           test: /\.(png|jpg|svg)$/,
           loader: 'file-loader',
-          option: {
-            outputPath: 'static/imgs'
+          options: {
+            publicPath: './dist/',
+            name: '[name].[ext]?[hash]'
           }
         }
       ]
