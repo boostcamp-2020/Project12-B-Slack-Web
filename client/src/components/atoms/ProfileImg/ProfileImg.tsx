@@ -6,7 +6,6 @@ interface ProfileImgProps {
   size?: 'small' | 'medium' | 'large';
   isHover?: boolean;
   src?: string;
-  isActive?: boolean;
 }
 
 const ProfileImgContainter = styled.div<ProfileImgProps>`
