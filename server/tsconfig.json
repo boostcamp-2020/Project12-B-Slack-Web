@@ -22,6 +22,7 @@
       "@repository/*": ["src/repository/*"],
       "@router/*": ["src/router/*"],
       "@service/*": ["src/service/*"],
+      "@config/*":["src/common/config/*"],
     }
   },
 }

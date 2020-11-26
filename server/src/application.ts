@@ -2,10 +2,14 @@ import 'reflect-metadata';
 import dotenv from 'dotenv';
 import express, { Express } from 'express';
 import cors from 'cors';
+import passport from 'passport';
 import { createConnection } from 'typeorm';
 import { initializeTransactionalContext, patchTypeORMRepositoryWithBaseRepository } from 'typeorm-transactional-cls-hooked';
 import router from '@router/index';
 import { errorHandler } from '@middleware/error-handler';
+import logger from 'morgan';
+import passportConfig from '@config/passport';
+import cookieParser from 'cookie-parser';
 
 export default class Application {
   app: Express;
@@ -17,6 +21,7 @@ export default class Application {
   async init() {
     this.initEnv();
     await this.initDatabase();
+    this.initPassport();
     this.registerMiddleware();
     this.listen();
   }
@@ -32,9 +37,16 @@ export default class Application {
     await createConnection();
   }
 
+  initPassport() {
+    this.app.use(passport.initialize());
+    passportConfig();
+  }
+
   registerMiddleware() {
+    this.app.use(logger('dev'));
     this.app.use(express.json());
     this.app.use(cors());
+    this.app.use(cookieParser());
     this.app.use('/', router);
     this.app.use(errorHandler);
   }

@@ -45,6 +45,21 @@ class UserService {
     const { id, profileUri, fullName, displayName, whatIDo, phoneNumber } = user;
     return { userId, id, profileUri, fullName, displayName, whatIDo, phoneNumber };
   }
+
+  async getUserById(id: string) {
+    const user = await this.userRepository.findOne({ id });
+
+    if (!user) {
+      throw new NotFoundError();
+    }
+
+    const { userId, profileUri, fullName, displayName, whatIDo, phoneNumber } = user;
+    return { userId, id, profileUri, fullName, displayName, whatIDo, phoneNumber };
+  }
+
+  async createUser(id: string) {
+    const newUser = await this.userRepository.save({ id, fullName: id, displayName: id, isSocial: true });
+  }
 }
 
 export default UserService;
