@@ -27,6 +27,7 @@
     "typescript": "^4.0.5"
   },
   "dependencies": {
+    "@types/passport": "^1.0.4",
     "class-validator": "^0.12.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
