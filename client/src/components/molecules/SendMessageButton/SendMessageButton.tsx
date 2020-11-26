@@ -10,11 +10,11 @@ interface SendMessageButtonProps {
 const SendMessageButtonContainer = styled.div<any>`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: baseline;
   width: 1.3rem;
-  height: 100%;
   padding: 0.3rem;
   border-radius: 0.3rem;
+  cursor: pointer;
   ${(props) => (props.isActive ? 'background-color: #017a5a' : '')}
 `;
 
