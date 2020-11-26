@@ -2,7 +2,7 @@ import passport from 'passport';
 
 const GitHubStrategy = require('passport-github').Strategy;
 
-module.exports = () => {
+function passportConfig() {
   passport.serializeUser((user, done) => {
     done(null, user);
   });
@@ -23,4 +23,6 @@ module.exports = () => {
       }
     )
   );
-};
+}
+
+export default passportConfig;
