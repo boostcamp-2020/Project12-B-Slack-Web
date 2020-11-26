@@ -15,12 +15,12 @@ const ActiveProfileImgContainter = styled.div<ActiveProfileImgProps>`
   width: ${(props) => {
     if (props.size === 'large') return '2.2rem';
     if (props.size === 'medium') return '1.4rem';
-    return '1.1rem';
+    return '0.7rem';
   }};
   height: ${(props) => {
     if (props.size === 'large') return '2.2rem';
     if (props.size === 'medium') return '1.4rem';
-    return '1.1rem';
+    return '0.7rem';
   }};
 `;
 

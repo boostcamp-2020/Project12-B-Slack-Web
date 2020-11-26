@@ -27,7 +27,7 @@ const Channel: React.FC<ChannelProps> = ({ children, isPrivate = false, isSelect
     <ChannelContainter isSelect={isSelect} {...props}>
       <Icon size="small" isSelect={isSelect} src={isPrivate ? LockIcon : ChannelIcon} isHover={false} />
       <TextWrap>
-        <Text isBold={false} isSelect={isSelect} children={children}></Text>
+        <Text size="small" isBold={false} isSelect={isSelect} children={children}></Text>
       </TextWrap>
     </ChannelContainter>
   );

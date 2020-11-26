@@ -9,7 +9,7 @@ interface SectionProps {
 
 const StyledSection = styled.details<any>`
   color: rgb(198, 199, 200);
-  font-size: 1.3rem;
+  font-size: 1rem;
   margin-bottom: 1rem;
 `;
 

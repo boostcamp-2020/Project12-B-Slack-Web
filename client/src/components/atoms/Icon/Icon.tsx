@@ -12,12 +12,12 @@ const IconContainter = styled.div<IconProps>`
   width: ${(props) => {
     if (props.size === 'large') return '1.5rem';
     if (props.size === 'medium') return '1.3rem';
-    return '1.0rem';
+    return '0.8rem';
   }};
   height: ${(props) => {
     if (props.size === 'large') return '1.5rem';
     if (props.size === 'medium') return '1.3rem';
-    return '1.0rem';
+    return '0.8rem';
   }};
 `;
 

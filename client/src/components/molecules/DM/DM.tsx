@@ -10,6 +10,7 @@ interface DMProps {
 
 const DMContainter = styled.div<any>`
   display: flex;
+  align-items: center;
   padding: 0.4rem 1rem;
   cursor: pointer;
   ${(props) => (props.isSelect ? 'background-color: #0576b9' : '&:hover { background-color: black;}')}
@@ -24,7 +25,7 @@ const DM: React.FC<DMProps> = ({ children, isSelect = false, ...props }) => {
     <DMContainter isSelect={isSelect} {...props}>
       <ActiveProfileImg />
       <TextWrap>
-        <Text isBold={false} isSelect={isSelect} children={children}></Text>
+        <Text size="small" isBold={false} isSelect={isSelect} children={children}></Text>
       </TextWrap>
     </DMContainter>
   );
