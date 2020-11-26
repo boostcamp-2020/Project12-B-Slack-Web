@@ -1,27 +1,62 @@
-import dotenv from 'dotenv';
-import express from 'express';
-import cors from 'cors';
 import 'reflect-metadata';
-import indexRouter from '@router/index';
+import dotenv from 'dotenv';
+import express, { Express } from 'express';
+import cors from 'cors';
 import passport from 'passport';
+import { createConnection } from 'typeorm';
+import { initializeTransactionalContext, patchTypeORMRepositoryWithBaseRepository } from 'typeorm-transactional-cls-hooked';
+import router from '@router/index';
+import { errorHandler } from '@middleware/error-handler';
 
-let logger = require('morgan');
-
+const logger = require('morgan');
 const passportConfig = require('@config/passport');
 
-const envFile = `${process.env.NODE_ENV || 'development'}.env`;
-dotenv.config({ path: envFile });
+export default class Application {
+  app: Express;
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-app.use(logger('dev'));
+  constructor() {
+    this.app = express();
+  }
 
-app.use(express.json());
-app.use(cors());
-app.use(passport.initialize());
-passportConfig();
-app.use('/', indexRouter);
+  async init() {
+    this.initEnv();
+    await this.initDatabase();
+    this.initPassport();
+    this.registerMiddleware();
+    this.listen();
+  }
 
-app.listen(PORT, () => {
-  console.log(`server is running on ${PORT}`);
-});
+  initEnv() {
+    const envFile: string = `${process.env.NODE_ENV || 'development'}.env`;
+    dotenv.config({ path: envFile });
+  }
+
+  async initDatabase() {
+    initializeTransactionalContext();
+    patchTypeORMRepositoryWithBaseRepository();
+    await createConnection();
+  }
+
+  initPassport() {
+    this.app.use(passport.initialize());
+    passportConfig();
+  }
+
+  registerMiddleware() {
+    this.app.use(logger('dev'));
+    this.app.use(express.json());
+    this.app.use(cors());
+    this.app.use('/', router);
+    this.app.use(errorHandler);
+  }
+
+  listen() {
+    const PORT = process.env.PORT || 3000;
+    this.app.listen(PORT, () => {
+      console.log(`server is running on ${PORT}`);
+    });
+  }
+}
+
+const application = new Application();
+application.init();

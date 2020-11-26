@@ -13,7 +13,10 @@
     
     "baseUrl": ".",
     "paths": {
-      "@common/*": ["src/common/*"],
+      "@constants/*": ["src/common/constants/*"],
+      "@error/*": ["src/common/error/*"],
+      "@middleware/*": ["src/common/middleware/*"],
+      "@utils/*": ["src/common/utils/*"],
       "@controller/*": ["src/controller/*"],
       "@model/*": ["src/model/*"],
       "@repository/*": ["src/repository/*"],
