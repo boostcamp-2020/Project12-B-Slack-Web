@@ -1,11 +1,9 @@
-import HttpStatusCode from '@constants/http-status-code';
-import User from '@model/user';
 import UserService from '@service/user-service';
-import { NextFunction, Request, Response } from 'express';
-import passport from 'passport';
+import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
 interface user {
+  userId: number;
   username: string;
 }
 declare module 'express' {
@@ -13,6 +11,7 @@ declare module 'express' {
     user?: user;
   }
 }
+
 const OauthController = {
   async OauthCallback(req: Request, res: Response) {
     try {
