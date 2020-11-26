@@ -33,6 +33,7 @@
     "express": "^4.17.1",
     "mysql2": "^2.2.5",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.29"
+    "typeorm": "^0.2.29",
+    "typeorm-transactional-cls-hooked": "^0.1.12"
   }
 }

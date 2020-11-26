@@ -1,13 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Chatroom, Login } from '@pages/index';
 import { Header, Sidebar } from '@components/organisms';
 import { Channel, DM, Section } from '@components/molecules';
-
-const Flexbox = styled.img<any>`
-  display: flex;
-`;
 
 const App = () => {
   return (
