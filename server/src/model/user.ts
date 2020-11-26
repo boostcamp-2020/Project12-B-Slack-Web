@@ -12,10 +12,10 @@ export default class User {
   @Column({ length: 30, unique: true })
   id: string;
 
-  @Column({ length: 40 })
+  @Column({ length: 40, nullable: true })
   password: string;
 
-  @Column()
+  @Column({ nullable: true })
   @IsUrl()
   profileUri: string;
 
@@ -25,10 +25,10 @@ export default class User {
   @Column({ length: 20 })
   displayName: string;
 
-  @Column()
+  @Column({ nullable: true })
   whatIDo: string;
 
-  @Column({ length: 20 })
+  @Column({ length: 20, nullable: true })
   phoneNumber: string;
 
   @Column()
