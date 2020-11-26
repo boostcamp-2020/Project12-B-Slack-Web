@@ -1,5 +1,5 @@
 import { validate } from 'class-validator';
-import BadRequestError from '../error/bad-request-error';
+import BadRequestError from '@error/bad-request-error';
 
 const validator = async (reqType: object) => {
   const errors = await validate(reqType);
