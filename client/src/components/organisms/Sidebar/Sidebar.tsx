@@ -9,6 +9,7 @@ interface SidebarProps {
 const StyledSidebar = styled.div<any>`
   background-color: #1a1e22;
   height: 100vh;
+  width: 23%;
 `;
 
 const Workspace = styled.div<any>`
@@ -27,7 +28,9 @@ const Sidebar: React.FC<SidebarProps> = ({ children, ...props }) => {
   return (
     <StyledSidebar {...props}>
       <Workspace>
-        <Text isTitle={true}>부스트캠프 2020 멤버십</Text>
+        <Text isBold={true} size="small" isTitle={true}>
+          부스트캠프 2020 멤버십
+        </Text>
       </Workspace>
       <ChildrenWrap>{children}</ChildrenWrap>
     </StyledSidebar>
