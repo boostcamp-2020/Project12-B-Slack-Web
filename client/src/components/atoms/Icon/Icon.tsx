@@ -5,6 +5,7 @@ interface IconProps {
   size?: 'small' | 'medium' | 'large';
   isHover?: boolean;
   src?: string;
+  isSelect?: boolean;
 }
 
 const IconContainter = styled.div<IconProps>`
@@ -24,12 +25,13 @@ const Img = styled.img<any>`
   width: 100%;
   height: 100%;
   ${(props) => (props.isHover ? '&:hover { opacity: .5; };' : '')}
+  ${(props) => (props.isSelect ? 'filter: brightness(1.25);' : '')}
 `;
 
-const Icon: React.FC<IconProps> = ({ size = 'medium', isHover = true, src = '', ...props }) => {
+const Icon: React.FC<IconProps> = ({ size = 'medium', isSelect = false, isHover = true, src = '', ...props }) => {
   return (
     <IconContainter size={size} isHover={isHover} {...props}>
-      <Img isHover={isHover} src={src}></Img>
+      <Img isSelect={isSelect} isHover={isHover} src={src}></Img>
     </IconContainter>
   );
 };
