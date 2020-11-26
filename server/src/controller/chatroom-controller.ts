@@ -5,8 +5,9 @@ import { NextFunction, Request, Response } from 'express';
 const ChatroomController = {
   async createChatroom(req: Request, res: Response, next: NextFunction) {
     try {
+      const { userId } = req.user;
       const { title, description, isPrivate, chatType } = req.body;
-      await ChatroomService.getInstance().createChatroom({ title, description, isPrivate, chatType });
+      await ChatroomService.getInstance().createChatroom({ userId, title, description, isPrivate, chatType });
       res.status(HttpStatusCode.CREATED).send();
     } catch (err) {
       next(err);
