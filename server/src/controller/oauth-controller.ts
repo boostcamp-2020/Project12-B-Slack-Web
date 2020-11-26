@@ -2,9 +2,8 @@ import HttpStatusCode from '@constants/http-status-code';
 import User from '@model/user';
 import UserService from '@service/user-service';
 import { NextFunction, Request, Response } from 'express';
-
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
+import passport from 'passport';
+import jwt from 'jsonwebtoken';
 
 interface user {
   username: string;
