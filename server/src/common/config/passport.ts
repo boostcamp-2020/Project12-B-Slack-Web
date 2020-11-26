@@ -1,6 +1,7 @@
 import passport from 'passport';
-
-const GitHubStrategy = require('passport-github').Strategy;
+import UserService from '@service/user-service';
+import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
+import { Strategy as GitHubStrategy } from 'passport-github';
 
 function passportConfig() {
   passport.serializeUser((user, done) => {
@@ -22,6 +23,28 @@ function passportConfig() {
         return cb(null, profile);
       }
     )
+  );
+  let cookieExtractor = function (req) {
+    let token = null;
+    if (req && req.cookies) {
+      token = req.cookies.jwt;
+    }
+    return token;
+  };
+  let opts = {
+    jwtFromRequest: cookieExtractor,
+    secretOrKey: process.env.JWT_SECRET
+  };
+
+  passport.use(
+    new JwtStrategy(opts, async function (jwtPayload, done) {
+      try {
+        const user = await UserService.getInstance().getUserById(String(jwtPayload.userId));
+        return done(null, user);
+      } catch (err) {
+        return done(null, false);
+      }
+    })
   );
 }
 

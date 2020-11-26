@@ -9,6 +9,7 @@ import router from '@router/index';
 import { errorHandler } from '@middleware/error-handler';
 import logger from 'morgan';
 import passportConfig from '@config/passport';
+import cookieParser from 'cookie-parser';
 
 export default class Application {
   app: Express;
@@ -45,6 +46,7 @@ export default class Application {
     this.app.use(logger('dev'));
     this.app.use(express.json());
     this.app.use(cors());
+    this.app.use(cookieParser());
     this.app.use('/', router);
     this.app.use(errorHandler);
   }

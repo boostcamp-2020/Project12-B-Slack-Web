@@ -26,7 +26,7 @@ const OauthController = {
         userId: req.user.username
       },
       process.env.JWT_SECRET,
-      { expiresIn: 60 }
+      { expiresIn: '1h' }
     );
     res.cookie('jwt', token);
     res.send('login success');
