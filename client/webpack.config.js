@@ -36,11 +36,14 @@ module.exports = (env, options) => {
           }
         },
         {
-          test: /\.(png|jpg|svg)$/,
-          loader: 'file-loader',
-          options: {
-            publicPath: './dist/',
-            name: '[name].[ext]?[hash]'
+          test: /\.(png|jpe?g|gif)$/i,
+          use: {
+            loader: 'url-loader',
+            options: {
+              publicPath: '/',
+              name: '[name].[ext]?[hash]',
+              limit: 10000
+            }
           }
         }
       ]
