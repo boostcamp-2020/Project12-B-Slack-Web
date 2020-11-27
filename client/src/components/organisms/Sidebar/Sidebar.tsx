@@ -8,14 +8,14 @@ interface SidebarProps {
 
 const StyledSidebar = styled.div<any>`
   background-color: #1a1e22;
-  height: 100vh;
+  height: 100%;
   width: 23%;
 `;
 
 const Workspace = styled.div<any>`
   display: flex;
   align-items: center;
-  height: 5rem;
+  height: 10%;
   padding-left: 1rem;
   border-bottom: 1px solid #313537;
 `;

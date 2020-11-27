@@ -6,6 +6,7 @@ import { ActiveProfileImg } from '@components/molecules';
 interface DMProps {
   children: React.ReactChild;
   isSelect?: boolean;
+  src?: string;
 }
 
 const DMContainter = styled.div<any>`
@@ -20,10 +21,10 @@ const TextWrap = styled.div<any>`
   margin-left: 1rem;
 `;
 
-const DM: React.FC<DMProps> = ({ children, isSelect = false, ...props }) => {
+const DM: React.FC<DMProps> = ({ children, src, isSelect = false, ...props }) => {
   return (
     <DMContainter isSelect={isSelect} {...props}>
-      <ActiveProfileImg />
+      <ActiveProfileImg src={src} />
       <TextWrap>
         <Text size="small" isBold={false} isSelect={isSelect} children={children}></Text>
       </TextWrap>
