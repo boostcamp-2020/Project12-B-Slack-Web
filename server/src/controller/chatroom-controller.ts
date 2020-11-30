@@ -21,6 +21,16 @@ const ChatroomController = {
     } catch (err) {
       next(err);
     }
+  },
+  async updateChatroom(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { chatroomId } = req.params;
+      const { title, topic, description } = req.body;
+      await ChatroomService.getInstance().updateChatroom(Number(chatroomId), title, topic, description);
+      res.status(HttpStatusCode.CREATED).send();
+    } catch (err) {
+      next(err);
+    }
   }
 };
 

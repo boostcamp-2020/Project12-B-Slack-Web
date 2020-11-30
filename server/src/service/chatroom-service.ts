@@ -107,6 +107,17 @@ class ChatroomService {
 
     return { ...chatroom, userCount, users };
   }
+
+  async updateChatroom(chatroomId: number, title: string, topic: string, description: string) {
+    const chatroom = this.chatroomRepository.findOne({ chatroomId });
+
+    if (!chatroom) {
+      throw new NotFoundError();
+    }
+
+    const newChatroom = this.chatroomRepository.create({ chatroomId, title, topic, description });
+    await this.chatroomRepository.save(newChatroom);
+  }
 }
 
 export default ChatroomService;
