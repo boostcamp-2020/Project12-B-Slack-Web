@@ -6,7 +6,7 @@ import Message from '@model/message';
 @Entity({ name: 'message_reaction' })
 export default class MessageReaction {
   @PrimaryGeneratedColumn()
-  MessageReactionId: number;
+  messageReactionId: number;
 
   @CreateDateColumn()
   createdAt: Date;

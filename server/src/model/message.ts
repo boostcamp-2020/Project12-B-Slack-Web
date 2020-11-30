@@ -38,6 +38,6 @@ export default class Message {
   @JoinColumn({ name: 'chatroomId' })
   chatroom: Chatroom;
 
-  @OneToMany(() => MessageReaction, (messageReaction) => messageReaction.user)
+  @OneToMany(() => MessageReaction, (messageReaction) => messageReaction.message)
   messageReactions: MessageReaction[];
 }
