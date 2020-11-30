@@ -1,6 +1,4 @@
 import HttpStatusCode from '@constants/http-status-code';
-import User from '@model/user';
-import passport from 'passport';
 import UserService from '@service/user-service';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
