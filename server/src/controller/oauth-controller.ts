@@ -1,3 +1,4 @@
+import HttpStatusCode from '@constants/http-status-code';
 import UserService from '@service/user-service';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
@@ -6,6 +7,7 @@ interface user {
   userId: number;
   username: string;
 }
+
 declare module 'express' {
   interface Request {
     user?: user;
