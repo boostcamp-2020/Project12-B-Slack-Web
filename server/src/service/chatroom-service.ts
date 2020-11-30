@@ -1,12 +1,13 @@
 import { getCustomRepository } from 'typeorm';
-import ChatroomRepository from '@repository/chatroom-repository';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
+import ChatroomRepository from '@repository/chatroom-repository';
+import UserRepository from '@repository/user-repository';
+import UserChatroomRepository from '@repository/user-chatroom-repository';
 import User from '@model/user';
 import Chatroom from '@model/chatroom';
-import validator from '../common/utils/validator';
-import BadRequestError from '../common/error/bad-request-error';
-import UserRepository from '../repository/user-repository';
-import UserChatroomRepository from '../repository/user-chatroom-repository';
+import validator from '@utils/validator';
+import BadRequestError from '@error/bad-request-error';
+import NotFoundError from '@error/not-found-error';
 
 interface saveChatroomParams {
   title: string;
@@ -73,6 +74,38 @@ class ChatroomService {
     await validator(userChatroom);
     const newUserChatroom = await this.userChatroomRepository.save(userChatroom);
     return newUserChatroom;
+  }
+
+  @Transactional()
+  async getChatroomInfo(chatroomId: number) {
+    const chatroom = await this.chatroomRepository
+      .createQueryBuilder('chatroom')
+      .where('chatroom.chatroomId = :chatroomId', { chatroomId })
+      .select(['chatroom.title', 'chatroom.description', 'chatroom.isPrivate', 'chatroom.chatType', 'chatroom.topic'])
+      .getOne();
+
+    if (!chatroom) {
+      throw new NotFoundError();
+    }
+
+    const userChatrooms = await this.userChatroomRepository
+      .createQueryBuilder('userChatroom')
+      .where('userChatroom.chatroomId = :chatroomId', { chatroomId })
+      .leftJoinAndSelect('userChatroom.user', 'user')
+      .getMany();
+
+    if (!userChatrooms) {
+      throw new NotFoundError();
+    }
+
+    const users = userChatrooms.map((userChatroom) => {
+      const { userId, profileUri, displayName } = userChatroom.user;
+      return { userId, profileUri, displayName };
+    });
+
+    const userCount = users.length;
+
+    return { ...chatroom, userCount, users };
   }
 }
 
