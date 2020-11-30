@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { LogoImg } from '@components/atoms';
 import { ActiveProfileImg } from '@components/molecules';
-import LogoText from '@imgs/logo-text.png';
 
 interface HeaderProps {
   src: string;
@@ -17,16 +17,10 @@ const HeaderContainter = styled.div<any>`
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
 `;
 
-const LogoImg = styled.img<any>`
-  height: 2.4rem;
-  margin-bottom: -0.2rem;
-  cursor: pointer;
-`;
-
 const Header: React.FC<HeaderProps> = ({ src, ...props }) => {
   return (
     <HeaderContainter {...props}>
-      <LogoImg src={LogoText} />
+      <LogoImg />
       <ActiveProfileImg src={src} isHover={true} />
     </HeaderContainter>
   );
