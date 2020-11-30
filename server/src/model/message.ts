@@ -1,6 +1,17 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, DeleteDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  OneToMany,
+  JoinColumn,
+  DeleteDateColumn
+} from 'typeorm';
 import User from '@model/user';
 import Chatroom from '@model/chatroom';
+import MessageReaction from '@model/message-reaction';
 
 @Entity({ name: 'message' })
 export default class Message {
@@ -26,4 +37,7 @@ export default class Message {
   @ManyToOne(() => Chatroom, (chatroom) => chatroom.chatroomId)
   @JoinColumn({ name: 'chatroomId' })
   chatroom: Chatroom;
+
+  @OneToMany(() => MessageReaction, (messageReaction) => messageReaction.user)
+  messageReactions: MessageReaction[];
 }

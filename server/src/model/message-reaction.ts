@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, DeleteDateColumn } from 'typeorm';
 import Reaction from '@model/reaction';
 import User from '@model/user';
+import Message from '@model/message';
 
 @Entity({ name: 'message_reaction' })
 export default class MessageReaction {
@@ -23,4 +24,8 @@ export default class MessageReaction {
   @ManyToOne(() => User, (user) => user.userId)
   @JoinColumn({ name: 'userId' })
   user: User;
+
+  @ManyToOne(() => Message, (message) => message.messageId)
+  @JoinColumn({ name: 'messageId' })
+  message: Message;
 }
