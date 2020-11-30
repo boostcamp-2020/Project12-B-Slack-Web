@@ -43,6 +43,15 @@ class MessageService {
     return message;
   }
 
+  async getMessages(chatroomId: number) {
+    const messages = await this.MessageRepository.createQueryBuilder('message')
+      .leftJoin('message.user', 'user')
+      .select(['message', 'user.userId', 'user.profileUri', 'user.displayName'])
+      .where('message.chatroomId = :chatroomId', { chatroomId })
+      .getMany();
+    return messages;
+  }
+
   async updateMessage(messageId: number, content: string) {
     const message = await this.MessageRepository.create({ messageId, content });
     validator(message);

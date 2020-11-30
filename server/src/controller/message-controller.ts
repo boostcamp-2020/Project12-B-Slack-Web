@@ -12,6 +12,15 @@ const messageController = {
       next(err);
     }
   },
+  async getMessages(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { chatRoomId } = req.params;
+      const messages = await MessageService.getInstance().getMessages(Number(chatRoomId));
+      res.status(HttpStatusCode.OK).json(messages);
+    } catch (err) {
+      next(err);
+    }
+  },
   async createMessage(req: Request, res: Response, next: NextFunction) {
     const { userId } = req.user;
     const { chatRoomId, content } = req.body;
@@ -34,7 +43,6 @@ const messageController = {
   },
   async deleteMessage(req: Request, res: Response, next: NextFunction) {
     const { messageId } = req.params;
-    console.log(messageId);
     try {
       await MessageService.getInstance().deleteMessage(Number(messageId));
       res.status(HttpStatusCode.NO_CONTENT).send();
