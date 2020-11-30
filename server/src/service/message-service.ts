@@ -2,6 +2,7 @@ import { getCustomRepository } from 'typeorm';
 import MessageRepository from '@repository/message-repository';
 import UserRepository from '@repository/user-repository';
 import ChatroomRepository from '@repository/chatroom-repository';
+import validator from '../common/utils/validator';
 
 class MessageService {
   static instance: MessageService;
@@ -28,7 +29,9 @@ class MessageService {
   async createMessage(userId: number, chatroomId: number, content: string) {
     const user = await this.UserRepository.findOne(userId);
     const chatroom = await this.ChatroomRepository.findOne(chatroomId);
-    await this.MessageRepository.create({ user, chatroom, content });
+    const message = await this.MessageRepository.create({ user, chatroom, content });
+    validator(message);
+    await this.MessageRepository.save(message);
   }
 
   async getMessage(messageId: number) {
@@ -41,7 +44,9 @@ class MessageService {
   }
 
   async updateMessage(messageId: number, content: string) {
-    const message = await this.MessageRepository.save({ messageId, content });
+    const message = await this.MessageRepository.create({ messageId, content });
+    validator(message);
+    await this.MessageRepository.save({ messageId, content });
     return message;
   }
 
