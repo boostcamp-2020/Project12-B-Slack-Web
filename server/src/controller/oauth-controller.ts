@@ -17,9 +17,9 @@ declare module 'express' {
 const OauthController = {
   async OauthCallback(req: Request, res: Response) {
     try {
-      const userInfo = await UserService.getInstance().getUserById(String(req.user.username));
+      await UserService.getInstance().getUserById(String(req.user.username));
     } catch {
-      const newUser = await UserService.getInstance().createUser(String(req.user.username));
+      await UserService.getInstance().createUser(String(req.user.username));
     }
     const token = jwt.sign(
       {
@@ -28,8 +28,7 @@ const OauthController = {
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
-    res.cookie('jwt', token);
-    res.send('login success');
+    res.json({ jwt: token });
     // res.redirect('/');
   }
 };

@@ -24,15 +24,8 @@ function passportConfig() {
       }
     )
   );
-  const cookieExtractor = function (req) {
-    let token = null;
-    if (req && req.cookies) {
-      token = req.cookies.jwt;
-    }
-    return token;
-  };
   const opts = {
-    jwtFromRequest: cookieExtractor,
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: process.env.JWT_SECRET
   };
 
