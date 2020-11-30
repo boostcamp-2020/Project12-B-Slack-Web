@@ -1,6 +1,17 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, DeleteDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
+  DeleteDateColumn,
+  OneToMany
+} from 'typeorm';
 import User from '@model/user';
 import Message from '@model/message';
+import ReplyReaction from '@model/reply-reaction';
 
 @Entity({ name: 'reply' })
 export default class Reply {
@@ -26,4 +37,7 @@ export default class Reply {
   @ManyToOne(() => Message, (message) => message.messageId)
   @JoinColumn({ name: 'messageId' })
   message: Message;
+
+  @OneToMany(() => ReplyReaction, (replyReaction) => replyReaction.reply)
+  replyReactions: ReplyReaction[];
 }

@@ -12,6 +12,7 @@ import {
 import User from '@model/user';
 import Chatroom from '@model/chatroom';
 import MessageReaction from '@model/message-reaction';
+import Reply from '@model/Reply';
 
 @Entity({ name: 'message' })
 export default class Message {
@@ -40,4 +41,7 @@ export default class Message {
 
   @OneToMany(() => MessageReaction, (messageReaction) => messageReaction.message)
   messageReactions: MessageReaction[];
+
+  @OneToMany(() => Reply, (reply) => reply.message)
+  replies: Reply[];
 }
