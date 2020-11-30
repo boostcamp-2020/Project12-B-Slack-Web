@@ -45,6 +45,7 @@ export default class Application {
   registerMiddleware() {
     this.app.use(logger('dev'));
     this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: false }));
     this.app.use(cors());
     this.app.use(cookieParser());
     this.app.use('/', router);

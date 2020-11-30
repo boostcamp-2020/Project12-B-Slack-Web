@@ -6,8 +6,10 @@ import passport from 'passport';
 import jwt from 'jsonwebtoken';
 
 interface user {
+  userId: number;
   username: string;
 }
+
 declare module 'express' {
   interface Request {
     user?: user;

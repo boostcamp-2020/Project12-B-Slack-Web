@@ -1,12 +1,13 @@
 import express from 'express';
 import oauthRouter from '@router/api/oauth';
-import UserRouter from '@router/user-router';
+import apiRouter from '@router/api';
+import passport from 'passport';
 
 const router = express.Router();
-router.get('/api', (req, res) => {
-  res.send('router test');
+router.post('/', (req, res) => {
+  console.log(req.body);
 });
+router.use('/api', passport.authenticate('jwt', { session: false }), apiRouter);
 router.use('/oauth', oauthRouter);
-router.use('/users', UserRouter);
 
 export default router;
