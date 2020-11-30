@@ -31,6 +31,15 @@ const ChatroomController = {
     } catch (err) {
       next(err);
     }
+  },
+  async deleteChatroom(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { chatroomId } = req.params;
+      await ChatroomService.getInstance().deleteChatroom(Number(chatroomId));
+      res.status(HttpStatusCode.NO_CONTENT).send();
+    } catch (err) {
+      next(err);
+    }
   }
 };
 

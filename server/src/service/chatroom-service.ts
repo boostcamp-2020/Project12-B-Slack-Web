@@ -118,6 +118,10 @@ class ChatroomService {
     const newChatroom = this.chatroomRepository.create({ chatroomId, title, topic, description });
     await this.chatroomRepository.save(newChatroom);
   }
+
+  async deleteChatroom(chatroomId: number) {
+    await this.chatroomRepository.softDelete(chatroomId);
+  }
 }
 
 export default ChatroomService;
