@@ -12,6 +12,34 @@ const ChatroomController = {
     } catch (err) {
       next(err);
     }
+  },
+  async getChatroomInfo(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { chatroomId } = req.params;
+      const chatroomInfo = await ChatroomService.getInstance().getChatroomInfo(Number(chatroomId));
+      res.status(HttpStatusCode.OK).json(chatroomInfo);
+    } catch (err) {
+      next(err);
+    }
+  },
+  async updateChatroom(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { chatroomId } = req.params;
+      const { title, topic, description } = req.body;
+      await ChatroomService.getInstance().updateChatroom(Number(chatroomId), title, topic, description);
+      res.status(HttpStatusCode.CREATED).send();
+    } catch (err) {
+      next(err);
+    }
+  },
+  async deleteChatroom(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { chatroomId } = req.params;
+      await ChatroomService.getInstance().deleteChatroom(Number(chatroomId));
+      res.status(HttpStatusCode.NO_CONTENT).send();
+    } catch (err) {
+      next(err);
+    }
   }
 };
 
