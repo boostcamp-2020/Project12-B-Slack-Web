@@ -12,6 +12,7 @@ import {
 import User from '@model/user';
 import Message from '@model/message';
 import ReplyReaction from '@model/reply-reaction';
+import { IsString } from 'class-validator';
 
 @Entity({ name: 'reply' })
 export default class Reply {
@@ -19,6 +20,7 @@ export default class Reply {
   replyId: number;
 
   @Column()
+  @IsString()
   content: string;
 
   @CreateDateColumn()
