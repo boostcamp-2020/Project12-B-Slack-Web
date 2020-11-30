@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, DeleteDateColumn } from 'typeorm';
 import MessageReaction from '@model/message-reaction';
+import ReplyReaction from './reply-reaction';
 
 @Entity({ name: 'reaction' })
 export default class Reaction {
@@ -23,4 +24,7 @@ export default class Reaction {
 
   @OneToMany(() => MessageReaction, (messageReaction) => messageReaction.reaction)
   messageReactions: MessageReaction[];
+
+  @OneToMany(() => ReplyReaction, (replyReaction) => replyReaction.reaction)
+  replyReactions: ReplyReaction[];
 }

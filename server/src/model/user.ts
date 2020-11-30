@@ -4,6 +4,8 @@ import Section from '@model/section';
 import UserChatroom from '@model/user-chatroom';
 import Message from '@model/message';
 import MessageReaction from '@model/message-reaction';
+import Reply from '@model/Reply';
+import ReplyReaction from './reply-reaction';
 
 @Entity({ name: 'user' })
 export default class User {
@@ -55,4 +57,10 @@ export default class User {
 
   @OneToMany(() => MessageReaction, (messageReaction) => messageReaction.user)
   messageReactions: MessageReaction[];
+
+  @OneToMany(() => Reply, (reply) => reply.user)
+  replies: Reply[];
+
+  @OneToMany(() => ReplyReaction, (replyReaction) => replyReaction.user)
+  replyReactions: ReplyReaction[];
 }
