@@ -6,8 +6,6 @@ import apiRouter from '@router/api';
 const router = express.Router();
 
 router.use('/oauth', oauthRouter);
-
-router.use(passport.authenticate('jwt'));
-router.use('/api', apiRouter);
+router.use('/api', passport.authenticate('jwt'), apiRouter);
 
 export default router;
