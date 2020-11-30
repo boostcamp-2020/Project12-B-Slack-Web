@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, DeleteDateColumn } from 'typeorm';
-import { IsIn } from 'class-validator';
+import { IsBoolean, IsIn, IsString } from 'class-validator';
 import UserChatroom from '@model/user-chatroom';
 import Message from '@model/message';
 
@@ -8,20 +8,22 @@ export default class Chatroom {
   @PrimaryGeneratedColumn()
   chatroomId: number;
 
-  @Column()
+  @Column({ unique: true })
+  @IsString()
+  title: string;
+
+  @Column({ nullable: true })
   description: string;
 
   @Column()
-  title: string;
-
-  @Column()
+  @IsBoolean()
   isPrivate: boolean;
 
   @Column()
   @IsIn(['DM', 'Channel'])
   chatType: string;
 
-  @Column()
+  @Column({ nullable: true })
   topic: string;
 
   @CreateDateColumn()

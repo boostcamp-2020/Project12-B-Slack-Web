@@ -13,12 +13,12 @@ const ProfileImgContainter = styled.div<ProfileImgProps>`
   width: ${(props) => {
     if (props.size === 'large') return '2.2rem';
     if (props.size === 'medium') return '1.4rem';
-    return '1.1rem';
+    return '0.7rem';
   }};
   height: ${(props) => {
     if (props.size === 'large') return '2.2rem';
     if (props.size === 'medium') return '1.4rem';
-    return '1.1rem';
+    return '0.7rem';
   }};
   border-radius: ${(props) => {
     if (props.size === 'large') return '0.5rem';
@@ -31,13 +31,18 @@ const ProfileImgContainter = styled.div<ProfileImgProps>`
 const Img = styled.img<any>`
   width: 100%;
   height: 100%;
+  border-radius: ${(props) => {
+    if (props.size === 'large') return '0.5rem';
+    if (props.size === 'medium') return '0.3rem';
+    return '0.2rem';
+  }};
   ${(props) => (props.isHover ? '&:hover { opacity: .5; };' : '')}
 `;
 
 const ProfileImg: React.FC<ProfileImgProps> = ({ size = 'medium', isHover = false, src = Logo, ...props }) => {
   return (
     <ProfileImgContainter size={size} isHover={isHover} {...props}>
-      <Img isHover={isHover} src={src}></Img>
+      <Img size={size} isHover={isHover} src={src}></Img>
     </ProfileImgContainter>
   );
 };
