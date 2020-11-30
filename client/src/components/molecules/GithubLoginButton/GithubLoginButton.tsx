@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Icon, Text } from '@components/atoms';
-import GithubLoginImg from '@imgs/github-login.png';
 import styled from 'styled-components';
 
 interface GithubLoginButtonProps {
