@@ -4,7 +4,10 @@ import { Text, TextProps } from './Text';
 
 export default {
   title: 'atom/Text',
-  component: Text
+  component: Text,
+  argTypes: {
+    color: { control: 'color' }
+  }
 } as Meta;
 
 const Template: Story<TextProps> = (args) => <Text {...args} />;
