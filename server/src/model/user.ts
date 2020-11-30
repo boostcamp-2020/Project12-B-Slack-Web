@@ -4,8 +4,8 @@ import Section from '@model/section';
 import UserChatroom from '@model/user-chatroom';
 import Message from '@model/message';
 import MessageReaction from '@model/message-reaction';
-import Reply from '@model/Reply';
-import ReplyReaction from './reply-reaction';
+import Reply from '@model/reply';
+import ReplyReaction from '@model/reply-reaction';
 
 @Entity({ name: 'user' })
 export default class User {

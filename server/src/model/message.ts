@@ -12,7 +12,7 @@ import {
 import User from '@model/user';
 import Chatroom from '@model/chatroom';
 import MessageReaction from '@model/message-reaction';
-import Reply from '@model/Reply';
+import Reply from '@model/reply';
 
 @Entity({ name: 'message' })
 export default class Message {
