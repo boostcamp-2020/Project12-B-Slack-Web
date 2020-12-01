@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { GithubLoginButton, GithubLoginButtonProps } from './GithubLoginButton';
 
 export default {
-  title: 'atom/GithubLoginButton',
+  title: 'molecules/GithubLoginButton',
   component: GithubLoginButton
 } as Meta;
 
