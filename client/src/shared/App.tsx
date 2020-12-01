@@ -12,6 +12,7 @@ const FlexBox = styled.div`
 `;
 const MainBox = styled.div`
   width: 77%;
+  height: 100%;
 `;
 
 const App = () => {
