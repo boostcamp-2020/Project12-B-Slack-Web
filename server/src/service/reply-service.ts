@@ -62,6 +62,51 @@ class ReplyService {
     return { ...reply, replyReactions: this.formattingReplyReactions(replyReactions) };
   }
 
+  async getRepliesByOffsetId(offsetId: number) {
+    const replies = await this.replyRepository
+      .createQueryBuilder('reply')
+      .leftJoinAndSelect('reply.user', 'writer')
+      .leftJoinAndSelect('reply.replyReactions', 'replyReactions')
+      .leftJoinAndSelect('replyReactions.user', 'user')
+      .leftJoinAndSelect('replyReactions.reaction', 'reaction')
+      .select(['reply.replyId', 'reply.content', 'reply.createdAt', 'reply.updatedAt'])
+      .addSelect(['writer.userId', 'writer.profileUri', 'writer.displayName'])
+      .addSelect(['replyReactions', 'user', 'reaction'])
+      .where('reply.replyId < :offsetId', { offsetId })
+      .orderBy('reply.replyId', 'DESC')
+      .take(10)
+      .getMany();
+
+    const formattedReplies = replies.map((reply) => {
+      const { replyReactions } = { ...reply };
+      return { ...reply, replyReactions: this.formattingReplyReactions(replyReactions) };
+    });
+
+    return formattedReplies;
+  }
+
+  async getRecentReplies() {
+    const replies = await this.replyRepository
+      .createQueryBuilder('reply')
+      .leftJoinAndSelect('reply.user', 'writer')
+      .leftJoinAndSelect('reply.replyReactions', 'replyReactions')
+      .leftJoinAndSelect('replyReactions.user', 'user')
+      .leftJoinAndSelect('replyReactions.reaction', 'reaction')
+      .select(['reply.replyId', 'reply.content', 'reply.createdAt', 'reply.updatedAt'])
+      .addSelect(['writer.userId', 'writer.profileUri', 'writer.displayName'])
+      .addSelect(['replyReactions', 'user', 'reaction'])
+      .orderBy('reply.replyId', 'DESC')
+      .take(10)
+      .getMany();
+
+    const formattedReplies = replies.map((reply) => {
+      const { replyReactions } = { ...reply };
+      return { ...reply, replyReactions: this.formattingReplyReactions(replyReactions) };
+    });
+
+    return formattedReplies;
+  }
+
   private formattingReplyReactions(replyReactions: any[]) {
     const reactions = {};
 

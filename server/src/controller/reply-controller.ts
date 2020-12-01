@@ -21,6 +21,19 @@ const ReplyController = {
     } catch (err) {
       next(err);
     }
+  },
+  async getReplies(req: Request, res: Response, next: NextFunction) {
+    const { offsetId } = req.params;
+    try {
+      if (!offsetId) {
+        const recentReplies = await ReplyService.getInstance().getRecentReplies();
+        res.status(HttpStatusCode.OK).json(recentReplies);
+      }
+      const replies = await ReplyService.getInstance().getRepliesByOffsetId(Number(offsetId));
+      res.status(HttpStatusCode.OK).json(replies);
+    } catch (err) {
+      next(err);
+    }
   }
 };
 
