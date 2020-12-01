@@ -39,6 +39,44 @@ class ReplyService {
     await validator(reply);
     await this.replyRepository.save(reply);
   }
+
+  async getReply(replyId: number) {
+    const reply = await this.replyRepository
+      .createQueryBuilder('reply')
+      .leftJoinAndSelect('reply.user', 'writer')
+      .leftJoinAndSelect('reply.replyReactions', 'replyReactions')
+      .leftJoinAndSelect('replyReactions.user', 'user')
+      .leftJoinAndSelect('replyReactions.reaction', 'reaction')
+      .where('reply.replyId = :replyId', { replyId })
+      .select(['reply.replyId', 'reply.content', 'reply.createdAt', 'reply.updatedAt'])
+      .addSelect(['writer.userId', 'writer.profileUri', 'writer.displayName'])
+      .addSelect(['replyReactions', 'user', 'reaction'])
+      .getOne();
+
+    if (!reply) {
+      throw new NotFoundError();
+    }
+
+    const { replyReactions } = { ...reply };
+
+    return { ...reply, replyReactions: this.formattingReplyReactions(replyReactions) };
+  }
+
+  private formattingReplyReactions(replyReactions: any[]) {
+    const reactions = {};
+
+    replyReactions.forEach((replyReaction) => {
+      const reactionId = Number(replyReaction.reaction.reactionId);
+      if (!reactions[reactionId]) {
+        const { title, imageUri } = replyReaction.reaction;
+        reactions[reactionId] = { reactionId, title, imageUri, replyDisplayNames: [] };
+      }
+      const { displayName } = replyReaction.user;
+      reactions[reactionId].replyDisplayNames.push(displayName);
+    });
+
+    return Object.values(reactions);
+  }
 }
 
 export default ReplyService;
