@@ -31,6 +31,15 @@ class ReactionService {
     const createdReaction = await this.reactionRepository.save(newReaction);
     return createdReaction.reactionId;
   }
+
+  async getReactions() {
+    const reactions = await this.reactionRepository
+      .createQueryBuilder('reaction')
+      .select(['reaction.reactionId', 'reaction.title', 'reaction.imageUri'])
+      .getMany();
+
+    return reactions;
+  }
 }
 
 export default ReactionService;

@@ -11,6 +11,14 @@ const ReactionController = {
     } catch (err) {
       next(err);
     }
+  },
+  async getReactions(req: Request, res: Response, next: NextFunction) {
+    try {
+      const reactions = await ReactionService.getInstance().getReactions();
+      res.status(HttpStatusCode.OK).json(reactions);
+    } catch (err) {
+      next(err);
+    }
   }
 };
 
