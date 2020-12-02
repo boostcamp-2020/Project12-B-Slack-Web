@@ -111,16 +111,6 @@ class UserChatroomService {
 
   @Transactional()
   async joinChatroom(userId: number, chatroomId: number) {
-    const userChatroom = await this.userChatroomRepository
-      .createQueryBuilder('userChatroom')
-      .where('userChatroom.user.userId = :userId', { userId })
-      .where('userChatroom.chatroom.chatroomId = :chatroomId', { chatroomId })
-      .getOne();
-
-    if (userChatroom) {
-      throw new BadRequestError();
-    }
-
     const user = await this.userRepository.findOne({ userId });
     const chatroom = await this.chatroomRepository.findOne({ chatroomId });
 
@@ -128,10 +118,11 @@ class UserChatroomService {
       throw new BadRequestError();
     }
 
-    const sectionName = chatroom.chatType === 'DM' ? 'Direct Message' : 'Channels';
-    const newUserChatroom = this.userChatroomRepository.create({ user, chatroom, sectionName });
-    await validator(newUserChatroom);
-    await this.userChatroomRepository.save(newUserChatroom);
+    if (await this.isAlreadyJoinedChatroom(userId, chatroomId)) {
+      throw new BadRequestError();
+    }
+
+    await this.saveChatroom(user, chatroom);
   }
 
   @Transactional()
@@ -150,22 +141,30 @@ class UserChatroomService {
           throw new BadRequestError();
         }
 
-        const userChatroom = await this.userChatroomRepository
-          .createQueryBuilder('userChatroom')
-          .where('userChatroom.user.userId = :userId', { userId })
-          .where('userChatroom.chatroom.chatroomId = :chatroomId', { chatroomId })
-          .getOne();
-
-        if (userChatroom) {
+        if (await this.isAlreadyJoinedChatroom(userId, chatroomId)) {
           throw new BadRequestError();
         }
 
-        const sectionName = chatroom.chatType === 'DM' ? 'Direct Message' : 'Channels';
-        const newUserChatroom = this.userChatroomRepository.create({ user, chatroom, sectionName });
-        await validator(newUserChatroom);
-        await this.userChatroomRepository.save(newUserChatroom);
+        await this.saveChatroom(user, chatroom);
       })
     );
+  }
+
+  private async isAlreadyJoinedChatroom(userId: number, chatroomId: number) {
+    const userChatroom = await this.userChatroomRepository
+      .createQueryBuilder('userChatroom')
+      .where('userChatroom.user.userId = :userId', { userId })
+      .where('userChatroom.chatroom.chatroomId = :chatroomId', { chatroomId })
+      .getOne();
+
+    return !!userChatroom;
+  }
+
+  private async saveChatroom(user, chatroom) {
+    const sectionName = chatroom.chatType === 'DM' ? 'Direct Message' : 'Channels';
+    const newUserChatroom = this.userChatroomRepository.create({ user, chatroom, sectionName });
+    await validator(newUserChatroom);
+    await this.userChatroomRepository.save(newUserChatroom);
   }
 }
 
