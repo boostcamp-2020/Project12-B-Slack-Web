@@ -3,15 +3,25 @@ import UserChatroomRepository from '@repository/user-chatroom-repository';
 import SectionRepository from '@repository/section-repository';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
 import NotFoundError from '@error/not-found-error';
+import UserRepository from '@repository/user-repository';
+import ChatroomRepository from '@repository/chatroom-repository';
+import BadRequestError from '@error/bad-request-error';
+import validator from '@utils/validator';
 
 class UserChatroomService {
   static instance: UserChatroomService;
+
+  userRepository: UserRepository;
+
+  chatroomRepository: ChatroomRepository;
 
   sectionRepository: SectionRepository;
 
   userChatroomRepository: UserChatroomRepository;
 
   constructor() {
+    this.userRepository = getCustomRepository(UserRepository);
+    this.chatroomRepository = getCustomRepository(ChatroomRepository);
     this.sectionRepository = getCustomRepository(SectionRepository);
     this.userChatroomRepository = getCustomRepository(UserChatroomRepository);
   }
@@ -97,6 +107,30 @@ class UserChatroomService {
     const [chatProfileImg] = chatrooms.filter((chatroom) => chatroom.user.userId !== userId).map((chatroom) => chatroom.user.profileUri);
 
     return chatProfileImg;
+  }
+
+  async joinChatroom(userId: number, chatroomId: number) {
+    const userChatroom = await this.userChatroomRepository
+      .createQueryBuilder('userChatroom')
+      .where('userChatroom.user.userId = :userId', { userId })
+      .where('userChatroom.chatroom.chatroomId = :chatroomId', { chatroomId })
+      .getOne();
+
+    if (userChatroom) {
+      throw new BadRequestError();
+    }
+
+    const user = await this.userRepository.findOne({ userId });
+    const chatroom = await this.chatroomRepository.findOne({ chatroomId });
+
+    if (!user || !chatroom) {
+      throw new BadRequestError();
+    }
+
+    const sectionName = chatroom.chatType === 'DM' ? 'Direct Message' : 'Channels';
+    const newUserChatroom = this.userChatroomRepository.create({ user, chatroom, sectionName });
+    await validator(newUserChatroom);
+    await this.userChatroomRepository.save(newUserChatroom);
   }
 }
 
