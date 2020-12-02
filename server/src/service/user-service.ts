@@ -57,8 +57,8 @@ class UserService {
     return { userId, id, profileUri, fullName, displayName, whatIDo, phoneNumber };
   }
 
-  async createUser(id: string) {
-    const newUser = await this.userRepository.save({ id, fullName: id, displayName: id, isSocial: true });
+  async createUser(id: string, profileUri: string) {
+    await this.userRepository.save({ id, fullName: id, displayName: id, isSocial: true, profileUri });
   }
 }
 
