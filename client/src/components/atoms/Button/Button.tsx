@@ -6,6 +6,7 @@ interface ButtonProps {
   backgroundColor: string;
   borderColor: string;
   fontColor: string;
+  isBold?: boolean;
   onClick?: () => void;
 }
 
@@ -19,11 +20,12 @@ const StyledButton = styled.button<any>`
   border-radius: 0.4rem;
   outline: none;
   cursor: pointer;
+  font-weight: ${(props) => (props.isBold ? 'bold' : null)};
 `;
 
-const Button: React.FC<ButtonProps> = ({ children, backgroundColor, borderColor, fontColor, ...props }) => {
+const Button: React.FC<ButtonProps> = ({ children, backgroundColor, borderColor, fontColor, isBold, ...props }) => {
   return (
-    <StyledButton backgroundColor={backgroundColor} borderColor={borderColor} fontColor={fontColor} {...props}>
+    <StyledButton backgroundColor={backgroundColor} borderColor={borderColor} fontColor={fontColor} isBold={isBold} {...props}>
       {children}
     </StyledButton>
   );
