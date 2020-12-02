@@ -6,6 +6,8 @@ import randomstring from 'randomstring';
 interface user {
   userId: number;
   username: string;
+  profileUri: string;
+  displayName: string;
 }
 
 declare module 'express' {
