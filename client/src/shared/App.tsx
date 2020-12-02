@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Chatroom, Login } from '@pages/index';
 import { Header, Sidebar } from '@components/organisms';
 import { Channel, DM, Section } from '@components/molecules';
+import { api, uriParser } from '@utils/index';
 
 const FlexBox = styled.div`
   display: flex;
@@ -16,8 +17,39 @@ const MainBox = styled.div`
 `;
 
 const App = () => {
+  const registerToken = async () => {
+    if (uriParser.isExistParseCode()) {
+      const code = uriParser.getCode();
+      const token = await api.getToken(code);
+      if (token) {
+        localStorage.setItem('token', token);
+        window.location.href = '/';
+      }
+    }
+  };
+
+  const checkAuthToToken = () => {
+    return !!localStorage.getItem('token');
+  };
+
+  const blockPage = () => {
+    if (checkAuthToToken() && window.location.pathname === '/login') {
+      window.location.href = '/';
+    }
+    if (!checkAuthToToken() && window.location.pathname !== '/login') {
+      window.location.href = '/login';
+    }
+  };
+
+  useEffect(() => {
+    registerToken().then(() => {
+      blockPage();
+    });
+  }, []);
+
   return (
     <BrowserRouter>
+      <Route exact path="/login" component={Login} />
       <Header src="https://avatars2.githubusercontent.com/u/33643752?s=460&u=a9a75e7c6922a23eb365b258a60499bbb9a9c655&v=4" />
       <FlexBox>
         <Sidebar>
@@ -33,11 +65,8 @@ const App = () => {
           </Section>
         </Sidebar>
         <MainBox>
-          <Switch>
-            <Route path="/login" exact component={Login} />
-            <Route path="/" exact component={Chatroom} />
-            <Redirect path="*" to="/" />
-          </Switch>
+          <Route exact path="/" component={Chatroom} />
+          <Switch></Switch>
         </MainBox>
       </FlexBox>
     </BrowserRouter>
