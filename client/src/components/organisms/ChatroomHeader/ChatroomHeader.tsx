@@ -9,12 +9,15 @@ interface ChatroomHeaderProps {
 }
 
 const ChatroomHeaderContainter = styled.div<any>`
+  position: fixed;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   height: 10%;
   width: 100%;
   border-bottom: 1px solid #e2e2e2;
+  background-color: white;
+  z-index: 2;
 `;
 
 const TextContainer = styled.div<any>`

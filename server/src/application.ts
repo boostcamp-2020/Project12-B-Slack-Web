@@ -10,6 +10,7 @@ import { errorHandler } from '@middleware/error-handler';
 import logger from 'morgan';
 import passportConfig from '@config/passport';
 import cookieParser from 'cookie-parser';
+import redis from '@middleware/redis';
 
 export default class Application {
   app: Express;
@@ -48,6 +49,7 @@ export default class Application {
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use(cors());
     this.app.use(cookieParser());
+    this.app.use(redis);
     this.app.use('/', router);
     this.app.use(errorHandler);
   }
