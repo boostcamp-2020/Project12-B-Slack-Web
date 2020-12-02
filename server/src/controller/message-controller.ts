@@ -14,8 +14,8 @@ const messageController = {
   },
   async getMessages(req: Request, res: Response, next: NextFunction) {
     try {
-      const { chatRoomId } = req.params;
-      const messages = await MessageService.getInstance().getMessages(Number(chatRoomId));
+      const { chatRoomId, offsetId } = req.params;
+      const messages = await MessageService.getInstance().getMessages(Number(chatRoomId), Number(offsetId));
       res.status(HttpStatusCode.OK).json(messages);
     } catch (err) {
       next(err);
