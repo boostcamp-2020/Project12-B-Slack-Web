@@ -15,8 +15,6 @@ import redis from '@middleware/redis';
 export default class Application {
   app: Express;
 
-  client: any;
-
   constructor() {
     this.app = express();
   }
