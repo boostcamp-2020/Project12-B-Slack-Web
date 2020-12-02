@@ -45,6 +45,7 @@ class MessageService {
   }
 
   async getMessages(chatroomId: number, offsetId: number) {
+    const limit = 10;
     const messages = await this.MessageRepository.createQueryBuilder('message')
       .leftJoin('message.user', 'user')
       .leftJoin('message.replies', 'replies')
@@ -60,7 +61,7 @@ class MessageService {
       .addSelect(['replies.createdAt'])
       .addSelect(['replyUser.profileUri'])
       .orderBy('message.messageId', 'DESC')
-      .limit(10)
+      .limit(limit)
       .where('message.chatroomId = :chatroomId AND message.messageId < :offsetId', { chatroomId, offsetId })
       .getMany();
 
@@ -102,13 +103,14 @@ class MessageService {
   }
 
   private async customMessagesReplies(messages: any) {
+    const maxPrifileUriCount = 5;
     messages.forEach((message: any) => {
       let lastReplyAtNumber = 0;
       const replyCount = message.replies.length;
       const profileUris = [];
       message.replies.forEach((reply: any) => {
         lastReplyAtNumber = Math.max(reply.createdAt);
-        if (profileUris.length < 5) profileUris.push(reply.user.profileUri);
+        if (profileUris.length < maxPrifileUriCount) profileUris.push(reply.user.profileUri);
       });
       const lastReplyAt = lastReplyAtNumber === 0 ? undefined : new Date(lastReplyAtNumber);
       delete message.replies;
