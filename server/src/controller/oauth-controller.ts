@@ -31,7 +31,7 @@ const OauthController = {
     const randomValue = randomstring.generate(7);
     req.Redis.createCode(randomValue, token);
 
-    res.redirect(`http://127.0.0.1:5000?code=${randomValue}`);
+    res.redirect(`${process.env.CLIENT_ADDRESS}?code=${randomValue}`);
   },
 
   async getToken(req: any, res: Response, next: NextFunction) {
