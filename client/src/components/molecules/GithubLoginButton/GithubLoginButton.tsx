@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Icon, Text } from '@components/atoms';
 import styled from 'styled-components';
 import { api } from '@utils/index';
+import { store } from '@store/index';
 
 interface GithubLoginButtonProps {
   size?: 'small' | 'large';
@@ -12,6 +13,7 @@ const TextWrap = styled.div`
 `;
 
 const handlingGithubLoginButton = async () => {
+  store.dispatch({ type: 'LOGIN' });
   await api.oauthLogin();
 };
 
