@@ -85,14 +85,15 @@ class MessageService {
     messages.forEach((message: any) => {
       let messageReactions: any = {};
       message.messageReactions.forEach((messageReaction) => {
-        if (messageReactions[messageReaction.reaction.reactionId])
-          messageReactions[messageReaction.reaction.reactionId].replyDisplayNames.push(messageReaction.user.displayName);
+        const { reactionId, title, imageUri } = messageReaction.reaction;
+        const { displayName } = messageReaction.user;
+        if (messageReactions[reactionId]) messageReactions[reactionId].replyDisplayNames.push(displayName);
         else
-          messageReactions[messageReaction.reaction.reactionId] = {
-            reactionId: messageReaction.reaction.reactionId,
-            title: messageReaction.reaction.title,
-            imageUri: messageReaction.reaction.imageUri,
-            replyDisplayNames: [messageReaction.user.displayName]
+          messageReactions[reactionId] = {
+            reactionId,
+            title,
+            imageUri,
+            replyDisplayNames: [displayName]
           };
       });
       message.messageReactions = messageReactions;
@@ -109,7 +110,6 @@ class MessageService {
         lastReplyAtNumber = Math.max(reply.createdAt);
         if (profileUris.length < 5) profileUris.push(reply.user.profileUri);
       });
-      console.log(lastReplyAtNumber);
       const lastReplyAt = lastReplyAtNumber === 0 ? undefined : new Date(lastReplyAtNumber);
       delete message.replies;
       message.thread = {
