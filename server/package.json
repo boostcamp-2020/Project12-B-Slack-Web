@@ -34,6 +34,8 @@
   },
   "dependencies": {
     "@types/passport": "^1.0.4",
+    "@types/randomstring": "^1.1.6",
+    "@types/redis": "^2.8.28",
     "class-validator": "^0.12.2",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
@@ -45,6 +47,8 @@
     "passport": "^0.4.1",
     "passport-github": "^1.1.0",
     "passport-jwt": "^4.0.0",
+    "randomstring": "^1.1.5",
+    "redis": "^3.0.2",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.29",
     "typeorm-transactional-cls-hooked": "^0.1.12"

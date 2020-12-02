@@ -6,6 +6,7 @@ interface ButtonProps {
   backgroundColor: string;
   borderColor: string;
   fontColor: string;
+  onClick?: () => void;
 }
 
 const StyledButton = styled.button<any>`
