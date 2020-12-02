@@ -18,7 +18,7 @@
       "@pages/*": ["src/pages/*"],
       "@style/*": ["src/common/style/*"],
       "@utils/*": ["src/common/utils/*"],
-      "@hook/*": ["src/common/hook/*"],
+      "@store/*": ["src/common/store/*"],
       "@context/*": ["src/common/context/*"],
       "@imgs/*": ["public/imgs/*"]
     }
