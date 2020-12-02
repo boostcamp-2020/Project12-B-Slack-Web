@@ -7,8 +7,8 @@ const ReplyController = {
     const { userId } = req.user;
     const { messageId, content } = req.body;
     try {
-      await ReplyService.getInstance().createReply(Number(userId), Number(messageId), content);
-      res.status(HttpStatusCode.CREATED).send();
+      const replyId = await ReplyService.getInstance().createReply(Number(userId), Number(messageId), content);
+      res.status(HttpStatusCode.CREATED).json({ replyId });
     } catch (err) {
       next(err);
     }

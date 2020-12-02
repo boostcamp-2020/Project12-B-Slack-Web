@@ -37,7 +37,8 @@ class ReplyService {
 
     const reply = this.replyRepository.create({ user, message, content });
     await validator(reply);
-    await this.replyRepository.save(reply);
+    const newReply = await this.replyRepository.save(reply);
+    return newReply.replyId;
   }
 
   async getReply(replyId: number) {
