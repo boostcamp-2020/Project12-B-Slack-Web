@@ -13,6 +13,15 @@ const UserChatroomController = {
       next(err);
     }
   },
+  async inviteChatroom(req: Request, res: Response, next: NextFunction) {
+    const { users, chatroomId } = req.body;
+    try {
+      await UserChatroomService.getInstance().inviteChatroom(users, Number(chatroomId));
+      res.status(HttpStatusCode.CREATED).send();
+    } catch (err) {
+      next(err);
+    }
+  },
   async getUserChatrooms(req: Request, res: Response, next: NextFunction) {
     const { userId } = req.user;
     try {
