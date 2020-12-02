@@ -1,7 +1,7 @@
-import HttpStatusCode from '@constants/http-status-code';
 import UserService from '@service/user-service';
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import randomstring from 'randomstring';
 
 interface user {
   userId: number;
@@ -15,7 +15,7 @@ declare module 'express' {
 }
 
 const OauthController = {
-  async OauthCallback(req: Request, res: Response) {
+  async OauthCallback(req: any, res: Response) {
     try {
       await UserService.getInstance().getUserById(String(req.user.username));
     } catch {
@@ -28,8 +28,23 @@ const OauthController = {
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
-    res.json({ jwt: token });
-    // res.redirect('/');
+    const randomValue = randomstring.generate(7);
+    req.Redis.createCode(randomValue, token);
+
+    res.redirect(`http://127.0.0.1:5000?code=${randomValue}`);
+  },
+
+  async getToken(req: any, res: Response, next: NextFunction) {
+    try {
+      const { code } = req.params;
+      req.Redis.client.get(code, (err, Token) => {
+        res.setHeader('Access-Control-Expose-Headers', 'Authorization');
+        res.setHeader('Authorization', `Bearer ${Token}`);
+        res.end();
+      });
+    } catch (err) {
+      next(err);
+    }
   }
 };
 
