@@ -22,4 +22,9 @@ const getUserChatroom = async () => {
   return response.data;
 };
 
-export { getToken, oauthLogin, getUserInfo, getUserChatroom };
+const getChatroom = async (id: number) => {
+  const response = await axios.get(`/api/chatrooms/${id}`);
+  return response.data;
+};
+
+export { getToken, oauthLogin, getUserInfo, getUserChatroom, getChatroom };
