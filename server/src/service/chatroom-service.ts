@@ -8,12 +8,14 @@ import Chatroom from '@model/chatroom';
 import validator from '@utils/validator';
 import BadRequestError from '@error/bad-request-error';
 import NotFoundError from '@error/not-found-error';
+import ChatType from '@constants/chat-type';
+import DefaultSectionName from '@constants/default-section-name';
 
 interface saveChatroomParams {
   title: string;
   description: string;
   isPrivate: boolean;
-  chatType: 'DM' | 'Channel';
+  chatType: ChatType.DM | ChatType.Channel;
 }
 
 interface createChatroomParams extends saveChatroomParams {
@@ -52,14 +54,16 @@ class ChatroomService {
   async createChatroom({ userId, title, description, isPrivate, chatType }: createChatroomParams) {
     const user = await this.userRepository.findOne(userId);
     const chatroom = await this.chatroomRepository.findByTitle(title);
-    const sectionName = chatType === 'DM' ? 'Direct Message' : 'Channels';
 
     if (chatroom || !user) {
       throw new BadRequestError();
     }
 
+    const sectionName = chatType === ChatType.DM ? DefaultSectionName.DirectMessages : DefaultSectionName.Channels;
+
     const newChatroom = await this.saveChatroom({ title, description, isPrivate, chatType });
     await this.saveUserChatroom({ sectionName, user, chatroom: newChatroom });
+    return newChatroom.chatroomId;
   }
 
   private async saveChatroom({ title, description, isPrivate, chatType }: saveChatroomParams) {

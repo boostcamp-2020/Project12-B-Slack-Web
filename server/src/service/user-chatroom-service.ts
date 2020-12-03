@@ -7,6 +7,8 @@ import UserRepository from '@repository/user-repository';
 import ChatroomRepository from '@repository/chatroom-repository';
 import BadRequestError from '@error/bad-request-error';
 import validator from '@utils/validator';
+import ChatType from '@constants/chat-type';
+import DefaultSectionName from '@constants/default-section-name';
 
 class UserChatroomService {
   static instance: UserChatroomService;
@@ -45,9 +47,9 @@ class UserChatroomService {
       throw new NotFoundError();
     }
 
-    const starred = this.classifyChannelsBySectionName(userChatrooms, 'Starred');
+    const starred = this.classifyChannelsBySectionName(userChatrooms, DefaultSectionName.Starred);
     const otherSections = await this.classifyOtherSections(userChatrooms, userId);
-    const channels = this.classifyChannelsBySectionName(userChatrooms, 'Channels');
+    const channels = this.classifyChannelsBySectionName(userChatrooms, DefaultSectionName.Channels);
     const directMessages = await this.classifyDirectMessages(userChatrooms, userId);
 
     return { starred, otherSections, channels, directMessages };
@@ -81,7 +83,7 @@ class UserChatroomService {
   private async classifyDirectMessages(userChatrooms: any[], userId: number) {
     const directMessages = await Promise.all(
       userChatrooms
-        .filter((userChatroom) => userChatroom.sectionName === 'Direct Message')
+        .filter((userChatroom) => userChatroom.sectionName === DefaultSectionName.DirectMessages)
         .map(async (userChatroom) => {
           const { chatroomId, chatType } = userChatroom.chatroom;
           const { title, chatProfileImg } = await this.findTitleAndImg(userChatroom, userId);
@@ -175,7 +177,7 @@ class UserChatroomService {
   }
 
   private async saveChatroom(user, chatroom) {
-    const sectionName = chatroom.chatType === 'DM' ? 'Direct Message' : 'Channels';
+    const sectionName = chatroom.chatType === ChatType.DM ? DefaultSectionName.DirectMessages : DefaultSectionName.Channels;
     const newUserChatroom = this.userChatroomRepository.create({ user, chatroom, sectionName });
     await validator(newUserChatroom);
     await this.userChatroomRepository.save(newUserChatroom);

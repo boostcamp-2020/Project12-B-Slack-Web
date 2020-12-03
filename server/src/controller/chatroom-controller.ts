@@ -7,8 +7,8 @@ const ChatroomController = {
     try {
       const { userId } = req.user;
       const { title, description, isPrivate, chatType } = req.body;
-      await ChatroomService.getInstance().createChatroom({ userId, title, description, isPrivate, chatType });
-      res.status(HttpStatusCode.CREATED).send();
+      const chatroomId = await ChatroomService.getInstance().createChatroom({ userId, title, description, isPrivate, chatType });
+      res.status(HttpStatusCode.CREATED).json({ chatroomId });
     } catch (err) {
       next(err);
     }

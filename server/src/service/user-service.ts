@@ -6,6 +6,7 @@ import NotFoundError from '@error/not-found-error';
 import Chatroom from '@model/chatroom';
 import User from '@model/user';
 import DefaultSectionName from '@constants/default-section-name';
+import ChatType from '@constants/chat-type';
 
 class UserService {
   static instance: UserService;
@@ -76,7 +77,7 @@ class UserService {
   }
 
   private async createDirectMessage() {
-    const newDirectMessage = await this.chatroomRepository.save({ isPrivate: true, chatType: 'DM' });
+    const newDirectMessage = await this.chatroomRepository.save({ isPrivate: true, chatType: ChatType.DM });
     return newDirectMessage;
   }
 
