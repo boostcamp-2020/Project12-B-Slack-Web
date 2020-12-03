@@ -6,6 +6,8 @@ import randomstring from 'randomstring';
 interface user {
   userId: number;
   username: string;
+  profileUri: string;
+  displayName: string;
 }
 
 declare module 'express' {
@@ -16,10 +18,12 @@ declare module 'express' {
 
 const OauthController = {
   async OauthCallback(req: any, res: Response) {
+    const { username, photos } = req.user;
+    const profileUri = photos && photos[0].value;
     try {
-      await UserService.getInstance().getUserById(String(req.user.username));
+      await UserService.getInstance().getUserById(username);
     } catch {
-      await UserService.getInstance().createUser(String(req.user.username));
+      await UserService.getInstance().createUser(username, profileUri);
     }
     const token = jwt.sign(
       {

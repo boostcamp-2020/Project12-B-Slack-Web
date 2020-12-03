@@ -88,6 +88,7 @@ class UserService {
     const title = 'random';
     const chatroom = await this.chatroomRepository.findOne({ title });
     await this.userChatroomRepository.save({ user, chatroom, sectionName: DefaultSectionName.Channels });
+
   }
 }
 

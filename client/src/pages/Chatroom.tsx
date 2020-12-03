@@ -13,12 +13,6 @@ const ChatroomContainer = styled.div<any>`
 `;
 
 const Chatroom: React.FC<ChatroomProps> = ({ title = '5주-그룹-프로젝트-슬랙b', children, ...props }) => {
-  const urlCodePattern = new RegExp(/^\?code=\w+$/);
-  const parseCodePattern = new RegExp(/[^(?code=)]\w+/);
-  if (urlCodePattern.test(window.location.search)) {
-    const code = parseCodePattern.exec(window.location.search);
-    if (code) api.getToken(code[0]);
-  }
   return (
     <ChatroomContainer {...props}>
       <ChatroomHeader title={title}>{}</ChatroomHeader>
