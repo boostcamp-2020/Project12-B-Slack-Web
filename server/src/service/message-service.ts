@@ -32,7 +32,8 @@ class MessageService {
     const chatroom = await this.ChatroomRepository.findOne(chatroomId);
     const message = await this.MessageRepository.create({ user, chatroom, content });
     validator(message);
-    await this.MessageRepository.save(message);
+    const { messageId } = await this.MessageRepository.save(message);
+    return messageId;
   }
 
   async getMessage(messageId: number) {
@@ -71,11 +72,37 @@ class MessageService {
     return messages;
   }
 
+  async getRecentMessages(chatroomId: number) {
+    const limit = 10;
+    const messages = await this.MessageRepository.createQueryBuilder('message')
+      .leftJoin('message.user', 'user')
+      .leftJoin('message.replies', 'replies')
+      .leftJoin('replies.user', 'replyUser')
+      .leftJoin('message.messageReactions', 'messageReactions')
+      .leftJoin('messageReactions.reaction', 'reaction')
+      .leftJoin('messageReactions.user', 'reactionUser')
+      .select(['message.messageId', 'message.createdAt', 'message.updatedAt'])
+      .addSelect(['user.userId', 'user.profileUri', 'user.displayName'])
+      .addSelect(['messageReactions.messageReactionId'])
+      .addSelect(['reaction.reactionId', 'reaction.title', 'reaction.imageUri'])
+      .addSelect(['reactionUser.displayName'])
+      .addSelect(['replies.createdAt'])
+      .addSelect(['replyUser.profileUri'])
+      .orderBy('message.messageId', 'DESC')
+      .limit(limit)
+      .where('message.chatroomId = :chatroomId', { chatroomId })
+      .getMany();
+
+    this.customMessagesReaction(messages);
+    this.customMessagesReplies(messages);
+
+    return messages;
+  }
+
   async updateMessage(messageId: number, content: string) {
     const message = await this.MessageRepository.create({ messageId, content });
     validator(message);
     await this.MessageRepository.save({ messageId, content });
-    return message;
   }
 
   async deleteMessage(messageId: number) {
