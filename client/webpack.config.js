@@ -21,8 +21,9 @@ module.exports = (env, options) => {
       hot: true
     },
     output: {
-      path: `${__dirname}/dist`,
-      filename: 'bundle.js'
+      path: path.join(__dirname, 'dist'),
+      publicPath: '/',
+      filename: '[name].js'
     },
     module: {
       rules: [
