@@ -3,12 +3,22 @@ import ChatroomService from '@service/chatroom-service';
 import { NextFunction, Request, Response } from 'express';
 
 const ChatroomController = {
-  async createChatroom(req: Request, res: Response, next: NextFunction) {
+  async createChannel(req: Request, res: Response, next: NextFunction) {
     try {
       const { userId } = req.user;
-      const { title, description, isPrivate, chatType } = req.body;
-      await ChatroomService.getInstance().createChatroom({ userId, title, description, isPrivate, chatType });
-      res.status(HttpStatusCode.CREATED).send();
+      const { title, description, isPrivate } = req.body;
+      const chatroomId = await ChatroomService.getInstance().createChannel({ userId: Number(userId), title, description, isPrivate });
+      res.status(HttpStatusCode.CREATED).json({ chatroomId });
+    } catch (err) {
+      next(err);
+    }
+  },
+  async createDM(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { userId } = req.user;
+      const { invitedUserId } = req.body;
+      const chatroomId = await ChatroomService.getInstance().createDM(Number(userId), Number(invitedUserId));
+      res.status(HttpStatusCode.CREATED).json({ chatroomId });
     } catch (err) {
       next(err);
     }

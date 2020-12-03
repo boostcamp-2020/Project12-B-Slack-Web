@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 import { IsBoolean, IsIn, IsString } from 'class-validator';
 import UserChatroom from '@model/user-chatroom';
 import Message from '@model/message';
+import ChatType from '@constants/chat-type';
 
 @Entity({ name: 'chatroom' })
 export default class Chatroom {
@@ -20,7 +21,7 @@ export default class Chatroom {
   isPrivate: boolean;
 
   @Column()
-  @IsIn(['DM', 'Channel'])
+  @IsIn([ChatType.DM, ChatType.Channel])
   chatType: string;
 
   @Column({ nullable: true })
