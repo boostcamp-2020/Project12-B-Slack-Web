@@ -15,7 +15,9 @@ const messageController = {
   async getMessages(req: Request, res: Response, next: NextFunction) {
     try {
       const { chatRoomId, offsetId } = req.params;
-      const messages = await MessageService.getInstance().getMessages(Number(chatRoomId), Number(offsetId));
+      const messages = offsetId
+        ? await MessageService.getInstance().getMessages(Number(chatRoomId), Number(offsetId))
+        : await MessageService.getInstance().getRecentMessages(Number(chatRoomId));
       res.status(HttpStatusCode.OK).json(messages);
     } catch (err) {
       next(err);
@@ -25,8 +27,8 @@ const messageController = {
     const { userId } = req.user;
     const { chatRoomId, content } = req.body;
     try {
-      await MessageService.getInstance().createMessage(Number(userId), Number(chatRoomId), String(content));
-      res.status(HttpStatusCode.CREATED).send();
+      const messageId = await MessageService.getInstance().createMessage(Number(userId), Number(chatRoomId), String(content));
+      res.status(HttpStatusCode.CREATED).json(messageId);
     } catch (err) {
       next(err);
     }
@@ -35,8 +37,8 @@ const messageController = {
     const { content } = req.body;
     const { messageId } = req.params;
     try {
-      const message = await MessageService.getInstance().updateMessage(Number(messageId), String(content));
-      res.status(HttpStatusCode.CREATED).send(message);
+      await MessageService.getInstance().updateMessage(Number(messageId), String(content));
+      res.status(HttpStatusCode.CREATED).json(messageId);
     } catch (err) {
       next(err);
     }
