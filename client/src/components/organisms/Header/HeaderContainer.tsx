@@ -1,10 +1,9 @@
 import { connect } from 'react-redux';
 import { Header } from './Header';
 
-function mapReduxStateToReactProps(reducer: any) {
-  const state = reducer.userReducer;
+function mapReduxStateToReactProps(state: any) {
   return {
-    profileUri: state.profileUri
+    profileUri: state.userData.profileUri
   };
 }
 

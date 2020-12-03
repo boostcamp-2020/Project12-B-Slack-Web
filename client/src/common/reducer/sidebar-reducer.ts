@@ -19,7 +19,6 @@ const sidebarReducer = (state = initialState, action: any) => {
         directMessages: action.directMessages
       };
     case 'UPDATESIDEBAR':
-    case 'SELECTCHATROOM':
       return {
         ...state,
         selectedChatroomId: action.selectedChatroomId
