@@ -4,7 +4,7 @@ import { LogoImg } from '@components/atoms';
 import { ActiveProfileImg } from '@components/molecules';
 
 interface HeaderProps {
-  src: string;
+  profileUri?: string;
 }
 
 const HeaderContainter = styled.div<any>`
@@ -17,11 +17,11 @@ const HeaderContainter = styled.div<any>`
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
 `;
 
-const Header: React.FC<HeaderProps> = ({ src, ...props }) => {
+const Header: React.FC<HeaderProps> = ({ profileUri, ...props }) => {
   return (
     <HeaderContainter {...props}>
       <LogoImg />
-      <ActiveProfileImg src={src} isHover={true} />
+      <ActiveProfileImg src={profileUri} isHover={true} />
     </HeaderContainter>
   );
 };
