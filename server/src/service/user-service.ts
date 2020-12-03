@@ -5,6 +5,7 @@ import UserChatroomRepository from '@repository/user-chatroom-repository';
 import NotFoundError from '@error/not-found-error';
 import Chatroom from '@model/chatroom';
 import User from '@model/user';
+import DefaultSectionName from '@constants/default-section-name';
 
 class UserService {
   static instance: UserService;
@@ -69,24 +70,24 @@ class UserService {
 
   async createUser(id: string) {
     const newUser = await this.userRepository.save({ id, fullName: id, displayName: id, isSocial: true });
-    const newDm = await this.createDm();
-    await this.joinDm(newUser, newDm);
+    const newDirectMessage = await this.createDirectMessage();
+    await this.joinDirectMessage(newUser, newDirectMessage);
     await this.joinDefaultChannel(newUser);
   }
 
-  private async createDm() {
-    const newDm = await this.chatroomRepository.save({ isPrivate: true, chatType: 'DM' });
-    return newDm;
+  private async createDirectMessage() {
+    const newDirectMessage = await this.chatroomRepository.save({ isPrivate: true, chatType: 'DM' });
+    return newDirectMessage;
   }
 
-  private async joinDm(user: User, chatroom: Chatroom) {
-    await this.userChatroomRepository.save({ user, chatroom, sectionName: 'DM' });
+  private async joinDirectMessage(user: User, chatroom: Chatroom) {
+    await this.userChatroomRepository.save({ user, chatroom, sectionName: DefaultSectionName.DirectMessages });
   }
 
   private async joinDefaultChannel(user: User) {
     const title = 'random';
     const chatroom = await this.chatroomRepository.findOne({ title });
-    await this.userChatroomRepository.save({ user, chatroom, sectionName: 'Channel' });
+    await this.userChatroomRepository.save({ user, chatroom, sectionName: DefaultSectionName.Channels });
   }
 }
 
