@@ -19,7 +19,7 @@
       "@style/*": ["src/common/style/*"],
       "@utils/*": ["src/common/utils/*"],
       "@store/*": ["src/common/store/*"],
-      "@context/*": ["src/common/context/*"],
+      "@dispatch/*": ["src/common/dispatch/*"],
       "@imgs/*": ["public/imgs/*"]
     }
   },

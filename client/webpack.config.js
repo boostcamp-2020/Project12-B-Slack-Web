@@ -56,7 +56,7 @@ module.exports = (env, options) => {
         '@style': path.resolve(__dirname, 'src/common/style'),
         '@utils': path.resolve(__dirname, 'src/common/utils'),
         '@store': path.resolve(__dirname, 'src/common/store'),
-        '@context': path.resolve(__dirname, 'src/common/context'),
+        '@dispatch': path.resolve(__dirname, 'src/common/dispatch'),
         '@imgs': path.resolve(__dirname, 'public/imgs')
       }
     },
