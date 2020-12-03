@@ -83,15 +83,15 @@ class UserChatroomService {
       userChatrooms
         .filter((userChatroom) => userChatroom.sectionName === 'Direct Message')
         .map(async (userChatroom) => {
-          const { chatroomId, title, chatType } = userChatroom.chatroom;
-          const chatProfileImg = await this.findChatProfileImg(userChatroom, userId);
+          const { chatroomId, chatType } = userChatroom.chatroom;
+          const { title, chatProfileImg } = await this.findTitleAndImg(userChatroom, userId);
           return { chatroomId, title, chatType, chatProfileImg };
         })
     );
     return directMessages;
   }
 
-  private async findChatProfileImg(userChatroom: any, userId: number) {
+  private async findTitleAndImg(userChatroom: any, userId: number): Promise<{ title: string; chatProfileImg: string }> {
     const { chatroomId } = userChatroom.chatroom;
 
     const chatrooms = await this.userChatroomRepository
@@ -101,18 +101,26 @@ class UserChatroomService {
       .getMany();
 
     if (!chatrooms) {
-      return String();
+      return undefined;
     }
 
     const users = chatrooms.map((chatroom) => chatroom.user);
 
     if (users.every((user) => user.userId === userId)) {
-      return users[0].profileUri;
+      const { displayName, profileUri } = users[0];
+      return { title: displayName, chatProfileImg: profileUri };
     }
+
+    const title = users
+      .filter((user) => user.userId !== userId)
+      .reduce((str, user) => {
+        if (!str) return user.displayName;
+        return `${str}, ${user.displayName}`;
+      }, '');
 
     const [chatProfileImg] = users.filter((user) => user.userId !== userId).map((user) => user.profileUri);
 
-    return chatProfileImg;
+    return { title, chatProfileImg };
   }
 
   @Transactional()
