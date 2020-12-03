@@ -21,8 +21,9 @@ module.exports = (env, options) => {
       hot: true
     },
     output: {
-      path: `${__dirname}/dist`,
-      filename: 'bundle.js'
+      path: path.join(__dirname, 'dist'),
+      publicPath: '/',
+      filename: '[name].js'
     },
     module: {
       rules: [
@@ -56,7 +57,7 @@ module.exports = (env, options) => {
         '@style': path.resolve(__dirname, 'src/common/style'),
         '@utils': path.resolve(__dirname, 'src/common/utils'),
         '@store': path.resolve(__dirname, 'src/common/store'),
-        '@context': path.resolve(__dirname, 'src/common/context'),
+        '@dispatch': path.resolve(__dirname, 'src/common/dispatch'),
         '@imgs': path.resolve(__dirname, 'public/imgs')
       }
     },

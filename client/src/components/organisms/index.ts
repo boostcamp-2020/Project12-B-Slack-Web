@@ -1,5 +1,5 @@
 import Header from './Header/HeaderContainer';
-import { Sidebar } from './Sidebar/Sidebar';
+import Sidebar from './Sidebar/SidebarContainer';
 import { ChatroomHeader } from './ChatroomHeader/ChatroomHeader';
 import { ChatroomBody } from './ChatroomBody/ChatroomBody';
 

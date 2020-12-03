@@ -1,3 +1,3 @@
-import store from './user-store';
+import store from './store';
 
 export { store };
