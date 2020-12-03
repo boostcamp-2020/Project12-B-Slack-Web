@@ -104,7 +104,13 @@ class UserChatroomService {
       return String();
     }
 
-    const [chatProfileImg] = chatrooms.filter((chatroom) => chatroom.user.userId !== userId).map((chatroom) => chatroom.user.profileUri);
+    const users = chatrooms.map((chatroom) => chatroom.user);
+
+    if (users.every((user) => user.userId === userId)) {
+      return users[0].profileUri;
+    }
+
+    const [chatProfileImg] = users.filter((user) => user.userId !== userId).map((user) => user.profileUri);
 
     return chatProfileImg;
   }
