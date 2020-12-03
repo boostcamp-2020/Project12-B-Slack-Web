@@ -8,7 +8,7 @@ export default class Chatroom {
   @PrimaryGeneratedColumn()
   chatroomId: number;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: true })
   @IsString()
   title: string;
 
