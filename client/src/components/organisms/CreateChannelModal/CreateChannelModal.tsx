@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Text, ModalBox, HoverInput, Button } from '@components/atoms';
+import { color } from '@theme/index';
 
 interface CreateChannelModalProps {}
 
@@ -37,17 +38,17 @@ const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ ...props }) => 
     <ModalBox {...props}>
       <StyledCreateChannelModal>
         <NodeWrap>
-          <Text color="rgba(0,0,0,1)" isBold size="large">
+          <Text fontColor={color.primary} isBold size="large">
             Create a Channel
           </Text>
         </NodeWrap>
         <NodeWrap>
-          <Text color="rgba(147,147,147,1)" size="small">
+          <Text fontColor={color.text_tertiary} size="small">
             Channels are where your team communicates. They’re best when organized around a topic — #marketing, for example
           </Text>
         </NodeWrap>
         <NodeWrap>
-          <Text color="black" size="small" isBold>
+          <Text fontColor={color.primary} size="small" isBold>
             Name
           </Text>
           <InputWrap>
@@ -55,26 +56,26 @@ const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ ...props }) => 
           </InputWrap>
         </NodeWrap>
         <NodeWrap>
-          <Text color="black" size="small" isBold>
+          <Text fontColor={color.primary} size="small" isBold>
             Description
           </Text>
           <InputWrap>
             <HoverInput />
           </InputWrap>
-          <Text color="rgba(147,147,147,1)" size="small">
+          <Text fontColor={color.text_tertiary} size="small">
             What’s this channel about?
           </Text>
         </NodeWrap>
         <NodeWrap>
           <CheckboxContainer>
-            <Text color="black" size="small" isBold>
+            <Text fontColor={color.primary} size="small" isBold>
               Make private
             </Text>
             <Checkbox type="checkbox" />
           </CheckboxContainer>
         </NodeWrap>
         <SubmitButtonCantainer>
-          <Button backgroundColor="rgba(221,221,221,1)" borderColor="rgba(221,221,221,1)" fontColor="rgba(83,83,83,1)" onClick={() => {}} isBold>
+          <Button backgroundColor={color.button_tertiary} borderColor={color.button_tertiary} fontColor={color.text_quaternary} isBold>
             Create
           </Button>
         </SubmitButtonCantainer>

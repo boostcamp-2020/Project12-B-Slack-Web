@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Text } from '@components/atoms';
 import { Channel, DM, Section } from '@components/molecules';
+import { color } from '@theme/index';
 
 interface SidebarProps {
   children?: React.ReactNode;
@@ -13,7 +14,7 @@ interface SidebarProps {
 }
 
 const StyledSidebar = styled.div<any>`
-  background-color: #1a1e22;
+  background-color: ${color.sidebar_bg};
   height: 100%;
   width: 23%;
 `;
@@ -23,7 +24,7 @@ const Workspace = styled.div<any>`
   align-items: center;
   height: 10%;
   padding-left: 1rem;
-  border-bottom: 1px solid #313537;
+  border-bottom: 1px solid ${color.sidebar_border};
 `;
 
 const ChildrenWrap = styled.div<any>`

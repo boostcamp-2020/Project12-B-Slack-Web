@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ProfileImg, Text } from '@components/atoms';
+import { color } from '@theme/index';
 
 interface MessageProps {
   src: string;
@@ -12,7 +13,7 @@ const MessageContainer = styled.div<any>`
   display: flex;
   padding: 1rem 1rem;
   &:hover {
-    background-color: rgb(248, 248, 248);
+    background-color: ${color.hover_primary};
   }
 `;
 
@@ -38,11 +39,11 @@ const Message: React.FC<MessageProps> = ({ author, content, src, ...props }) => 
       </ProfileImgWrap>
       <MessageContent>
         <MessageHeader>
-          <Text color="black" size="small" isBold={true}>
+          <Text fontColor={color.primary} size="small" isBold={true}>
             {author}
           </Text>
         </MessageHeader>
-        <Text color="black" size="small">
+        <Text fontColor={color.primary} size="small">
           {content}
         </Text>
       </MessageContent>
