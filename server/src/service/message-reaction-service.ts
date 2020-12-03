@@ -5,6 +5,7 @@ import MessageRepository from '@repository/message-repository';
 import ReactionRepository from '@repository/reacion-repository';
 import BadRequestError from '@error/bad-request-error';
 import ConflictError from '@error/conflict-error';
+import NotFoundError from '@error/not-found-error';
 
 class MessageReactionService {
   static instance: MessageReactionService;
@@ -49,6 +50,21 @@ class MessageReactionService {
 
     const createdMessageReaction = await this.messageReactionRepository.save(newMessageReaction);
     return createdMessageReaction.messageReactionId;
+  }
+
+  async deleteMessageReaction(userId: number, messageId: number, reactionId: number) {
+    const messageReaction = await this.messageReactionRepository
+      .createQueryBuilder('messageReaction')
+      .where('messageReaction.userId = :userId', { userId })
+      .andWhere('messageReaction.messageId = :messageId', { messageId })
+      .andWhere('messageReaction.reactionId = :reactionId', { reactionId })
+      .getOne();
+
+    if (!messageReaction) {
+      throw new NotFoundError();
+    }
+
+    await this.messageReactionRepository.softDelete(messageReaction.messageReactionId);
   }
 }
 

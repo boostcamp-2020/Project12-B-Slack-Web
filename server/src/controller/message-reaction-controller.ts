@@ -16,6 +16,16 @@ const MessageReactionController = {
     } catch (err) {
       next(err);
     }
+  },
+  async deleteMessageReaction(req: Request, res: Response, next: NextFunction) {
+    const { userId } = req.user;
+    const { messageId, reactionId } = req.params;
+    try {
+      await MessageReactionService.getInstance().deleteMessageReaction(Number(userId), Number(messageId), Number(reactionId));
+      res.status(HttpStatusCode.NO_CONTENT).send();
+    } catch (err) {
+      next(err);
+    }
   }
 };
 
