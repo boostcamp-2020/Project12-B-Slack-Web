@@ -68,8 +68,8 @@ class UserService {
     return { userId, id, profileUri, fullName, displayName, whatIDo, phoneNumber };
   }
 
-  async createUser(id: string) {
-    const newUser = await this.userRepository.save({ id, fullName: id, displayName: id, isSocial: true });
+  async createUser(id: string, profileUri: string) {
+    const newUser = await this.userRepository.save({ id, fullName: id, displayName: id, isSocial: true, profileUri });
     const newDirectMessage = await this.createDirectMessage();
     await this.joinDirectMessage(newUser, newDirectMessage);
     await this.joinDefaultChannel(newUser);
@@ -88,7 +88,6 @@ class UserService {
     const title = 'random';
     const chatroom = await this.chatroomRepository.findOne({ title });
     await this.userChatroomRepository.save({ user, chatroom, sectionName: DefaultSectionName.Channels });
-
   }
 }
 
