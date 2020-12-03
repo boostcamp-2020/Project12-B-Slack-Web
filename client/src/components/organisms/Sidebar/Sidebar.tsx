@@ -60,7 +60,11 @@ const Sidebar: React.FC<SidebarProps> = ({ children, starred, otherSections, cha
   const makeDMSection = () => {
     if (directMessages.length === 0) return null;
     const chatrooms = directMessages.map((chatroom) => (
-      <DM chatroomId={chatroom.chatroomId} key={chatroom.chatroomId} isSelect={selectedChatroomId === chatroom.chatroomId}>
+      <DM
+        src={chatroom.chatProfileImg}
+        chatroomId={chatroom.chatroomId}
+        key={chatroom.chatroomId}
+        isSelect={selectedChatroomId === chatroom.chatroomId}>
         {chatroom.title}
       </DM>
     ));
