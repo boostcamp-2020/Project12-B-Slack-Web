@@ -1,14 +1,11 @@
 import axios from 'axios';
 
 axios.defaults.baseURL = 'http://127.0.0.1:3000';
+axios.defaults.headers.common.Authorization = localStorage.getItem('token');
 
 const getToken = async (code: string | null) => {
   const response = await axios.get(`/oauth/github/${code}`);
-  if (response.headers.authorization) {
-    axios.defaults.headers.common.Authorization = response.headers.authorization;
-    return response.headers.authorization;
-  }
-  return null;
+  return response.headers.authorization;
 };
 
 const oauthLogin = async () => {
