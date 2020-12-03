@@ -26,7 +26,7 @@ const StyledText = styled.p<any>`
 const Text: React.FC<TextProps> = ({
   children,
   size = 'medium',
-  fontColor = color.primary,
+  fontColor = color.text_primary,
   isTitle = false,
   isBold = false,
   isSelect = false,
