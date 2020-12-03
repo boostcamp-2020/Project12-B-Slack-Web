@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Text, Icon } from '@components/atoms';
 import BlueStar from '@imgs/star-blue.png';
+import { color } from '@theme/index';
 
 interface ChatroomHeaderProps {
   children: React.ReactNode;
@@ -16,7 +17,7 @@ const ChatroomHeaderContainter = styled.div<any>`
   height: 10%;
   width: 100%;
   border-bottom: 1px solid #e2e2e2;
-  background-color: white;
+  background-color: ${color.tertiary};
   z-index: 2;
 `;
 
@@ -34,7 +35,7 @@ const ChatroomHeader: React.FC<ChatroomHeaderProps> = ({ children, title, ...pro
   return (
     <ChatroomHeaderContainter {...props}>
       <TextContainer>
-        <Text size="small" color="black" isBold={true}>{`# ${title}`}</Text>
+        <Text size="small" fontColor={color.primary} isBold={true}>{`# ${title}`}</Text>
         <IconWrap>
           <Icon size="small" src={BlueStar} isHover={false} />
         </IconWrap>

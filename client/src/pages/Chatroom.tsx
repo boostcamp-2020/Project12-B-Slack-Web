@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ChatroomHeader, ChatroomBody } from '@components/organisms';
-import { api } from '@utils/index';
 
 interface ChatroomProps {
   children: React.ReactNode;

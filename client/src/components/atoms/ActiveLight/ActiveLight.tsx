@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { color } from '@theme/index';
 
 interface ActiveLightProps {
   size?: 'small' | 'medium' | 'large';
@@ -22,10 +23,10 @@ const ActiveLightContainter = styled.div<ActiveLightProps>`
     if (props.size === 'medium') return '0.13rem';
     return '0.1rem';
   }};
-  border-color: ${(props) => (props.isActive ? '#33e600' : '#c6c6c7')};
+  border-color: ${(props) => (props.isActive ? color.light_primary : color.border_secondary)};
   border-style: solid;
   border-radius: 1rem;
-  background-color: ${(props) => (props.isActive ? '#33e600' : 'black')};
+  background-color: ${(props) => (props.isActive ? color.light_primary : color.primary)};
 `;
 
 const ActiveLight: React.FC<ActiveLightProps> = ({ size = 'medium', isActive = true, ...props }) => {
