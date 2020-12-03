@@ -12,4 +12,9 @@ const oauthLogin = async () => {
   window.location.href = `${axios.defaults.baseURL}/oauth/github/login`;
 };
 
-export { getToken, oauthLogin };
+const getUserInfo = async () => {
+  const response = await axios.get('/api/auth');
+  return response.data;
+};
+
+export { getToken, oauthLogin, getUserInfo };
