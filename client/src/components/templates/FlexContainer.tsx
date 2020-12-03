@@ -14,4 +14,4 @@ const FlexContainer: React.FC<any> = ({ children }) => {
   return <StyledFlexContainer>{children}</StyledFlexContainer>;
 };
 
-export { FlexContainer };
+export default FlexContainer;

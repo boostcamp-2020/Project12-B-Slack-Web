@@ -1,3 +1,5 @@
-import { FlexContainer } from './FlexContainer';
+import FlexContainer from './FlexContainer';
+import Main from './Main';
+import MainBox from './MainBox';
 
-export { FlexContainer };
+export { FlexContainer, Main, MainBox };
