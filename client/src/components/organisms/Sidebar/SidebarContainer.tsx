@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import { Sidebar } from './Sidebar';
 
-function mapReduxStateToReactProps(state: any) {
+function mapReduxStateToReactProps(reducer: any) {
+  const state = reducer.sidebarReducer;
   return {
     starred: state.starred,
     otherSections: state.otherSections,
