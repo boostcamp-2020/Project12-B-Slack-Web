@@ -138,7 +138,7 @@ class UserChatroomService {
       throw new BadRequestError();
     }
 
-    await this.saveChatroom(user, chatroom);
+    await this.saveUserChatroom(user, chatroom);
   }
 
   @Transactional()
@@ -161,7 +161,7 @@ class UserChatroomService {
           throw new BadRequestError();
         }
 
-        await this.saveChatroom(user, chatroom);
+        await this.saveUserChatroom(user, chatroom);
       })
     );
   }
@@ -170,13 +170,13 @@ class UserChatroomService {
     const userChatroom = await this.userChatroomRepository
       .createQueryBuilder('userChatroom')
       .where('userChatroom.user.userId = :userId', { userId })
-      .where('userChatroom.chatroom.chatroomId = :chatroomId', { chatroomId })
+      .andWhere('userChatroom.chatroom.chatroomId = :chatroomId', { chatroomId })
       .getOne();
 
     return !!userChatroom;
   }
 
-  private async saveChatroom(user, chatroom) {
+  private async saveUserChatroom(user, chatroom) {
     const sectionName = chatroom.chatType === ChatType.DM ? DefaultSectionName.DirectMessages : DefaultSectionName.Channels;
     const newUserChatroom = this.userChatroomRepository.create({ user, chatroom, sectionName });
     await validator(newUserChatroom);
