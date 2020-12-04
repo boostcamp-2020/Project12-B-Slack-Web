@@ -109,7 +109,7 @@ class ChatroomService {
   }
 
   @Transactional()
-  async getChatroomInfo(chatroomId: number) {
+  async getChatroomInfo(chatroomId: number, userId: number) {
     const chatroom = await this.chatroomRepository
       .createQueryBuilder('chatroom')
       .where('chatroom.chatroomId = :chatroomId', { chatroomId })
@@ -124,20 +124,41 @@ class ChatroomService {
       .createQueryBuilder('userChatroom')
       .where('userChatroom.chatroomId = :chatroomId', { chatroomId })
       .leftJoinAndSelect('userChatroom.user', 'user')
+      .select(['userChatroom', 'user.userId', 'user.profileUri', 'user.displayName'])
       .getMany();
 
     if (!userChatrooms) {
       throw new NotFoundError();
     }
 
-    const users = userChatrooms.map((userChatroom) => {
-      const { userId, profileUri, displayName } = userChatroom.user;
-      return { userId, profileUri, displayName };
-    });
+    const users = userChatrooms.map((userChatroom) => userChatroom.user);
 
     const userCount = users.length;
+    const { chatType } = chatroom;
+
+    if (chatType === ChatType.DM) {
+      const title = this.findTitle(users, userId);
+      const { description, isPrivate, topic } = chatroom;
+      return { title, description, isPrivate, chatType, topic, userCount, users };
+    }
 
     return { ...chatroom, userCount, users };
+  }
+
+  private findTitle(users: any[], userId: number) {
+    if (users.every((user) => user.userId === userId)) {
+      const { displayName } = users[0];
+      return displayName;
+    }
+
+    const title = users
+      .filter((user) => user.userId !== userId)
+      .reduce((str, user) => {
+        if (!str) return user.displayName;
+        return `${str}, ${user.displayName}`;
+      }, '');
+
+    return title;
   }
 
   async updateChatroom(chatroomId: number, title: string, topic: string, description: string) {
