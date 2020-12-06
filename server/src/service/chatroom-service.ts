@@ -92,7 +92,7 @@ class ChatroomService {
     return customChatrooms;
   }
 
-  getFilterPrivateChatrooms(chatrooms: any, userId: Number) {
+  private getFilterPrivateChatrooms(chatrooms: any, userId: Number) {
     return chatrooms.filter((chatroom) => {
       let isJoin;
       if (chatroom.isPrivate)
@@ -103,7 +103,7 @@ class ChatroomService {
     });
   }
 
-  getCustomChatrooms(chatrooms: any) {
+  private getCustomChatrooms(chatrooms: any) {
     return chatrooms.map((chatroom) => {
       const { chatroomId, title, description, isPrivate, userChatrooms } = chatroom;
       const members = userChatrooms.length;
