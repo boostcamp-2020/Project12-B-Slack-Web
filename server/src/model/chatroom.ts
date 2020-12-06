@@ -35,7 +35,7 @@ export default class Chatroom {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @OneToMany(() => UserChatroom, (userChatroom) => userChatroom.user)
+  @OneToMany(() => UserChatroom, (userChatroom) => userChatroom.chatroom)
   userChatrooms: UserChatroom[];
 
   @OneToMany(() => Message, (message) => message.chatroom)

@@ -76,6 +76,41 @@ class ChatroomService {
     return newUserChatroom;
   }
 
+  async getChatrooms(userId: Number) {
+    const chatrooms = await this.chatroomRepository
+      .createQueryBuilder('chatroom')
+      .where('chatroom.chatType = :chatType', { chatType: 'Channel' })
+      .leftJoin('chatroom.userChatrooms', 'userChatrooms')
+      .leftJoin('userChatrooms.user', 'user')
+      .select(['chatroom.chatroomId', 'chatroom.title', 'chatroom.description', 'chatroom.isPrivate'])
+      .addSelect(['userChatrooms.userChatroomId'])
+      .addSelect(['user.userId'])
+      .orderBy('chatroom.title')
+      .getMany();
+    const filterChatrooms = this.getFilterPrivateChatrooms(chatrooms, userId);
+    const customChatrooms = this.getCustomChatrooms(filterChatrooms);
+    return customChatrooms;
+  }
+
+  getFilterPrivateChatrooms(chatrooms: any, userId: Number) {
+    return chatrooms.filter((chatroom) => {
+      let isJoin;
+      if (chatroom.isPrivate)
+        chatroom.userChatrooms.forEach((userChatroom) => {
+          if (userChatroom.user.userId === userId) isJoin = true;
+        });
+      return !chatroom.isPrivate || isJoin;
+    });
+  }
+
+  getCustomChatrooms(chatrooms: any) {
+    return chatrooms.map((chatroom) => {
+      const { chatroomId, title, description, isPrivate, userChatrooms } = chatroom;
+      const members = userChatrooms.length;
+      return { chatroomId, title, description, isPrivate, members };
+    });
+  }
+
   @Transactional()
   async getChatroomInfo(chatroomId: number) {
     const chatroom = await this.chatroomRepository
