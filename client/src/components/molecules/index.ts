@@ -9,6 +9,7 @@ import { Message } from './Message/Message';
 import { BrowsePageChannelHeader } from './BrowsePageChannelHeader/BrowsePageChannelHeader';
 import { BrowsePageChannelBody } from './BrowsePageChannelBody/BrowsePageChannelBody';
 import { BrowsePageChannelButton } from './BrowsePageChannelButton/BrowsePageChannelButton';
+import { UserBox } from './UserBox/UserBox';
 
 export {
   ActiveProfileImg,
@@ -21,5 +22,6 @@ export {
   Message,
   BrowsePageChannelHeader,
   BrowsePageChannelBody,
-  BrowsePageChannelButton
+  BrowsePageChannelButton,
+  UserBox
 };
