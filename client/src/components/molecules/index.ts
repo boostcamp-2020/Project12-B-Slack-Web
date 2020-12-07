@@ -6,5 +6,20 @@ import { InputMessage } from './InputMessage/InputMessage';
 import { SendMessageButton } from './SendMessageButton/SendMessageButton';
 import { GithubLoginButton } from './GithubLoginButton/GithubLoginButton';
 import { Message } from './Message/Message';
+import { BrowsePageChannelHeader } from './BrowsePageChannelHeader/BrowsePageChannelHeader';
+import { BrowsePageChannelBody } from './BrowsePageChannelBody/BrowsePageChannelBody';
+import { BrowsePageChannelButton } from './BrowsePageChannelButton/BrowsePageChannelButton';
 
-export { ActiveProfileImg, Channel, DM, Section, InputMessage, SendMessageButton, GithubLoginButton, Message };
+export {
+  ActiveProfileImg,
+  Channel,
+  DM,
+  Section,
+  InputMessage,
+  SendMessageButton,
+  GithubLoginButton,
+  Message,
+  BrowsePageChannelHeader,
+  BrowsePageChannelBody,
+  BrowsePageChannelButton
+};
