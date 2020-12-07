@@ -4,13 +4,14 @@ import { Text } from '@components/atoms';
 import { ActiveProfileImg } from '@components/molecules';
 import { useHistory } from 'react-router-dom';
 import { color } from '@theme/index';
+import { useDispatch } from 'react-redux';
+import { pickChannel } from '@store/actions/chatroom-action';
 
 interface DMProps {
   children: React.ReactChild;
   isSelect?: boolean;
   src?: string;
   chatroomId?: number;
-  chatroomClick: any;
 }
 
 const DMContainter = styled.div<any>`
@@ -25,11 +26,13 @@ const TextWrap = styled.div<any>`
   margin-left: 1rem;
 `;
 
-const DM: React.FC<DMProps> = ({ children, chatroomClick, src, chatroomId, isSelect = false, ...props }) => {
+const DM: React.FC<DMProps> = ({ children, src, chatroomId, isSelect = false, ...props }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
   const handlingClick = () => {
     if (window.location.pathname !== `/client/${chatroomId}`) history.push(`/client/${chatroomId}`);
-    chatroomClick(chatroomId);
+    dispatch(pickChannel({ selectedChatroomId: chatroomId }));
   };
 
   return (

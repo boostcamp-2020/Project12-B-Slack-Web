@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Icon, Text } from '@components/atoms';
 import styled from 'styled-components';
-import { api } from '@utils/index';
+import { API } from '@utils/index';
 import { color } from '@theme/index';
 
 interface GithubLoginButtonProps {
@@ -13,7 +13,7 @@ const TextWrap = styled.div`
 `;
 
 const handlingGithubLoginButton = async () => {
-  await api.oauthLogin();
+  await API.oauthLogin();
 };
 
 const GithubLoginButton: React.FC<GithubLoginButtonProps> = ({ ...props }) => {
