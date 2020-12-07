@@ -23,6 +23,15 @@ const ChatroomController = {
       next(err);
     }
   },
+  async getChatrooms(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { userId } = req.user;
+      const chatroom = await ChatroomService.getInstance().getChatrooms(Number(userId));
+      res.status(HttpStatusCode.OK).json(chatroom);
+    } catch (err) {
+      next(err);
+    }
+  },
   async getChatroomInfo(req: Request, res: Response, next: NextFunction) {
     try {
       const { userId } = req.user;
