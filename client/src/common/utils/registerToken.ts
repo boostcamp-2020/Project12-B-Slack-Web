@@ -1,9 +1,9 @@
-import { api, uriParser } from '@utils/index';
+import { API, uriParser } from '@utils/index';
 
 const registerToken = async () => {
   if (uriParser.isExistParseCode()) {
     const code = uriParser.getCode();
-    const token = await api.getToken(code);
+    const token = await API.getToken(code);
     if (token) {
       localStorage.setItem('token', token);
       window.location.href = '/';
