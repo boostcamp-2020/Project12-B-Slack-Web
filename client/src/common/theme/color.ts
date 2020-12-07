@@ -7,6 +7,7 @@ const color = {
   text_tertiary: 'rgba(147,147,147,1)',
   text_quaternary: 'rgba(83,83,83,1)',
   text_quinary: 'rgb(160, 158, 169)',
+  text_septenary: '#1d9bd1',
   border_primary: '#e2e2e2',
   border_secondary: '#c6c6c6',
   light_primary: '#33e600',
