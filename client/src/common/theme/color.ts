@@ -2,6 +2,7 @@ const color = {
   primary: 'black',
   secondary: '#1a1d21',
   tertiary: 'white',
+  quaternary: 'rgb(246, 246, 246)',
   text_primary: 'rgb(198, 199, 200)',
   text_secondary: 'white',
   text_tertiary: 'rgba(147,147,147,1)',
@@ -9,6 +10,7 @@ const color = {
   text_quinary: 'rgb(160, 158, 169)',
   border_primary: '#e2e2e2',
   border_secondary: '#c6c6c6',
+  border_tertiary: '#1d9bd1',
   light_primary: '#33e600',
   box_shadow_primary: 'rgba(27, 31, 35, 0.075)',
   box_shadow_secondary: 'rgba(3, 102, 214, 0.3)',
@@ -20,7 +22,8 @@ const color = {
   button_secondary: '#017a5a',
   button_tertiary: 'rgba(221,221,221,1)',
   sidebar_bg: '#1a1e22',
-  sidebar_border: '#313537'
+  sidebar_border: '#313537',
+  emoji_bg: 'rgb(232, 245, 250)'
 };
 
 export default color;
