@@ -1,3 +1,4 @@
+import { color } from '@theme/index';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -5,13 +6,13 @@ interface TextProps {
   size?: 'small' | 'medium' | 'large' | 'big';
   children: React.ReactChild;
   isBold?: boolean;
-  color?: string;
+  fontColor?: string;
   isSelect?: boolean;
   isTitle?: boolean;
 }
 
 const StyledText = styled.p<any>`
-  color: ${(props) => (props.isSelect || props.isTitle ? 'white' : props.color)};
+  color: ${(props) => (props.isSelect || props.isTitle ? color.text_secondary : props.color)};
   font-size: ${(props) => {
     if (props.size === 'big') return '3rem';
     if (props.size === 'large') return '1.5rem';
@@ -25,14 +26,14 @@ const StyledText = styled.p<any>`
 const Text: React.FC<TextProps> = ({
   children,
   size = 'medium',
-  color = 'rgb(198, 199, 200)',
+  fontColor = color.text_primary,
   isTitle = false,
   isBold = false,
   isSelect = false,
   ...props
 }) => {
   return (
-    <StyledText size={size} isTitle={isTitle} color={color} isBold={isBold} isSelect={isSelect} {...props}>
+    <StyledText size={size} isTitle={isTitle} color={fontColor} isBold={isBold} isSelect={isSelect} {...props}>
       {children}
     </StyledText>
   );

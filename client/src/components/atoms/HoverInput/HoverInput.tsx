@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { color } from '@theme/index';
 
 interface HoverInputProps {
   placeholder?: string;
@@ -11,12 +12,12 @@ const StyledHoverInput = styled.input<any>`
   height: 2.5rem;
   font-size: 1rem;
   outline: none;
-  border: 1px solid black;
+  border: 1px solid ${color.primary};
   border-radius: 0.3rem;
 
   &:focus {
-    box-shadow: inset 0 1px 2px rgba(27, 31, 35, 0.075), 0 0 0 3px rgba(3, 102, 214, 0.3);
-    containerStyle.border = 1px solid black;
+    box-shadow: inset 0 1px 2px ${color.box_shadow_primary}, 0 0 0 3px ${color.box_shadow_secondary};
+    containerStyle.border = 1px solid ${color.primary};
   }
 `;
 

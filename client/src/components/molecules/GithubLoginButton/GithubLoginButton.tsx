@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Icon, Text } from '@components/atoms';
 import styled from 'styled-components';
 import { api } from '@utils/index';
+import { color } from '@theme/index';
 
 interface GithubLoginButtonProps {
   size?: 'small' | 'large';
@@ -17,10 +18,10 @@ const handlingGithubLoginButton = async () => {
 
 const GithubLoginButton: React.FC<GithubLoginButtonProps> = ({ ...props }) => {
   return (
-    <Button onClick={handlingGithubLoginButton} backgroundColor="black" borderColor="black" fontColor="black" {...props}>
+    <Button onClick={handlingGithubLoginButton} backgroundColor={color.primary} borderColor={color.primary} fontColor={color.primary} {...props}>
       <Icon src="https://user-images.githubusercontent.com/32856129/98276858-ef6a0880-1fd9-11eb-9473-c8844c066cce.png" isHover={false} />
       <TextWrap>
-        <Text color="white"> Github Login </Text>
+        <Text fontColor={color.text_secondary}> Github Login </Text>
       </TextWrap>
     </Button>
   );

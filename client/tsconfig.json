@@ -16,7 +16,7 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@pages/*": ["src/pages/*"],
-      "@style/*": ["src/common/style/*"],
+      "@theme/*": ["src/common/theme/*"],
       "@utils/*": ["src/common/utils/*"],
       "@store/*": ["src/common/store/*"],
       "@dispatch/*": ["src/common/dispatch/*"],

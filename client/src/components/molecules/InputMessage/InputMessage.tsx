@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Input } from '@components/atoms';
 import { SendMessageButton } from '@components/molecules';
+import { color } from '@theme/index';
 
 interface InputMessageProps {
   isThread?: boolean;
@@ -12,7 +13,7 @@ const InputMessageContainer = styled.div<any>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid ${color.primary};
   padding: 0.5rem 0rem;
   width: 100%;
   max-height: 70%;
