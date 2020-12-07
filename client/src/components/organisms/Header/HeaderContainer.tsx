@@ -3,7 +3,7 @@ import { Header } from './Header';
 
 function mapReduxStateToReactProps(state: any) {
   return {
-    profileUri: state.profileUri
+    profileUri: state.userData.profileUri
   };
 }
 

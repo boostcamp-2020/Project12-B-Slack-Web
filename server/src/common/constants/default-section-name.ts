@@ -1,6 +1,7 @@
-const DefaultSectionName = {
-  Channels: 'Channels',
-  DirectMessages: 'DirectMessages'
-};
+const enum DefaultSectionName {
+  Channels = 'Channels',
+  DirectMessages = 'Direct Messages',
+  Starred = 'Starred'
+}
 
 export default DefaultSectionName;

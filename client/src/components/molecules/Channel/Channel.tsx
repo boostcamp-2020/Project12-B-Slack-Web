@@ -4,6 +4,7 @@ import { Icon, Text } from '@components/atoms';
 import ChannelIcon from '@imgs/channel-icon.png';
 import LockIcon from '@imgs/lock-icon.png';
 import { useHistory } from 'react-router-dom';
+import { color } from '@theme/index';
 
 interface ChannelProps {
   children: React.ReactChild;
@@ -18,7 +19,7 @@ const ChannelContainter = styled.div<any>`
   align-items: baseline;
   padding: 0.4rem 1rem;
   cursor: pointer;
-  ${(props) => (props.isSelect ? 'background-color: #0576b9' : '&:hover { background-color: black;}')}
+  ${(props) => (props.isSelect ? `background-color: ${color.selected_chatroom}` : `&:hover { background-color: ${color.primary};}`)}
 `;
 
 const TextWrap = styled.div<any>`

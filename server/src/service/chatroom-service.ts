@@ -3,28 +3,12 @@ import { Transactional } from 'typeorm-transactional-cls-hooked';
 import ChatroomRepository from '@repository/chatroom-repository';
 import UserRepository from '@repository/user-repository';
 import UserChatroomRepository from '@repository/user-chatroom-repository';
-import User from '@model/user';
-import Chatroom from '@model/chatroom';
 import validator from '@utils/validator';
 import BadRequestError from '@error/bad-request-error';
 import NotFoundError from '@error/not-found-error';
-
-interface saveChatroomParams {
-  title: string;
-  description: string;
-  isPrivate: boolean;
-  chatType: 'DM' | 'Channel';
-}
-
-interface createChatroomParams extends saveChatroomParams {
-  userId: number;
-}
-
-interface saveUserChatroomParams {
-  sectionName: string;
-  user: User;
-  chatroom: Chatroom;
-}
+import ChatType from '@constants/chat-type';
+import DefaultSectionName from '@constants/default-section-name';
+import ConflictError from '@error/conflict-error';
 
 class ChatroomService {
   static instance: ChatroomService;
@@ -49,27 +33,75 @@ class ChatroomService {
   }
 
   @Transactional()
-  async createChatroom({ userId, title, description, isPrivate, chatType }: createChatroomParams) {
+  async createChannel({ userId, title, description, isPrivate }) {
     const user = await this.userRepository.findOne(userId);
     const chatroom = await this.chatroomRepository.findByTitle(title);
-    const sectionName = chatType === 'DM' ? 'Direct Message' : 'Channels';
 
     if (chatroom || !user) {
       throw new BadRequestError();
     }
 
-    const newChatroom = await this.saveChatroom({ title, description, isPrivate, chatType });
-    await this.saveUserChatroom({ sectionName, user, chatroom: newChatroom });
+    const newChatroom = await this.saveChatroom({ title, description, isPrivate, chatType: ChatType.Channel });
+    await this.saveUserChatroom({ sectionName: DefaultSectionName.Channels, user, chatroom: newChatroom });
+    return newChatroom.chatroomId;
   }
 
-  private async saveChatroom({ title, description, isPrivate, chatType }: saveChatroomParams) {
+  @Transactional()
+  async createDM(userId: number, invitedUserId: number) {
+    const user = await this.userRepository.findOne(userId);
+    const invitedUser = await this.userRepository.findOne(invitedUserId);
+
+    if (!user || !invitedUser) {
+      throw new BadRequestError();
+    }
+
+    await this.validateExistsDM(userId, invitedUserId);
+
+    const newChatroom = await this.saveChatroom({ title: null, description: null, isPrivate: true, chatType: ChatType.DM });
+    await this.saveUserChatroom({ sectionName: DefaultSectionName.DirectMessages, user, chatroom: newChatroom });
+    await this.saveUserChatroom({ sectionName: DefaultSectionName.DirectMessages, user: invitedUser, chatroom: newChatroom });
+    return newChatroom.chatroomId;
+  }
+
+  private async validateExistsDM(userId: number, invitedUserId: number) {
+    const userChatrooms = await this.userChatroomRepository
+      .createQueryBuilder('userChatroom')
+      .leftJoinAndSelect('userChatroom.chatroom', 'chatroom')
+      .where('userChatroom.user.userId = :userId', { userId })
+      .andWhere('chatroom.chatType = :chatType', { chatType: ChatType.DM })
+      .getMany();
+
+    await Promise.all(
+      userChatrooms.map(async (userChatroom) => {
+        const { chatroomId } = userChatroom.chatroom;
+        const otherUserChatroom = await this.userChatroomRepository
+          .createQueryBuilder('userChatroom')
+          .leftJoinAndSelect('userChatroom.chatroom', 'chatroom')
+          .leftJoinAndSelect('userChatroom.user', 'user')
+          .where('chatroom.chatroomId = :chatroomId', { chatroomId })
+          .andWhere('userChatroom.user.userId != :userId', { userId })
+          .andWhere('chatroom.chatType = :chatType', { chatType: ChatType.DM })
+          .getOne();
+
+        if (otherUserChatroom && otherUserChatroom.user.userId === invitedUserId) {
+          throw new ConflictError();
+        }
+      })
+    );
+  }
+
+  private async saveChatroom({ title, description, isPrivate, chatType }) {
     const chatroom = this.chatroomRepository.create({ title, description, isPrivate, chatType });
-    await validator(chatroom);
+
+    if (chatType === ChatType.Channel) {
+      await validator(chatroom);
+    }
+
     const newChatroom = await this.chatroomRepository.save(chatroom);
     return newChatroom;
   }
 
-  private async saveUserChatroom({ sectionName, user, chatroom }: saveUserChatroomParams) {
+  private async saveUserChatroom({ sectionName, user, chatroom }) {
     const userChatroom = this.userChatroomRepository.create({ sectionName, user, chatroom });
     await validator(userChatroom);
     const newUserChatroom = await this.userChatroomRepository.save(userChatroom);
@@ -112,7 +144,7 @@ class ChatroomService {
   }
 
   @Transactional()
-  async getChatroomInfo(chatroomId: number) {
+  async getChatroomInfo(chatroomId: number, userId: number) {
     const chatroom = await this.chatroomRepository
       .createQueryBuilder('chatroom')
       .where('chatroom.chatroomId = :chatroomId', { chatroomId })
@@ -127,20 +159,41 @@ class ChatroomService {
       .createQueryBuilder('userChatroom')
       .where('userChatroom.chatroomId = :chatroomId', { chatroomId })
       .leftJoinAndSelect('userChatroom.user', 'user')
+      .select(['userChatroom', 'user.userId', 'user.profileUri', 'user.displayName'])
       .getMany();
 
     if (!userChatrooms) {
       throw new NotFoundError();
     }
 
-    const users = userChatrooms.map((userChatroom) => {
-      const { userId, profileUri, displayName } = userChatroom.user;
-      return { userId, profileUri, displayName };
-    });
+    const users = userChatrooms.map((userChatroom) => userChatroom.user);
 
     const userCount = users.length;
+    const { chatType } = chatroom;
+
+    if (chatType === ChatType.DM) {
+      const title = this.findTitle(users, userId);
+      const { description, isPrivate, topic } = chatroom;
+      return { title, description, isPrivate, chatType, topic, userCount, users };
+    }
 
     return { ...chatroom, userCount, users };
+  }
+
+  private findTitle(users: any[], userId: number) {
+    if (users.every((user) => user.userId === userId)) {
+      const { displayName } = users[0];
+      return displayName;
+    }
+
+    const title = users
+      .filter((user) => user.userId !== userId)
+      .reduce((str, user) => {
+        if (!str) return user.displayName;
+        return `${str}, ${user.displayName}`;
+      }, '');
+
+    return title;
   }
 
   async updateChatroom(chatroomId: number, title: string, topic: string, description: string) {

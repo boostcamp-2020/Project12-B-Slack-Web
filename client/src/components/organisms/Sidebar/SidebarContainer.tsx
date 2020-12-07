@@ -3,11 +3,11 @@ import { Sidebar } from './Sidebar';
 
 function mapReduxStateToReactProps(state: any) {
   return {
-    starred: state.starred,
-    otherSections: state.otherSections,
-    channels: state.channels,
-    directMessages: state.directMessages,
-    selectedChatroomId: state.selectedChatroomId
+    starred: state.sidebarData.starred,
+    otherSections: state.sidebarData.otherSections,
+    channels: state.sidebarData.channels,
+    directMessages: state.sidebarData.directMessages,
+    selectedChatroomId: state.sidebarData.selectedChatroomId
   };
 }
 

@@ -1,6 +1,7 @@
 import { Factory, Seeder } from 'typeorm-seeding';
 import { Connection } from 'typeorm';
-import Chatroom from '../model/chatroom';
+import ChatType from '@constants/chat-type';
+import Chatroom from '@model/chatroom';
 
 export default class CreateChatrooms implements Seeder {
   public async run(factory: Factory, connection: Connection): Promise<any> {
@@ -8,7 +9,7 @@ export default class CreateChatrooms implements Seeder {
       {
         title: 'random',
         isPrivate: false,
-        chatType: 'Channel'
+        chatType: ChatType.Channel
       }
     ];
     const res = await connection.getRepository(Chatroom).findOne(chatroomData[0]);

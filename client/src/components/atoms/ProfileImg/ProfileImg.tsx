@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Logo from '@imgs/logo.png';
+import { color } from '@theme/index';
 
 interface ProfileImgProps {
   size?: 'small' | 'medium' | 'large';
@@ -25,7 +26,7 @@ const ProfileImgContainter = styled.div<ProfileImgProps>`
     if (props.size === 'medium') return '0.3rem';
     return '0.2rem';
   }};
-  background-color: black;
+  background-color: ${color.primary};
 `;
 
 const Img = styled.img<any>`

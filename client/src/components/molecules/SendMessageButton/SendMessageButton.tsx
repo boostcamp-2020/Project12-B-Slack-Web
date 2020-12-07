@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Icon } from '@components/atoms';
 import SendMessageIcon from '@imgs/send-message-icon.png';
+import { color } from '@theme/index';
 
 interface SendMessageButtonProps {
   isActive: boolean;
@@ -15,7 +16,7 @@ const SendMessageButtonContainer = styled.div<any>`
   padding: 0.3rem;
   border-radius: 0.3rem;
   cursor: pointer;
-  ${(props) => (props.isActive ? 'background-color: #017a5a' : '')}
+  ${(props) => (props.isActive ? `background-color: ${color.button_secondary}` : '')}
 `;
 
 const SendMessageButton: React.FC<SendMessageButtonProps> = ({ isActive, ...props }) => {

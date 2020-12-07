@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ActiveLight, ProfileImg } from '@components/atoms';
 import Logo from '@imgs/logo.png';
+import { color } from '@theme/index';
 
 interface ActiveProfileImgProps {
   size?: 'small' | 'medium' | 'large';
@@ -28,7 +29,7 @@ const ActiveLightWrap = styled.div<any>`
   position: absolute;
   right: -5px;
   bottom: -5px;
-  border-color: black;
+  border-color: ${color.primary};
   border-style: solid;
   border-radius: 1rem;
 `;

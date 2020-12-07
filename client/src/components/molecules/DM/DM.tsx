@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Text } from '@components/atoms';
 import { ActiveProfileImg } from '@components/molecules';
 import { useHistory } from 'react-router-dom';
+import { color } from '@theme/index';
 
 interface DMProps {
   children: React.ReactChild;
@@ -17,7 +18,7 @@ const DMContainter = styled.div<any>`
   align-items: center;
   padding: 0.4rem 1rem;
   cursor: pointer;
-  ${(props) => (props.isSelect ? 'background-color: #0576b9' : '&:hover { background-color: black;}')}
+  ${(props) => (props.isSelect ? `background-color: ${color.selected_chatroom}` : `&:hover { background-color: ${color.primary};}`)}
 `;
 
 const TextWrap = styled.div<any>`
