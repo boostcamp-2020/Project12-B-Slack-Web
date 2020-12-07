@@ -21,5 +21,5 @@ HeartEmoji.args = {
 
 export const CheckEmoji = Template.bind({});
 CheckEmoji.args = {
-  text: ':heavy_check_mark:'
+  text: ':white_check_mark:'
 };
