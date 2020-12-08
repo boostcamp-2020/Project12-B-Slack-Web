@@ -139,7 +139,7 @@ class ReplyService {
 
   async updateReply(replyId: number, content: string) {
     const reply = await this.replyRepository.create({ replyId, content });
-    validator(reply);
+    await validator(reply);
     const updatedReply = await this.replyRepository.save(reply);
     return updatedReply;
   }
