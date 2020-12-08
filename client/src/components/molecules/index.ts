@@ -10,6 +10,7 @@ import { BrowsePageChannelHeader } from './BrowsePageChannelHeader/BrowsePageCha
 import { BrowsePageChannelBody } from './BrowsePageChannelBody/BrowsePageChannelBody';
 import { BrowsePageChannelButton } from './BrowsePageChannelButton/BrowsePageChannelButton';
 import { UserBox } from './UserBox/UserBox';
+import { ChannelModal } from './ChannelModal/ChannelModal';
 
 export {
   ActiveProfileImg,
@@ -24,4 +25,5 @@ export {
   BrowsePageChannelBody,
   BrowsePageChannelButton,
   UserBox
+  ChannelModal
 };
