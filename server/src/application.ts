@@ -11,6 +11,8 @@ import logger from 'morgan';
 import passportConfig from '@config/passport';
 import cookieParser from 'cookie-parser';
 import redis from '@middleware/redis';
+import Socket from '@socket/socket';
+import initSocketIo from '@socket/init-socket';
 
 export default class Application {
   app: Express;
@@ -56,9 +58,11 @@ export default class Application {
 
   listen() {
     const PORT = process.env.PORT || 3000;
-    this.app.listen(PORT, () => {
+    const server = this.app.listen(PORT, () => {
       console.log(`server is running on ${PORT}`);
     });
+    const io = Socket(server);
+    initSocketIo(io);
   }
 }
 
