@@ -11,7 +11,7 @@ const messageHandler = {
     const newReply = await ReplyService.getInstance().getReply(replyId);
     const replyInfo = await ReplyService.getInstance().getReplyInfo(replyId);
     const { chatroomId } = replyInfo.message.chatroom;
-    io.to(String(chatroomId)).emit(eventName.createReply, { ...newReply, chatroomId });
+    io.to(String(chatroomId)).emit(eventName.CREATE_REPLY, { ...newReply, chatroomId });
   },
 
   async updateReply(io, socket, reply) {
@@ -19,7 +19,7 @@ const messageHandler = {
     await ReplyService.getInstance().updateReply(replyId, content);
     const replyInfo = await ReplyService.getInstance().getReplyInfo(replyId);
     const { chatroomId } = replyInfo.message.chatroom;
-    io.to(String(chatroomId)).emit(eventName.updateReply, { replyId, content, chatroomId });
+    io.to(String(chatroomId)).emit(eventName.UPDATE_REPLY, { replyId, content, chatroomId });
   },
 
   async deleteReply(io, socket, reply) {
@@ -28,7 +28,7 @@ const messageHandler = {
     const { messageId } = replyInfo.message;
     const { chatroomId } = replyInfo.message.chatroom;
     await ReplyService.getInstance().deleteReply(replyId);
-    io.to(String(chatroomId)).emit(eventName.deleteReply, { replyId, messageId, chatroomId });
+    io.to(String(chatroomId)).emit(eventName.DELETE_REPLY, { replyId, messageId, chatroomId });
   }
 };
 
