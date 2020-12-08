@@ -1,0 +1,20 @@
+import React from 'react';
+import { Story, Meta } from '@storybook/react/types-6-0';
+import { BrowsePageControls, BrowsePageControlsProps } from './BrowsePageControls';
+
+export default {
+  title: 'molecules/BrowsePageControls',
+  component: BrowsePageControls
+} as Meta;
+
+const handlingSortButton = () => {};
+const handlingFilterButton = () => {};
+
+const Template: Story<BrowsePageControlsProps> = (args) => <BrowsePageControls {...args} />;
+
+export const BlackBrowsePageControls = Template.bind({});
+BlackBrowsePageControls.args = {
+  channelCount: 193,
+  handlingSortButton,
+  handlingFilterButton
+};
