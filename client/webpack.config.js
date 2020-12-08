@@ -57,7 +57,8 @@ module.exports = (env, options) => {
         '@theme': path.resolve(__dirname, 'src/common/theme'),
         '@utils': path.resolve(__dirname, 'src/common/utils'),
         '@store': path.resolve(__dirname, 'src/common/store'),
-        '@imgs': path.resolve(__dirname, 'public/imgs')
+        '@imgs': path.resolve(__dirname, 'public/imgs'),
+        '@socket': path.resolve(__dirname, 'src/common/socket')
       }
     },
     plugins: [
