@@ -26,5 +26,20 @@ export default {
   getChatroom: async (id: number) => {
     const response = await axios.get(`/api/chatrooms/${id}`);
     return response.data;
+  },
+
+  postMessage: async (data: any) => {
+    const response = await axios.post('api/messages', data);
+    return response.data;
+  },
+
+  getMessages: async (chatRoomId: number) => {
+    const response = await axios.get(`api/messages/${chatRoomId}`);
+    return response.data;
+  },
+
+  getMessage: async (chatRoomId: number, messageId: number) => {
+    const response = await axios.get(`api/messages/${chatRoomId}/${messageId}`);
+    return response.data;
   }
 };
