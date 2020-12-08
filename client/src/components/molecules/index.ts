@@ -13,6 +13,7 @@ import { MessageReplyBar } from './MessageReplyBar/MessageReplyBar';
 import { EmojiBox } from './EmojiBox/EmojiBox';
 import { UserBox } from './UserBox/UserBox';
 import { ChannelModal } from './ChannelModal/ChannelModal';
+import { BrowsePageControls } from './BrowsePageControls/BrowsePageControls';
 
 export {
   ActiveProfileImg,
@@ -29,5 +30,6 @@ export {
   MessageReplyBar,
   EmojiBox,
   UserBox,
-  ChannelModal
+  ChannelModal,
+  BrowsePageControls
 };
