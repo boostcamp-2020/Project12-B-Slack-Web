@@ -69,6 +69,7 @@ class MessageService {
       .addSelect(['reactionUser.displayName'])
       .addSelect(['replies.createdAt'])
       .addSelect(['replyUser.profileUri'])
+      .orderBy('message.messageId', 'DESC')
       .limit(limit)
       .where('message.chatroomId = :chatroomId AND message.messageId < :offsetId', { chatroomId, offsetId })
       .getMany();
@@ -76,7 +77,7 @@ class MessageService {
     this.customMessagesReaction(messages);
     this.customMessagesReplies(messages);
 
-    return messages;
+    return messages.reverse();
   }
 
   async getRecentMessages(chatroomId: number) {
@@ -95,6 +96,7 @@ class MessageService {
       .addSelect(['reactionUser.displayName'])
       .addSelect(['replies.createdAt'])
       .addSelect(['replyUser.profileUri'])
+      .orderBy('message.messageId', 'DESC')
       .limit(limit)
       .where('message.chatroomId = :chatroomId', { chatroomId })
       .getMany();
@@ -102,7 +104,7 @@ class MessageService {
     this.customMessagesReaction(messages);
     this.customMessagesReplies(messages);
 
-    return messages;
+    return messages.reverse();
   }
 
   async updateMessage(messageId: number, content: string) {
