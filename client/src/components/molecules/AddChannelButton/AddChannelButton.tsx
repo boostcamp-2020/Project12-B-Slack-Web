@@ -6,10 +6,6 @@ import { HoverIcon } from '../HoverIcon/HoverIcon';
 
 interface AddChannelButtonProps {}
 
-const AddChannelButtonWrap = styled.div<any>`
-  position: relative;
-`;
-
 const HoverIconWrap = styled.div<any>`
   display: flex;
 `;
@@ -22,12 +18,12 @@ const AddChannelButton: React.FC<AddChannelButtonProps> = ({ ...props }) => {
   };
 
   return (
-    <AddChannelButtonWrap>
+    <>
       <HoverIconWrap onClick={handlingHoverIconClick}>
         <HoverIcon src={Plus} size="small"></HoverIcon>
       </HoverIconWrap>
       {isOpened && <ChannelModal onClick={handlingHoverIconClick}></ChannelModal>}
-    </AddChannelButtonWrap>
+    </>
   );
 };
 
