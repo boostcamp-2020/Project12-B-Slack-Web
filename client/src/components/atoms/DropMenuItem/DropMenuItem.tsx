@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 interface DropMenuItemProps {
   children: React.ReactNode;
+  onClick?: () => void;
 }
 
 const StyledDropMenuItem = styled.div`
@@ -20,8 +21,8 @@ const StyledDropMenuItem = styled.div`
   }
 `;
 
-const DropMenuItem: React.FC<DropMenuItemProps> = ({ children }) => {
-  return <StyledDropMenuItem>{children}</StyledDropMenuItem>;
+const DropMenuItem: React.FC<DropMenuItemProps> = ({ children, onClick }) => {
+  return <StyledDropMenuItem onClick={onClick}>{children}</StyledDropMenuItem>;
 };
 
 export { DropMenuItem, DropMenuItemProps };
