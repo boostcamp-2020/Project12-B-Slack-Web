@@ -1,15 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import API from '@utils/api';
-import {
-  LOAD,
-  LOAD_ASYNC,
-  INIT_SIDEBAR,
-  INIT_SIDEBAR_ASYNC,
-  PICK_CHANNEL,
-  PICK_CHANNEL_ASYNC,
-  INSERT_MESSAGE_ASYNC,
-  INSERT_MESSAGE
-} from '../types/chatroom-types';
+import { LOAD, LOAD_ASYNC, INIT_SIDEBAR, INIT_SIDEBAR_ASYNC, PICK_CHANNEL, PICK_CHANNEL_ASYNC } from '../types/chatroom-types';
 
 function* loadSaga(action: any) {
   try {
@@ -47,24 +38,8 @@ function* pickChannelSaga(action: any) {
   }
 }
 
-function* insertMessageSaga(action: any) {
-  try {
-    const messageId = yield call(API.postMessage, action.payload);
-    const message = yield call(API.getMessage, action.payload.chatroomId, messageId);
-    yield put({
-      type: INSERT_MESSAGE,
-      payload: {
-        message
-      }
-    });
-  } catch (e) {
-    console.log(e);
-  }
-}
-
 export function* chatroomSaga() {
   yield takeEvery(LOAD_ASYNC, loadSaga);
   yield takeEvery(INIT_SIDEBAR_ASYNC, initSidebarSaga);
   yield takeEvery(PICK_CHANNEL_ASYNC, pickChannelSaga);
-  yield takeEvery(INSERT_MESSAGE_ASYNC, insertMessageSaga);
 }

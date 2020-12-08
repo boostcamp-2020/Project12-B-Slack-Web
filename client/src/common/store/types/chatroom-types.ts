@@ -5,7 +5,6 @@ export const INIT_SIDEBAR_ASYNC = 'INIT_SIDEBAR_ASYNC';
 export const PICK_CHANNEL = 'PICK_CHANNEL';
 export const PICK_CHANNEL_ASYNC = 'PICK_CHANNEL_ASYNC';
 export const INSERT_MESSAGE = 'INSERT_MESSAGE';
-export const INSERT_MESSAGE_ASYNC = 'INSERT_MESSAGE_ASYNC';
 
 export interface selectedChatroomState {
   chatType: string;
