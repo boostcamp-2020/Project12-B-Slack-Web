@@ -24,6 +24,7 @@ type SortMethod = typeof SortMethods[keyof typeof SortMethods];
 const BrowsePageControlsWrap = styled.div<any>`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 1rem 1rem;
 `;
 
@@ -39,7 +40,7 @@ const BrowsePageControls: React.FC<BrowsePageControlsProps> = ({ channelCount, h
 
   return (
     <BrowsePageControlsWrap {...props}>
-      <Text fontColor={color.primary} size="superSmall" isBold={true}>
+      <Text fontColor={color.primary} size="small" isBold={true}>
         {`${channelCount} channels`}
       </Text>
       <BrowsePageControlsButtonWrap>
