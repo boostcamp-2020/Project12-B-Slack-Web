@@ -5,7 +5,6 @@ import BlueStar from '@imgs/star-blue.png';
 import { color } from '@theme/index';
 
 interface ChatroomHeaderProps {
-  children: React.ReactNode;
   title: string;
 }
 
@@ -31,7 +30,7 @@ const IconWrap = styled.div<any>`
   margin-left: 0.5rem;
 `;
 
-const ChatroomHeader: React.FC<ChatroomHeaderProps> = ({ children, title, ...props }) => {
+const ChatroomHeader: React.FC<ChatroomHeaderProps> = ({ title, ...props }) => {
   return (
     <ChatroomHeaderContainter {...props}>
       <TextContainer>

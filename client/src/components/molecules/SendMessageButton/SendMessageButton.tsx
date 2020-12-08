@@ -6,6 +6,7 @@ import { color } from '@theme/index';
 
 interface SendMessageButtonProps {
   isActive: boolean;
+  sendMessage: () => void;
 }
 
 const SendMessageButtonContainer = styled.div<any>`
@@ -19,9 +20,12 @@ const SendMessageButtonContainer = styled.div<any>`
   ${(props) => (props.isActive ? `background-color: ${color.button_secondary}` : '')}
 `;
 
-const SendMessageButton: React.FC<SendMessageButtonProps> = ({ isActive, ...props }) => {
+const SendMessageButton: React.FC<SendMessageButtonProps> = ({ isActive, sendMessage, ...props }) => {
+  const handlingClick = () => {
+    sendMessage();
+  };
   return (
-    <SendMessageButtonContainer isActive={isActive} {...props}>
+    <SendMessageButtonContainer onClick={handlingClick} isActive={isActive} {...props}>
       <Icon size="small" src={SendMessageIcon} isHover={false} isSelect={isActive} />
     </SendMessageButtonContainer>
   );
