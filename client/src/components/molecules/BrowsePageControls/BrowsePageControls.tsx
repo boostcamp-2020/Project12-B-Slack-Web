@@ -12,11 +12,11 @@ interface BrowsePageControlsProps {
 }
 
 export const SortMethods = {
-  newest_channel: 'Newest channel',
-  oldest_channel: 'Oldest channel',
-  most_members: 'Most members',
-  a_to_z: 'A to Z',
-  z_to_z: 'Z to A'
+  NEWEST_CHANNEL: 'Newest channel',
+  OLDEST_CHANNEL: 'Oldest channel',
+  MOST_MEMBERS: 'Most members',
+  A_TO_Z: 'A to Z',
+  Z_TO_A: 'Z to A'
 };
 
 type SortMethod = typeof SortMethods[keyof typeof SortMethods];
@@ -36,7 +36,7 @@ const BrowsePageControlsButtonWrap = styled.div<any>`
 `;
 
 const BrowsePageControls: React.FC<BrowsePageControlsProps> = ({ channelCount, handlingSortButton, handlingFilterButton, ...props }) => {
-  const [sortMethod, setSortMethod] = useState<SortMethod>(SortMethods.a_to_z);
+  const [sortMethod, setSortMethod] = useState<SortMethod>(SortMethods.A_TO_Z);
 
   return (
     <BrowsePageControlsWrap {...props}>
