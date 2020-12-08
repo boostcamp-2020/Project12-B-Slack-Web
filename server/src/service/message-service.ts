@@ -110,8 +110,8 @@ class MessageService {
   async updateMessage(messageId: number, content: string) {
     const message = await this.MessageRepository.create({ messageId, content });
     validator(message);
-    const newMessage = await this.MessageRepository.save({ messageId, content });
-    return newMessage;
+    const updatedMessage = await this.MessageRepository.save({ messageId, content });
+    return updatedMessage;
   }
 
   async deleteMessage(messageId: number) {
