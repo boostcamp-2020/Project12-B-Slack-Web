@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://127.0.0.1:3000';
+axios.defaults.baseURL = process.env.API_URL;
 axios.defaults.headers.common.Authorization = localStorage.getItem('token');
 
 export default {

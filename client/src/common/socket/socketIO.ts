@@ -1,6 +1,8 @@
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:3000', {
+const socketURL: any = process.env.API_URL;
+
+const socket = io(socketURL, {
   transportOptions: {
     polling: {
       extraHeaders: {
