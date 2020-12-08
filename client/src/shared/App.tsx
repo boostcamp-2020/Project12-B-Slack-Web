@@ -3,15 +3,12 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Chatroom, Login } from '@pages/index';
 import { Header, Sidebar } from '@components/organisms';
 import { registerToken, blockPage } from '@utils/index';
-import { getUserInfo, getUserChatroom } from '@dispatch/index';
 import { Main, MainBox } from '@components/templates';
 
 const App = () => {
   useEffect(() => {
     registerToken().then(() => {
       blockPage();
-      getUserInfo();
-      getUserChatroom();
     });
   }, []);
 

@@ -1,13 +1,15 @@
-const initialState = {
+import { userState, UserTypes } from '@store/types/user-types';
+
+const initialState: userState = {
   userId: null,
   profileUri: '',
   displayName: ''
 };
 
-const UserReducer = (state = initialState, action: any) => {
+const UserReducer = (state = initialState, action: UserTypes) => {
   switch (action.type) {
     case 'LOGIN':
-      return { ...state, userId: action.userId, profileUri: action.profileUri, displayName: action.displayName };
+      return { ...state, ...action.payload };
     case 'LOGOUT':
       return { ...state, ...initialState };
     default:

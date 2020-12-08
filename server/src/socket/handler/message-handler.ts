@@ -1,6 +1,7 @@
 import MessageService from '@service/message-service';
 import eventName from '@constants/event-name';
 
+
 const messageHandler = {
   async createMessage(io, socket, message) {
     const req = socket.request;
@@ -16,6 +17,7 @@ const messageHandler = {
     const { chatroomId } = messageInfo.chatroom;
     const updateMessage = await MessageService.getInstance().updateMessage(messageId, content);
     io.to(String(chatroomId)).emit(eventName.updateMessage, updateMessage);
+
   },
   async deleteMessage(io, socket, message) {
     const { messageId } = message;
@@ -23,6 +25,7 @@ const messageHandler = {
     const { chatroomId } = messageInfo.chatroom;
     await MessageService.getInstance().deleteMessage(messageId);
     io.to(String(chatroomId)).emit(eventName.deleteMessage, { messageId });
+
   }
 };
 

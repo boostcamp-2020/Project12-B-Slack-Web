@@ -23,7 +23,7 @@ const StyledHoverIcon = styled.div<HoverIconProps>`
 const HoverIcon: React.FC<HoverIconProps> = ({ size = 'medium', src, ...props }) => {
   return (
     <StyledHoverIcon size={size} {...props}>
-      <Icon size={size} src={src} isHover={false} />
+      <Icon size={size} src={src} isHover />
     </StyledHoverIcon>
   );
 };

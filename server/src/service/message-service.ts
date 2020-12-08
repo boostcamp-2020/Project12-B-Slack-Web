@@ -112,6 +112,7 @@ class MessageService {
     validator(message);
     const updatedMessage = await this.MessageRepository.save({ messageId, content });
     return updatedMessage;
+
   }
 
   async deleteMessage(messageId: number) {
