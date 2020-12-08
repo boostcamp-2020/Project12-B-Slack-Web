@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Button, Text, Icon } from '@components/atoms';
+import { Text } from '@components/atoms';
 import { color } from '@theme/index';
+import { BlackButtonWithIcon } from '@components/molecules';
 import SortIcon from '@imgs/sort-icon.png';
 import FilterIcon from '@imgs/filter-icon.png';
 
@@ -30,9 +31,6 @@ const BrowsePageControlsWrap = styled.div<any>`
 
 const BrowsePageControlsButtonWrap = styled.div<any>`
   display: flex;
-  p {
-    margin-left: 0.3rem;
-  }
 `;
 
 const BrowsePageControls: React.FC<BrowsePageControlsProps> = ({ channelCount, handlingSortButton, handlingFilterButton, ...props }) => {
@@ -44,18 +42,12 @@ const BrowsePageControls: React.FC<BrowsePageControlsProps> = ({ channelCount, h
         {`${channelCount} channels`}
       </Text>
       <BrowsePageControlsButtonWrap>
-        <Button onClick={handlingSortButton} backgroundColor={color.primary} borderColor={color.tertiary} fontColor={color.tertiary} {...props}>
-          <Icon size="small" src={SortIcon} isHover={false} />
-          <Text fontColor={color.text_secondary} size="superSmall">
-            {`Sort: ${sortMethod}`}
-          </Text>
-        </Button>
-        <Button onClick={handlingFilterButton} backgroundColor={color.primary} borderColor={color.tertiary} fontColor={color.tertiary} {...props}>
-          <Icon size="small" src={FilterIcon} isHover={false} />
-          <Text fontColor={color.text_secondary} size="superSmall">
-            Filter
-          </Text>
-        </Button>
+        <BlackButtonWithIcon onClick={handlingSortButton} iconSrc={SortIcon}>
+          {`Sort: ${sortMethod}`}
+        </BlackButtonWithIcon>
+        <BlackButtonWithIcon onClick={handlingFilterButton} iconSrc={FilterIcon}>
+          Filter
+        </BlackButtonWithIcon>
       </BrowsePageControlsButtonWrap>
     </BrowsePageControlsWrap>
   );
