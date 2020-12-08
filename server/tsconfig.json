@@ -23,6 +23,7 @@
       "@router/*": ["src/router/*"],
       "@service/*": ["src/service/*"],
       "@config/*":["src/common/config/*"],
+      "@socket/*":["src/socket/*"]
     }
   },
 }
