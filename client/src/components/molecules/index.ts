@@ -10,6 +10,9 @@ import { BrowsePageChannelHeader } from './BrowsePageChannelHeader/BrowsePageCha
 import { BrowsePageChannelBody } from './BrowsePageChannelBody/BrowsePageChannelBody';
 import { BrowsePageChannelButton } from './BrowsePageChannelButton/BrowsePageChannelButton';
 import { MessageReplyBar } from './MessageReplyBar/MessageReplyBar';
+import { EmojiBox } from './EmojiBox/EmojiBox';
+import { UserBox } from './UserBox/UserBox';
+import { ChannelModal } from './ChannelModal/ChannelModal';
 
 export {
   ActiveProfileImg,
@@ -23,5 +26,8 @@ export {
   BrowsePageChannelHeader,
   BrowsePageChannelBody,
   BrowsePageChannelButton,
-  MessageReplyBar
+  MessageReplyBar,
+  EmojiBox,
+  UserBox,
+  ChannelModal
 };
