@@ -41,6 +41,19 @@ class ReplyService {
     return newReply.replyId;
   }
 
+  async getReplyInfo(replyId: number) {
+    const reply = await this.replyRepository
+      .createQueryBuilder('reply')
+      .leftJoinAndSelect('reply.message', 'message')
+      .leftJoinAndSelect('message.chatroom', 'chatroom')
+      .where('reply.replyId = :replyId', { replyId })
+      .select(['reply.replyId'])
+      .addSelect(['chatroom.chatroomId'])
+      .addSelect(['message.messageId'])
+      .getOne();
+    return reply;
+  }
+
   async getReply(replyId: number) {
     const reply = await this.replyRepository
       .createQueryBuilder('reply')
@@ -122,6 +135,17 @@ class ReplyService {
     });
 
     return Object.values(reactions);
+  }
+
+  async updateReply(replyId: number, content: string) {
+    const reply = await this.replyRepository.create({ replyId, content });
+    validator(reply);
+    const updatedReply = await this.replyRepository.save(reply);
+    return updatedReply;
+  }
+
+  async deleteReply(replyId: number) {
+    await this.replyRepository.softDelete(replyId);
   }
 }
 

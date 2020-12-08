@@ -1,6 +1,6 @@
 import UserChatroomService from '@service/user-chatroom-service';
 
-const chatroomHander = {
+const chatroomHandler = {
   async joinChatroom(io, socket) {
     const req = socket.request;
     const { userId } = req.user;
@@ -16,4 +16,5 @@ const chatroomHander = {
   }
 };
 
-export default chatroomHander;
+export default chatroomHandler;
+
