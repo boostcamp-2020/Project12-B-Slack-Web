@@ -1,13 +1,18 @@
 import React from 'react';
 import { DropMenuBox, DropMenuItem } from '@components/atoms';
 
-interface ChannelModalProps {}
+interface ChannelModalProps {
+  onClick?: () => void;
+}
 
-const ChannelModal: React.FC<ChannelModalProps> = ({ ...props }) => {
+const handlingBrowseChannelsClick = () => {};
+const handlingCreateChannelClick = () => {};
+
+const ChannelModal: React.FC<ChannelModalProps> = ({ onClick, ...props }) => {
   return (
-    <DropMenuBox {...props}>
-      <DropMenuItem> Browse channels </DropMenuItem>
-      <DropMenuItem> Create a channel </DropMenuItem>
+    <DropMenuBox onClick={onClick} {...props}>
+      <DropMenuItem onClick={handlingBrowseChannelsClick}> Browse channels </DropMenuItem>
+      <DropMenuItem onClick={handlingCreateChannelClick}> Create a channel </DropMenuItem>
     </DropMenuBox>
   );
 };
