@@ -4,7 +4,7 @@ import { Icon } from '@components/atoms';
 import { color } from '@theme/index';
 
 interface HoverIconProps {
-  size: 'medium' | 'large';
+  size: 'small' | 'medium' | 'large';
   src?: string;
 }
 
@@ -12,8 +12,16 @@ const StyledHoverIcon = styled.div<HoverIconProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${(props) => (props.size === 'large' ? '2.4rem' : '2.0rem')};
-  height: ${(props) => (props.size === 'large' ? '2.4rem' : '2.0rem')};
+  width: ${(props) => {
+    if (props.size === 'large') return '2.4rem';
+    if (props.size === 'medium') return '2.0rem';
+    return '1.8rem';
+  }};
+  height: ${(props) => {
+    if (props.size === 'large') return '2.4rem';
+    if (props.size === 'medium') return '2.0rem';
+    return '1.8rem';
+  }};
   border-radius: 0.4rem;
   &:hover {
     background-color: ${color.hover_primary};

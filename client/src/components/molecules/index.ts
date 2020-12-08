@@ -17,6 +17,7 @@ import { BrowsePageControls } from './BrowsePageControls/BrowsePageControls';
 import { BlackButtonWithIcon } from './BlackButtonWithIcon/BlackButtonWithIcon';
 import { HoverIcon } from './HoverIcon/HoverIcon';
 import { Actionbar } from './Actionbar/Actionbar';
+import { AddChannelButton } from './AddChannelButton/AddChannelButton';
 
 export {
   Actionbar,
@@ -36,6 +37,7 @@ export {
   EmojiBox,
   UserBox,
   ChannelModal,
+  AddChannelButton,
   BrowsePageControls,
   BlackButtonWithIcon
 };
