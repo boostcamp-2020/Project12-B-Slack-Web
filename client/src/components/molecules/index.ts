@@ -14,6 +14,7 @@ import { EmojiBox } from './EmojiBox/EmojiBox';
 import { UserBox } from './UserBox/UserBox';
 import { ChannelModal } from './ChannelModal/ChannelModal';
 import { BrowsePageControls } from './BrowsePageControls/BrowsePageControls';
+import { BlackButtonWithIcon } from './BlackButtonWithIcon/BlackButtonWithIcon';
 
 export {
   ActiveProfileImg,
@@ -31,5 +32,6 @@ export {
   EmojiBox,
   UserBox,
   ChannelModal,
-  BrowsePageControls
+  BrowsePageControls,
+  BlackButtonWithIcon
 };
