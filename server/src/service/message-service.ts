@@ -45,7 +45,8 @@ class MessageService {
   async getMessage(messageId: number) {
     const message = await this.MessageRepository.createQueryBuilder('message')
       .leftJoinAndSelect('message.user', 'user')
-      .select(['message', 'user.userId', 'user.profileUri', 'user.displayName'])
+      .leftJoinAndSelect('message.chatroom', 'chatroom')
+      .select(['message', 'user.userId', 'user.profileUri', 'user.displayName', 'chatroom.chatroomId'])
       .where('message.messageId = :messageId', { messageId })
       .getOne();
     if (!message) throw new BadRequestError();
@@ -109,7 +110,9 @@ class MessageService {
   async updateMessage(messageId: number, content: string) {
     const message = await this.MessageRepository.create({ messageId, content });
     validator(message);
-    await this.MessageRepository.save({ messageId, content });
+    const updatedMessage = await this.MessageRepository.save({ messageId, content });
+    return updatedMessage;
+
   }
 
   async deleteMessage(messageId: number) {

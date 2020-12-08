@@ -13,6 +13,8 @@ import { MessageReplyBar } from './MessageReplyBar/MessageReplyBar';
 import { EmojiBox } from './EmojiBox/EmojiBox';
 import { UserBox } from './UserBox/UserBox';
 import { ChannelModal } from './ChannelModal/ChannelModal';
+import { BrowsePageControls } from './BrowsePageControls/BrowsePageControls';
+import { BlackButtonWithIcon } from './BlackButtonWithIcon/BlackButtonWithIcon';
 import { HoverIcon } from './HoverIcon/HoverIcon';
 import { Actionbar } from './Actionbar/Actionbar';
 import { AddChannelButton } from './AddChannelButton/AddChannelButton';
@@ -35,5 +37,7 @@ export {
   EmojiBox,
   UserBox,
   ChannelModal,
-  AddChannelButton
+  AddChannelButton,
+  BrowsePageControls,
+  BlackButtonWithIcon
 };
