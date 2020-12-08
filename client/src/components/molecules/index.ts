@@ -13,11 +13,15 @@ import { MessageReplyBar } from './MessageReplyBar/MessageReplyBar';
 import { EmojiBox } from './EmojiBox/EmojiBox';
 import { UserBox } from './UserBox/UserBox';
 import { ChannelModal } from './ChannelModal/ChannelModal';
+import { HoverIcon } from './HoverIcon/HoverIcon';
+import { Actionbar } from './Actionbar/Actionbar';
 
 export {
+  Actionbar,
   ActiveProfileImg,
   Channel,
   DM,
+  HoverIcon,
   Section,
   InputMessage,
   SendMessageButton,
