@@ -2,15 +2,18 @@ import React from 'react';
 import { DropMenuBox, DropMenuItem } from '@components/atoms';
 
 interface ChannelModalProps {
-  onClick?: () => void;
+  setIsChannelModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const handlingBrowseChannelsClick = () => {};
-const handlingCreateChannelClick = () => {};
-
-const ChannelModal: React.FC<ChannelModalProps> = ({ onClick, ...props }) => {
+const ChannelModal: React.FC<ChannelModalProps> = ({ setIsChannelModalOpened, ...props }) => {
+  const handlingBrowseChannelsClick = () => {
+    setIsChannelModalOpened(false);
+  };
+  const handlingCreateChannelClick = () => {
+    setIsChannelModalOpened(false);
+  };
   return (
-    <DropMenuBox onClick={onClick} {...props}>
+    <DropMenuBox onClick={() => setIsChannelModalOpened(false)} {...props}>
       <DropMenuItem onClick={handlingBrowseChannelsClick}> Browse channels </DropMenuItem>
       <DropMenuItem onClick={handlingCreateChannelClick}> Create a channel </DropMenuItem>
     </DropMenuBox>
