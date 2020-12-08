@@ -15,6 +15,7 @@ import { UserBox } from './UserBox/UserBox';
 import { ChannelModal } from './ChannelModal/ChannelModal';
 import { HoverIcon } from './HoverIcon/HoverIcon';
 import { Actionbar } from './Actionbar/Actionbar';
+import { AddChannelButton } from './AddChannelButton/AddChannelButton';
 
 export {
   Actionbar,
@@ -33,5 +34,6 @@ export {
   MessageReplyBar,
   EmojiBox,
   UserBox,
-  ChannelModal
+  ChannelModal,
+  AddChannelButton
 };
