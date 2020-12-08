@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ProfileImg, Text } from '@components/atoms';
+import { Actionbar } from '@components/molecules';
 import { color } from '@theme/index';
 
 interface MessageProps {
@@ -11,6 +12,7 @@ interface MessageProps {
 
 const MessageContainer = styled.div<any>`
   display: flex;
+  position: relative;
   padding: 1rem 1rem;
   &:hover {
     background-color: ${color.hover_primary};
@@ -32,8 +34,20 @@ const MessageHeader = styled.div<any>`
 `;
 
 const Message: React.FC<MessageProps> = ({ author, content, src, ...props }) => {
+  const [isHover, setHover] = useState(false);
+  const messageContainer = useRef();
+  const onMouseEnter = (e: any) => {
+    if (e.target === messageContainer.current) {
+      setHover(true);
+    }
+  };
+  const onMouseLeave = (e: any) => {
+    if (e.target === messageContainer.current) {
+      setHover(false);
+    }
+  };
   return (
-    <MessageContainer {...props}>
+    <MessageContainer ref={messageContainer} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} {...props}>
       <ProfileImgWrap>
         <ProfileImg size="large" src={src} />
       </ProfileImgWrap>
@@ -47,6 +61,7 @@ const Message: React.FC<MessageProps> = ({ author, content, src, ...props }) => 
           {content}
         </Text>
       </MessageContent>
+      {isHover ? <Actionbar /> : null}
     </MessageContainer>
   );
 };
