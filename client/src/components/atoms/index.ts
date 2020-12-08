@@ -7,7 +7,6 @@ import { Button } from './Button/Button';
 import { LogoImg } from './LogoImg/LogoImg';
 import { ModalBox } from './ModalBox/ModalBox';
 import { HoverInput } from './HoverInput/HoverInput';
-import { DropMenuBox } from './DropMenuBox/DropMenuBox';
-import { DropMenuItem } from './DropMenuItem/DropMenuItem';
+import { Emoji } from './Emoji/Emoji';
 
-export { ActiveLight, Icon, ProfileImg, Text, Input, Button, LogoImg, ModalBox, HoverInput, DropMenuBox, DropMenuItem };
+export { ActiveLight, Icon, ProfileImg, Text, Input, Button, LogoImg, ModalBox, HoverInput, Emoji, DropMenuBox, DropMenuItem };

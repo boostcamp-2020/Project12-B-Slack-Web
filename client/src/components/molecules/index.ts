@@ -9,6 +9,7 @@ import { Message } from './Message/Message';
 import { BrowsePageChannelHeader } from './BrowsePageChannelHeader/BrowsePageChannelHeader';
 import { BrowsePageChannelBody } from './BrowsePageChannelBody/BrowsePageChannelBody';
 import { BrowsePageChannelButton } from './BrowsePageChannelButton/BrowsePageChannelButton';
+import { EmojiBox } from './EmojiBox/EmojiBox';
 import { UserBox } from './UserBox/UserBox';
 import { ChannelModal } from './ChannelModal/ChannelModal';
 
@@ -24,6 +25,7 @@ export {
   BrowsePageChannelHeader,
   BrowsePageChannelBody,
   BrowsePageChannelButton,
+  EmojiBox
   UserBox
   ChannelModal
 };
