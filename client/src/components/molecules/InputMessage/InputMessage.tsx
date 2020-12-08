@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Input } from '@components/atoms';
 import { SendMessageButton } from '@components/molecules';
 import { color } from '@theme/index';
-import { createMessage } from '@socket/emit/message';
+import { createMessage } from '@socket/emits/message';
 
 interface InputMessageProps {
   isThread?: boolean;
