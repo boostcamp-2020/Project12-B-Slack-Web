@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import { Input } from '@components/atoms';
 import { SendMessageButton } from '@components/molecules';
 import { color } from '@theme/index';
-import { useDispatch } from 'react-redux';
-import { insertMessage } from '@store/actions/chatroom-action';
+import { createMessage } from '@socket/emit/message';
 
 interface InputMessageProps {
   isThread?: boolean;
@@ -33,11 +32,10 @@ const ButtonWrap = styled.div<any>`
 `;
 
 const InputMessage: React.FC<InputMessageProps> = ({ children, title, isThread, chatRoomId, ...props }) => {
-  const dispatch = useDispatch();
   const [content, setContent] = useState('');
 
   const sendMessage = () => {
-    dispatch(insertMessage({ content, chatRoomId }));
+    createMessage({ content, chatroomId: chatRoomId });
   };
 
   return (
