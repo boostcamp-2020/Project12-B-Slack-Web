@@ -5,9 +5,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = (env, options) => {
-  dotenv.config({
+  const fileEnv = dotenv.config({
     path: `./env/${options.stage || 'development'}.env`
-  });
+  }).parsed;
 
   return {
     mode: process.env.NODE_ENV,
@@ -57,11 +57,13 @@ module.exports = (env, options) => {
         '@theme': path.resolve(__dirname, 'src/common/theme'),
         '@utils': path.resolve(__dirname, 'src/common/utils'),
         '@store': path.resolve(__dirname, 'src/common/store'),
-        '@imgs': path.resolve(__dirname, 'public/imgs')
+        '@imgs': path.resolve(__dirname, 'public/imgs'),
+        '@socket': path.resolve(__dirname, 'src/common/socket')
       }
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
+      new webpack.DefinePlugin({ 'process.env': JSON.stringify(fileEnv) }),
       new HtmlWebpackPlugin({
         filename: 'index.html',
         template: './public/index.html',

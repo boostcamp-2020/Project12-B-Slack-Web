@@ -4,6 +4,8 @@ import styled from 'styled-components';
 interface InputProps {
   title?: string;
   isThread?: boolean;
+  content: string;
+  setContent: any;
 }
 
 const StyledInput = styled.input<any>`
@@ -13,8 +15,11 @@ const StyledInput = styled.input<any>`
   outline: none;
 `;
 
-const Input: React.FC<InputProps> = ({ title, isThread = false, ...props }) => {
-  return <StyledInput placeholder={isThread ? 'Reply...' : `Send a message to #${title}`} {...props} />;
+const Input: React.FC<InputProps> = ({ title, isThread = false, content, setContent, ...props }) => {
+  const handlingChange = (e: any) => {
+    setContent(e.target.value);
+  };
+  return <StyledInput placeholder={isThread ? 'Reply...' : `Send a message to #${title}`} value={content} onChange={handlingChange} {...props} />;
 };
 
 export { Input, InputProps };

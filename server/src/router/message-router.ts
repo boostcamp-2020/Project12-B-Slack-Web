@@ -8,4 +8,5 @@ router.get('/:chatRoomId', messageController.getMessages);
 router.post('/', messageController.createMessage);
 router.patch('/:messageId', messageController.updateMessage);
 router.delete('/:messageId', messageController.deleteMessage);
+
 export default router;
