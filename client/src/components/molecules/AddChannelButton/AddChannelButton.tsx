@@ -2,27 +2,41 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Plus from '@imgs/plus-icon.png';
 import { ChannelModal } from '@components/molecules';
-import { HoverIcon } from '../HoverIcon/HoverIcon';
+import { Icon } from '@components/atoms';
+import { DefaultSectionName } from '@constants/default-section-name';
 
-interface AddChannelButtonProps {}
+interface AddChannelButtonProps {
+  sectionName: string;
+  setHover: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const HoverIconWrap = styled.div<any>`
+const IconWrap = styled.div<any>`
   display: flex;
+  cursor: pointer;
 `;
 
-const AddChannelButton: React.FC<AddChannelButtonProps> = ({ ...props }) => {
-  const [isOpened, setIsOpened] = useState(false);
+const AddChannelButton: React.FC<AddChannelButtonProps> = ({ setHover, sectionName, ...props }) => {
+  const [isChannelModalOpened, setIsChannelModalOpened] = useState(false);
 
   const handlingHoverIconClick = () => {
-    setIsOpened(!isOpened);
+    if (sectionName === DefaultSectionName.CHANNELS) {
+      setIsChannelModalOpened(!isChannelModalOpened);
+    }
+  };
+
+  const handlingCloseModal = () => {
+    setHover(false);
+    if (sectionName === DefaultSectionName.CHANNELS) {
+      setIsChannelModalOpened(false);
+    }
   };
 
   return (
     <>
-      <HoverIconWrap onClick={handlingHoverIconClick}>
-        <HoverIcon src={Plus} size="small"></HoverIcon>
-      </HoverIconWrap>
-      {isOpened && <ChannelModal onClick={handlingHoverIconClick}></ChannelModal>}
+      <IconWrap onClick={handlingHoverIconClick}>
+        <Icon size="small" src={Plus} isHover={false} />
+      </IconWrap>
+      {isChannelModalOpened && <ChannelModal handlingCloseModal={handlingCloseModal} />}
     </>
   );
 };

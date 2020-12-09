@@ -6,6 +6,7 @@ import { color } from '@theme/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { initSidebarAsync } from '@store/actions/chatroom-action';
 import { RootState } from '@store/reducers';
+import { DefaultSectionName } from '@constants/default-section-name';
 
 interface SidebarProps {
   children?: React.ReactNode;
@@ -59,7 +60,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, ...props }) => {
         </DM>
       )
     );
-    return <Section SectionName={sectionName}>{chatrooms}</Section>;
+    return <Section sectionName={sectionName}>{chatrooms}</Section>;
   };
 
   return (
@@ -70,9 +71,9 @@ const Sidebar: React.FC<SidebarProps> = ({ children, ...props }) => {
         </Text>
       </Workspace>
       <ChildrenWrap>
-        {createSection(starred, 'Starred')}
-        {createSection(channels, 'Channels')}
-        {createSection(directMessages, 'Direct Messages')}
+        {createSection(starred, DefaultSectionName.STARRED)}
+        {createSection(channels, DefaultSectionName.CHANNELS)}
+        {createSection(directMessages, DefaultSectionName.DIRECT_MESSAGES)}
       </ChildrenWrap>
     </StyledSidebar>
   );
