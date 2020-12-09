@@ -1,7 +1,18 @@
 import axios from 'axios';
+import { logout } from '@utils/index';
 
 axios.defaults.baseURL = process.env.API_URL;
 axios.defaults.headers.common.Authorization = localStorage.getItem('token');
+
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 401) logout();
+    return Promise.reject(error);
+  }
+);
 
 export default {
   getToken: async (code: string | null) => {
