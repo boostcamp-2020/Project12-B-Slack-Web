@@ -4,6 +4,7 @@ import { Text, ModalBox, HoverInput, Button } from '@components/atoms';
 import { color } from '@theme/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { createModalClose } from '@store/actions/modal-action';
+import API from '@utils/api';
 
 interface CreateChannelModalProps {}
 
@@ -50,12 +51,21 @@ const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ ...props }) => 
     setDescription(e.target.value);
   };
 
-  const onChangeIsPrivate = (e: any) => {
-    setIsPrivate(e.target.value);
+  const onChangeIsPrivate = () => {
+    setIsPrivate(!isPrivate);
   };
 
-  const handlingCreateButtonClick = () => {
-    console.log(name, description, isPrivate);
+  const handlingCreateButtonClick = async () => {
+    try {
+      if (!name) {
+        throw new Error();
+      }
+      const chatroomId = await API.createChannel(name, description, isPrivate);
+      const createdChatroomInfo = await API.getChatroom(chatroomId);
+      dispatch(createModalClose());
+    } catch (err) {
+      alert('Channel creation failed.');
+    }
   };
 
   return (
