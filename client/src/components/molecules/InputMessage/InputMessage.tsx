@@ -36,12 +36,13 @@ const InputMessage: React.FC<InputMessageProps> = ({ children, title, isThread, 
 
   const sendMessage = () => {
     createMessage({ content, chatroomId: chatRoomId });
+    setContent('');
   };
 
   return (
     <InputMessageContainer {...props}>
       <InputWrap>
-        <Input isThread={isThread} title={title} content={content} setContent={setContent} />
+        <Input isThread={isThread} title={title} content={content} keyPressEnter={sendMessage} setContent={setContent} />
       </InputWrap>
       <ButtonWrap>
         <SendMessageButton isActive={true} sendMessage={sendMessage} />

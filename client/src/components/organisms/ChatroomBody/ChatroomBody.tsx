@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { InputMessage, Message } from '@components/molecules';
 
@@ -9,30 +9,50 @@ interface ChatroomBodyProps {
 }
 
 const ChatroomBodyContainter = styled.div<any>`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  height: 100%;
-  overflow-y: scroll;
+  height: 90%;
 `;
 
 const InputMessageWrap = styled.div<any>`
+  padding-top: 1rem;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const InputBoxWrap = styled.div<any>`
   margin: 1rem;
 `;
 
 const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId, ...props }) => {
+  const MessageBodyEl = useRef<any>();
   const createMessages = () => {
     return messages.map((message: any) => (
       <Message key={message.messageId} author={message.user.displayName} content={message.content} src={message.user.profileUri}></Message>
     ));
   };
 
+  const moveScrollToTheBottom = () => {
+    const { scrollHeight, clientHeight } = MessageBodyEl.current;
+    const maxScrollTop = scrollHeight - clientHeight;
+    MessageBodyEl.current.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+  };
+
+  useEffect(() => {
+    moveScrollToTheBottom();
+  });
+
   return (
     <ChatroomBodyContainter {...props}>
-      <InputMessageWrap>
-        {createMessages()}
+      <InputMessageWrap ref={MessageBodyEl}>{createMessages()}</InputMessageWrap>
+      <InputBoxWrap>
         <InputMessage title={title} chatRoomId={chatRoomId} />
-      </InputMessageWrap>
+      </InputBoxWrap>
     </ChatroomBodyContainter>
   );
 };
