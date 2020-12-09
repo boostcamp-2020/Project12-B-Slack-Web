@@ -45,7 +45,7 @@ export default function chatroomReducer(state = initialState, action: ChatroomTy
       };
     case INSERT_MESSAGE:
       const newMessages = state.messages;
-      newMessages.push(action.payload);
+      if (action.payload.chatroomId === state.selectedChatroomId) newMessages.push(action.payload);
       return {
         ...state,
         messages: newMessages

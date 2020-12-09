@@ -43,7 +43,8 @@ export interface channelState {
 }
 
 export interface messageState {
-  message: Object;
+  message: any;
+  chatroomId: number;
 }
 
 interface LoadChatroomAction {
