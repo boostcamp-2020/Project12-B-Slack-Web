@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Text, ModalBox, HoverInput, Button } from '@components/atoms';
 import { color } from '@theme/index';
@@ -38,6 +38,25 @@ const SubmitButtonCantainer = styled.div`
 const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ ...props }) => {
   const dispatch = useDispatch();
   const isOpen = useSelector((store: any) => store.modal.isOpen);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [isPrivate, setIsPrivate] = useState(false);
+
+  const onChangeName = (e: any) => {
+    setName(e.target.value);
+  };
+
+  const onChangeDescription = (e: any) => {
+    setDescription(e.target.value);
+  };
+
+  const onChangeIsPrivate = (e: any) => {
+    setIsPrivate(e.target.value);
+  };
+
+  const handlingCreateButtonClick = () => {
+    console.log(name, description, isPrivate);
+  };
 
   return (
     <>
@@ -59,7 +78,7 @@ const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ ...props }) => 
                 Name
               </Text>
               <InputWrap>
-                <HoverInput placeholder="e.g. plan-budget" />
+                <HoverInput placeholder="e.g. plan-budget" onChange={onChangeName} />
               </InputWrap>
             </NodeWrap>
             <NodeWrap>
@@ -67,7 +86,7 @@ const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ ...props }) => 
                 Description
               </Text>
               <InputWrap>
-                <HoverInput />
+                <HoverInput onChange={onChangeDescription} />
               </InputWrap>
               <Text fontColor={color.text_tertiary} size="small">
                 What’s this channel about?
@@ -78,10 +97,10 @@ const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ ...props }) => 
                 <Text fontColor={color.primary} size="small" isBold>
                   Make private
                 </Text>
-                <Checkbox type="checkbox" />
+                <Checkbox type="checkbox" onChange={onChangeIsPrivate} />
               </CheckboxContainer>
             </NodeWrap>
-            <SubmitButtonCantainer>
+            <SubmitButtonCantainer onClick={handlingCreateButtonClick}>
               <Button backgroundColor={color.button_tertiary} borderColor={color.button_tertiary} fontColor={color.text_quaternary} isBold>
                 Create
               </Button>
