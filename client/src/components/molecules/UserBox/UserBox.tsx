@@ -30,16 +30,16 @@ const Text = styled.div<any>`
 
 const UserBox: React.FC<UserBoxProps> = ({ member, ...props }) => {
   const memberNum = member.length;
-  const profileImgs: string[] = new Array(3);
+  const displayMembers: object[] = new Array(3);
   const loopValue = memberNum > 3 ? 3 : memberNum;
 
   for (let i = 0; i < loopValue; i += 1) {
-    profileImgs.push(member[i].profileUri);
+    displayMembers.push({ id: member[i].userId, profileUri: member[i].profileUri });
   }
 
-  const createProfileImg = profileImgs.map((profileImg) => (
-    <ProfileImgWrap>
-      <ProfileImg src={profileImg} />
+  const createProfileImg = displayMembers.map((Member: any) => (
+    <ProfileImgWrap key={Member.id}>
+      <ProfileImg src={Member.profileUri} />
     </ProfileImgWrap>
   ));
 
