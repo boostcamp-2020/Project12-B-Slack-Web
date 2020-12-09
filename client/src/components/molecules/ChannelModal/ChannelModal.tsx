@@ -1,22 +1,28 @@
 import React from 'react';
 import { DropMenuBox, DropMenuItem } from '@components/atoms';
+import { useDispatch } from 'react-redux';
+import { createModalOpen } from '@store/actions/modal-action';
 
 interface ChannelModalProps {
-  setIsChannelModalOpened: React.Dispatch<React.SetStateAction<boolean>>;
+  handlingCloseModal: () => void;
 }
 
-const ChannelModal: React.FC<ChannelModalProps> = ({ setIsChannelModalOpened, ...props }) => {
+const ChannelModal: React.FC<ChannelModalProps> = ({ handlingCloseModal, ...props }) => {
+  const dispatch = useDispatch();
   const handlingBrowseChannelsClick = () => {
-    setIsChannelModalOpened(false);
+    handlingCloseModal();
   };
   const handlingCreateChannelClick = () => {
-    setIsChannelModalOpened(false);
+    dispatch(createModalOpen({ isOpen: true }));
+    handlingCloseModal();
   };
   return (
-    <DropMenuBox onClick={() => setIsChannelModalOpened(false)} {...props}>
-      <DropMenuItem onClick={handlingBrowseChannelsClick}> Browse channels </DropMenuItem>
-      <DropMenuItem onClick={handlingCreateChannelClick}> Create a channel </DropMenuItem>
-    </DropMenuBox>
+    <>
+      <DropMenuBox onClick={() => handlingCloseModal()} {...props}>
+        <DropMenuItem onClick={handlingBrowseChannelsClick}> Browse channels </DropMenuItem>
+        <DropMenuItem onClick={handlingCreateChannelClick}> Create a channel </DropMenuItem>
+      </DropMenuBox>
+    </>
   );
 };
 

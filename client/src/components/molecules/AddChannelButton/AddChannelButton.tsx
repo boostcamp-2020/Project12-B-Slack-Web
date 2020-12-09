@@ -4,18 +4,25 @@ import Plus from '@imgs/plus-icon.png';
 import { ChannelModal } from '@components/molecules';
 import { Icon } from '@components/atoms';
 
-interface AddChannelButtonProps {}
+interface AddChannelButtonProps {
+  setHover: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const IconWrap = styled.div<any>`
   display: flex;
   cursor: pointer;
 `;
 
-const AddChannelButton: React.FC<AddChannelButtonProps> = ({ ...props }) => {
-  const [isChannelModalOpened, setIsChannelModalOpened] = useState(false);
+const AddChannelButton: React.FC<AddChannelButtonProps> = ({ setHover, ...props }) => {
+  const [isOpened, setIsOpened] = useState(false);
 
   const handlingHoverIconClick = () => {
-    setIsChannelModalOpened(!isChannelModalOpened);
+    setIsOpened(!isOpened);
+  };
+
+  const handlingCloseModal = () => {
+    setHover(false);
+    setIsOpened(false);
   };
 
   return (
@@ -23,7 +30,7 @@ const AddChannelButton: React.FC<AddChannelButtonProps> = ({ ...props }) => {
       <IconWrap onClick={handlingHoverIconClick}>
         <Icon size="small" src={Plus} isHover={false} />
       </IconWrap>
-      {isChannelModalOpened && <ChannelModal setIsChannelModalOpened={setIsChannelModalOpened}></ChannelModal>}
+      {isOpened && <ChannelModal handlingCloseModal={handlingCloseModal} />}
     </>
   );
 };
