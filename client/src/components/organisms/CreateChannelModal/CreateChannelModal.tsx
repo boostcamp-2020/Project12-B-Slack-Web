@@ -5,7 +5,6 @@ import { color } from '@theme/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { createModalClose } from '@store/actions/modal-action';
 import { addChannel } from '@store/actions/chatroom-action';
-import API from '@utils/api';
 
 interface CreateChannelModalProps {}
 
@@ -40,12 +39,12 @@ const SubmitButtonCantainer = styled.div`
 const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ ...props }) => {
   const dispatch = useDispatch();
   const isOpen = useSelector((store: any) => store.modal.isOpen);
-  const [name, setName] = useState('');
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
 
-  const onChangeName = (e: any) => {
-    setName(e.target.value);
+  const onChangeTitle = (e: any) => {
+    setTitle(e.target.value);
   };
 
   const onChangeDescription = (e: any) => {
@@ -58,17 +57,14 @@ const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ ...props }) => 
 
   const handlingCreateButtonClick = async () => {
     try {
-      if (!name.trim()) {
-        throw new Error('empty');
-      }
+      if (!title.trim()) throw new Error();
 
-      const chatroomId = await API.createChannel(name.trim(), description, isPrivate);
-      const createdChatroomInfo = await API.getChatroom(chatroomId);
+      const payload = { title, description, isPrivate };
 
-      dispatch(addChannel(createdChatroomInfo));
+      dispatch(addChannel(payload));
       dispatch(createModalClose());
     } catch (err) {
-      alert('Channel creation failed.');
+      alert('채널 이름을 입력해주세요.');
     }
   };
 
@@ -92,7 +88,7 @@ const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ ...props }) => 
                 Name
               </Text>
               <InputWrap>
-                <HoverInput placeholder="e.g. plan-budget" onChange={onChangeName} />
+                <HoverInput placeholder="e.g. plan-budget" onChange={onChangeTitle} />
               </InputWrap>
             </NodeWrap>
             <NodeWrap>
