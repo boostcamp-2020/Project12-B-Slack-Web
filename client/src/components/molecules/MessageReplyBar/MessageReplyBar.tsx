@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ProfileImg, Text } from '@components/atoms';
 import { color } from '@theme/index';
-import timeAgo from '@utils/timeAgo';
+import { timeAgo } from '@utils/time';
 
 interface MessageReplyBarProps {
   profileImgs: Array<string>;
