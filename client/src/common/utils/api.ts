@@ -44,8 +44,12 @@ export default {
   },
 
   createChannel: async (title: string, description: string, isPrivate: boolean) => {
-    const response = await axios.post(`api/chatrooms/channel`, { title, description, isPrivate });
-    const { chatroomId } = response.data;
-    return chatroomId;
+    try {
+      const response = await axios.post(`api/chatrooms/channel`, { title, description, isPrivate });
+      const { chatroomId } = response.data;
+      return chatroomId;
+    } catch (e) {
+      throw new Error('Channel creation failed.');
+    }
   }
 };
