@@ -17,7 +17,7 @@ const ChatroomContainer = styled.div<any>`
 const Chatroom: React.FC<ChatroomProps> = ({ children, ...props }) => {
   const dispatch = useDispatch();
   const { selectedChatroomId, selectedChatroom, messages } = useSelector((store: RootState) => store.chatroom);
-  const { title } = selectedChatroom;
+  const { title, users } = selectedChatroom;
 
   useEffect(() => {
     dispatch(loadAsync({ selectedChatroomId }));
@@ -28,7 +28,7 @@ const Chatroom: React.FC<ChatroomProps> = ({ children, ...props }) => {
 
   return (
     <ChatroomContainer {...props}>
-      <ChatroomHeader title={title} />
+      <ChatroomHeader title={title} users={users} />
       <ChatroomBody title={title} messages={messages} chatRoomId={selectedChatroomId} />
     </ChatroomContainer>
   );
