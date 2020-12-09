@@ -23,11 +23,21 @@ const Workspace = styled.div<any>`
   align-items: center;
   height: 10%;
   padding-left: 1rem;
-  border-bottom: 1px solid ${color.sidebar_border};
+  box-shadow: 0 1.5px 2px -2px ${color.border_primary};
 `;
 
 const ChildrenWrap = styled.div<any>`
-  padding: 1rem;
+  overflow-y: scroll;
+  padding: 0rem 1rem;
+  height: 90%;
+  -ms-overflow-style: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const SectionWrap = styled.div<any>`
+  padding: 1rem 0rem;
 `;
 
 const Sidebar: React.FC<SidebarProps> = ({ children, ...props }) => {
@@ -71,9 +81,11 @@ const Sidebar: React.FC<SidebarProps> = ({ children, ...props }) => {
         </Text>
       </Workspace>
       <ChildrenWrap>
-        {createSection(starred, DefaultSectionName.STARRED)}
-        {createSection(channels, DefaultSectionName.CHANNELS)}
-        {createSection(directMessages, DefaultSectionName.DIRECT_MESSAGES)}
+        <SectionWrap>
+          {createSection(starred, DefaultSectionName.STARRED)}
+          {createSection(channels, DefaultSectionName.CHANNELS)}
+          {createSection(directMessages, DefaultSectionName.DIRECT_MESSAGES)}
+        </SectionWrap>
       </ChildrenWrap>
     </StyledSidebar>
   );
