@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Chatroom, Login } from '@pages/index';
-import { Header, Sidebar } from '@components/organisms';
+import { Header, Sidebar, CreateChannelModal } from '@components/organisms';
 import { registerToken, blockPage } from '@utils/index';
 import { Main, MainBox } from '@components/templates';
 
@@ -25,6 +25,7 @@ const App = () => {
               <Route exact path="/client/:id" component={Chatroom} />
             </MainBox>
           </Main>
+          <CreateChannelModal />
         </Fragment>
       </Switch>
     </BrowserRouter>

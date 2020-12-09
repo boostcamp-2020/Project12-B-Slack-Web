@@ -1,14 +1,16 @@
 import { color } from '@theme/index';
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 interface ModalBoxProps {
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick: () => void;
 }
 
 const BackgroundModal = styled.div<any>`
   position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,8 +28,16 @@ const InnerModal = styled.div<any>`
 `;
 
 const ModalBox: React.FC<ModalBoxProps> = ({ children, onClick, ...props }) => {
+  const BackgroundModalRef = useRef();
+
+  const handlingBackgroundModalClick = (e: any) => {
+    if (e.target === BackgroundModalRef.current) {
+      onClick();
+    }
+  };
+
   return (
-    <BackgroundModal onClick={onClick} {...props}>
+    <BackgroundModal ref={BackgroundModalRef} onClick={handlingBackgroundModalClick} {...props}>
       <InnerModal>{children}</InnerModal>
     </BackgroundModal>
   );

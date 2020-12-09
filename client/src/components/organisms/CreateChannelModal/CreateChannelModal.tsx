@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Text, ModalBox, HoverInput, Button } from '@components/atoms';
 import { color } from '@theme/index';
+import { useSelector, useDispatch } from 'react-redux';
+import { createModalClose } from '@store/actions/modal-action';
 
 interface CreateChannelModalProps {}
 
@@ -34,53 +36,60 @@ const SubmitButtonCantainer = styled.div`
 `;
 
 const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ ...props }) => {
+  const dispatch = useDispatch();
+  const isOpen = useSelector((store: any) => store.modal.isOpen);
+
   return (
-    <ModalBox {...props}>
-      <StyledCreateChannelModal>
-        <NodeWrap>
-          <Text fontColor={color.primary} isBold size="large">
-            Create a Channel
-          </Text>
-        </NodeWrap>
-        <NodeWrap>
-          <Text fontColor={color.text_tertiary} size="small">
-            Channels are where your team communicates. They’re best when organized around a topic — #marketing, for example
-          </Text>
-        </NodeWrap>
-        <NodeWrap>
-          <Text fontColor={color.primary} size="small" isBold>
-            Name
-          </Text>
-          <InputWrap>
-            <HoverInput placeholder="e.g. plan-budget" />
-          </InputWrap>
-        </NodeWrap>
-        <NodeWrap>
-          <Text fontColor={color.primary} size="small" isBold>
-            Description
-          </Text>
-          <InputWrap>
-            <HoverInput />
-          </InputWrap>
-          <Text fontColor={color.text_tertiary} size="small">
-            What’s this channel about?
-          </Text>
-        </NodeWrap>
-        <NodeWrap>
-          <CheckboxContainer>
-            <Text fontColor={color.primary} size="small" isBold>
-              Make private
-            </Text>
-            <Checkbox type="checkbox" />
-          </CheckboxContainer>
-        </NodeWrap>
-        <SubmitButtonCantainer>
-          <Button backgroundColor={color.button_tertiary} borderColor={color.button_tertiary} fontColor={color.text_quaternary} isBold>
-            Create
-          </Button>
-        </SubmitButtonCantainer>
-      </StyledCreateChannelModal>
-    </ModalBox>
+    <>
+      {isOpen ? (
+        <ModalBox onClick={() => dispatch(createModalClose())} {...props}>
+          <StyledCreateChannelModal>
+            <NodeWrap>
+              <Text fontColor={color.primary} isBold size="large">
+                Create a Channel
+              </Text>
+            </NodeWrap>
+            <NodeWrap>
+              <Text fontColor={color.text_tertiary} size="small">
+                Channels are where your team communicates. They’re best when organized around a topic — #marketing, for example
+              </Text>
+            </NodeWrap>
+            <NodeWrap>
+              <Text fontColor={color.primary} size="small" isBold>
+                Name
+              </Text>
+              <InputWrap>
+                <HoverInput placeholder="e.g. plan-budget" />
+              </InputWrap>
+            </NodeWrap>
+            <NodeWrap>
+              <Text fontColor={color.primary} size="small" isBold>
+                Description
+              </Text>
+              <InputWrap>
+                <HoverInput />
+              </InputWrap>
+              <Text fontColor={color.text_tertiary} size="small">
+                What’s this channel about?
+              </Text>
+            </NodeWrap>
+            <NodeWrap>
+              <CheckboxContainer>
+                <Text fontColor={color.primary} size="small" isBold>
+                  Make private
+                </Text>
+                <Checkbox type="checkbox" />
+              </CheckboxContainer>
+            </NodeWrap>
+            <SubmitButtonCantainer>
+              <Button backgroundColor={color.button_tertiary} borderColor={color.button_tertiary} fontColor={color.text_quaternary} isBold>
+                Create
+              </Button>
+            </SubmitButtonCantainer>
+          </StyledCreateChannelModal>
+        </ModalBox>
+      ) : null}
+    </>
   );
 };
 
