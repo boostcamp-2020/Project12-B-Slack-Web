@@ -4,6 +4,7 @@ import { Text, ModalBox, HoverInput, Button } from '@components/atoms';
 import { color } from '@theme/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { createModalClose } from '@store/actions/modal-action';
+import { addChannel } from '@store/actions/chatroom-action';
 import API from '@utils/api';
 
 interface CreateChannelModalProps {}
@@ -57,11 +58,14 @@ const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ ...props }) => 
 
   const handlingCreateButtonClick = async () => {
     try {
-      if (!name) {
-        throw new Error();
+      if (!name.trim()) {
+        throw new Error('empty');
       }
-      const chatroomId = await API.createChannel(name, description, isPrivate);
+
+      const chatroomId = await API.createChannel(name.trim(), description, isPrivate);
       const createdChatroomInfo = await API.getChatroom(chatroomId);
+
+      dispatch(addChannel(createdChatroomInfo));
       dispatch(createModalClose());
     } catch (err) {
       alert('Channel creation failed.');
