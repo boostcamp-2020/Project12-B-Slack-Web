@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Text, ModalBox, HoverInput, Button } from '@components/atoms';
 import { color } from '@theme/index';
+import { useSelector, useDispatch } from 'react-redux';
+import { createModalClose } from '@store/actions/modal-action';
+import { addChannel } from '@store/actions/chatroom-action';
+import API from '@utils/api';
 
 interface CreateChannelModalProps {}
 
@@ -34,53 +38,91 @@ const SubmitButtonCantainer = styled.div`
 `;
 
 const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ ...props }) => {
+  const dispatch = useDispatch();
+  const isOpen = useSelector((store: any) => store.modal.isOpen);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [isPrivate, setIsPrivate] = useState(false);
+
+  const onChangeName = (e: any) => {
+    setName(e.target.value);
+  };
+
+  const onChangeDescription = (e: any) => {
+    setDescription(e.target.value);
+  };
+
+  const onChangeIsPrivate = () => {
+    setIsPrivate(!isPrivate);
+  };
+
+  const handlingCreateButtonClick = async () => {
+    try {
+      if (!name.trim()) {
+        throw new Error('empty');
+      }
+
+      const chatroomId = await API.createChannel(name.trim(), description, isPrivate);
+      const createdChatroomInfo = await API.getChatroom(chatroomId);
+
+      dispatch(addChannel(createdChatroomInfo));
+      dispatch(createModalClose());
+    } catch (err) {
+      alert('Channel creation failed.');
+    }
+  };
+
   return (
-    <ModalBox {...props}>
-      <StyledCreateChannelModal>
-        <NodeWrap>
-          <Text fontColor={color.primary} isBold size="large">
-            Create a Channel
-          </Text>
-        </NodeWrap>
-        <NodeWrap>
-          <Text fontColor={color.text_tertiary} size="small">
-            Channels are where your team communicates. They’re best when organized around a topic — #marketing, for example
-          </Text>
-        </NodeWrap>
-        <NodeWrap>
-          <Text fontColor={color.primary} size="small" isBold>
-            Name
-          </Text>
-          <InputWrap>
-            <HoverInput placeholder="e.g. plan-budget" />
-          </InputWrap>
-        </NodeWrap>
-        <NodeWrap>
-          <Text fontColor={color.primary} size="small" isBold>
-            Description
-          </Text>
-          <InputWrap>
-            <HoverInput />
-          </InputWrap>
-          <Text fontColor={color.text_tertiary} size="small">
-            What’s this channel about?
-          </Text>
-        </NodeWrap>
-        <NodeWrap>
-          <CheckboxContainer>
-            <Text fontColor={color.primary} size="small" isBold>
-              Make private
-            </Text>
-            <Checkbox type="checkbox" />
-          </CheckboxContainer>
-        </NodeWrap>
-        <SubmitButtonCantainer>
-          <Button backgroundColor={color.button_tertiary} borderColor={color.button_tertiary} fontColor={color.text_quaternary} isBold>
-            Create
-          </Button>
-        </SubmitButtonCantainer>
-      </StyledCreateChannelModal>
-    </ModalBox>
+    <>
+      {isOpen ? (
+        <ModalBox onClick={() => dispatch(createModalClose())} {...props}>
+          <StyledCreateChannelModal>
+            <NodeWrap>
+              <Text fontColor={color.primary} isBold size="large">
+                Create a Channel
+              </Text>
+            </NodeWrap>
+            <NodeWrap>
+              <Text fontColor={color.text_tertiary} size="small">
+                Channels are where your team communicates. They’re best when organized around a topic — #marketing, for example
+              </Text>
+            </NodeWrap>
+            <NodeWrap>
+              <Text fontColor={color.primary} size="small" isBold>
+                Name
+              </Text>
+              <InputWrap>
+                <HoverInput placeholder="e.g. plan-budget" onChange={onChangeName} />
+              </InputWrap>
+            </NodeWrap>
+            <NodeWrap>
+              <Text fontColor={color.primary} size="small" isBold>
+                Description
+              </Text>
+              <InputWrap>
+                <HoverInput onChange={onChangeDescription} />
+              </InputWrap>
+              <Text fontColor={color.text_tertiary} size="small">
+                What’s this channel about?
+              </Text>
+            </NodeWrap>
+            <NodeWrap>
+              <CheckboxContainer>
+                <Text fontColor={color.primary} size="small" isBold>
+                  Make private
+                </Text>
+                <Checkbox type="checkbox" onChange={onChangeIsPrivate} />
+              </CheckboxContainer>
+            </NodeWrap>
+            <SubmitButtonCantainer onClick={handlingCreateButtonClick}>
+              <Button backgroundColor={color.button_tertiary} borderColor={color.button_tertiary} fontColor={color.text_quaternary} isBold>
+                Create
+              </Button>
+            </SubmitButtonCantainer>
+          </StyledCreateChannelModal>
+        </ModalBox>
+      ) : null}
+    </>
   );
 };
 

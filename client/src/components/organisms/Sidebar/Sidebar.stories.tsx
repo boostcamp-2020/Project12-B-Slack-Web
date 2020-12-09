@@ -17,8 +17,8 @@ const mockDMChildren = ['J003_강동훈', 'J030_김도호', 'J211_탁성건'].ma
 });
 
 const mockChildren = [
-  <Section SectionName="Channels">{mockChannelChildren}</Section>,
-  <Section SectionName="Direct Messages">{mockDMChildren}</Section>
+  <Section sectionName="Channels">{mockChannelChildren}</Section>,
+  <Section sectionName="Direct Messages">{mockDMChildren}</Section>
 ];
 
 const Template: Story<SidebarProps> = (args) => <Sidebar {...args} />;

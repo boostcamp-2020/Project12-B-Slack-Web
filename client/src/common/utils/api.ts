@@ -41,5 +41,11 @@ export default {
   getMessage: async (chatRoomId: number, messageId: number) => {
     const response = await axios.get(`api/messages/${chatRoomId}/${messageId}`);
     return response.data;
+  },
+
+  createChannel: async (title: string, description: string, isPrivate: boolean) => {
+    const response = await axios.post(`api/chatrooms/channel`, { title, description, isPrivate });
+    const { chatroomId } = response.data;
+    return chatroomId;
   }
 };

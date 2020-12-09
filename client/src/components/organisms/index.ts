@@ -4,5 +4,6 @@ import { ChatroomHeader } from './ChatroomHeader/ChatroomHeader';
 import { ChatroomBody } from './ChatroomBody/ChatroomBody';
 import { LoginForm } from './LoginForm/LoginForm';
 import { BrowsePageChannel } from './BrowsePageChannel/BrowsePageChannel';
+import { CreateChannelModal } from './CreateChannelModal/CreateChannelModal';
 
-export { Header, Sidebar, ChatroomHeader, ChatroomBody, LoginForm, BrowsePageChannel };
+export { Header, Sidebar, ChatroomHeader, ChatroomBody, LoginForm, BrowsePageChannel, CreateChannelModal };

@@ -4,6 +4,7 @@ import { color } from '@theme/index';
 
 interface HoverInputProps {
   placeholder?: string;
+  onChange?: (e: any) => void;
 }
 
 const StyledHoverInput = styled.input<any>`
@@ -21,8 +22,8 @@ const StyledHoverInput = styled.input<any>`
   }
 `;
 
-const HoverInput: React.FC<HoverInputProps> = ({ placeholder, ...props }) => {
-  return <StyledHoverInput placeholder={placeholder} {...props} />;
+const HoverInput: React.FC<HoverInputProps> = ({ placeholder, onChange, ...props }) => {
+  return <StyledHoverInput placeholder={placeholder} onChange={onChange} {...props} />;
 };
 
 export { HoverInput, HoverInputProps };
