@@ -13,7 +13,7 @@ const ChannelModal: React.FC<ChannelModalProps> = ({ handlingCloseModal, ...prop
     handlingCloseModal();
   };
   const handlingCreateChannelClick = () => {
-    dispatch(createModalOpen({ isOpen: true }));
+    dispatch(createModalOpen());
     handlingCloseModal();
   };
   return (

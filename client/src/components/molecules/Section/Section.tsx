@@ -4,7 +4,7 @@ import { AddChannelButton } from '../AddChannelButton/AddChannelButton';
 
 interface SectionProps {
   children: React.ReactNode;
-  SectionName: string;
+  sectionName: string;
   isSelect?: boolean;
 }
 
@@ -30,7 +30,7 @@ const Summary = styled.summary<any>`
   margin-bottom: 0.3rem;
 `;
 
-const Section: React.FC<SectionProps> = ({ children, SectionName = 'Section', isSelect = false, ...props }) => {
+const Section: React.FC<SectionProps> = ({ children, sectionName = 'Section', isSelect = false, ...props }) => {
   const [isHover, setHover] = useState(false);
 
   const onMouseEnter = () => {
@@ -45,12 +45,12 @@ const Section: React.FC<SectionProps> = ({ children, SectionName = 'Section', is
     <SectionWrap>
       {isHover && (
         <AddChannelButtonWrap onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-          <AddChannelButton setHover={setHover} />
+          <AddChannelButton setHover={setHover} sectionName={sectionName} />
         </AddChannelButtonWrap>
       )}
       <StyledSection isSelect={isSelect} {...props} open>
         <Summary onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-          {SectionName}
+          {sectionName}
         </Summary>
         {children}
       </StyledSection>
