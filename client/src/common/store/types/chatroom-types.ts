@@ -6,6 +6,7 @@ export const PICK_CHANNEL = 'PICK_CHANNEL';
 export const PICK_CHANNEL_ASYNC = 'PICK_CHANNEL_ASYNC';
 export const INSERT_MESSAGE = 'INSERT_MESSAGE';
 export const ADD_CHANNEL = 'ADD_CHANNEL';
+export const ADD_CHANNEL_ASYNC = 'ADD_CHANNEL_ASYNC';
 
 export interface selectedChatroomState {
   chatType: string;
