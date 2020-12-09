@@ -19,6 +19,10 @@ const ChatroomBodyContainter = styled.div<any>`
 const InputMessageWrap = styled.div<any>`
   padding-top: 1rem;
   overflow-y: scroll;
+  -ms-overflow-style: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const InputBoxWrap = styled.div<any>`
