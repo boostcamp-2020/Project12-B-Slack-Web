@@ -7,8 +7,9 @@ const initialState: CreateModalState = {
 const ModalReducer = (state = initialState, action: ModalTypes) => {
   switch (action.type) {
     case CREATE_MODAL_OPEN:
+      return { ...state, isOpen: true };
     case CREATE_MODAL_CLOSE:
-      return { ...state, isOpen: action.payload.isOpen };
+      return { ...state, isOpen: false };
     default:
       return state;
   }
