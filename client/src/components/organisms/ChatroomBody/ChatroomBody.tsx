@@ -47,7 +47,7 @@ const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId
     <ChatroomBodyContainter {...props}>
       <InputMessageWrap ref={MessageBodyEl}>{createMessages()}</InputMessageWrap>
       <InputBoxWrap>
-        <InputMessage title={title} chatRoomId={chatRoomId} moveScrollToTheBottom={moveScrollToTheBottom} />
+        <InputMessage title={title} chatRoomId={chatRoomId} />
       </InputBoxWrap>
     </ChatroomBodyContainter>
   );
