@@ -9,14 +9,19 @@ interface ChatroomBodyProps {
 }
 
 const ChatroomBodyContainter = styled.div<any>`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  height: 100%;
-  overflow-y: scroll;
+  height: 90%;
 `;
 
 const InputMessageWrap = styled.div<any>`
+  padding-top: 1rem;
+  overflow-y: scroll;
+`;
+
+const InputBoxWrap = styled.div<any>`
   margin: 1rem;
 `;
 
@@ -29,10 +34,10 @@ const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId
 
   return (
     <ChatroomBodyContainter {...props}>
-      <InputMessageWrap>
-        {createMessages()}
+      <InputMessageWrap>{createMessages()}</InputMessageWrap>
+      <InputBoxWrap>
         <InputMessage title={title} chatRoomId={chatRoomId} />
-      </InputMessageWrap>
+      </InputBoxWrap>
     </ChatroomBodyContainter>
   );
 };
