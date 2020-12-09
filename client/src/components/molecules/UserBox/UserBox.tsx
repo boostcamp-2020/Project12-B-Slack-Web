@@ -3,13 +3,8 @@ import styled from 'styled-components';
 import { ProfileImg } from '@components/atoms';
 import { color } from '@theme/index';
 
-interface MemberProps {
-  name: string;
-  profileUri: string;
-}
-
 interface UserBoxProps {
-  member: Array<MemberProps>;
+  member: Array<any>;
 }
 
 const UserBoxWrap = styled.div<any>`
