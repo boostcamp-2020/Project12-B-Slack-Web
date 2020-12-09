@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://127.0.0.1:3000';
+axios.defaults.baseURL = process.env.API_URL;
 axios.defaults.headers.common.Authorization = localStorage.getItem('token');
 
 export default {
@@ -25,6 +25,21 @@ export default {
 
   getChatroom: async (id: number) => {
     const response = await axios.get(`/api/chatrooms/${id}`);
+    return response.data;
+  },
+
+  postMessage: async (data: any) => {
+    const response = await axios.post('api/messages', data);
+    return response.data;
+  },
+
+  getMessages: async (chatRoomId: number) => {
+    const response = await axios.get(`api/messages/${chatRoomId}`);
+    return response.data;
+  },
+
+  getMessage: async (chatRoomId: number, messageId: number) => {
+    const response = await axios.get(`api/messages/${chatRoomId}/${messageId}`);
     return response.data;
   }
 };

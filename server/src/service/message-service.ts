@@ -62,7 +62,7 @@ class MessageService {
       .leftJoin('message.messageReactions', 'messageReactions')
       .leftJoin('messageReactions.reaction', 'reaction')
       .leftJoin('messageReactions.user', 'reactionUser')
-      .select(['message.messageId', 'message.createdAt', 'message.updatedAt'])
+      .select(['message.messageId', 'message.createdAt', 'message.updatedAt', 'message.content'])
       .addSelect(['user.userId', 'user.profileUri', 'user.displayName'])
       .addSelect(['messageReactions.messageReactionId'])
       .addSelect(['reaction.reactionId', 'reaction.title', 'reaction.imageUri'])
@@ -77,7 +77,7 @@ class MessageService {
     this.customMessagesReaction(messages);
     this.customMessagesReplies(messages);
 
-    return messages;
+    return messages.reverse();
   }
 
   async getRecentMessages(chatroomId: number) {
@@ -89,7 +89,7 @@ class MessageService {
       .leftJoin('message.messageReactions', 'messageReactions')
       .leftJoin('messageReactions.reaction', 'reaction')
       .leftJoin('messageReactions.user', 'reactionUser')
-      .select(['message.messageId', 'message.createdAt', 'message.updatedAt'])
+      .select(['message.messageId', 'message.createdAt', 'message.updatedAt', 'message.content'])
       .addSelect(['user.userId', 'user.profileUri', 'user.displayName'])
       .addSelect(['messageReactions.messageReactionId'])
       .addSelect(['reaction.reactionId', 'reaction.title', 'reaction.imageUri'])
@@ -104,7 +104,7 @@ class MessageService {
     this.customMessagesReaction(messages);
     this.customMessagesReplies(messages);
 
-    return messages;
+    return messages.reverse();
   }
 
   async updateMessage(messageId: number, content: string) {
