@@ -33,7 +33,15 @@ const IconWrap = styled.div<any>`
   margin-left: 0.5rem;
 `;
 
-const ChatroomHeader: React.FC<ChatroomHeaderProps> = ({ title, ...props }) => {
+const MenuContainer = styled.div<any>`
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 9rem;
+  padding: 0rem 1rem;
+`;
+
+const ChatroomHeader: React.FC<ChatroomHeaderProps> = ({ title, users, ...props }) => {
   return (
     <ChatroomHeaderContainter {...props}>
       <TextContainer>
@@ -42,6 +50,11 @@ const ChatroomHeader: React.FC<ChatroomHeaderProps> = ({ title, ...props }) => {
           <Icon size="small" src={BlueStar} isHover={false} />
         </IconWrap>
       </TextContainer>
+      <MenuContainer>
+        <UserBox member={users} />
+        <HoverIcon size="medium" src={userIcon} />
+        <HoverIcon size="medium" src={DetailIcon} />
+      </MenuContainer>
     </ChatroomHeaderContainter>
   );
 };
