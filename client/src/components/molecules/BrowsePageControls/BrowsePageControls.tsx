@@ -8,8 +8,8 @@ import FilterIcon from '@imgs/filter-icon.png';
 
 interface BrowsePageControlsProps {
   channelCount: number;
-  handlingSortButton: () => void;
-  handlingFilterButton: () => void;
+  handlingSortButton?: () => void;
+  handlingFilterButton?: () => void;
 }
 
 export const SortMethods = {
@@ -26,7 +26,7 @@ const BrowsePageControlsWrap = styled.div<any>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1rem;
+  padding: 0.4rem 1.5rem;
 `;
 
 const BrowsePageControlsButtonWrap = styled.div<any>`
@@ -38,7 +38,7 @@ const BrowsePageControls: React.FC<BrowsePageControlsProps> = ({ channelCount, h
 
   return (
     <BrowsePageControlsWrap {...props}>
-      <Text fontColor={color.primary} size="small" isBold={true}>
+      <Text fontColor={color.primary} size="superSmall">
         {`${channelCount} channels`}
       </Text>
       <BrowsePageControlsButtonWrap>

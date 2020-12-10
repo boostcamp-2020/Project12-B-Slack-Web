@@ -18,6 +18,7 @@ import { WhiteButtonWithIcon } from './WhiteButtonWithIcon/WhiteButtonWithIcon';
 import { HoverIcon } from './HoverIcon/HoverIcon';
 import { Actionbar } from './Actionbar/Actionbar';
 import { AddChannelButton } from './AddChannelButton/AddChannelButton';
+import { BrowsePageSearchBar } from './BrowsePageSearchBar/BrowsePageSearchBar';
 
 export {
   Actionbar,
@@ -39,5 +40,6 @@ export {
   ChannelModal,
   AddChannelButton,
   BrowsePageControls,
-  WhiteButtonWithIcon
+  WhiteButtonWithIcon,
+  BrowsePageSearchBar
 };

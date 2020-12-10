@@ -20,7 +20,7 @@ const StyledInput = styled.input<any>`
   border: 0 none;
   outline: none;
   width: fill-available;
-  font-size: 1rem;
+  font-size: 0.8rem;
 `;
 
 const InputHintWrap = styled.div<any>`
