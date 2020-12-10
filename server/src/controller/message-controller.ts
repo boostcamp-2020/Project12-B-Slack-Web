@@ -3,21 +3,11 @@ import MessageService from '@service/message-service';
 import { NextFunction, Request, Response } from 'express';
 
 const messageController = {
-  async getMessage(req: Request, res: Response, next: NextFunction) {
-    try {
-      const { messageId } = req.params;
-      const messages = await MessageService.getInstance().getMessage(Number(messageId));
-      res.status(HttpStatusCode.OK).json(messages);
-    } catch (err) {
-      next(err);
-    }
-  },
   async getMessages(req: Request, res: Response, next: NextFunction) {
     try {
-      const { chatRoomId, offsetId } = req.params;
-      const messages = offsetId
-        ? await MessageService.getInstance().getMessages(Number(chatRoomId), Number(offsetId))
-        : await MessageService.getInstance().getRecentMessages(Number(chatRoomId));
+      const { chatRoomId } = req.params;
+      const { offsetId } = req.query;
+      const messages = await MessageService.getInstance().getMessages(Number(chatRoomId), Number(offsetId));
       res.status(HttpStatusCode.OK).json(messages);
     } catch (err) {
       next(err);
