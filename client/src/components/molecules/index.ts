@@ -14,7 +14,7 @@ import { EmojiBox } from './EmojiBox/EmojiBox';
 import { UserBox } from './UserBox/UserBox';
 import { ChannelModal } from './ChannelModal/ChannelModal';
 import { BrowsePageControls } from './BrowsePageControls/BrowsePageControls';
-import { BlackButtonWithIcon } from './BlackButtonWithIcon/BlackButtonWithIcon';
+import { WhiteButtonWithIcon } from './WhiteButtonWithIcon/WhiteButtonWithIcon';
 import { HoverIcon } from './HoverIcon/HoverIcon';
 import { Actionbar } from './Actionbar/Actionbar';
 import { AddChannelButton } from './AddChannelButton/AddChannelButton';
@@ -39,5 +39,5 @@ export {
   ChannelModal,
   AddChannelButton,
   BrowsePageControls,
-  BlackButtonWithIcon
+  WhiteButtonWithIcon
 };
