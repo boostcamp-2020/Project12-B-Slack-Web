@@ -4,7 +4,7 @@ import { Text, Button } from '@components/atoms';
 import { color } from '@theme/index';
 
 interface BrowsePageHeaderProps {
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const BrowsePageHeaderWrap = styled.div<any>`
@@ -21,7 +21,7 @@ const BrowsePageHeaderWrap = styled.div<any>`
 const ContentWrap = styled.div<any>`
   display: flex;
   align-items: center;
-  padding: 0rem 1rem;
+  padding: 0rem 1.6rem;
 `;
 
 const BrowsePageHeader: React.FC<BrowsePageHeaderProps> = ({ onClick, ...props }) => {

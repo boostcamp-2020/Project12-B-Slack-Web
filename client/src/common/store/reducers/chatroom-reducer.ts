@@ -8,6 +8,7 @@ import {
   INIT_SIDEBAR,
   INSERT_MESSAGE,
   ADD_CHANNEL,
+  RESET_SELECTED_CHANNEL,
   LOAD_NEXT_MESSAGES
 } from '../types/chatroom-types';
 
@@ -65,6 +66,22 @@ export default function chatroomReducer(state = initialState, action: ChatroomTy
       return {
         ...state,
         channels: newChannels
+      };
+    case RESET_SELECTED_CHANNEL:
+      const selectedChatroom = {
+        chatType: '',
+        description: '',
+        isPrivate: false,
+        title: '',
+        topic: '',
+        userCount: 0,
+        users: []
+      };
+      return {
+        ...state,
+        selectedChatroom,
+        selectedChatroomId: null,
+        messages: []
       };
     case LOAD_NEXT_MESSAGES:
       const nextMessages = action.payload.messages;

@@ -12,12 +12,15 @@ import { BrowsePageChannelButton } from './BrowsePageChannelButton/BrowsePageCha
 import { MessageReplyBar } from './MessageReplyBar/MessageReplyBar';
 import { EmojiBox } from './EmojiBox/EmojiBox';
 import { UserBox } from './UserBox/UserBox';
+import { UserBoxModalSearchBar } from './UserBoxModalSearchBar/UserBoxModalSearchBar';
+import { UserBoxModalUserItem } from './UserBoxModalUserItem/UserBoxModalUserItem';
 import { ChannelModal } from './ChannelModal/ChannelModal';
 import { BrowsePageControls } from './BrowsePageControls/BrowsePageControls';
 import { WhiteButtonWithIcon } from './WhiteButtonWithIcon/WhiteButtonWithIcon';
 import { HoverIcon } from './HoverIcon/HoverIcon';
 import { Actionbar } from './Actionbar/Actionbar';
 import { AddChannelButton } from './AddChannelButton/AddChannelButton';
+import { BrowsePageSearchBar } from './BrowsePageSearchBar/BrowsePageSearchBar';
 
 export {
   Actionbar,
@@ -36,8 +39,11 @@ export {
   MessageReplyBar,
   EmojiBox,
   UserBox,
+  UserBoxModalSearchBar,
+  UserBoxModalUserItem,
   ChannelModal,
   AddChannelButton,
   BrowsePageControls,
-  WhiteButtonWithIcon
+  WhiteButtonWithIcon,
+  BrowsePageSearchBar
 };

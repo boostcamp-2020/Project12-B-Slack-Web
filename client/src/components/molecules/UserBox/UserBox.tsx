@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { ProfileImg } from '@components/atoms';
 import { color } from '@theme/index';
+import { userboxModalOpen } from '@store/actions/modal-action';
+import { useDispatch } from 'react-redux';
 
 interface UserBoxProps {
   member: Array<any>;
@@ -31,6 +33,7 @@ const Text = styled.div<any>`
 `;
 
 const UserBox: React.FC<UserBoxProps> = ({ member, ...props }) => {
+  const dispatch = useDispatch();
   const memberNum = member.length;
   const displayMembers: object[] = new Array(3);
   const loopValue = memberNum > 3 ? 3 : memberNum;
@@ -46,7 +49,7 @@ const UserBox: React.FC<UserBoxProps> = ({ member, ...props }) => {
   ));
 
   return (
-    <UserBoxWrap {...props}>
+    <UserBoxWrap onClick={() => dispatch(userboxModalOpen())} {...props}>
       {createProfileImg}
       <Text>{memberNum}</Text>
     </UserBoxWrap>

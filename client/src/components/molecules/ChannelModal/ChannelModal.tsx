@@ -1,17 +1,25 @@
 import React from 'react';
 import { DropMenuBox, DropMenuItem } from '@components/atoms';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { createModalOpen, channelModalClose } from '@store/actions/modal-action';
+import { resetSelectedChannel } from '@store/actions/chatroom-action';
 
 interface ChannelModalProps {}
 
 const ChannelModal: React.FC<ChannelModalProps> = ({ ...props }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
+
   const isOpen = useSelector((store: any) => store.modal.channelModal.isOpen);
+
   const handlingCloseModal = () => {
     dispatch(channelModalClose());
   };
   const handlingBrowseChannelsClick = () => {
+    if (window.location.pathname !== `/channel-browser`) history.push(`/channel-browser`);
+    dispatch(resetSelectedChannel());
+
     dispatch(channelModalClose());
   };
   const handlingCreateChannelClick = () => {
