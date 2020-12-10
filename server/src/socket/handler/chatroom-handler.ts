@@ -1,7 +1,9 @@
 import UserChatroomService from '@service/user-chatroom-service';
+import eventName from '@constants/event-name';
+import ChatroomService from '@service/chatroom-service';
 
 const chatroomHandler = {
-  async joinChatroom(io, socket) {
+  async loginJoinChatroom(io, socket) {
     const req = socket.request;
     const { userId } = req.user;
     const userChatrooms = await UserChatroomService.getInstance().getUserChatrooms(userId);
@@ -13,8 +15,15 @@ const chatroomHandler = {
           socket.join(String(chatroom.chatroomId));
         });
     });
+  },
+  async joinChatroom(io, socket, chatroom) {
+    const req = socket.request;
+    const { userId } = req.user;
+    const { chatroomId } = chatroom;
+    const { users, userCount } = await ChatroomService.getInstance().getChatroomInfo(chatroomId, userId);
+    socket.join(String(chatroomId));
+    io.to(String(chatroomId)).emit(eventName.JOIN_CHATROOM, { chatroomId, users, userCount });
   }
 };
 
 export default chatroomHandler;
-
