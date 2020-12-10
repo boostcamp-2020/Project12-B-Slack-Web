@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@store/reducers/index';
 import { loadAsync } from '@store/actions/chatroom-action';
 
-interface ChatroomProps {
-  children: React.ReactNode;
-}
+interface ChatroomProps {}
 
 const ChatroomContainer = styled.div<any>`
   height: 100%;
