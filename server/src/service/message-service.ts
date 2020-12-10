@@ -55,6 +55,8 @@ class MessageService {
 
   async getMessages(chatroomId: number, offsetId: number) {
     const limit = 15;
+    let where = 'message.chatroomId = :chatroomId';
+    if (offsetId) where += ' AND message.messageId < :offsetId';
     const messages = await this.MessageRepository.createQueryBuilder('message')
       .leftJoin('message.user', 'user')
       .leftJoin('message.replies', 'replies')
@@ -71,34 +73,7 @@ class MessageService {
       .addSelect(['replyUser.profileUri'])
       .orderBy('message.messageId', 'DESC')
       .limit(limit)
-      .where('message.chatroomId = :chatroomId AND message.messageId < :offsetId', { chatroomId, offsetId })
-      .getMany();
-
-    this.customMessagesReaction(messages);
-    this.customMessagesReplies(messages);
-
-    return messages.reverse();
-  }
-
-  async getRecentMessages(chatroomId: number) {
-    const limit = 15;
-    const messages = await this.MessageRepository.createQueryBuilder('message')
-      .leftJoin('message.user', 'user')
-      .leftJoin('message.replies', 'replies')
-      .leftJoin('replies.user', 'replyUser')
-      .leftJoin('message.messageReactions', 'messageReactions')
-      .leftJoin('messageReactions.reaction', 'reaction')
-      .leftJoin('messageReactions.user', 'reactionUser')
-      .select(['message.messageId', 'message.createdAt', 'message.updatedAt', 'message.content'])
-      .addSelect(['user.userId', 'user.profileUri', 'user.displayName'])
-      .addSelect(['messageReactions.messageReactionId'])
-      .addSelect(['reaction.reactionId', 'reaction.title', 'reaction.imageUri'])
-      .addSelect(['reactionUser.displayName'])
-      .addSelect(['replies.createdAt'])
-      .addSelect(['replyUser.profileUri'])
-      .orderBy('message.messageId', 'DESC')
-      .limit(limit)
-      .where('message.chatroomId = :chatroomId', { chatroomId })
+      .where(where, { chatroomId, offsetId })
       .getMany();
 
     this.customMessagesReaction(messages);
