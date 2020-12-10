@@ -9,7 +9,6 @@ import NotFoundError from '@error/not-found-error';
 import ChatType from '@constants/chat-type';
 import DefaultSectionName from '@constants/default-section-name';
 import ConflictError from '@error/conflict-error';
-import { CONNREFUSED } from 'dns';
 
 class ChatroomService {
   static instance: ChatroomService;
