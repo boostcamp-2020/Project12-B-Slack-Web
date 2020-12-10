@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Text } from '@components/atoms';
 import { color } from '@theme/index';
-import { BlackButtonWithIcon } from '@components/molecules';
+import { WhiteButtonWithIcon } from '@components/molecules';
 import SortIcon from '@imgs/sort-icon.png';
 import FilterIcon from '@imgs/filter-icon.png';
 
@@ -42,12 +42,12 @@ const BrowsePageControls: React.FC<BrowsePageControlsProps> = ({ channelCount, h
         {`${channelCount} channels`}
       </Text>
       <BrowsePageControlsButtonWrap>
-        <BlackButtonWithIcon onClick={handlingSortButton} iconSrc={SortIcon}>
+        <WhiteButtonWithIcon onClick={handlingSortButton} iconSrc={SortIcon}>
           {`Sort: ${sortMethod}`}
-        </BlackButtonWithIcon>
-        <BlackButtonWithIcon onClick={handlingFilterButton} iconSrc={FilterIcon}>
+        </WhiteButtonWithIcon>
+        <WhiteButtonWithIcon onClick={handlingFilterButton} iconSrc={FilterIcon}>
           Filter
-        </BlackButtonWithIcon>
+        </WhiteButtonWithIcon>
       </BrowsePageControlsButtonWrap>
     </BrowsePageControlsWrap>
   );
