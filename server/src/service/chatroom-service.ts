@@ -9,6 +9,7 @@ import NotFoundError from '@error/not-found-error';
 import ChatType from '@constants/chat-type';
 import DefaultSectionName from '@constants/default-section-name';
 import ConflictError from '@error/conflict-error';
+import { CONNREFUSED } from 'dns';
 
 class ChatroomService {
   static instance: ChatroomService;
@@ -108,20 +109,31 @@ class ChatroomService {
     return newUserChatroom;
   }
 
-  async getChatrooms(userId: Number) {
-    const chatrooms = await this.chatroomRepository
-      .createQueryBuilder('chatroom')
-      .where('chatroom.chatType = :chatType', { chatType: 'Channel' })
-      .leftJoin('chatroom.userChatrooms', 'userChatrooms')
-      .leftJoin('userChatrooms.user', 'user')
-      .select(['chatroom.chatroomId', 'chatroom.title', 'chatroom.description', 'chatroom.isPrivate'])
-      .addSelect(['userChatrooms.userChatroomId'])
-      .addSelect(['user.userId'])
-      .orderBy('chatroom.title')
-      .getMany();
+  async getChatrooms(userId: Number, offsetTitle) {
+    const chatrooms = offsetTitle
+      ? await this.chatroomRepository
+          .createQueryBuilder('chatroom')
+          .where('chatroom.chatType = :chatType AND chatroom.title > :offsetTitle', { chatType: 'Channel', offsetTitle })
+          .leftJoin('chatroom.userChatrooms', 'userChatrooms')
+          .leftJoin('userChatrooms.user', 'user')
+          .select(['chatroom.chatroomId', 'chatroom.title', 'chatroom.description', 'chatroom.isPrivate'])
+          .addSelect(['userChatrooms.userChatroomId'])
+          .addSelect(['user.userId'])
+          .orderBy('chatroom.title')
+          .getMany()
+      : await this.chatroomRepository
+          .createQueryBuilder('chatroom')
+          .where('chatroom.chatType = :chatType', { chatType: 'Channel' })
+          .leftJoin('chatroom.userChatrooms', 'userChatrooms')
+          .leftJoin('userChatrooms.user', 'user')
+          .select(['chatroom.chatroomId', 'chatroom.title', 'chatroom.description', 'chatroom.isPrivate'])
+          .addSelect(['userChatrooms.userChatroomId'])
+          .addSelect(['user.userId'])
+          .orderBy('chatroom.title')
+          .getMany();
     const filterChatrooms = this.getFilterPrivateChatrooms(chatrooms, userId);
     const customChatrooms = this.getCustomChatrooms(filterChatrooms);
-    return customChatrooms;
+    return customChatrooms.slice(0, 20);
   }
 
   private getFilterPrivateChatrooms(chatrooms: any, userId: Number) {

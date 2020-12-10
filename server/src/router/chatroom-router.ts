@@ -3,7 +3,6 @@ import ChatroomController from '@controller/chatroom-controller';
 
 const router = express.Router();
 
-
 router.get('/', ChatroomController.getChatrooms);
 router.post('/channel', ChatroomController.createChannel);
 router.post('/dm', ChatroomController.createDM);
