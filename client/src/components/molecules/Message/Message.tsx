@@ -22,13 +22,12 @@ const MessageContainer = styled.div<any>`
 `;
 
 const ProfileImgWrap = styled.div<any>`
-  width: 3rem;
+  margin-right: 1.5rem;
 `;
 
 const MessageContent = styled.div<any>`
   display: flex;
   flex-direction: column;
-  margin-left: 0.2rem;
 `;
 
 const MessageHeader = styled.div<any>`
