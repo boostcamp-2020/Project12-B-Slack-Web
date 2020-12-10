@@ -38,7 +38,7 @@ const SubmitButtonCantainer = styled.div`
 
 const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ ...props }) => {
   const dispatch = useDispatch();
-  const isOpen = useSelector((store: any) => store.modal.isOpen);
+  const isOpen = useSelector((store: any) => store.modal.createModal.isOpen);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);

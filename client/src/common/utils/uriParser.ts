@@ -1,4 +1,4 @@
-export const isExistParseCode = () => {
+export const isExistParseCodeUrl = () => {
   const pattern = new RegExp(/^\?code=\w+$/);
   return pattern.test(window.location.search);
 };

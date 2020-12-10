@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Button } from '@components/atoms';
+import { Button } from '@components/atoms';
 import { color } from '@theme/index';
 
 interface BrowsePageChannelButtonProps {
@@ -12,21 +12,17 @@ const BrowsePageChannelButton: React.FC<BrowsePageChannelButtonProps> = ({ isJoi
   return (
     <>
       {isJoined ? (
-        <Button onClick={handlingLeaveButton} backgroundColor={color.primary} borderColor={color.tertiary} fontColor={color.tertiary} {...props}>
-          <Text fontColor={color.text_secondary} size="superSmall">
-            Leave
-          </Text>
+        <Button onClick={handlingLeaveButton} backgroundColor={color.tertiary} borderColor={color.secondary} fontColor={color.primary} {...props}>
+          Leave
         </Button>
       ) : (
         <Button
           onClick={handlingJoinButton}
           backgroundColor={color.button_secondary}
-          borderColor={color.tertiary}
-          fontColor={color.tertiary}
+          borderColor={color.button_secondary}
+          fontColor={color.text_secondary}
           {...props}>
-          <Text fontColor={color.text_secondary} size="superSmall">
-            Join
-          </Text>
+          Join
         </Button>
       )}
     </>

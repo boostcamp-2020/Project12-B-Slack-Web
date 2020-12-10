@@ -24,11 +24,11 @@ const BrowsePageChannelBody: React.FC<BrowsePageChannelBodyProps> = ({ isJoined,
           {`✓ Joined ·`}
         </Text>
       )}
-      <Text fontColor={color.secondary} size="superSmall">
+      <Text fontColor={color.text_tertiary} size="superSmall">
         {`${memberCount} members`}
       </Text>
       {description && (
-        <Text fontColor={color.secondary} size="superSmall">
+        <Text fontColor={color.text_tertiary} size="superSmall">
           {`· ${description}`}
         </Text>
       )}

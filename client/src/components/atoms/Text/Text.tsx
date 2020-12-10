@@ -9,6 +9,7 @@ interface TextProps {
   fontColor?: string;
   isSelect?: boolean;
   isTitle?: boolean;
+  width?: string;
 }
 
 const StyledText = styled.p<any>`
@@ -22,6 +23,7 @@ const StyledText = styled.p<any>`
   }};
   font-weight: ${(props) => (props.isBold ? 'bold' : 'none')};
   margin: 0;
+  width: ${(props) => props.width};
 `;
 
 const Text: React.FC<TextProps> = ({
@@ -31,10 +33,11 @@ const Text: React.FC<TextProps> = ({
   isTitle = false,
   isBold = false,
   isSelect = false,
+  width = 'auto',
   ...props
 }) => {
   return (
-    <StyledText size={size} isTitle={isTitle} color={fontColor} isBold={isBold} isSelect={isSelect} {...props}>
+    <StyledText size={size} isTitle={isTitle} color={fontColor} isBold={isBold} isSelect={isSelect} width={width} {...props}>
       {children}
     </StyledText>
   );

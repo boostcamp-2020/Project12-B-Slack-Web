@@ -36,6 +36,7 @@ const BrowsePageChannelContent = styled.div<any>`
 
 const ButtonWrap = styled.div<any>`
   display: flex;
+  margin-right: 0.5rem;
   button {
     display: none;
   }

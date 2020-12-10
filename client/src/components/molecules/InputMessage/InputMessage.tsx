@@ -4,10 +4,12 @@ import { Input } from '@components/atoms';
 import { SendMessageButton } from '@components/molecules';
 import { color } from '@theme/index';
 import { createMessage } from '@socket/emits/message';
+import { ChatroomEventType } from '@constants/index';
 
 interface InputMessageProps {
   isThread?: boolean;
   title: string;
+  setEventType: any;
   chatRoomId: number | null;
 }
 
@@ -31,10 +33,12 @@ const ButtonWrap = styled.div<any>`
   margin-right: 1rem;
 `;
 
-const InputMessage: React.FC<InputMessageProps> = ({ children, title, isThread, chatRoomId, ...props }) => {
+const InputMessage: React.FC<InputMessageProps> = ({ children, title, isThread, chatRoomId, setEventType, ...props }) => {
   const [content, setContent] = useState('');
 
   const sendMessage = () => {
+    if (content === '') return;
+    setEventType(ChatroomEventType.INPUTTEXT);
     createMessage({ content, chatroomId: chatRoomId });
     setContent('');
   };

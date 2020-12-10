@@ -108,10 +108,12 @@ class ChatroomService {
     return newUserChatroom;
   }
 
-  async getChatrooms(userId: Number) {
+  async getChatrooms(userId: Number, offsetTitle) {
+    let where = 'chatroom.chatType = :chatType';
+    if (offsetTitle) where += ' AND chatroom.title > :offsetTitle';
     const chatrooms = await this.chatroomRepository
       .createQueryBuilder('chatroom')
-      .where('chatroom.chatType = :chatType', { chatType: 'Channel' })
+      .where(where, { chatType: 'Channel', offsetTitle })
       .leftJoin('chatroom.userChatrooms', 'userChatrooms')
       .leftJoin('userChatrooms.user', 'user')
       .select(['chatroom.chatroomId', 'chatroom.title', 'chatroom.description', 'chatroom.isPrivate'])
@@ -121,7 +123,7 @@ class ChatroomService {
       .getMany();
     const filterChatrooms = this.getFilterPrivateChatrooms(chatrooms, userId);
     const customChatrooms = this.getCustomChatrooms(filterChatrooms);
-    return customChatrooms;
+    return customChatrooms.slice(0, 20);
   }
 
   private getFilterPrivateChatrooms(chatrooms: any, userId: Number) {

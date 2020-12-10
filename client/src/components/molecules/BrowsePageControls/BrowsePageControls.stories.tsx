@@ -7,14 +7,9 @@ export default {
   component: BrowsePageControls
 } as Meta;
 
-const handlingSortButton = () => {};
-const handlingFilterButton = () => {};
-
 const Template: Story<BrowsePageControlsProps> = (args) => <BrowsePageControls {...args} />;
 
 export const BlackBrowsePageControls = Template.bind({});
 BlackBrowsePageControls.args = {
-  channelCount: 193,
-  handlingSortButton,
-  handlingFilterButton
+  channelCount: 193
 };
