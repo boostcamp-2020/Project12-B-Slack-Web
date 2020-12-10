@@ -33,10 +33,8 @@ const BrowsePageHeader: React.FC<BrowsePageHeaderProps> = ({ onClick, ...props }
         </Text>
       </ContentWrap>
       <ContentWrap>
-        <Button onClick={onClick} backgroundColor={color.primary} borderColor={color.tertiary} fontColor={color.tertiary} {...props}>
-          <Text fontColor={color.text_secondary} size="superSmall">
-            Create Channel
-          </Text>
+        <Button onClick={onClick} backgroundColor={color.tertiary} borderColor={color.secondary} fontColor={color.primary} {...props}>
+          Create Channel
         </Button>
       </ContentWrap>
     </BrowsePageHeaderWrap>
