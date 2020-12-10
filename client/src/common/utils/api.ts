@@ -67,5 +67,10 @@ export default {
     } catch (e) {
       throw new Error('Channel creation failed.');
     }
+  },
+
+  getChannels: async () => {
+    const response = await axios.get(`api/chatrooms`);
+    return response.data;
   }
 };
