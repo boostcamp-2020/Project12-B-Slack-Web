@@ -8,7 +8,8 @@ import {
   INIT_SIDEBAR,
   INSERT_MESSAGE,
   ADD_CHANNEL,
-  RESET_SELECTED_CHANNEL
+  RESET_SELECTED_CHANNEL,
+  LOAD_NEXT_MESSAGES
 } from '../types/chatroom-types';
 
 const initialState: chatroomState = {
@@ -81,6 +82,13 @@ export default function chatroomReducer(state = initialState, action: ChatroomTy
         selectedChatroom,
         selectedChatroomId: null,
         messages: []
+      };
+    case LOAD_NEXT_MESSAGES:
+      const nextMessages = action.payload.messages;
+      nextMessages.push(...state.messages);
+      return {
+        ...state,
+        messages: nextMessages
       };
     default:
       return state;

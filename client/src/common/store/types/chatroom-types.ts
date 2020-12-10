@@ -8,6 +8,8 @@ export const INSERT_MESSAGE = 'INSERT_MESSAGE';
 export const ADD_CHANNEL = 'ADD_CHANNEL';
 export const ADD_CHANNEL_ASYNC = 'ADD_CHANNEL_ASYNC';
 export const RESET_SELECTED_CHANNEL = 'RESET_SELECTED_CHANNEL';
+export const LOAD_NEXT_MESSAGES = 'LOAD_NEXT_MESSAGES';
+export const LOAD_NEXT_MESSAGES_ASYNC = 'LOAD_NEXT_MESSAGES_ASYNC';
 
 export interface selectedChatroomState {
   chatType: string;
@@ -48,6 +50,10 @@ export interface messageState {
   chatroomId: number;
 }
 
+export interface messagesState {
+  messages: Array<any>;
+}
+
 interface LoadChatroomAction {
   type: typeof LOAD;
   payload: chatroomState;
@@ -77,10 +83,16 @@ interface ResetSelectedChannel {
   type: typeof RESET_SELECTED_CHANNEL;
 }
 
+interface LoadNextAction {
+  type: typeof LOAD_NEXT_MESSAGES;
+  payload: messagesState;
+}
+
 export type ChatroomTypes =
   | LoadChatroomAction
   | InitSidebarAction
   | PickChannelAction
   | InsertMessageAction
   | AddChannelAction
-  | ResetSelectedChannel;
+  | ResetSelectedChannel
+  | LoadNextAction;
