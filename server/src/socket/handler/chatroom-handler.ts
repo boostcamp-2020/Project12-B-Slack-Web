@@ -3,7 +3,7 @@ import eventName from '@constants/event-name';
 import ChatroomService from '@service/chatroom-service';
 
 const chatroomHandler = {
-  async loginJoinChatroom(io, socket) {
+  async initJoinChatroom(io, socket) {
     const req = socket.request;
     const { userId } = req.user;
     const userChatrooms = await UserChatroomService.getInstance().getUserChatrooms(userId);
