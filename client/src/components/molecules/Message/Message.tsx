@@ -22,13 +22,12 @@ const MessageContainer = styled.div<any>`
 `;
 
 const ProfileImgWrap = styled.div<any>`
-  width: 3rem;
+  margin-right: 1.5rem;
 `;
 
 const MessageContent = styled.div<any>`
   display: flex;
   flex-direction: column;
-  margin-left: 0.2rem;
 `;
 
 const MessageHeader = styled.div<any>`
@@ -45,15 +44,11 @@ const DateText = styled.p<any>`
 const Message: React.FC<MessageProps> = ({ author, content, src, createdAt, ...props }) => {
   const [isHover, setHover] = useState(false);
   const messageContainer = useRef();
-  const onMouseEnter = (e: any) => {
-    if (e.target === messageContainer.current) {
-      setHover(true);
-    }
+  const onMouseEnter = () => {
+    setHover(true);
   };
-  const onMouseLeave = (e: any) => {
-    if (e.target === messageContainer.current) {
-      setHover(false);
-    }
+  const onMouseLeave = () => {
+    setHover(false);
   };
   return (
     <MessageContainer ref={messageContainer} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} {...props}>

@@ -37,6 +37,7 @@ const InputMessage: React.FC<InputMessageProps> = ({ children, title, isThread, 
   const [content, setContent] = useState('');
 
   const sendMessage = () => {
+    if (content === '') return;
     setEventType(ChatroomEventType.INPUTTEXT);
     createMessage({ content, chatroomId: chatRoomId });
     setContent('');

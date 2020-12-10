@@ -1,12 +1,10 @@
-const checkAuthToToken = () => {
-  return !!localStorage.getItem('token');
-};
+import { auth } from '@utils/index';
 
 const blockPage = () => {
-  if (checkAuthToToken() && window.location.pathname === '/login') {
+  if (auth.checkAuthToToken() && window.location.pathname === '/login') {
     window.location.href = '/';
   }
-  if (!checkAuthToToken() && window.location.pathname !== '/login') {
+  if (!auth.checkAuthToToken() && window.location.pathname !== '/login') {
     window.location.href = '/login';
   }
 };
