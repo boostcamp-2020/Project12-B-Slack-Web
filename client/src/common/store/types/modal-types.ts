@@ -2,6 +2,8 @@ export const CREATE_MODAL_OPEN = 'CREATE_MODAL_OPEN';
 export const CREATE_MODAL_CLOSE = 'CREATE_MODAL_CLOSE';
 export const CHANNEL_MODAL_OPEN = 'CHANNEL_MODAL_OPEN';
 export const CHANNEL_MODAL_CLOSE = 'CHANNEL_MODAL_CLOSE';
+export const USERBOX_MODAL_OPEN = 'USERBOX_MODAL_OPEN';
+export const USERBOX_MODAL_CLOSE = 'USERBOX_MODAL_CLOSE';
 
 export interface CreateChannelModalState {
   isOpen: boolean;
@@ -13,9 +15,14 @@ export interface ChannelModalState {
   y: number;
 }
 
+export interface UserBoxModalState {
+  isOpen: boolean;
+}
+
 export interface ModalState {
   createModal: CreateChannelModalState;
   channelModal: ChannelModalState;
+  userboxModal: UserBoxModalState;
 }
 
 interface CreateChannelModalOpenAction {
@@ -38,4 +45,18 @@ interface ChannelModalCloseAction {
   payload: ChannelModalState;
 }
 
-export type ModalTypes = CreateChannelModalOpenAction | CreateChannelModalCloseAction | ChannelModalOpenAction | ChannelModalCloseAction;
+interface UserBoxModalOpenAction {
+  type: typeof USERBOX_MODAL_OPEN;
+}
+
+interface UserBoxModalCloseAction {
+  type: typeof USERBOX_MODAL_CLOSE;
+}
+
+export type ModalTypes =
+  | CreateChannelModalOpenAction
+  | CreateChannelModalCloseAction
+  | ChannelModalOpenAction
+  | ChannelModalCloseAction
+  | UserBoxModalOpenAction
+  | UserBoxModalCloseAction;
