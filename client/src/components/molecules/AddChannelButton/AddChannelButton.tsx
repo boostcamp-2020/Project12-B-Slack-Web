@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Plus from '@imgs/plus-icon.png';
-import { ChannelModal } from '@components/molecules';
 import { Icon } from '@components/atoms';
-import { DefaultSectionName } from '@constants/default-section-name';
+import { useDispatch } from 'react-redux';
+import { channelModalOpen } from '@store/actions/modal-action';
 
 interface AddChannelButtonProps {
   sectionName: string;
@@ -16,19 +16,11 @@ const IconWrap = styled.div<any>`
 `;
 
 const AddChannelButton: React.FC<AddChannelButtonProps> = ({ setHover, sectionName, ...props }) => {
-  const [isChannelModalOpened, setIsChannelModalOpened] = useState(false);
-
-  const handlingHoverIconClick = () => {
-    if (sectionName === DefaultSectionName.CHANNELS) {
-      setIsChannelModalOpened(!isChannelModalOpened);
-    }
-  };
-
-  const handlingCloseModal = () => {
-    setHover(false);
-    if (sectionName === DefaultSectionName.CHANNELS) {
-      setIsChannelModalOpened(false);
-    }
+  const dispatch = useDispatch();
+  const handlingHoverIconClick = (e: any) => {
+    const x = window.pageXOffset + e.target.getBoundingClientRect().left;
+    const y = window.pageYOffset + e.target.getBoundingClientRect().top;
+    dispatch(channelModalOpen({ x, y }));
   };
 
   return (
@@ -36,7 +28,6 @@ const AddChannelButton: React.FC<AddChannelButtonProps> = ({ setHover, sectionNa
       <IconWrap onClick={handlingHoverIconClick}>
         <Icon size="small" src={Plus} isHover={false} />
       </IconWrap>
-      {isChannelModalOpened && <ChannelModal handlingCloseModal={handlingCloseModal} />}
     </>
   );
 };

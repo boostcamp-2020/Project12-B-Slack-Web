@@ -24,4 +24,9 @@ const timeAgo = (date: Date): string => {
   return `${Math.round(years)} years ago`;
 };
 
-export default timeAgo;
+const getTimeConversionValue = (date: Date): string => {
+  const time = new Date(date);
+  return time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+};
+
+export { timeAgo, getTimeConversionValue };

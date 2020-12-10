@@ -1,5 +1,6 @@
 import { color } from '@theme/index';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 interface DropMenuBoxProps {
@@ -20,6 +21,8 @@ const BackgroundModal = styled.div<any>`
 
 const InnerModal = styled.div<any>`
   position: absolute;
+  top: ${(props) => `${props.y}px`};
+  left: ${(props) => `${props.x}px`};
   padding: 1rem 0rem;
   background-color: ${color.modal_bg_inner_secondary};
   z-index: 999;
@@ -29,10 +32,13 @@ const InnerModal = styled.div<any>`
 `;
 
 const DropMenuBox: React.FC<DropMenuBoxProps> = ({ children, onClick, ...props }) => {
+  const { x, y } = useSelector((store: any) => store.modal.channelModal);
   return (
     <>
       <BackgroundModal onClick={onClick} {...props}></BackgroundModal>
-      <InnerModal>{children}</InnerModal>
+      <InnerModal x={x} y={y}>
+        {children}
+      </InnerModal>
     </>
   );
 };
