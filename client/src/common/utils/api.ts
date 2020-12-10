@@ -44,13 +44,18 @@ export default {
     return response.data;
   },
 
-  getMessages: async (chatRoomId: number) => {
-    const response = await axios.get(`api/messages/${chatRoomId}`);
+  getMessages: async (chatroomId: number) => {
+    const response = await axios.get(`api/messages/${chatroomId}`);
     return response.data;
   },
 
-  getMessage: async (chatRoomId: number, messageId: number) => {
-    const response = await axios.get(`api/messages/${chatRoomId}/${messageId}`);
+  getMessage: async (chatroomId: number, messageId: number) => {
+    const response = await axios.get(`api/messages/${chatroomId}/${messageId}`);
+    return response.data;
+  },
+
+  getNextMessages: async (chatroomId: number, offsetId: number) => {
+    const response = await axios.get(`api/messages/${chatroomId}/${offsetId}`);
     return response.data;
   },
 

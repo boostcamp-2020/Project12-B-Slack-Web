@@ -54,7 +54,7 @@ class MessageService {
   }
 
   async getMessages(chatroomId: number, offsetId: number) {
-    const limit = 10;
+    const limit = 15;
     const messages = await this.MessageRepository.createQueryBuilder('message')
       .leftJoin('message.user', 'user')
       .leftJoin('message.replies', 'replies')
@@ -81,7 +81,7 @@ class MessageService {
   }
 
   async getRecentMessages(chatroomId: number) {
-    const limit = 10;
+    const limit = 15;
     const messages = await this.MessageRepository.createQueryBuilder('message')
       .leftJoin('message.user', 'user')
       .leftJoin('message.replies', 'replies')
@@ -112,7 +112,6 @@ class MessageService {
     validator(message);
     const updatedMessage = await this.MessageRepository.save({ messageId, content });
     return updatedMessage;
-
   }
 
   async deleteMessage(messageId: number) {

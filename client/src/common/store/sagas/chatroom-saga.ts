@@ -8,7 +8,9 @@ import {
   PICK_CHANNEL,
   PICK_CHANNEL_ASYNC,
   ADD_CHANNEL_ASYNC,
-  ADD_CHANNEL
+  ADD_CHANNEL,
+  LOAD_NEXT_MESSAGES,
+  LOAD_NEXT_MESSAGES_ASYNC
 } from '../types/chatroom-types';
 
 function* loadSaga(action: any) {
@@ -57,9 +59,20 @@ function* addChannel(action: any) {
   }
 }
 
+function* loadNextMessages(action: any) {
+  try {
+    const offsetId = action.payload.offsetMessage.messageId;
+    const nextMessages = yield call(API.getNextMessages, action.payload.chatRoomId, offsetId);
+    yield put({ type: LOAD_NEXT_MESSAGES, payload: { messages: nextMessages } });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function* chatroomSaga() {
   yield takeEvery(LOAD_ASYNC, loadSaga);
   yield takeEvery(INIT_SIDEBAR_ASYNC, initSidebarSaga);
   yield takeEvery(PICK_CHANNEL_ASYNC, pickChannelSaga);
   yield takeEvery(ADD_CHANNEL_ASYNC, addChannel);
+  yield takeEvery(LOAD_NEXT_MESSAGES_ASYNC, loadNextMessages);
 }
