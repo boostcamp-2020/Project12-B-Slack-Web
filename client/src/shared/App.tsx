@@ -3,7 +3,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Chatroom, Login } from '@pages/index';
 import { Header, Sidebar, CreateChannelModal } from '@components/organisms';
 import { registerToken, blockPage } from '@utils/index';
-import { Main, MainBox } from '@components/templates';
+import { Main, MainBox, Body } from '@components/templates';
+import { ChannelModal } from '@components/molecules';
 
 const App = () => {
   useEffect(() => {
@@ -17,15 +18,18 @@ const App = () => {
       <Switch>
         <Route exact path="/login" component={Login} />
         <Fragment>
-          <Header />
-          <Main>
-            <Sidebar />
-            <MainBox>
-              <Route exact path="/" />
-              <Route exact path="/client/:id" component={Chatroom} />
-            </MainBox>
-          </Main>
-          <CreateChannelModal />
+          <Body>
+            <Header />
+            <Main>
+              <Sidebar />
+              <MainBox>
+                <Route exact path="/" />
+                <Route exact path="/client/:id" component={Chatroom} />
+              </MainBox>
+            </Main>
+            <CreateChannelModal />
+            <ChannelModal />
+          </Body>
         </Fragment>
       </Switch>
     </BrowserRouter>
