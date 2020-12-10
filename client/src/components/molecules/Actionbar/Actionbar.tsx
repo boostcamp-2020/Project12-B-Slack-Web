@@ -6,7 +6,9 @@ import EmojiIcon from '@imgs/emoji-icon.png';
 import ThreadIcon from '@imgs/thread-icon.png';
 import OptionIcon from '@imgs/option-icon.png';
 
-interface ActionbarProps {}
+interface ActionbarProps {
+  messageId: number;
+}
 
 const ActionbarContainer = styled.div<any>`
   display: flex;
@@ -18,7 +20,7 @@ const ActionbarContainer = styled.div<any>`
   border-radius: 0.2rem;
 `;
 
-const Actionbar: React.FC<ActionbarProps> = ({ ...props }) => {
+const Actionbar: React.FC<ActionbarProps> = ({ messageId, ...props }) => {
   return (
     <ActionbarContainer {...props}>
       <HoverIcon size="medium" src={EmojiIcon} />

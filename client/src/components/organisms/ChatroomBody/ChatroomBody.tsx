@@ -37,6 +37,7 @@ const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId
     return messages.map((message: any) => (
       <Message
         key={message.messageId}
+        messageId={message.messageId}
         author={message.user.displayName}
         content={message.content}
         src={message.user.profileUri}
