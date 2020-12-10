@@ -20,7 +20,7 @@ const Chatroom: React.FC<ChatroomProps> = ({ children, ...props }) => {
   const { title, users } = selectedChatroom;
 
   useEffect(() => {
-    dispatch(loadAsync({ selectedChatroomId }));
+    if (selectedChatroomId !== null) dispatch(loadAsync({ selectedChatroomId }));
     socket.on('create message', (message: any) => {
       dispatch(insertMessage(message));
     });
