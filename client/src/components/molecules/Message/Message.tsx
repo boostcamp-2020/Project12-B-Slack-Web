@@ -44,15 +44,11 @@ const DateText = styled.p<any>`
 const Message: React.FC<MessageProps> = ({ author, content, src, createdAt, ...props }) => {
   const [isHover, setHover] = useState(false);
   const messageContainer = useRef();
-  const onMouseEnter = (e: any) => {
-    if (e.target === messageContainer.current) {
-      setHover(true);
-    }
+  const onMouseEnter = () => {
+    setHover(true);
   };
-  const onMouseLeave = (e: any) => {
-    if (e.target === messageContainer.current) {
-      setHover(false);
-    }
+  const onMouseLeave = () => {
+    setHover(false);
   };
   return (
     <MessageContainer ref={messageContainer} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} {...props}>
