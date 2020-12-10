@@ -18,7 +18,7 @@ const Chatroom: React.FC<ChatroomProps> = ({ children, ...props }) => {
   const { selectedChatroomId, selectedChatroom, messages } = useSelector((store: RootState) => store.chatroom);
   const { title, users } = selectedChatroom;
   useEffect(() => {
-    dispatch(loadAsync({ selectedChatroomId }));
+    if (selectedChatroomId !== null) dispatch(loadAsync({ selectedChatroomId }));
   }, []);
 
   return (

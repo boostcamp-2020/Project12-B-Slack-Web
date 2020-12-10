@@ -55,7 +55,7 @@ export default {
   },
 
   getNextMessages: async (chatroomId: number, offsetId: number) => {
-    const response = await axios.get(`api/messages/${chatroomId}/${offsetId}`);
+    const response = await axios.get(`api/messages/${chatroomId}/?offsetId=${offsetId}`);
     return response.data;
   },
 
