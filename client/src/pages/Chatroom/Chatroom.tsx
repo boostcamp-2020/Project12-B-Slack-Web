@@ -6,9 +6,7 @@ import { RootState } from '@store/reducers/index';
 import { insertMessage, loadAsync } from '@store/actions/chatroom-action';
 import socket from '@socket/socketIO';
 
-interface ChatroomProps {
-  children: React.ReactNode;
-}
+interface ChatroomProps {}
 
 const ChatroomContainer = styled.div<any>`
   height: 100%;
