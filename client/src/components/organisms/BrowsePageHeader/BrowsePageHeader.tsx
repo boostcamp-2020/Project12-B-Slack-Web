@@ -4,7 +4,7 @@ import { Text, Button } from '@components/atoms';
 import { color } from '@theme/index';
 
 interface BrowsePageHeaderProps {
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const BrowsePageHeaderWrap = styled.div<any>`
