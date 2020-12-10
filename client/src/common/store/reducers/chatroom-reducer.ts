@@ -1,6 +1,15 @@
 /* eslint-disable no-case-declarations */
 import { uriParser } from '@utils/index';
-import { chatroomState, LOAD, ChatroomTypes, PICK_CHANNEL, INIT_SIDEBAR, INSERT_MESSAGE, ADD_CHANNEL } from '../types/chatroom-types';
+import {
+  chatroomState,
+  LOAD,
+  ChatroomTypes,
+  PICK_CHANNEL,
+  INIT_SIDEBAR,
+  INSERT_MESSAGE,
+  ADD_CHANNEL,
+  LOAD_NEXT_MESSAGES
+} from '../types/chatroom-types';
 
 const initialState: chatroomState = {
   selectedChatroom: {
@@ -56,6 +65,13 @@ export default function chatroomReducer(state = initialState, action: ChatroomTy
       return {
         ...state,
         channels: newChannels
+      };
+    case LOAD_NEXT_MESSAGES:
+      const nextMessages = action.payload.messages;
+      nextMessages.push(...state.messages);
+      return {
+        ...state,
+        messages: nextMessages
       };
     default:
       return state;
