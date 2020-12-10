@@ -109,27 +109,18 @@ class ChatroomService {
   }
 
   async getChatrooms(userId: Number, offsetTitle) {
-    const chatrooms = offsetTitle
-      ? await this.chatroomRepository
-          .createQueryBuilder('chatroom')
-          .where('chatroom.chatType = :chatType AND chatroom.title > :offsetTitle', { chatType: 'Channel', offsetTitle })
-          .leftJoin('chatroom.userChatrooms', 'userChatrooms')
-          .leftJoin('userChatrooms.user', 'user')
-          .select(['chatroom.chatroomId', 'chatroom.title', 'chatroom.description', 'chatroom.isPrivate'])
-          .addSelect(['userChatrooms.userChatroomId'])
-          .addSelect(['user.userId'])
-          .orderBy('chatroom.title')
-          .getMany()
-      : await this.chatroomRepository
-          .createQueryBuilder('chatroom')
-          .where('chatroom.chatType = :chatType', { chatType: 'Channel' })
-          .leftJoin('chatroom.userChatrooms', 'userChatrooms')
-          .leftJoin('userChatrooms.user', 'user')
-          .select(['chatroom.chatroomId', 'chatroom.title', 'chatroom.description', 'chatroom.isPrivate'])
-          .addSelect(['userChatrooms.userChatroomId'])
-          .addSelect(['user.userId'])
-          .orderBy('chatroom.title')
-          .getMany();
+    let where = 'chatroom.chatType = :chatType';
+    if (offsetTitle) where += ' AND chatroom.title > :offsetTitle';
+    const chatrooms = await this.chatroomRepository
+      .createQueryBuilder('chatroom')
+      .where(where, { chatType: 'Channel', offsetTitle })
+      .leftJoin('chatroom.userChatrooms', 'userChatrooms')
+      .leftJoin('userChatrooms.user', 'user')
+      .select(['chatroom.chatroomId', 'chatroom.title', 'chatroom.description', 'chatroom.isPrivate'])
+      .addSelect(['userChatrooms.userChatroomId'])
+      .addSelect(['user.userId'])
+      .orderBy('chatroom.title')
+      .getMany();
     const filterChatrooms = this.getFilterPrivateChatrooms(chatrooms, userId);
     const customChatrooms = this.getCustomChatrooms(filterChatrooms);
     return customChatrooms.slice(0, 20);
