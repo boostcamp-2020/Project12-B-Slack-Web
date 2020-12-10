@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
-const ENTER_KEYCODE = 13;
+import { KeyCode } from '@constants/index';
 
 interface InputProps {
   title?: string;
@@ -20,7 +19,7 @@ const StyledInput = styled.input<any>`
 
 const Input: React.FC<InputProps> = ({ title, isThread = false, content, setContent, keyPressEnter, ...props }) => {
   const handlingKeyPressEnter = (e: any) => {
-    if (e.charCode === ENTER_KEYCODE) keyPressEnter(e.target.value);
+    if (e.charCode === KeyCode.ENTER) keyPressEnter(e.target.value);
   };
   const handlingChange = (e: any) => {
     setContent(e.target.value);
