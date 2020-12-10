@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BrowsePageHeader, BrowsePageChannel } from '@components/organisms';
-import { BrowsePageControls, BrowsePageSearchBar } from '@components/molecules';
+import { BrowsePageHeader } from '@components/organisms';
+import { BrowsePageSearchBar } from '@components/molecules';
 
 interface ChannelBrowserProps {
   children: React.ReactNode;
@@ -22,8 +22,6 @@ const ChannelBrowser: React.FC<ChannelBrowserProps> = ({ children, ...props }) =
       <SearchBarWrap>
         <BrowsePageSearchBar />
       </SearchBarWrap>
-      <BrowsePageControls channelCount={1} />
-      <BrowsePageChannel name="notice" isJoined={true} memberCount={4} description={'공지사항을 안내하는 채널'} isPrivate={true} />
     </ChannelBrowserContainer>
   );
 };

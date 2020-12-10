@@ -8,8 +8,6 @@ import FilterIcon from '@imgs/filter-icon.png';
 
 interface BrowsePageControlsProps {
   channelCount: number;
-  handlingSortButton?: () => void;
-  handlingFilterButton?: () => void;
 }
 
 export const SortMethods = {
@@ -33,8 +31,11 @@ const BrowsePageControlsButtonWrap = styled.div<any>`
   display: flex;
 `;
 
-const BrowsePageControls: React.FC<BrowsePageControlsProps> = ({ channelCount, handlingSortButton, handlingFilterButton, ...props }) => {
+const BrowsePageControls: React.FC<BrowsePageControlsProps> = ({ channelCount, ...props }) => {
   const [sortMethod, setSortMethod] = useState<SortMethod>(SortMethods.A_TO_Z);
+
+  const handlingSortButton = () => {};
+  const handlingFilterButton = () => {};
 
   return (
     <BrowsePageControlsWrap {...props}>
