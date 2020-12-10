@@ -7,6 +7,7 @@ export const PICK_CHANNEL_ASYNC = 'PICK_CHANNEL_ASYNC';
 export const INSERT_MESSAGE = 'INSERT_MESSAGE';
 export const ADD_CHANNEL = 'ADD_CHANNEL';
 export const ADD_CHANNEL_ASYNC = 'ADD_CHANNEL_ASYNC';
+export const RESET_SELECTED_CHANNEL = 'RESET_SELECTED_CHANNEL';
 
 export interface selectedChatroomState {
   chatType: string;
@@ -72,4 +73,14 @@ interface AddChannelAction {
   payload: selectedChatroomState;
 }
 
-export type ChatroomTypes = LoadChatroomAction | InitSidebarAction | PickChannelAction | InsertMessageAction | AddChannelAction;
+interface ResetSelectedChannel {
+  type: typeof RESET_SELECTED_CHANNEL;
+}
+
+export type ChatroomTypes =
+  | LoadChatroomAction
+  | InitSidebarAction
+  | PickChannelAction
+  | InsertMessageAction
+  | AddChannelAction
+  | ResetSelectedChannel;
