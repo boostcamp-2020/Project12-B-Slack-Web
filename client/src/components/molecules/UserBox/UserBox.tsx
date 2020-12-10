@@ -10,6 +10,8 @@ interface UserBoxProps {
 const UserBoxWrap = styled.div<any>`
   display: flex;
   align-items: center;
+  padding-right: 1rem;
+  border-radius: 0.2rem;
   &:hover {
     background-color: ${color.hover_primary};
   }

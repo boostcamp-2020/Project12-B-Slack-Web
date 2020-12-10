@@ -22,10 +22,6 @@ const ChatroomBodyContainter = styled.div<any>`
 const InputMessageWrap = styled.div<any>`
   padding-top: 1rem;
   overflow-y: scroll;
-  -ms-overflow-style: none;
-  ::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 const InputBoxWrap = styled.div<any>`
@@ -50,7 +46,7 @@ const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId
 
   const getCurrentScroll = (e: any) => {
     const offsetMessage: any = messages[0] || null;
-    if (eventType !== ChatroomEventType.LOADING && e.target.scrollTop <= 40 && offsetMessage !== null) {
+    if (eventType !== ChatroomEventType.LOADING && e.target.scrollTop <= e.target.scrollHeight / 4 && offsetMessage !== null) {
       if (offsetMessage.messageId === lastRequestMessageId) return;
       setEventType(ChatroomEventType.LOADING);
       dispatch(loadNextMessages({ chatRoomId, offsetMessage }));
@@ -73,6 +69,10 @@ const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId
   useEffect(() => {
     if (eventType === ChatroomEventType.LOADING) setEventType(ChatroomEventType.COMPLETELOADING);
   }, [messages]);
+
+  useEffect(() => {
+    moveScrollToTheBottom();
+  }, [title]);
 
   return (
     <ChatroomBodyContainter {...props}>
