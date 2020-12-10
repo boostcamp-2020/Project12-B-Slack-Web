@@ -5,13 +5,14 @@ import ChannelIcon from '@imgs/channel-icon.png';
 import LockIcon from '@imgs/lock-icon.png';
 import { useHistory } from 'react-router-dom';
 import { color } from '@theme/index';
+import { useDispatch } from 'react-redux';
+import { pickChannel } from '@store/actions/chatroom-action';
 
 interface ChannelProps {
   children: React.ReactChild;
   isPrivate?: boolean;
   isSelect?: boolean;
   chatroomId?: number;
-  chatroomClick: any;
 }
 
 const ChannelContainter = styled.div<any>`
@@ -26,11 +27,13 @@ const TextWrap = styled.div<any>`
   margin-left: 1rem;
 `;
 
-const Channel: React.FC<ChannelProps> = ({ children, chatroomClick, chatroomId, isPrivate = false, isSelect = false, ...props }) => {
+const Channel: React.FC<ChannelProps> = ({ children, chatroomId, isPrivate = false, isSelect = false, ...props }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
   const handlingClick = () => {
     if (window.location.pathname !== `/client/${chatroomId}`) history.push(`/client/${chatroomId}`);
-    chatroomClick(chatroomId);
+    dispatch(pickChannel({ selectedChatroomId: chatroomId }));
   };
 
   return (

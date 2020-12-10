@@ -5,6 +5,14 @@ import Channel from '@imgs/channel-icon.png';
 import Lock from '@imgs/lock-icon.png';
 import Star from '@imgs/star.png';
 import BlueStar from '@imgs/star-blue.png';
+import Plus from '@imgs/plus-icon.png';
+import Detail from '@imgs/detail-icon.png';
+import User from '@imgs/user-icon.png';
+import Option from '@imgs/option-icon.png';
+import Sort from '@imgs/sort-icon.png';
+import Filter from '@imgs/filter-icon.png';
+import Search from '@imgs/search-icon.png';
+import CloseFilled from '@imgs/close-filled-icon.png';
 import { Icon, IconProps } from './Icon';
 
 export default {
@@ -42,4 +50,52 @@ export const BlueStarIcon = Template.bind({});
 BlueStarIcon.args = {
   size: 'medium',
   src: BlueStar
+};
+
+export const PlusIcon = Template.bind({});
+PlusIcon.args = {
+  size: 'medium',
+  src: Plus
+};
+
+export const DetailIcon = Template.bind({});
+DetailIcon.args = {
+  size: 'medium',
+  src: Detail
+};
+
+export const UserIcon = Template.bind({});
+UserIcon.args = {
+  size: 'medium',
+  src: User
+};
+
+export const OptionIcon = Template.bind({});
+OptionIcon.args = {
+  size: 'medium',
+  src: Option
+};
+
+export const SortIcon = Template.bind({});
+SortIcon.args = {
+  size: 'medium',
+  src: Sort
+};
+
+export const FilterIcon = Template.bind({});
+FilterIcon.args = {
+  size: 'medium',
+  src: Filter
+};
+
+export const SearchIcon = Template.bind({});
+SearchIcon.args = {
+  size: 'medium',
+  src: Search
+};
+
+export const CloseFilledIcon = Template.bind({});
+CloseFilledIcon.args = {
+  size: 'medium',
+  src: CloseFilled
 };

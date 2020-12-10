@@ -108,8 +108,43 @@ class ChatroomService {
     return newUserChatroom;
   }
 
+  async getChatrooms(userId: Number) {
+    const chatrooms = await this.chatroomRepository
+      .createQueryBuilder('chatroom')
+      .where('chatroom.chatType = :chatType', { chatType: 'Channel' })
+      .leftJoin('chatroom.userChatrooms', 'userChatrooms')
+      .leftJoin('userChatrooms.user', 'user')
+      .select(['chatroom.chatroomId', 'chatroom.title', 'chatroom.description', 'chatroom.isPrivate'])
+      .addSelect(['userChatrooms.userChatroomId'])
+      .addSelect(['user.userId'])
+      .orderBy('chatroom.title')
+      .getMany();
+    const filterChatrooms = this.getFilterPrivateChatrooms(chatrooms, userId);
+    const customChatrooms = this.getCustomChatrooms(filterChatrooms);
+    return customChatrooms;
+  }
+
+  private getFilterPrivateChatrooms(chatrooms: any, userId: Number) {
+    return chatrooms.filter((chatroom) => {
+      let isJoin;
+      if (chatroom.isPrivate)
+        chatroom.userChatrooms.forEach((userChatroom) => {
+          if (userChatroom.user.userId === userId) isJoin = true;
+        });
+      return !chatroom.isPrivate || isJoin;
+    });
+  }
+
+  private getCustomChatrooms(chatrooms: any) {
+    return chatrooms.map((chatroom) => {
+      const { chatroomId, title, description, isPrivate, userChatrooms } = chatroom;
+      const members = userChatrooms.length;
+      return { chatroomId, title, description, isPrivate, members };
+    });
+  }
+
   @Transactional()
-  async getChatroomInfo(chatroomId: number) {
+  async getChatroomInfo(chatroomId: number, userId: number) {
     const chatroom = await this.chatroomRepository
       .createQueryBuilder('chatroom')
       .where('chatroom.chatroomId = :chatroomId', { chatroomId })
@@ -124,20 +159,41 @@ class ChatroomService {
       .createQueryBuilder('userChatroom')
       .where('userChatroom.chatroomId = :chatroomId', { chatroomId })
       .leftJoinAndSelect('userChatroom.user', 'user')
+      .select(['userChatroom', 'user.userId', 'user.profileUri', 'user.displayName'])
       .getMany();
 
     if (!userChatrooms) {
       throw new NotFoundError();
     }
 
-    const users = userChatrooms.map((userChatroom) => {
-      const { userId, profileUri, displayName } = userChatroom.user;
-      return { userId, profileUri, displayName };
-    });
+    const users = userChatrooms.map((userChatroom) => userChatroom.user);
 
     const userCount = users.length;
+    const { chatType } = chatroom;
+
+    if (chatType === ChatType.DM) {
+      const title = this.findTitle(users, userId);
+      const { description, isPrivate, topic } = chatroom;
+      return { title, description, isPrivate, chatType, topic, userCount, users };
+    }
 
     return { ...chatroom, userCount, users };
+  }
+
+  private findTitle(users: any[], userId: number) {
+    if (users.every((user) => user.userId === userId)) {
+      const { displayName } = users[0];
+      return displayName;
+    }
+
+    const title = users
+      .filter((user) => user.userId !== userId)
+      .reduce((str, user) => {
+        if (!str) return user.displayName;
+        return `${str}, ${user.displayName}`;
+      }, '');
+
+    return title;
   }
 
   async updateChatroom(chatroomId: number, title: string, topic: string, description: string) {

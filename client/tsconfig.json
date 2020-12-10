@@ -19,8 +19,9 @@
       "@theme/*": ["src/common/theme/*"],
       "@utils/*": ["src/common/utils/*"],
       "@store/*": ["src/common/store/*"],
-      "@dispatch/*": ["src/common/dispatch/*"],
-      "@imgs/*": ["public/imgs/*"]
+      "@imgs/*": ["public/imgs/*"],
+      "@socket/*": ["src/common/socket/*"],
+      "@constants/*": ["src/common/constants/*"]
     }
   },
   "exclude": ["node_modules"],

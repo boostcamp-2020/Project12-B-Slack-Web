@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { color } from '@theme/index';
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -7,6 +8,7 @@ interface ButtonProps {
   borderColor: string;
   fontColor: string;
   isBold?: boolean;
+  hoverColor?: string;
   onClick?: () => void;
 }
 
@@ -21,11 +23,18 @@ const StyledButton = styled.button<any>`
   outline: none;
   cursor: pointer;
   font-weight: ${(props) => (props.isBold ? 'bold' : null)};
+  ${(props) => (props.hoverColor ? `&:hover { background-color: ${color.hover_primary}}` : '')}
 `;
 
-const Button: React.FC<ButtonProps> = ({ children, backgroundColor, borderColor, fontColor, isBold, ...props }) => {
+const Button: React.FC<ButtonProps> = ({ children, backgroundColor, borderColor, fontColor, isBold, hoverColor, ...props }) => {
   return (
-    <StyledButton backgroundColor={backgroundColor} borderColor={borderColor} fontColor={fontColor} isBold={isBold} {...props}>
+    <StyledButton
+      backgroundColor={backgroundColor}
+      borderColor={borderColor}
+      fontColor={fontColor}
+      isBold={isBold}
+      hoverColor={hoverColor}
+      {...props}>
       {children}
     </StyledButton>
   );

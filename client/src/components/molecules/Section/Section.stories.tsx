@@ -20,12 +20,12 @@ const Template: Story<SectionProps> = (args) => <Section {...args} />;
 
 export const ChannelSection = Template.bind({});
 ChannelSection.args = {
-  SectionName: 'Channels',
+  sectionName: 'Channels',
   children: mockChannelChildren
 };
 
 export const DMSection = Template.bind({});
 DMSection.args = {
-  SectionName: 'Direct Messages',
+  sectionName: 'Direct Messages',
   children: mockDMChildren
 };

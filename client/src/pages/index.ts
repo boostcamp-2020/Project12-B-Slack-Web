@@ -1,4 +1,4 @@
-import Chatroom from './Chatroom/ChatroomContainer';
+import { Chatroom } from './Chatroom/Chatroom';
 import { Login } from './Login';
 
 export { Chatroom, Login };

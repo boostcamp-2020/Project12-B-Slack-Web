@@ -53,6 +53,7 @@
         "ts": "never",
         "tsx": "never"
       }
-   ]
+   ],
+   "no-alert": "off"
   }
 }

@@ -1,17 +1,15 @@
 import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Chatroom, Login } from '@pages/index';
-import { Header, Sidebar } from '@components/organisms';
+import { Header, Sidebar, CreateChannelModal } from '@components/organisms';
 import { registerToken, blockPage } from '@utils/index';
-import { getUserInfo, getUserChatroom } from '@dispatch/index';
-import { Main, MainBox } from '@components/templates';
+import { Main, MainBox, Body } from '@components/templates';
+import { ChannelModal } from '@components/molecules';
 
 const App = () => {
   useEffect(() => {
     registerToken().then(() => {
       blockPage();
-      getUserInfo();
-      getUserChatroom();
     });
   }, []);
 
@@ -20,14 +18,18 @@ const App = () => {
       <Switch>
         <Route exact path="/login" component={Login} />
         <Fragment>
-          <Header />
-          <Main>
-            <Sidebar />
-            <MainBox>
-              <Route exact path="/" />
-              <Route exact path="/client/:id" component={Chatroom} />
-            </MainBox>
-          </Main>
+          <Body>
+            <Header />
+            <Main>
+              <Sidebar />
+              <MainBox>
+                <Route exact path="/" />
+                <Route exact path="/client/:id" component={Chatroom} />
+              </MainBox>
+            </Main>
+            <CreateChannelModal />
+            <ChannelModal />
+          </Body>
         </Fragment>
       </Switch>
     </BrowserRouter>

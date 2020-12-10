@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Text } from '@components/atoms';
 import { Channel, DM, Section } from '@components/molecules';
 import { color } from '@theme/index';
+import { useDispatch, useSelector } from 'react-redux';
+import { initSidebarAsync } from '@store/actions/chatroom-action';
+import { RootState } from '@store/reducers';
+import { DefaultSectionName } from '@constants/default-section-name';
 
 interface SidebarProps {
   children?: React.ReactNode;
-  starred: Array<any>;
-  otherSections: Array<any>;
-  channels: Array<any>;
-  directMessages: Array<any>;
-  selectedChatroomId?: number;
 }
 
 const StyledSidebar = styled.div<any>`
@@ -24,14 +23,32 @@ const Workspace = styled.div<any>`
   align-items: center;
   height: 10%;
   padding-left: 1rem;
-  border-bottom: 1px solid ${color.sidebar_border};
+  box-shadow: 0 1.5px 2px -2px ${color.border_primary};
 `;
 
 const ChildrenWrap = styled.div<any>`
-  padding: 1rem;
+  overflow-y: scroll;
+  padding: 0rem 1rem;
+  height: 90%;
+  -ms-overflow-style: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
-const Sidebar: React.FC<SidebarProps> = ({ children, starred, otherSections, channels, directMessages, selectedChatroomId, ...props }) => {
+const SectionWrap = styled.div<any>`
+  padding: 1rem 0rem;
+`;
+
+const Sidebar: React.FC<SidebarProps> = ({ children, ...props }) => {
+  const dispatch = useDispatch();
+
+  const { starred, otherSections, channels, directMessages, selectedChatroomId } = useSelector((store: RootState) => store.chatroom);
+
+  useEffect(() => {
+    dispatch(initSidebarAsync());
+  }, []);
+
   const createSection = (sectionItems: Array<any>, sectionName: string) => {
     if (sectionItems.length === 0) return null;
     const chatrooms = sectionItems.map((chatroom) =>
@@ -53,7 +70,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, starred, otherSections, cha
         </DM>
       )
     );
-    return <Section SectionName={sectionName}>{chatrooms}</Section>;
+    return <Section sectionName={sectionName}>{chatrooms}</Section>;
   };
 
   return (
@@ -64,9 +81,11 @@ const Sidebar: React.FC<SidebarProps> = ({ children, starred, otherSections, cha
         </Text>
       </Workspace>
       <ChildrenWrap>
-        {createSection(starred, 'Starred')}
-        {createSection(channels, 'Channels')}
-        {createSection(directMessages, 'Direct Messages')}
+        <SectionWrap>
+          {createSection(starred, DefaultSectionName.STARRED)}
+          {createSection(channels, DefaultSectionName.CHANNELS)}
+          {createSection(directMessages, DefaultSectionName.DIRECT_MESSAGES)}
+        </SectionWrap>
       </ChildrenWrap>
     </StyledSidebar>
   );

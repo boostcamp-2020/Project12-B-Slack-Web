@@ -19,8 +19,9 @@ module.exports = {
       '@theme': path.resolve(__dirname, '../src/common/theme'),
       '@utils': path.resolve(__dirname, '../src/common/utils'),
       '@store': path.resolve(__dirname, '../src/common/store'),
-      '@dispatch': path.resolve(__dirname, '../src/common/dispatch'),
-      '@imgs': path.resolve(__dirname, '../public/imgs')
+      '@imgs': path.resolve(__dirname, '../public/imgs'),
+      '@socket': path.resolve(__dirname, '../src/common/socket'),
+      '@constants': path.resolve(__dirname, '../src/common/constants')
     }
     return config;
   }
