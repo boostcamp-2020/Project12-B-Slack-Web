@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { InputMessage, Message } from '@components/molecules';
+import { ChatroomEventType } from '@constants/index';
 
 interface ChatroomBodyProps {
   title: string;
@@ -31,6 +33,7 @@ const InputBoxWrap = styled.div<any>`
 
 const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId, ...props }) => {
   const MessageBodyEl = useRef<any>();
+  const [eventType, setEventType] = useState(ChatroomEventType.COMMON);
   const createMessages = () => {
     return messages.map((message: any) => (
       <Message
@@ -56,7 +59,7 @@ const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId
     <ChatroomBodyContainter {...props}>
       <InputMessageWrap ref={MessageBodyEl}>{createMessages()}</InputMessageWrap>
       <InputBoxWrap>
-        <InputMessage title={title} chatRoomId={chatRoomId} />
+        <InputMessage title={title} chatRoomId={chatRoomId} setEventType={setEventType} />
       </InputBoxWrap>
     </ChatroomBodyContainter>
   );
