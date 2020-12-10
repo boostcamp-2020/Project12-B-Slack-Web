@@ -22,7 +22,7 @@ const Chatroom: React.FC<ChatroomProps> = ({ children, ...props }) => {
   return (
     <ChatroomContainer {...props}>
       <ChatroomHeader title={title} users={users} />
-      <ChatroomBody title={title} messages={messages} chatRoomId={selectedChatroomId} />
+      <ChatroomBody title={title} messages={messages} chatRoomId={selectedChatroomId} {...props} />
     </ChatroomContainer>
   );
 };

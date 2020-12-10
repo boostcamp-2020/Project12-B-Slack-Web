@@ -67,7 +67,7 @@ const Message: React.FC<MessageProps> = ({ messageId, author, content, src, crea
           {content}
         </Text>
       </MessageContent>
-      {isHover ? <Actionbar messageId={messageId} /> : null}
+      {isHover ? <Actionbar messageId={messageId} {...props} /> : null}
     </MessageContainer>
   );
 };

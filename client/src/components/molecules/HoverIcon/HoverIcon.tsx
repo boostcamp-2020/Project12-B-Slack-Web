@@ -6,6 +6,7 @@ import { color } from '@theme/index';
 interface HoverIconProps {
   size: 'small' | 'medium' | 'large';
   src?: string;
+  onClick?: () => void;
 }
 
 const StyledHoverIcon = styled.div<HoverIconProps>`
