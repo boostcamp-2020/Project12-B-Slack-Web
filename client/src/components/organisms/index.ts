@@ -6,5 +6,6 @@ import { LoginForm } from './LoginForm/LoginForm';
 import { BrowsePageChannel } from './BrowsePageChannel/BrowsePageChannel';
 import { CreateChannelModal } from './CreateChannelModal/CreateChannelModal';
 import { BrowsePageHeader } from './BrowsePageHeader/BrowsePageHeader';
+import { UserBoxModal } from './UserBoxModal/UserBoxModal';
 
-export { Header, Sidebar, ChatroomHeader, ChatroomBody, LoginForm, BrowsePageChannel, CreateChannelModal, BrowsePageHeader };
+export { Header, Sidebar, ChatroomHeader, ChatroomBody, LoginForm, BrowsePageChannel, CreateChannelModal, BrowsePageHeader, UserBoxModal };

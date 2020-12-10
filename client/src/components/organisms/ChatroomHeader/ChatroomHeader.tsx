@@ -35,9 +35,7 @@ const IconWrap = styled.div<any>`
 
 const MenuContainer = styled.div<any>`
   display: flex;
-  justify-content: space-between;
   align-items: baseline;
-  width: 9rem;
   padding: 0rem 1rem;
 `;
 
@@ -52,8 +50,12 @@ const ChatroomHeader: React.FC<ChatroomHeaderProps> = ({ title, users, ...props 
       </TextContainer>
       <MenuContainer>
         <UserBox member={users} />
-        <HoverIcon size="medium" src={userIcon} />
-        <HoverIcon size="medium" src={DetailIcon} />
+        <IconWrap>
+          <HoverIcon size="medium" src={userIcon} />
+        </IconWrap>
+        <IconWrap>
+          <HoverIcon size="medium" src={DetailIcon} />
+        </IconWrap>
       </MenuContainer>
     </ChatroomHeaderContainter>
   );

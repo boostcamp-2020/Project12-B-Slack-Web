@@ -12,6 +12,8 @@ import { BrowsePageChannelButton } from './BrowsePageChannelButton/BrowsePageCha
 import { MessageReplyBar } from './MessageReplyBar/MessageReplyBar';
 import { EmojiBox } from './EmojiBox/EmojiBox';
 import { UserBox } from './UserBox/UserBox';
+import { UserBoxModalSearchBar } from './UserBoxModalSearchBar/UserBoxModalSearchBar';
+import { UserBoxModalUserItem } from './UserBoxModalUserItem/UserBoxModalUserItem';
 import { ChannelModal } from './ChannelModal/ChannelModal';
 import { BrowsePageControls } from './BrowsePageControls/BrowsePageControls';
 import { WhiteButtonWithIcon } from './WhiteButtonWithIcon/WhiteButtonWithIcon';
@@ -37,6 +39,8 @@ export {
   MessageReplyBar,
   EmojiBox,
   UserBox,
+  UserBoxModalSearchBar,
+  UserBoxModalUserItem,
   ChannelModal,
   AddChannelButton,
   BrowsePageControls,
