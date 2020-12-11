@@ -219,7 +219,7 @@ class ChatroomService {
   async getChatroomCount(userId: number) {
     const chatrooms = await this.chatroomRepository
       .createQueryBuilder('chatroom')
-      .where('chatroom.chatType = :chatType', { chatType: 'Channel' })
+      .where('chatroom.chatType = :chatType', { chatType: ChatType.Channel })
       .leftJoin('chatroom.userChatrooms', 'userChatrooms')
       .leftJoin('userChatrooms.user', 'user')
       .select(['chatroom.chatroomId', 'chatroom.title', 'chatroom.description', 'chatroom.isPrivate'])
