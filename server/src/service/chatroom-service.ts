@@ -9,6 +9,7 @@ import NotFoundError from '@error/not-found-error';
 import ChatType from '@constants/chat-type';
 import DefaultSectionName from '@constants/default-section-name';
 import ConflictError from '@error/conflict-error';
+import UserChatroom from '@model/user-chatroom';
 
 class ChatroomService {
   static instance: ChatroomService;
@@ -108,9 +109,9 @@ class ChatroomService {
     return newUserChatroom;
   }
 
-  async getChatrooms(userId: Number, offsetTitle) {
+  async getChatrooms(userId: Number, offsetTitle: String) {
     let where = 'chatroom.chatType = :chatType';
-    if (offsetTitle) where += ' AND chatroom.title > :offsetTitle';
+    if (offsetTitle !== 'undefined') where += ' AND chatroom.title > :offsetTitle';
     const chatrooms = await this.chatroomRepository
       .createQueryBuilder('chatroom')
       .where(where, { chatType: 'Channel', offsetTitle })
@@ -121,27 +122,30 @@ class ChatroomService {
       .addSelect(['user.userId'])
       .orderBy('chatroom.title')
       .getMany();
-    const filterChatrooms = this.getFilterPrivateChatrooms(chatrooms, userId);
-    const customChatrooms = this.getCustomChatrooms(filterChatrooms);
+    const { filterChatrooms, isJoinedArr } = this.getFilterPrivateChatrooms(chatrooms, userId);
+    const customChatrooms = this.getCustomChatrooms(filterChatrooms, isJoinedArr);
     return customChatrooms.slice(0, 20);
   }
 
   private getFilterPrivateChatrooms(chatrooms: any, userId: Number) {
-    return chatrooms.filter((chatroom) => {
-      let isJoin;
-      if (chatroom.isPrivate)
-        chatroom.userChatrooms.forEach((userChatroom) => {
-          if (userChatroom.user.userId === userId) isJoin = true;
-        });
-      return !chatroom.isPrivate || isJoin;
+    let isJoinedArr = [];
+    const filterChatrooms = chatrooms.filter((chatroom) => {
+      let isJoined = false;
+      chatroom.userChatrooms.forEach((userChatroom) => {
+        if (userChatroom.user.userId === userId) isJoined = true;
+      });
+      if (isJoined || !chatroom.isPrivate) isJoinedArr.push(isJoined);
+      return !chatroom.isPrivate || isJoined;
     });
+    return { filterChatrooms, isJoinedArr };
   }
 
-  private getCustomChatrooms(chatrooms: any) {
-    return chatrooms.map((chatroom) => {
+  private getCustomChatrooms(chatrooms: any, isJoinedArr: any) {
+    return chatrooms.map((chatroom, idx) => {
       const { chatroomId, title, description, isPrivate, userChatrooms } = chatroom;
       const members = userChatrooms.length;
-      return { chatroomId, title, description, isPrivate, members };
+      const isJoinend = isJoinedArr[idx];
+      return { chatroomId, title, description, isPrivate, members, isJoinend };
     });
   }
 

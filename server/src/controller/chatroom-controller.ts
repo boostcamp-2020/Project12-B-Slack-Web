@@ -27,7 +27,7 @@ const ChatroomController = {
     try {
       const { userId } = req.user;
       const { offsetTitle } = req.query;
-      const chatrooms = await ChatroomService.getInstance().getChatrooms(Number(userId), Number(offsetTitle));
+      const chatrooms = await ChatroomService.getInstance().getChatrooms(Number(userId), String(offsetTitle));
       res.status(HttpStatusCode.OK).json(chatrooms);
     } catch (err) {
       next(err);
