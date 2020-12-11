@@ -1,4 +1,4 @@
-export const isExistParseCode = () => {
+export const isExistParseCodeUrl = () => {
   const pattern = new RegExp(/^\?code=\w+$/);
   return pattern.test(window.location.search);
 };
@@ -10,9 +10,19 @@ export const getCode = () => {
 };
 
 export const getChatroomId = () => {
-  const isChatroomUrlpattern = new RegExp(/^\/client\/[0-9]+$/);
+  const isChatroomUrlpattern = new RegExp(/^\/client\/[0-9]+(\/thread\/[0-9]+)*$/);
   if (isChatroomUrlpattern.test(window.location.pathname)) {
-    const pattern = new RegExp(/[^(/client/)]/);
+    const pattern = new RegExp(/[0-9]+/g);
+    const code = pattern.exec(window.location.pathname);
+    return code ? Number(code[0]) : null;
+  }
+  return null;
+};
+
+export const getThreadId = () => {
+  const isThreadUrlpattern = new RegExp(/^\/client\/[0-9]+(\/thread\/[0-9]+)*$/);
+  if (isThreadUrlpattern.test(window.location.pathname)) {
+    const pattern = new RegExp(/[0-9]+$/g);
     const code = pattern.exec(window.location.pathname);
     return code ? Number(code[0]) : null;
   }
