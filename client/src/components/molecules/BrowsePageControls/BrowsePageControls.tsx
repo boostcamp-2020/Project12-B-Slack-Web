@@ -25,6 +25,7 @@ const BrowsePageControlsWrap = styled.div<any>`
   justify-content: space-between;
   align-items: center;
   padding: 0.4rem 1.5rem;
+  border-bottom: 0.5px solid ${color.border_secondary};
 `;
 
 const BrowsePageControlsButtonWrap = styled.div<any>`

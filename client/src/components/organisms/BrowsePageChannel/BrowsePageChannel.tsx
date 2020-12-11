@@ -6,11 +6,11 @@ import { BrowsePageChannelBody } from '@components/molecules/BrowsePageChannelBo
 import { BrowsePageChannelButton } from '@components/molecules/BrowsePageChannelButton/BrowsePageChannelButton';
 
 interface BrowsePageChannelProps {
-  name: string;
-  isJoined?: boolean;
-  memberCount: number;
+  title: string;
   description?: string;
   isPrivate?: boolean;
+  members: number;
+  isJoined?: boolean;
   handlingJoinButton?: () => void;
   handlingLeaveButton?: () => void;
 }
@@ -19,6 +19,7 @@ const BrowsePageChannelContainer = styled.div<any>`
   display: flex;
   justify-content: space-between;
   padding: 1rem 1rem;
+  border-bottom: 1px solid ${color.border_secondary};
   &:hover {
     background-color: ${color.hover_primary};
     button {
@@ -43,9 +44,9 @@ const ButtonWrap = styled.div<any>`
 `;
 
 const BrowsePageChannel: React.FC<BrowsePageChannelProps> = ({
-  name,
+  title,
   isJoined,
-  memberCount,
+  members,
   description,
   isPrivate,
   handlingJoinButton,
@@ -55,8 +56,8 @@ const BrowsePageChannel: React.FC<BrowsePageChannelProps> = ({
   return (
     <BrowsePageChannelContainer {...props}>
       <BrowsePageChannelContent>
-        <BrowsePageChannelHeader name={name} isPrivate={isPrivate} {...props}></BrowsePageChannelHeader>
-        <BrowsePageChannelBody isJoined={isJoined} memberCount={memberCount} description={description} {...props}></BrowsePageChannelBody>
+        <BrowsePageChannelHeader title={title} isPrivate={isPrivate} {...props}></BrowsePageChannelHeader>
+        <BrowsePageChannelBody isJoined={isJoined} members={members} description={description} {...props}></BrowsePageChannelBody>
       </BrowsePageChannelContent>
       <ButtonWrap>
         <BrowsePageChannelButton

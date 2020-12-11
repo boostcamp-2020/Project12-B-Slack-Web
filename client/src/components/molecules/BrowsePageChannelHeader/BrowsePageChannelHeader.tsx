@@ -6,7 +6,7 @@ import LockIcon from '@imgs/lock-icon.png';
 import { color } from '@theme/index';
 
 interface BrowsePageChannelHeaderProps {
-  name: string;
+  title: string;
   isPrivate?: boolean;
 }
 
@@ -17,12 +17,12 @@ const BrowsePageChannelHeaderWrap = styled.div<any>`
   }
 `;
 
-const BrowsePageChannelHeader: React.FC<BrowsePageChannelHeaderProps> = ({ name, isPrivate, ...props }) => {
+const BrowsePageChannelHeader: React.FC<BrowsePageChannelHeaderProps> = ({ title, isPrivate, ...props }) => {
   return (
     <BrowsePageChannelHeaderWrap {...props}>
       <Icon size="small" src={isPrivate ? LockIcon : ChannelIcon} isHover={false} />
       <Text fontColor={color.primary} size="small" isBold={true}>
-        {name}
+        {title}
       </Text>
     </BrowsePageChannelHeaderWrap>
   );

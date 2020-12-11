@@ -11,6 +11,6 @@ const Template: Story<BrowsePageChannelHeaderProps> = (args) => <BrowsePageChann
 
 export const BlackBrowsePageChannelHeader = Template.bind({});
 BlackBrowsePageChannelHeader.args = {
-  name: 'notice',
+  title: 'notice',
   isPrivate: true
 };
