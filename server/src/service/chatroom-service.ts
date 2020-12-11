@@ -9,7 +9,6 @@ import NotFoundError from '@error/not-found-error';
 import ChatType from '@constants/chat-type';
 import DefaultSectionName from '@constants/default-section-name';
 import ConflictError from '@error/conflict-error';
-import UserChatroom from '@model/user-chatroom';
 
 class ChatroomService {
   static instance: ChatroomService;
@@ -215,6 +214,22 @@ class ChatroomService {
 
   async deleteChatroom(chatroomId: number) {
     await this.chatroomRepository.softDelete(chatroomId);
+  }
+
+  async getChatroomCount(userId: number) {
+    const chatrooms = await this.chatroomRepository
+      .createQueryBuilder('chatroom')
+      .where('chatroom.chatType = :chatType', { chatType: 'Channel' })
+      .leftJoin('chatroom.userChatrooms', 'userChatrooms')
+      .leftJoin('userChatrooms.user', 'user')
+      .select(['chatroom.chatroomId', 'chatroom.title', 'chatroom.description', 'chatroom.isPrivate'])
+      .addSelect(['userChatrooms.userChatroomId'])
+      .addSelect(['user.userId'])
+      .orderBy('chatroom.title')
+      .getMany();
+
+    const { filterChatrooms } = this.getFilterPrivateChatrooms(chatrooms, userId);
+    return filterChatrooms.length;
   }
 }
 
