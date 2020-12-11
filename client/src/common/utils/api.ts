@@ -71,6 +71,7 @@ export default {
 
   getChannels: async () => {
     const response = await axios.get(`api/chatrooms`);
-    return response.data;
+    const channelCount = response.headers['x-total-count'];
+    return { channels: response.data, channelCount };
   }
 };

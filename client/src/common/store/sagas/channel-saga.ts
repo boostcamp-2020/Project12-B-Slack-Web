@@ -4,8 +4,8 @@ import { INIT_CHANNELS, INIT_CHANNELS_ASYNC } from '../types/channel-types';
 
 function* initChannelsSaga() {
   try {
-    const channelCount = 0;
-    const channels = yield call(API.getChannels);
+    const { channels, channelCount } = yield call(API.getChannels);
+    console.log(channels);
     yield put({ type: INIT_CHANNELS, payload: { channelCount, channels } });
   } catch (e) {
     console.log(e);
