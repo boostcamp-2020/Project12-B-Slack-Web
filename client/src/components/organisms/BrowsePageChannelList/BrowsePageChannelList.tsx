@@ -10,6 +10,7 @@ const BrowsePageChannelListContainter = styled.div<any>`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  padding: 0rem 1.5rem;
   height: 71%;
 `;
 

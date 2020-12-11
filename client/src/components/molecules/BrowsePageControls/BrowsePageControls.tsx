@@ -24,7 +24,10 @@ const BrowsePageControlsWrap = styled.div<any>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.4rem 1.5rem;
+  padding-top: 0.4rem;
+  padding-bottom: 1rem;
+  margin-left: 1.5rem;
+  margin-right: 2.5rem;
   border-bottom: 0.5px solid ${color.border_secondary};
 `;
 
