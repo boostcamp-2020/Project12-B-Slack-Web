@@ -23,7 +23,7 @@ module.exports = (env, options) => {
     output: {
       path: path.join(__dirname, 'dist'),
       publicPath: '/',
-      filename: '[name].js'
+      filename: '[name].[hash].js'
     },
     module: {
       rules: [
