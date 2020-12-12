@@ -1,6 +1,15 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import API from '@utils/api';
-import { INIT_CHANNELS, INIT_CHANNELS_ASYNC, LOAD_NEXT_CHANNELS, LOAD_NEXT_CHANNELS_ASYNC } from '../types/channel-types';
+import { joinChatroom } from '@socket/emits/chatroom';
+import {
+  INIT_CHANNELS,
+  INIT_CHANNELS_ASYNC,
+  JOIN_CHANNEL,
+  JOIN_CHANNEL_ASYNC,
+  LOAD_NEXT_CHANNELS,
+  LOAD_NEXT_CHANNELS_ASYNC
+} from '../types/channel-types';
+import { ADD_CHANNEL } from '../types/chatroom-types';
 
 function* initChannelsSaga() {
   try {
@@ -21,7 +30,23 @@ function* loadNextChannels(action: any) {
   }
 }
 
+function* joinChannel(action: any) {
+  try {
+    const { chatroomId } = action.payload;
+    yield call(API.joinChannel, chatroomId);
+    yield put({ type: JOIN_CHANNEL, payload: { chatroomId } });
+    const chatroom = yield call(API.getChatroom, chatroomId);
+    const { chatType, isPrivate, title } = chatroom;
+    const payload = { chatroomId, chatType, isPrivate, title };
+    joinChatroom(chatroomId);
+    yield put({ type: ADD_CHANNEL, payload });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function* channelSaga() {
   yield takeEvery(INIT_CHANNELS_ASYNC, initChannelsSaga);
   yield takeEvery(LOAD_NEXT_CHANNELS_ASYNC, loadNextChannels);
+  yield takeEvery(JOIN_CHANNEL_ASYNC, joinChannel);
 }

@@ -33,6 +33,7 @@ const BrowsePageChannelList: React.FC<BrowsePageChannelListProps> = ({ channels,
     return channels.map((channel: any) => (
       <BrowsePageChannel
         key={channel.chatroomId}
+        chatroomId={channel.chatroomId}
         title={channel.title}
         description={channel.description}
         isPrivate={channel.isPrivate}

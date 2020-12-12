@@ -2,9 +2,11 @@ export const INIT_CHANNELS = 'INIT_CHANNELS';
 export const INIT_CHANNELS_ASYNC = 'INIT_CHANNELS_ASYNC';
 export const LOAD_NEXT_CHANNELS = 'LOAD_NEXT_CHANNELS';
 export const LOAD_NEXT_CHANNELS_ASYNC = 'LOAD_NEXT_CHANNELS_ASYNC';
+export const JOIN_CHANNEL = 'JOIN_CHANNEL';
+export const JOIN_CHANNEL_ASYNC = 'JOIN_CHANNEL_ASYNC';
 
 export interface channelState {
-  channelId: number;
+  chatroomId: number;
   title: string;
   description?: string;
   isPrivate: boolean;
@@ -17,6 +19,10 @@ export interface channelsState {
   channels: Array<channelState>;
 }
 
+export interface joinChannelState {
+  chatroomId: number;
+}
+
 interface InitChannelsAction {
   type: typeof INIT_CHANNELS;
   payload: channelsState;
@@ -27,4 +33,9 @@ interface LoadNextChannels {
   payload: channelsState;
 }
 
-export type ChannelTypes = InitChannelsAction | LoadNextChannels;
+interface JoinChannel {
+  type: typeof JOIN_CHANNEL;
+  payload: joinChannelState;
+}
+
+export type ChannelTypes = InitChannelsAction | LoadNextChannels | JoinChannel;

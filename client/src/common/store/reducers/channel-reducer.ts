@@ -1,4 +1,4 @@
-import { channelsState, ChannelTypes, INIT_CHANNELS, LOAD_NEXT_CHANNELS } from '../types/channel-types';
+import { channelState, channelsState, ChannelTypes, INIT_CHANNELS, LOAD_NEXT_CHANNELS, JOIN_CHANNEL } from '../types/channel-types';
 
 const initialState: channelsState = {
   channelCount: 0,
@@ -17,6 +17,13 @@ export default function channelReducer(state = initialState, action: ChannelType
         ...state,
         channels: [...state.channels, ...action.payload.channels]
       };
+    case JOIN_CHANNEL:
+      const { chatroomId } = action.payload;
+      const channels = state.channels.map((channel: channelState) => {
+        if (channel.chatroomId === chatroomId) return { ...channel, isJoined: true };
+        return channel;
+      });
+      return { ...state, channels };
     default:
       return state;
   }

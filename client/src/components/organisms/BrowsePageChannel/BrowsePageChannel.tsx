@@ -4,15 +4,16 @@ import { color } from '@theme/index';
 import { BrowsePageChannelHeader } from '@components/molecules/BrowsePageChannelHeader/BrowsePageChannelHeader';
 import { BrowsePageChannelBody } from '@components/molecules/BrowsePageChannelBody/BrowsePageChannelBody';
 import { BrowsePageChannelButton } from '@components/molecules/BrowsePageChannelButton/BrowsePageChannelButton';
+import { useDispatch } from 'react-redux';
+import { joinChannel } from '@store/actions/channel-action';
 
 interface BrowsePageChannelProps {
+  chatroomId: number;
   title: string;
   description?: string;
   isPrivate?: boolean;
   members: number;
   isJoined?: boolean;
-  handlingJoinButton?: () => void;
-  handlingLeaveButton?: () => void;
 }
 
 const BrowsePageChannelContainer = styled.div<any>`
@@ -43,16 +44,12 @@ const ButtonWrap = styled.div<any>`
   }
 `;
 
-const BrowsePageChannel: React.FC<BrowsePageChannelProps> = ({
-  title,
-  isJoined,
-  members,
-  description,
-  isPrivate,
-  handlingJoinButton,
-  handlingLeaveButton,
-  ...props
-}) => {
+const BrowsePageChannel: React.FC<BrowsePageChannelProps> = ({ chatroomId, title, isJoined, members, description, isPrivate, ...props }) => {
+  const dispatch = useDispatch();
+  const handlingJoinButton = () => {
+    dispatch(joinChannel({ chatroomId }));
+  };
+  const handlingLeaveButton = () => {};
   return (
     <BrowsePageChannelContainer {...props}>
       <BrowsePageChannelContent>
