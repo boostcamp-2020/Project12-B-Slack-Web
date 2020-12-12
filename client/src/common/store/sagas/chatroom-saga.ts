@@ -1,5 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import API from '@utils/api';
+import { joinChatroom } from '@socket/emits/chatroom';
 import {
   LOAD,
   LOAD_ASYNC,
@@ -53,6 +54,7 @@ function* addChannel(action: any) {
   try {
     const chatroomId = yield call(API.createChannel, action.payload.title, action.payload.description, action.payload.isPrivate);
     const payload = { chatroomId, chatType: 'Channel', isPrivate: action.payload.isPrivate, title: action.payload.title };
+    joinChatroom(chatroomId);
     yield put({ type: ADD_CHANNEL, payload });
   } catch (e) {
     alert('같은 이름의 채널이 존재합니다.');

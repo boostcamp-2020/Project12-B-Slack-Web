@@ -12,6 +12,6 @@ const Template: Story<BrowsePageChannelBodyProps> = (args) => <BrowsePageChannel
 export const BlackBrowsePageChannelBody = Template.bind({});
 BlackBrowsePageChannelBody.args = {
   isJoined: true,
-  memberCount: 4,
+  members: 4,
   description: '공지사항을 안내하는 채널'
 };

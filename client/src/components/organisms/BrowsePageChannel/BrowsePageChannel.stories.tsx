@@ -9,16 +9,12 @@ export default {
 
 const Template: Story<BrowsePageChannelProps> = (args) => <BrowsePageChannel {...args} />;
 
-const handlingJoinButton = () => {};
-const handlingLeaveButton = () => {};
-
 export const BlackBrowsePageChannel = Template.bind({});
 BlackBrowsePageChannel.args = {
-  name: 'notice',
+  chatroomId: 1,
+  title: 'notice',
   isJoined: true,
-  memberCount: 4,
+  members: 4,
   description: '공지사항을 안내하는 채널',
-  isPrivate: true,
-  handlingJoinButton,
-  handlingLeaveButton
+  isPrivate: true
 };

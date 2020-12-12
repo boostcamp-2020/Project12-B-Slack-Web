@@ -71,6 +71,17 @@ export default {
 
   getChannels: async () => {
     const response = await axios.get(`api/chatrooms`);
+    const channelCount = response.headers['x-total-count'];
+    return { channels: response.data, channelCount };
+  },
+
+  getNextChannels: async (title: string) => {
+    const response = await axios.get(`api/chatrooms?offsetTitle=${title}`);
+    return response.data;
+  },
+
+  joinChannel: async (chatroomId: number) => {
+    const response = await axios.post(`api/user-chatrooms`, { chatroomId });
     return response.data;
   }
 };
