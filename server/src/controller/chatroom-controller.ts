@@ -29,7 +29,8 @@ const ChatroomController = {
       const { offsetTitle } = req.query;
       const chatrooms = await ChatroomService.getInstance().getChatrooms(Number(userId), String(offsetTitle));
       const chatroomCount = await ChatroomService.getInstance().getChatroomCount(userId);
-      res.setHeader('X-total-count', chatroomCount);
+      res.header('Access-Control-Expose-Headers', 'x-total-count');
+      res.setHeader('x-total-count', chatroomCount);
       res.status(HttpStatusCode.OK).json(chatrooms);
     } catch (err) {
       next(err);
