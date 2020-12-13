@@ -6,6 +6,7 @@ import ReactionRepository from '@repository/reacion-repository';
 import BadRequestError from '@error/bad-request-error';
 import ConflictError from '@error/conflict-error';
 import NotFoundError from '@error/not-found-error';
+import { validate } from 'class-validator';
 
 class MessageReactionService {
   static instance: MessageReactionService;
@@ -32,11 +33,19 @@ class MessageReactionService {
     return MessageReactionService.instance;
   }
 
-  async createMessageReaction(userId: number, messageId: number, reactionId: number) {
+  async createMessageReaction(userId: number, messageId: number, title: string, emoji: string) {
     const user = await this.userRepository.findOne({ userId });
     const message = await this.messageRepository.findOne({ messageId });
-    const reaction = await this.reactionRepository.findOne({ reactionId });
+    let reaction = await this.reactionRepository.findOne({ emoji });
 
+    if (!title || !emoji) {
+      throw new BadRequestError();
+    }
+    if (!reaction) {
+      const newReaction = this.reactionRepository.create({ title, emoji });
+      await validate(newReaction);
+      reaction = await this.reactionRepository.save(newReaction);
+    }
     if (!user || !message || !reaction) {
       throw new BadRequestError();
     }
