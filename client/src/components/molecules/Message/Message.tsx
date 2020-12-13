@@ -17,6 +17,7 @@ const MessageContainer = styled.div<any>`
   display: flex;
   position: relative;
   padding: 1rem 1rem;
+  word-break: break-all;
   &:hover {
     background-color: ${color.hover_primary};
   }
