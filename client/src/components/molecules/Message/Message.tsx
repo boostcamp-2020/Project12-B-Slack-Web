@@ -9,6 +9,7 @@ interface MessageProps {
   src: string;
   author: string;
   content: string;
+  messageId: number;
   createdAt: Date;
 }
 
@@ -16,6 +17,7 @@ const MessageContainer = styled.div<any>`
   display: flex;
   position: relative;
   padding: 1rem 1rem;
+  word-break: break-all;
   &:hover {
     background-color: ${color.hover_primary};
   }
@@ -41,7 +43,7 @@ const DateText = styled.p<any>`
   font-size: 0.7rem;
 `;
 
-const Message: React.FC<MessageProps> = ({ author, content, src, createdAt, ...props }) => {
+const Message: React.FC<MessageProps> = ({ messageId, author, content, src, createdAt, ...props }) => {
   const [isHover, setHover] = useState(false);
   const messageContainer = useRef();
   const onMouseEnter = () => {
@@ -66,7 +68,7 @@ const Message: React.FC<MessageProps> = ({ author, content, src, createdAt, ...p
           {content}
         </Text>
       </MessageContent>
-      {isHover ? <Actionbar /> : null}
+      {isHover ? <Actionbar messageId={messageId} {...props} /> : null}
     </MessageContainer>
   );
 };
