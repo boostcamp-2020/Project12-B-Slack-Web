@@ -5,7 +5,7 @@ import { color } from '@theme/index';
 
 interface BrowsePageChannelBodyProps {
   isJoined?: boolean;
-  memberCount: number;
+  members: number;
   description?: string;
 }
 
@@ -16,7 +16,7 @@ const BrowsePageChannelBodyWrap = styled.div<any>`
   }
 `;
 
-const BrowsePageChannelBody: React.FC<BrowsePageChannelBodyProps> = ({ isJoined, memberCount, description, ...props }) => {
+const BrowsePageChannelBody: React.FC<BrowsePageChannelBodyProps> = ({ isJoined, members, description, ...props }) => {
   return (
     <BrowsePageChannelBodyWrap {...props}>
       {isJoined && (
@@ -25,7 +25,7 @@ const BrowsePageChannelBody: React.FC<BrowsePageChannelBodyProps> = ({ isJoined,
         </Text>
       )}
       <Text fontColor={color.text_tertiary} size="superSmall">
-        {`${memberCount} members`}
+        {`${members} members`}
       </Text>
       {description && (
         <Text fontColor={color.text_tertiary} size="superSmall">
