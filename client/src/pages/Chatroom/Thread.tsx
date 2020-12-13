@@ -11,7 +11,7 @@ const ThreadContainer = styled.div<any>`
   border-left: 1px solid ${color.border_primary};
 `;
 
-const Thread: React.FC<ThreadProps> = ({ ...props }) => {
+const Thread: React.FC<ThreadProps> = () => {
   return (
     <ThreadContainer>
       <ThreadHeader />
