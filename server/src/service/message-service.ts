@@ -66,15 +66,15 @@ class MessageService {
       const { reactionId, title, imageUri } = messageReaction.reaction;
       const { displayName } = messageReaction.user;
       if (messageReactions[reactionId]) {
-        messageReactions[reactionId].replyDisplayNames.push(displayName);
-        messageReactions[reactionId].reactionCount = messageReactions[reactionId].replyDisplayNames.length;
+        messageReactions[reactionId].reactionDisplayNames.push(displayName);
+        messageReactions[reactionId].reactionCount = messageReactions[reactionId].reactionDisplayNames.length;
       } else
         messageReactions[reactionId] = {
           reactionId,
           title,
           imageUri,
           reactionCount: 1,
-          replyDisplayNames: [displayName]
+          reactionDisplayNames: [displayName]
         };
     });
     message.messageReactions = messageReactions;
@@ -127,15 +127,15 @@ class MessageService {
         const { reactionId, title, imageUri } = messageReaction.reaction;
         const { displayName } = messageReaction.user;
         if (messageReactions[reactionId]) {
-          messageReactions[reactionId].replyDisplayNames.push(displayName);
-          messageReactions[reactionId].reactionCount = messageReactions[reactionId].replyDisplayNames.length;
+          messageReactions[reactionId].reactionDisplayNames.push(displayName);
+          messageReactions[reactionId].reactionCount = messageReactions[reactionId].reactionDisplayNames.length;
         } else
           messageReactions[reactionId] = {
             reactionId,
             title,
             imageUri,
             reactionCount: 1,
-            replyDisplayNames: [displayName]
+            reactionDisplayNames: [displayName]
           };
       });
       message.messageReactions = messageReactions;
