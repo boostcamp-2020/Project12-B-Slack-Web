@@ -46,7 +46,13 @@ class MessageService {
     const message = await this.MessageRepository.createQueryBuilder('message')
       .leftJoinAndSelect('message.user', 'user')
       .leftJoinAndSelect('message.chatroom', 'chatroom')
+      .leftJoin('message.messageReactions', 'messageReactions')
+      .leftJoin('messageReactions.reaction', 'reaction')
+      .leftJoin('messageReactions.user', 'reactionUser')
       .select(['message', 'user.userId', 'user.profileUri', 'user.displayName', 'chatroom.chatroomId'])
+      .addSelect(['messageReactions.messageReactionId'])
+      .addSelect(['reaction.reactionId', 'reaction.title', 'reaction.imageUri'])
+      .addSelect(['reactionUser.displayName'])
       .where('message.messageId = :messageId', { messageId })
       .getOne();
     if (!message) throw new BadRequestError();
