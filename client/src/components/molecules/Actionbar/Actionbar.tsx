@@ -5,8 +5,12 @@ import { color } from '@theme/index';
 import EmojiIcon from '@imgs/emoji-icon.png';
 import ThreadIcon from '@imgs/thread-icon.png';
 import OptionIcon from '@imgs/option-icon.png';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-interface ActionbarProps {}
+interface ActionbarProps {
+  messageId: number;
+}
 
 const ActionbarContainer = styled.div<any>`
   display: flex;
@@ -18,11 +22,16 @@ const ActionbarContainer = styled.div<any>`
   border-radius: 0.2rem;
 `;
 
-const Actionbar: React.FC<ActionbarProps> = ({ ...props }) => {
+const Actionbar: React.FC<ActionbarProps> = ({ messageId, ...props }) => {
+  const history = useHistory();
+  const chatroomId = useSelector((state: any) => state.chatroom.selectedChatroomId);
+  const openThread = () => {
+    history.push(`/client/${chatroomId}/thread/${messageId}`);
+  };
   return (
     <ActionbarContainer {...props}>
       <HoverIcon size="medium" src={EmojiIcon} />
-      <HoverIcon size="medium" src={ThreadIcon} />
+      <HoverIcon size="medium" onClick={openThread} src={ThreadIcon} />
       <HoverIcon size="medium" src={OptionIcon} />
     </ActionbarContainer>
   );

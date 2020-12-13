@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledMainBox = styled.main`
-  width: 77%;
+  width: -webkit-fill-available;
   height: 100%;
 `;
 

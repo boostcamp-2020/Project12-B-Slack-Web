@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledMain = styled.main`
+const StyledMain = styled.div`
   display: flex;
   width: 100%;
   height: 94%;

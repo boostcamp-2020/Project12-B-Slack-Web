@@ -9,6 +9,7 @@ interface ChatroomProps {}
 
 const ChatroomContainer = styled.div<any>`
   height: 100%;
+  width: -webkit-fill-available;
 `;
 
 const Chatroom: React.FC<ChatroomProps> = ({ children, ...props }) => {
@@ -22,7 +23,7 @@ const Chatroom: React.FC<ChatroomProps> = ({ children, ...props }) => {
   return (
     <ChatroomContainer {...props}>
       <ChatroomHeader title={title} users={users} />
-      <ChatroomBody title={title} messages={messages} chatRoomId={selectedChatroomId} />
+      <ChatroomBody title={title} messages={messages} chatRoomId={selectedChatroomId} {...props} />
     </ChatroomContainer>
   );
 };
