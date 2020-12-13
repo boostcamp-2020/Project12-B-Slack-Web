@@ -24,6 +24,7 @@ const StyledHoverIcon = styled.div<HoverIconProps>`
     return '1.8rem';
   }};
   border-radius: 0.4rem;
+  cursor: pointer;
   &:hover {
     background-color: ${color.hover_primary};
   }
