@@ -14,7 +14,7 @@ export default class Reaction {
 
   @Column({ length: 100 })
   @IsString()
-  imageUri: string;
+  emoji: string;
 
   @CreateDateColumn()
   createdAt: Date;
