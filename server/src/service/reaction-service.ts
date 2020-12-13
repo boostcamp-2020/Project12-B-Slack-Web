@@ -21,7 +21,6 @@ class ReactionService {
 
   async createReaction(title: string, imageUri: string) {
     const reaction = await this.reactionRepository.findOne({ title });
-
     if (reaction) {
       throw new BadRequestError();
     }

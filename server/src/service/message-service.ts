@@ -46,11 +46,38 @@ class MessageService {
     const message = await this.MessageRepository.createQueryBuilder('message')
       .leftJoinAndSelect('message.user', 'user')
       .leftJoinAndSelect('message.chatroom', 'chatroom')
+      .leftJoin('message.messageReactions', 'messageReactions')
+      .leftJoin('messageReactions.reaction', 'reaction')
+      .leftJoin('messageReactions.user', 'reactionUser')
       .select(['message', 'user.userId', 'user.profileUri', 'user.displayName', 'chatroom.chatroomId'])
+      .addSelect(['messageReactions.messageReactionId'])
+      .addSelect(['reaction.reactionId', 'reaction.title', 'reaction.imageUri'])
+      .addSelect(['reactionUser.displayName'])
       .where('message.messageId = :messageId', { messageId })
       .getOne();
     if (!message) throw new BadRequestError();
+    this.customMessageReaction(message);
     return message;
+  }
+
+  private async customMessageReaction(message: any) {
+    let messageReactions: any = {};
+    message.messageReactions.forEach((messageReaction) => {
+      const { reactionId, title, imageUri } = messageReaction.reaction;
+      const { displayName } = messageReaction.user;
+      if (messageReactions[reactionId]) {
+        messageReactions[reactionId].reactionDisplayNames.push(displayName);
+        messageReactions[reactionId].reactionCount = messageReactions[reactionId].reactionDisplayNames.length;
+      } else
+        messageReactions[reactionId] = {
+          reactionId,
+          title,
+          imageUri,
+          reactionCount: 1,
+          reactionDisplayNames: [displayName]
+        };
+    });
+    message.messageReactions = messageReactions;
   }
 
   async getMessages(chatroomId: number, offsetId: number) {
@@ -99,13 +126,16 @@ class MessageService {
       message.messageReactions.forEach((messageReaction) => {
         const { reactionId, title, imageUri } = messageReaction.reaction;
         const { displayName } = messageReaction.user;
-        if (messageReactions[reactionId]) messageReactions[reactionId].replyDisplayNames.push(displayName);
-        else
+        if (messageReactions[reactionId]) {
+          messageReactions[reactionId].reactionDisplayNames.push(displayName);
+          messageReactions[reactionId].reactionCount = messageReactions[reactionId].reactionDisplayNames.length;
+        } else
           messageReactions[reactionId] = {
             reactionId,
             title,
             imageUri,
-            replyDisplayNames: [displayName]
+            reactionCount: 1,
+            reactionDisplayNames: [displayName]
           };
       });
       message.messageReactions = messageReactions;
