@@ -56,7 +56,28 @@ class MessageService {
       .where('message.messageId = :messageId', { messageId })
       .getOne();
     if (!message) throw new BadRequestError();
+    this.customMessageReaction(message);
     return message;
+  }
+
+  private async customMessageReaction(message: any) {
+    let messageReactions: any = {};
+    message.messageReactions.forEach((messageReaction) => {
+      const { reactionId, title, imageUri } = messageReaction.reaction;
+      const { displayName } = messageReaction.user;
+      if (messageReactions[reactionId]) {
+        messageReactions[reactionId].replyDisplayNames.push(displayName);
+        messageReactions[reactionId].reactionCount = messageReactions[reactionId].replyDisplayNames.length;
+      } else
+        messageReactions[reactionId] = {
+          reactionId,
+          title,
+          imageUri,
+          reactionCount: 1,
+          replyDisplayNames: [displayName]
+        };
+    });
+    message.messageReactions = messageReactions;
   }
 
   async getMessages(chatroomId: number, offsetId: number) {
@@ -105,12 +126,15 @@ class MessageService {
       message.messageReactions.forEach((messageReaction) => {
         const { reactionId, title, imageUri } = messageReaction.reaction;
         const { displayName } = messageReaction.user;
-        if (messageReactions[reactionId]) messageReactions[reactionId].replyDisplayNames.push(displayName);
-        else
+        if (messageReactions[reactionId]) {
+          messageReactions[reactionId].replyDisplayNames.push(displayName);
+          messageReactions[reactionId].reactionCount = messageReactions[reactionId].replyDisplayNames.length;
+        } else
           messageReactions[reactionId] = {
             reactionId,
             title,
             imageUri,
+            reactionCount: 1,
             replyDisplayNames: [displayName]
           };
       });
