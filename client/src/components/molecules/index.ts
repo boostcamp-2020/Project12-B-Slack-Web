@@ -21,6 +21,8 @@ import { HoverIcon } from './HoverIcon/HoverIcon';
 import { Actionbar } from './Actionbar/Actionbar';
 import { AddChannelButton } from './AddChannelButton/AddChannelButton';
 import { BrowsePageSearchBar } from './BrowsePageSearchBar/BrowsePageSearchBar';
+import { InputReply } from './InputReply/InputReply';
+import { Reply } from './Reply/Reply';
 
 export {
   Actionbar,
@@ -30,6 +32,8 @@ export {
   HoverIcon,
   Section,
   InputMessage,
+  InputReply,
+  Reply,
   SendMessageButton,
   GithubLoginButton,
   Message,
