@@ -9,6 +9,7 @@ interface ChatroomProps {}
 
 const ChatroomContainer = styled.div<any>`
   height: 100%;
+  width: -webkit-fill-available;
 `;
 
 const Chatroom: React.FC<ChatroomProps> = ({ children, ...props }) => {

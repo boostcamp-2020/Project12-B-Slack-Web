@@ -5,7 +5,7 @@ import { color } from '@theme/index';
 interface ThreadProps {}
 
 const ThreadContainer = styled.div<any>`
-  width: 70rem;
+  width: 40rem;
   height: 100%;
   border-left: 1px solid ${color.border_primary};
 `;
