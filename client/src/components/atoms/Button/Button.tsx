@@ -9,12 +9,15 @@ interface ButtonProps {
   fontColor: string;
   isBold?: boolean;
   hoverColor?: string;
+  width?: string;
+  height?: string;
   onClick?: () => void;
 }
 
 const StyledButton = styled.button<any>`
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: ${(props) => props.backgroundColor};
   border: 2px solid ${(props) => props.borderColor};
   color: ${(props) => props.fontColor};
@@ -24,6 +27,8 @@ const StyledButton = styled.button<any>`
   cursor: pointer;
   font-weight: ${(props) => (props.isBold ? 'bold' : null)};
   ${(props) => (props.hoverColor ? `&:hover { background-color: ${color.hover_primary}}` : '')}
+  ${(props) => (props.width ? `width: ${props.width}}` : '')}
+  ${(props) => (props.height ? `height: ${props.height}}` : '')}
 `;
 
 const Button: React.FC<ButtonProps> = ({ children, backgroundColor, borderColor, fontColor, isBold, hoverColor, ...props }) => {

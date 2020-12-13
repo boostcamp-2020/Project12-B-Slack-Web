@@ -12,7 +12,13 @@ const BrowsePageChannelButton: React.FC<BrowsePageChannelButtonProps> = ({ isJoi
   return (
     <>
       {isJoined ? (
-        <Button onClick={handlingLeaveButton} backgroundColor={color.tertiary} borderColor={color.secondary} fontColor={color.primary} {...props}>
+        <Button
+          onClick={handlingLeaveButton}
+          backgroundColor={color.tertiary}
+          borderColor={color.secondary}
+          fontColor={color.primary}
+          width="5rem"
+          {...props}>
           Leave
         </Button>
       ) : (
@@ -21,6 +27,7 @@ const BrowsePageChannelButton: React.FC<BrowsePageChannelButtonProps> = ({ isJoi
           backgroundColor={color.button_secondary}
           borderColor={color.button_secondary}
           fontColor={color.text_secondary}
+          width="5rem"
           {...props}>
           Join
         </Button>

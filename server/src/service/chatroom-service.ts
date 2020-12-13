@@ -143,8 +143,8 @@ class ChatroomService {
     return chatrooms.map((chatroom, idx) => {
       const { chatroomId, title, description, isPrivate, userChatrooms } = chatroom;
       const members = userChatrooms.length;
-      const isJoinend = isJoinedArr[idx];
-      return { chatroomId, title, description, isPrivate, members, isJoinend };
+      const isJoined = isJoinedArr[idx];
+      return { chatroomId, title, description, isPrivate, members, isJoined };
     });
   }
 

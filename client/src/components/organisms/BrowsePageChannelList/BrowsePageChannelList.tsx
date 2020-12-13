@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { BrowsePageChannel } from '@components/organisms';
+import { useDispatch } from 'react-redux';
+import { channelState } from '@store/types/channel-types';
+import { loadNextChannels } from '@store/actions/channel-action';
 
 interface BrowsePageChannelListProps {
-  channels: Array<object>;
+  channels: Array<channelState>;
 }
 
 const BrowsePageChannelListContainter = styled.div<any>`
@@ -15,10 +18,22 @@ const BrowsePageChannelListContainter = styled.div<any>`
 `;
 
 const BrowsePageChannelList: React.FC<BrowsePageChannelListProps> = ({ channels, ...props }) => {
+  const dispatch = useDispatch();
+  const [lastRequestChannelTitle, setLastRequestChannelTitle] = useState('');
+  const onScrollHandler = (e: any) => {
+    const title: string | null = channels[channels.length - 1]?.title;
+    if (e.target.scrollTop >= e.target.scrollHeight / 2) {
+      if (title === lastRequestChannelTitle) return;
+      dispatch(loadNextChannels({ title }));
+      setLastRequestChannelTitle(title);
+    }
+  };
+
   const createMessages = () => {
     return channels.map((channel: any) => (
       <BrowsePageChannel
         key={channel.chatroomId}
+        chatroomId={channel.chatroomId}
         title={channel.title}
         description={channel.description}
         isPrivate={channel.isPrivate}
@@ -28,7 +43,11 @@ const BrowsePageChannelList: React.FC<BrowsePageChannelListProps> = ({ channels,
     ));
   };
 
-  return <BrowsePageChannelListContainter {...props}>{createMessages()}</BrowsePageChannelListContainter>;
+  return (
+    <BrowsePageChannelListContainter onScroll={onScrollHandler} {...props}>
+      {createMessages()}
+    </BrowsePageChannelListContainter>
+  );
 };
 
 export { BrowsePageChannelList, BrowsePageChannelListProps };

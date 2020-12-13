@@ -13,7 +13,7 @@ export const BlackBrowsePageChannelList = Template.bind({});
 BlackBrowsePageChannelList.args = {
   channels: [
     {
-      channelId: 1,
+      chatroomId: 1,
       title: 'notice',
       description: '공지사항을 안내하는 채널',
       isPrivate: false,
@@ -21,14 +21,14 @@ BlackBrowsePageChannelList.args = {
       isJoined: true
     },
     {
-      channelId: 2,
+      chatroomId: 2,
       title: '질의응답',
       isPrivate: false,
       members: 10,
       isJoined: false
     },
     {
-      channelId: 3,
+      chatroomId: 3,
       title: 'black',
       description: 'black',
       isPrivate: true,
