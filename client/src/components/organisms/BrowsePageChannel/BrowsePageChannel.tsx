@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { color } from '@theme/index';
 import { BrowsePageChannelHeader } from '@components/molecules/BrowsePageChannelHeader/BrowsePageChannelHeader';
 import { BrowsePageChannelBody } from '@components/molecules/BrowsePageChannelBody/BrowsePageChannelBody';
@@ -45,9 +46,11 @@ const ButtonWrap = styled.div<any>`
 `;
 
 const BrowsePageChannel: React.FC<BrowsePageChannelProps> = ({ chatroomId, title, isJoined, members, description, isPrivate, ...props }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const handlingJoinButton = () => {
     dispatch(joinChannel({ chatroomId }));
+    history.push(`/client/${chatroomId}`);
   };
   const handlingLeaveButton = () => {};
   return (
