@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { channelModalClose } from '@store/actions/modal-action';
+import { channelModalClose, profileModalClose } from '@store/actions/modal-action';
 import { useDispatch } from 'react-redux';
 import { insertMessage, updateThread } from '@store/actions/chatroom-action';
 import socket from '@socket/socketIO';
@@ -27,6 +27,7 @@ const Body: React.FC<any> = ({ children }) => {
   }, []);
   const handlingLeave = () => {
     dispatch(channelModalClose());
+    dispatch(profileModalClose());
   };
   return <StyledBody onMouseLeave={handlingLeave}>{children}</StyledBody>;
 };
