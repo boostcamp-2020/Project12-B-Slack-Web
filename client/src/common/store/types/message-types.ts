@@ -4,8 +4,8 @@ import { chatroomThreadState } from './chatroom-types';
 
 export interface messageState {
   messageId: number;
-  createAt: Date;
-  updateAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
   user: userState;
   messageReactions: Array<messageReactionsState>;
   thread: chatroomThreadState;
