@@ -31,8 +31,9 @@ const ReplyBarLine = styled.div<any>`
 
 const ThreadReplies: React.FC<ThreadRepliesProps> = () => {
   const { replies } = useSelector((store: RootState) => store.thread);
+
   const createReplies = () => {
-    return replies.map((reply: any) => <Reply reply={reply} />);
+    return replies.map((reply: any) => <Reply key={reply.replyId} reply={reply} />);
   };
   const replyLength = replies.length;
   return (
