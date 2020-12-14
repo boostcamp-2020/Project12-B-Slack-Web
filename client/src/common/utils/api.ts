@@ -83,5 +83,10 @@ export default {
   joinChannel: async (chatroomId: number) => {
     const response = await axios.post(`api/user-chatrooms`, { chatroomId });
     return response.data;
+  },
+
+  getThread: async (messageId: number) => {
+    const response = await axios.get(`api/replies/${messageId}`);
+    return response.data;
   }
 };

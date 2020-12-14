@@ -14,11 +14,12 @@ interface MessageReplyBarProps {
 const MessageReplyBarWrap = styled.div<any>`
   display: flex;
   width: 40rem;
-  padding: 0.5rem;
+  margin-top: 0.2rem;
+  padding: 0.2rem;
   border-radius: 0.3rem;
   cursor: pointer;
   &:hover {
-    background-color: ${color.hover_primary};
+    background-color: ${color.tertiary};
   }
 `;
 

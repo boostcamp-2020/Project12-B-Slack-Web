@@ -4,6 +4,9 @@ import { channelModalClose } from '@store/actions/modal-action';
 import { useDispatch } from 'react-redux';
 import { insertMessage } from '@store/actions/chatroom-action';
 import socket from '@socket/socketIO';
+import { CREATE_MESSAGE } from '@socket/types/message-types';
+import { CREATE_REPLY } from '@socket/types/thread-types';
+import { InsertReply } from '@store/actions/thread-action';
 
 const StyledBody = styled.div`
   position: relative;
@@ -14,8 +17,11 @@ const StyledBody = styled.div`
 const Body: React.FC<any> = ({ children }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    socket.on('create message', (message: any) => {
+    socket.on(CREATE_MESSAGE, (message: any) => {
       dispatch(insertMessage(message));
+    });
+    socket.on(CREATE_REPLY, (reply: any) => {
+      dispatch(InsertReply(reply));
     });
   }, []);
   const handlingLeave = () => {
