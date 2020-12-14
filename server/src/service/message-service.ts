@@ -116,19 +116,17 @@ class MessageService {
       .leftJoin('messageReactions.user', 'reactionUser')
       .select(['message.messageId', 'message.createdAt', 'message.updatedAt', 'message.content'])
       .addSelect(['user.userId', 'user.profileUri', 'user.displayName'])
+      .addSelect(['replies'])
+      .addSelect(['replyUser.profileUri'])
       .addSelect(['messageReactions.messageReactionId'])
       .addSelect(['reaction.reactionId', 'reaction.title', 'reaction.emoji'])
       .addSelect(['reactionUser.displayName'])
-      .addSelect(['replies.createdAt'])
-      .addSelect(['replyUser.profileUri'])
       .orderBy('message.messageId', 'DESC')
-      .limit(limit)
       .where(where, { chatroomId, offsetId })
+      .take(limit)
       .getMany();
-
     this.customMessagesReaction(messages);
     this.customMessagesReplies(messages);
-
     return messages.reverse();
   }
 
