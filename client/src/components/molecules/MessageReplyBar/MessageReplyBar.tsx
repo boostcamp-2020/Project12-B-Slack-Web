@@ -39,7 +39,7 @@ const MessageReplyBar: React.FC<MessageReplyBarProps> = ({ profileImgs, replyCou
   const profileNum = profileImgs.length >= 5 ? 5 : profileImgs.length;
   const removedOverlapProfileImgs = Array.from(new Set(profileImgs));
   const createProfileImg = removedOverlapProfileImgs.slice(0, profileNum).map((profileImg) => (
-    <ProfileImgWrap>
+    <ProfileImgWrap key={profileImg}>
       <ProfileImg src={profileImg}></ProfileImg>
     </ProfileImgWrap>
   ));

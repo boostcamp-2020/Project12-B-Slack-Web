@@ -4,7 +4,6 @@ import { Input } from '@components/atoms';
 import { color } from '@theme/index';
 import { SendMessageButton } from '@components/molecules';
 import { createReply } from '@socket/emits/thread';
-import { useDispatch } from 'react-redux';
 
 interface InputReplyProps {
   isThread?: boolean;
@@ -33,7 +32,6 @@ const ButtonWrap = styled.div<any>`
 
 const InputReply: React.FC<InputReplyProps> = ({ children, messageId, isThread, ...props }) => {
   const [content, setContent] = useState('');
-  const dispatch = useDispatch();
   const sendReply = () => {
     if (content === '') return;
     createReply({ content, messageId });
