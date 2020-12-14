@@ -9,7 +9,10 @@ interface ThreadBodyProps {
   messageId: number | null;
 }
 
-const ThreadBodyContainter = styled.div``;
+const ThreadBodyContainter = styled.div`
+  overflow-y: scroll;
+  height: 90%;
+`;
 
 const InputBoxWrap = styled.div<any>`
   margin: 1rem;
