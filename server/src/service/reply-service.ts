@@ -106,8 +106,8 @@ class ReplyService {
     replyReactions.forEach((replyReaction) => {
       const reactionId = Number(replyReaction.reaction.reactionId);
       if (!reactions[reactionId]) {
-        const { title, imageUri } = replyReaction.reaction;
-        reactions[reactionId] = { reactionId, title, imageUri, replyDisplayNames: [] };
+        const { title, emoji } = replyReaction.reaction;
+        reactions[reactionId] = { reactionId, title, emoji, replyDisplayNames: [] };
       }
       const { displayName } = replyReaction.user;
       reactions[reactionId].replyDisplayNames.push(displayName);

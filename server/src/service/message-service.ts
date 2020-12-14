@@ -51,7 +51,7 @@ class MessageService {
       .leftJoin('messageReactions.user', 'reactionUser')
       .select(['message', 'user.userId', 'user.profileUri', 'user.displayName', 'chatroom.chatroomId'])
       .addSelect(['messageReactions.messageReactionId'])
-      .addSelect(['reaction.reactionId', 'reaction.title', 'reaction.imageUri'])
+      .addSelect(['reaction.reactionId', 'reaction.title', 'reaction.emoji'])
       .addSelect(['reactionUser.displayName'])
       .where('message.messageId = :messageId', { messageId })
       .getOne();
@@ -63,7 +63,7 @@ class MessageService {
   private async customMessageReaction(message: any) {
     let messageReactions: any = {};
     message.messageReactions.forEach((messageReaction) => {
-      const { reactionId, title, imageUri } = messageReaction.reaction;
+      const { reactionId, title, emoji } = messageReaction.reaction;
       const { displayName } = messageReaction.user;
       if (messageReactions[reactionId]) {
         messageReactions[reactionId].reactionDisplayNames.push(displayName);
@@ -72,7 +72,7 @@ class MessageService {
         messageReactions[reactionId] = {
           reactionId,
           title,
-          imageUri,
+          emoji,
           reactionCount: 1,
           reactionDisplayNames: [displayName]
         };
@@ -94,7 +94,7 @@ class MessageService {
       .select(['message.messageId', 'message.createdAt', 'message.updatedAt', 'message.content'])
       .addSelect(['user.userId', 'user.profileUri', 'user.displayName'])
       .addSelect(['messageReactions.messageReactionId'])
-      .addSelect(['reaction.reactionId', 'reaction.title', 'reaction.imageUri'])
+      .addSelect(['reaction.reactionId', 'reaction.title', 'reaction.emoji'])
       .addSelect(['reactionUser.displayName'])
       .addSelect(['replies.createdAt'])
       .addSelect(['replyUser.profileUri'])
@@ -124,7 +124,7 @@ class MessageService {
     messages.forEach((message: any) => {
       let messageReactions: any = {};
       message.messageReactions.forEach((messageReaction) => {
-        const { reactionId, title, imageUri } = messageReaction.reaction;
+        const { reactionId, title, emoji } = messageReaction.reaction;
         const { displayName } = messageReaction.user;
         if (messageReactions[reactionId]) {
           messageReactions[reactionId].reactionDisplayNames.push(displayName);
@@ -133,7 +133,7 @@ class MessageService {
           messageReactions[reactionId] = {
             reactionId,
             title,
-            imageUri,
+            emoji,
             reactionCount: 1,
             reactionDisplayNames: [displayName]
           };

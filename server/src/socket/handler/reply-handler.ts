@@ -1,8 +1,7 @@
-import Reply from '@model/reply';
 import ReplyService from '@service/reply-service';
 import eventName from '@constants/event-name';
 
-const messageHandler = {
+const replyHandler = {
   async createReply(io, socket, reply) {
     const req = socket.request;
     const { userId } = req.user;
@@ -32,4 +31,4 @@ const messageHandler = {
   }
 };
 
-export default messageHandler;
+export default replyHandler;

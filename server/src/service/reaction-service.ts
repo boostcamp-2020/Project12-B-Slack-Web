@@ -19,13 +19,13 @@ class ReactionService {
     return ReactionService.instance;
   }
 
-  async createReaction(title: string, imageUri: string) {
+  async createReaction(title: string, emoji: string) {
     const reaction = await this.reactionRepository.findOne({ title });
     if (reaction) {
       throw new BadRequestError();
     }
 
-    const newReaction = this.reactionRepository.create({ title, imageUri });
+    const newReaction = this.reactionRepository.create({ title, emoji });
     await validator(newReaction);
     const createdReaction = await this.reactionRepository.save(newReaction);
     return createdReaction.reactionId;
@@ -34,7 +34,7 @@ class ReactionService {
   async getReactions() {
     const reactions = await this.reactionRepository
       .createQueryBuilder('reaction')
-      .select(['reaction.reactionId', 'reaction.title', 'reaction.imageUri'])
+      .select(['reaction.reactionId', 'reaction.title', 'reaction.emoji'])
       .getMany();
 
     return reactions;
