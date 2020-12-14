@@ -16,7 +16,7 @@ const ProfileModalBodyContainter = styled.div`
 
 const DisplayNameWrap = styled.div`
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   p {
     margin-right: 0.5rem;
   }
@@ -44,7 +44,7 @@ const ProfileModalBody: React.FC<ProfileModalBodyProps> = ({ displayName, ...pro
         <Text fontColor={color.primary} size="medium" isBold={true}>
           {displayName}
         </Text>
-        <ActiveLight size="medium" isActive={true} />
+        <ActiveLight size="medium" />
       </DisplayNameWrap>
       <LocalTimeWrap>
         <Text fontColor={color.text_tertiary} size="superSmall">
