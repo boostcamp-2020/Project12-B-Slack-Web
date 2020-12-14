@@ -11,5 +11,5 @@ const Template: Story<ProfileModalBodyProps> = (args) => <ProfileModalBody {...a
 
 export const BlackProfileModalBody = Template.bind({});
 BlackProfileModalBody.args = {
-  displayName: '탁성건'
+  displayName: 'profornnan'
 };

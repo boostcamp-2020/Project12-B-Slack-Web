@@ -29,7 +29,13 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ userId, profileUri, display
         <ProfileModalImg profileUri={profileUri} />
         <ProfileModalBody displayName={displayName} />
         <MessageButtonWrap>
-          <Button backgroundColor={color.tertiary} borderColor={color.secondary} fontColor={color.primary} width="100%" height="2rem" {...props}>
+          <Button
+            backgroundColor={color.modal_bg_inner_secondary}
+            borderColor={color.secondary}
+            fontColor={color.primary}
+            width="100%"
+            height="2rem"
+            {...props}>
             Message
           </Button>
         </MessageButtonWrap>

@@ -13,5 +13,5 @@ export const BlackProfileModal = Template.bind({});
 BlackProfileModal.args = {
   userId: 1,
   profileUri: 'https://avatars2.githubusercontent.com/u/59037261?s=460&u=7b7a0a2f151c1f49c5bc8068d4d6a5bf50c94c7b&v=4',
-  displayName: '탁성건'
+  displayName: 'profornnan'
 };
