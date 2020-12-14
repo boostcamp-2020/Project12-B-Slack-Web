@@ -171,7 +171,7 @@ class MessageService {
       const replyCount = message.replies.length;
       const profileUris = [];
       message.replies.forEach((reply: any) => {
-        lastReplyAt = lastReplyAt < reply.createdAt ? reply.createdAt : lastReplyAt;
+        if (lastReplyAt < reply.createdAt) lastReplyAt = reply.createdAt;
         if (profileUris.length < maxPrifileUriCount && !profileUris.includes(reply.user.profileUri)) profileUris.push(reply.user.profileUri);
       });
       delete message.replies;
