@@ -10,7 +10,8 @@ import {
   INSERT_MESSAGE,
   ADD_CHANNEL,
   RESET_SELECTED_CHANNEL,
-  LOAD_NEXT_MESSAGES
+  LOAD_NEXT_MESSAGES,
+  UPDATE_THREAD
 } from '../types/chatroom-types';
 
 const initialState: chatroomState = {
@@ -91,6 +92,20 @@ export default function chatroomReducer(state = initialState, action: ChatroomTy
       return {
         ...state,
         messages: nextMessages
+      };
+    case UPDATE_THREAD:
+      const updateMessages = state.messages;
+      const { messageId, profileUri } = action.payload;
+      updateMessages.forEach((message: any) => {
+        if (message.messageId === messageId) {
+          message.thread.profileUris.push(profileUri);
+          message.thread.replyCount += 1;
+          message.thread.lastReplyAt = new Date();
+        }
+      });
+      return {
+        ...state,
+        messages: updateMessages
       };
     default:
       return state;

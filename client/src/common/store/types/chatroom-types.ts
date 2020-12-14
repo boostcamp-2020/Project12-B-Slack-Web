@@ -10,6 +10,7 @@ export const ADD_CHANNEL_ASYNC = 'ADD_CHANNEL_ASYNC';
 export const RESET_SELECTED_CHANNEL = 'RESET_SELECTED_CHANNEL';
 export const LOAD_NEXT_MESSAGES = 'LOAD_NEXT_MESSAGES';
 export const LOAD_NEXT_MESSAGES_ASYNC = 'LOAD_NEXT_MESSAGES_ASYNC';
+export const UPDATE_THREAD = 'UPDATE_THREAD';
 
 export interface selectedChatroomState {
   chatType: string;
@@ -23,7 +24,7 @@ export interface selectedChatroomState {
 
 export interface chatroomState {
   selectedChatroom: selectedChatroomState;
-  messages: Array<object>;
+  messages: any;
   starred: Array<object>;
   otherSections: Array<object>;
   channels: Array<object>;
@@ -61,6 +62,11 @@ export interface messagesState {
   messages: Array<any>;
 }
 
+export interface updateThreadState {
+  profileUri: string;
+  messageId: number;
+}
+
 interface LoadChatroomAction {
   type: typeof LOAD;
   payload: chatroomState;
@@ -95,6 +101,11 @@ interface LoadNextAction {
   payload: messagesState;
 }
 
+interface UpdateThread {
+  type: typeof UPDATE_THREAD;
+  payload: updateThreadState;
+}
+
 export type ChatroomTypes =
   | LoadChatroomAction
   | InitSidebarAction
@@ -102,4 +113,5 @@ export type ChatroomTypes =
   | InsertMessageAction
   | AddChannelAction
   | ResetSelectedChannel
-  | LoadNextAction;
+  | LoadNextAction
+  | UpdateThread;
