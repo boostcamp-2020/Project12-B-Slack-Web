@@ -58,7 +58,31 @@ class MessageReactionService {
     }
 
     const createdMessageReaction = await this.messageReactionRepository.save(newMessageReaction);
-    return createdMessageReaction.messageReactionId;
+    const customMessageReaction = this.customMessageReaction(createdMessageReaction);
+    const displayNames = await this.addAuthorMessageReaction(customMessageReaction);
+    return { ...customMessageReaction, displayNames };
+  }
+
+  customMessageReaction(messageReaction) {
+    const { reactionId, title, emoji } = messageReaction.reaction;
+    const { messageId } = messageReaction.message;
+    return { reactionId, title, emoji, messageId };
+  }
+
+  async addAuthorMessageReaction(messageReaction) {
+    const { reactionId } = messageReaction;
+    const AuthorMessageReaction = await this.messageReactionRepository
+      .createQueryBuilder('messageReaction')
+      .leftJoin('messageReaction.user', 'user')
+      .select('messageReaction')
+      .addSelect('user')
+      .where('messageReaction.reactionId = :reactionId', { reactionId })
+      .getMany();
+    const displayNames = AuthorMessageReaction.map((MessageReaction) => {
+      const { displayName } = MessageReaction.user;
+      return displayName;
+    });
+    return displayNames;
   }
 
   async deleteMessageReaction(userId: number, messageId: number, reactionId: number) {

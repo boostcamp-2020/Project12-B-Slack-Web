@@ -7,8 +7,8 @@ const MessageReactionController = {
     const { userId } = req.user;
     const { messageId, title, emoji } = req.body;
     try {
-      const messageReactionId = await MessageReactionService.getInstance().createMessageReaction(Number(userId), Number(messageId), title, emoji);
-      res.status(HttpStatusCode.CREATED).json({ messageReactionId });
+      const messageReaction = await MessageReactionService.getInstance().createMessageReaction(Number(userId), Number(messageId), title, emoji);
+      res.status(HttpStatusCode.CREATED).json({ messageReaction });
     } catch (err) {
       next(err);
     }
