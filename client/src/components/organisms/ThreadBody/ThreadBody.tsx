@@ -1,8 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { InputReply, Reply } from '@components/molecules';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@store/reducers';
+import { moveScrollToTheBottom } from '@utils/scroll';
+import { ScrollEventType } from '@constants/index';
+import { loadNextReplies } from '@store/actions/thread-action';
 import { ThreadReplies } from './ThreadReplies';
 
 interface ThreadBodyProps {
@@ -20,24 +23,39 @@ const InputBoxWrap = styled.div<any>`
 
 const ThreadBody: React.FC<ThreadBodyProps> = ({ messageId }) => {
   const ThreadBodyEl = useRef<any>();
-  const { message } = useSelector((store: RootState) => store.thread);
+  const [eventType, setEventType] = useState(ScrollEventType.COMMON);
+  const [lastRequestReplyId, setLastRequestReplyId] = useState(0);
+  const { message, replies } = useSelector((store: RootState) => store.thread);
+  const dispatch = useDispatch();
 
-  const moveScrollToTheBottom = () => {
-    const { scrollHeight, clientHeight } = ThreadBodyEl.current;
-    const maxScrollTop = scrollHeight - clientHeight;
-    ThreadBodyEl.current.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+  const onScrollHandler = (e: any) => {
+    const offsetReply: any = replies[0] || null;
+    if (eventType !== ScrollEventType.LOADING && e.target.scrollTop <= e.target.scrollHeight / 4 && offsetReply !== null) {
+      if (offsetReply.messageId === lastRequestReplyId) return;
+      setEventType(ScrollEventType.LOADING);
+      dispatch(loadNextReplies({ messageId, offsetReply }));
+      setLastRequestReplyId(offsetReply.replyId);
+    }
   };
 
   useEffect(() => {
-    moveScrollToTheBottom();
+    if (eventType !== ScrollEventType.LOADING && eventType !== ScrollEventType.COMPLETELOADING) moveScrollToTheBottom(ThreadBodyEl);
   });
 
+  useEffect(() => {
+    if (eventType === ScrollEventType.LOADING) setEventType(ScrollEventType.COMPLETELOADING);
+  }, [replies]);
+
+  useEffect(() => {
+    moveScrollToTheBottom(ThreadBodyEl);
+  }, [message]);
+
   return (
-    <ThreadBodyContainter ref={ThreadBodyEl}>
+    <ThreadBodyContainter ref={ThreadBodyEl} onScroll={onScrollHandler}>
       <Reply reply={message} />
       <ThreadReplies messageId={messageId} />
       <InputBoxWrap>
-        <InputReply messageId={messageId} isThread />
+        <InputReply messageId={messageId} setEventType={setEventType} isThread />
       </InputBoxWrap>
     </ThreadBodyContainter>
   );

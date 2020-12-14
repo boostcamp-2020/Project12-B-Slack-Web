@@ -1,4 +1,4 @@
-import { LOAD_THREAD, threadState, INSERT_REPLY, ThreadTypes } from '@store/types/thread-types';
+import { LOAD_THREAD, threadState, INSERT_REPLY, ThreadTypes, LOAD_NEXT_REPLIES } from '@store/types/thread-types';
 
 const initialState: threadState = {
   message: {
@@ -33,6 +33,14 @@ export default function threadReducer(state = initialState, action: ThreadTypes)
       return {
         ...state,
         messages: newReplies
+      };
+    case LOAD_NEXT_REPLIES:
+      const nextreplies = action.payload.replies;
+      nextreplies.push(...state.replies);
+
+      return {
+        ...state,
+        replies: nextreplies
       };
     default:
       return state;

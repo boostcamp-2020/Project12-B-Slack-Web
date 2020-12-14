@@ -4,10 +4,12 @@ import { Input } from '@components/atoms';
 import { color } from '@theme/index';
 import { SendMessageButton } from '@components/molecules';
 import { createReply } from '@socket/emits/thread';
+import { ScrollEventType } from '@constants/index';
 
 interface InputReplyProps {
   isThread?: boolean;
   messageId: number | null;
+  setEventType: any;
 }
 
 const InputReplyContainer = styled.div<any>`
@@ -30,10 +32,11 @@ const ButtonWrap = styled.div<any>`
   margin-right: 1rem;
 `;
 
-const InputReply: React.FC<InputReplyProps> = ({ children, messageId, isThread, ...props }) => {
+const InputReply: React.FC<InputReplyProps> = ({ children, messageId, isThread, setEventType, ...props }) => {
   const [content, setContent] = useState('');
   const sendReply = () => {
     if (content === '') return;
+    setEventType(ScrollEventType.INPUTTEXT);
     createReply({ content, messageId });
     setContent('');
   };
