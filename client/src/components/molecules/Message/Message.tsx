@@ -16,6 +16,7 @@ interface MessageProps {
   messageId: number;
   createdAt: Date;
   thread: any;
+  user: { userId: number; profileUri: string; displayName: string };
 }
 
 const MessageContainer = styled.div<any>`
@@ -49,7 +50,7 @@ const DateText = styled.p<any>`
   font-size: 0.7rem;
 `;
 
-const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, src, createdAt, ...props }) => {
+const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, src, createdAt, user, ...props }) => {
   const [isHover, setHover] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -68,7 +69,8 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
   const clickProfileImg = (e: any) => {
     const x = window.pageXOffset + e.target.getBoundingClientRect().left;
     const y = window.pageYOffset + e.target.getBoundingClientRect().top;
-    dispatch(profileModalOpen({ x, y }));
+    const { userId, profileUri, displayName } = user;
+    dispatch(profileModalOpen({ x, y, userId, profileUri, displayName }));
   };
   return (
     <MessageContainer ref={messageContainer} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} {...props}>

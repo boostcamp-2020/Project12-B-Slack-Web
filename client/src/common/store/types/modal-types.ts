@@ -24,6 +24,9 @@ export interface ProfileModalState {
   isOpen: boolean;
   x: number;
   y: number;
+  userId: number;
+  profileUri: string;
+  displayName: string;
 }
 
 export interface ModalState {

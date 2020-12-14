@@ -15,7 +15,7 @@ const initialState: ModalState = {
   createModal: { isOpen: false },
   channelModal: { isOpen: false, x: 0, y: 0 },
   userboxModal: { isOpen: false },
-  profileModal: { isOpen: false, x: 0, y: 0 }
+  profileModal: { isOpen: false, x: 0, y: 0, userId: 0, profileUri: '', displayName: '' }
 };
 
 const ModalReducer = (state = initialState, action: ModalTypes) => {
@@ -33,7 +33,8 @@ const ModalReducer = (state = initialState, action: ModalTypes) => {
     case USERBOX_MODAL_CLOSE:
       return { ...state, userboxModal: { isOpen: false } };
     case PROFILE_MODAL_OPEN:
-      return { ...state, profileModal: { isOpen: true, x: action.payload.x, y: action.payload.y } };
+      const { userId, profileUri, displayName } = action.payload;
+      return { ...state, profileModal: { isOpen: true, x: action.payload.x, y: action.payload.y, userId, profileUri, displayName } };
     case PROFILE_MODAL_CLOSE:
       return { ...state, profileModal: { isOpen: false } };
     default:

@@ -20,7 +20,7 @@ const MessageButtonWrap = styled.div`
 
 const ProfileModal: React.FC<ProfileModalProps> = ({ ...props }) => {
   const dispatch = useDispatch();
-  const { userId, profileUri, displayName } = useSelector((state: any) => state.user);
+  const { userId, profileUri, displayName } = useSelector((state: any) => state.modal.profileModal);
   const { x, y } = useSelector((store: any) => store.modal.profileModal);
   const isOpen = useSelector((store: any) => store.modal.profileModal.isOpen);
 
