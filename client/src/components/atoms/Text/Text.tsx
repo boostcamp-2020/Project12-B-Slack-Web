@@ -10,6 +10,7 @@ interface TextProps {
   isSelect?: boolean;
   isTitle?: boolean;
   width?: string;
+  isHover?: boolean;
 }
 
 const StyledText = styled.p<any>`
@@ -24,6 +25,7 @@ const StyledText = styled.p<any>`
   font-weight: ${(props) => (props.isBold ? 'bold' : 'none')};
   margin: 0;
   width: ${(props) => props.width};
+  ${(props) => props.isHover && `&:hover { text-decoration: underline }`}
 `;
 
 const Text: React.FC<TextProps> = ({
@@ -34,10 +36,11 @@ const Text: React.FC<TextProps> = ({
   isBold = false,
   isSelect = false,
   width = 'auto',
+  isHover = false,
   ...props
 }) => {
   return (
-    <StyledText size={size} isTitle={isTitle} color={fontColor} isBold={isBold} isSelect={isSelect} width={width} {...props}>
+    <StyledText size={size} isTitle={isTitle} color={fontColor} isBold={isBold} isSelect={isSelect} width={width} isHover={isHover} {...props}>
       {children}
     </StyledText>
   );
