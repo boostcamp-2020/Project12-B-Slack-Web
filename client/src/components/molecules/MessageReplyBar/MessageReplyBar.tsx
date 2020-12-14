@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ProfileImg, Text } from '@components/atoms';
 import { color } from '@theme/index';
 import { timeAgo } from '@utils/time';
+import { profile } from 'console';
 
 interface MessageReplyBarProps {
   profileImgs: Array<string>;
@@ -39,7 +40,7 @@ const MessageReplyBar: React.FC<MessageReplyBarProps> = ({ profileImgs, replyCou
   const profileNum = profileImgs.length >= 5 ? 5 : profileImgs.length;
   const removedOverlapProfileImgs = Array.from(new Set(profileImgs));
   const createProfileImg = removedOverlapProfileImgs.slice(0, profileNum).map((profileImg) => (
-    <ProfileImgWrap>
+    <ProfileImgWrap key={profileImg}>
       <ProfileImg src={profileImg}></ProfileImg>
     </ProfileImgWrap>
   ));
