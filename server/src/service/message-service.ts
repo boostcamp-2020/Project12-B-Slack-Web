@@ -167,14 +167,13 @@ class MessageService {
   private async customMessagesReplies(messages: any) {
     const maxPrifileUriCount = 5;
     messages.forEach((message: any) => {
-      let lastReplyAtNumber = 0;
+      let lastReplyAt = new Date(0);
       const replyCount = message.replies.length;
       const profileUris = [];
       message.replies.forEach((reply: any) => {
-        lastReplyAtNumber = Math.max(reply.createdAt);
+        lastReplyAt = lastReplyAt < reply.createdAt ? reply.createdAt : lastReplyAt;
         if (profileUris.length < maxPrifileUriCount && !profileUris.includes(reply.user.profileUri)) profileUris.push(reply.user.profileUri);
       });
-      const lastReplyAt = lastReplyAtNumber === 0 ? undefined : new Date(lastReplyAtNumber);
       delete message.replies;
       message.thread = {
         lastReplyAt,
