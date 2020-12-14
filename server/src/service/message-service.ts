@@ -72,7 +72,7 @@ class MessageService {
     const profileUris = [];
     message.replies.forEach((reply: any) => {
       lastReplyAtNumber = Math.max(reply.createdAt);
-      if (profileUris.length < maxPrifileUriCount) profileUris.push(reply.user.profileUri);
+      if (profileUris.length < maxPrifileUriCount && !profileUris.includes(reply.user.profileUri)) profileUris.push(reply.user.profileUri);
     });
     const lastReplyAt = lastReplyAtNumber === 0 ? undefined : new Date(lastReplyAtNumber);
     delete message.replies;
@@ -174,7 +174,7 @@ class MessageService {
       const profileUris = [];
       message.replies.forEach((reply: any) => {
         lastReplyAtNumber = Math.max(reply.createdAt);
-        if (profileUris.length < maxPrifileUriCount) profileUris.push(reply.user.profileUri);
+        if (profileUris.length < maxPrifileUriCount && !profileUris.includes(reply.user.profileUri)) profileUris.push(reply.user.profileUri);
       });
       const lastReplyAt = lastReplyAtNumber === 0 ? undefined : new Date(lastReplyAtNumber);
       delete message.replies;
