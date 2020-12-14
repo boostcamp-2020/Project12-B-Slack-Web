@@ -59,8 +59,8 @@ class MessageReactionService {
 
     const createdMessageReaction = await this.messageReactionRepository.save(newMessageReaction);
     const customMessageReaction = this.customMessageReaction(createdMessageReaction);
-    const displayNames = await this.addAuthorMessageReaction(customMessageReaction);
-    return { ...customMessageReaction, displayNames };
+    const authors = await this.addAuthorMessageReaction(customMessageReaction);
+    return { ...customMessageReaction, authors };
   }
 
   customMessageReaction(messageReaction) {
@@ -78,11 +78,12 @@ class MessageReactionService {
       .addSelect('user')
       .where('messageReaction.reactionId = :reactionId', { reactionId })
       .getMany();
-    const displayNames = AuthorMessageReaction.map((MessageReaction) => {
-      const { displayName } = MessageReaction.user;
-      return displayName;
+    const author = AuthorMessageReaction.map((MessageReaction) => {
+      const { displayName, userId } = MessageReaction.user;
+      return { displayName, userId };
     });
-    return displayNames;
+
+    return author;
   }
 
   async deleteMessageReaction(userId: number, messageId: number, reactionId: number) {
@@ -98,6 +99,23 @@ class MessageReactionService {
     }
 
     await this.messageReactionRepository.softDelete(messageReaction.messageReactionId);
+  }
+
+  async getMessageReaction(messageId: number, reactionId: number) {
+    const messageReactions = await this.messageReactionRepository
+      .createQueryBuilder('messageReaction')
+      .leftJoin('messageReaction.user', 'user')
+      .select('messageReaction')
+      .addSelect('user')
+      .where('messageReaction.messageId = :messageId', { messageId })
+      .andWhere('messageReaction.reactionId = :reactionId', { reactionId })
+      .getMany();
+    const authors = messageReactions.map((messageReaction) => {
+      const { userId, displayName } = messageReaction.user;
+      return { userId, displayName };
+    });
+    const { title, emoji } = await this.reactionRepository.findOne({ reactionId });
+    return { reactionId, title, emoji, messageId, authors };
   }
 }
 
