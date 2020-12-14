@@ -15,7 +15,7 @@ const ProfileModalWrap = styled.div`
 `;
 
 const MessageButtonWrap = styled.div`
-  padding: 0 1rem;
+  padding: 0 1rem 1rem 1rem;
 `;
 
 const ProfileModal: React.FC<ProfileModalProps> = ({ ...props }) => {
