@@ -22,7 +22,7 @@ const BrowsePageChannelList: React.FC<BrowsePageChannelListProps> = ({ channels,
   const [lastRequestChannelTitle, setLastRequestChannelTitle] = useState('');
   const onScrollHandler = (e: any) => {
     const title: string | null = channels[channels.length - 1]?.title;
-    if (e.target.scrollTop >= e.target.scrollHeight / 2) {
+    if (e.target.scrollTop >= ((e.target.scrollHeight - e.target.clientHeight) * 2) / 3) {
       if (title === lastRequestChannelTitle) return;
       dispatch(loadNextChannels({ title }));
       setLastRequestChannelTitle(title);
