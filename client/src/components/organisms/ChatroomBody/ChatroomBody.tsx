@@ -4,6 +4,7 @@ import { InputMessage, Message } from '@components/molecules';
 import { useDispatch } from 'react-redux';
 import { loadNextMessages } from '@store/actions/chatroom-action';
 import { ScrollEventType } from '@constants/index';
+import { moveScrollToTheBottom } from '@utils/scroll';
 
 interface ChatroomBodyProps {
   title: string;
@@ -57,14 +58,8 @@ const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId
     }
   };
 
-  const moveScrollToTheBottom = () => {
-    const { scrollHeight, clientHeight } = MessageBodyEl.current;
-    const maxScrollTop = scrollHeight - clientHeight;
-    MessageBodyEl.current.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
-  };
-
   useEffect(() => {
-    if (eventType !== ScrollEventType.LOADING && eventType !== ScrollEventType.COMPLETELOADING) moveScrollToTheBottom();
+    if (eventType !== ScrollEventType.LOADING && eventType !== ScrollEventType.COMPLETELOADING) moveScrollToTheBottom(MessageBodyEl);
     window.addEventListener('scroll', getCurrentScroll);
     return () => window.removeEventListener('scroll', getCurrentScroll);
   });
@@ -74,7 +69,7 @@ const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId
   }, [messages]);
 
   useEffect(() => {
-    moveScrollToTheBottom();
+    moveScrollToTheBottom(MessageBodyEl);
   }, [title]);
 
   return (
