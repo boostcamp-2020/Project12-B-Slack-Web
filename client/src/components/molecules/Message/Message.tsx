@@ -1,9 +1,12 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ProfileImg, Text } from '@components/atoms';
-import { Actionbar } from '@components/molecules';
+import { Actionbar, MessageReplyBar } from '@components/molecules';
 import { color } from '@theme/index';
 import { getTimeConversionValue } from '@utils/time';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadThread } from '@store/actions/thread-action';
 
 interface MessageProps {
   src: string;
@@ -11,6 +14,7 @@ interface MessageProps {
   content: string;
   messageId: number;
   createdAt: Date;
+  thread: any;
 }
 
 const MessageContainer = styled.div<any>`
@@ -43,14 +47,21 @@ const DateText = styled.p<any>`
   font-size: 0.7rem;
 `;
 
-const Message: React.FC<MessageProps> = ({ messageId, author, content, src, createdAt, ...props }) => {
+const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, src, createdAt, ...props }) => {
   const [isHover, setHover] = useState(false);
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const chatroomId = useSelector((state: any) => state.chatroom.selectedChatroomId);
   const messageContainer = useRef();
   const onMouseEnter = () => {
     setHover(true);
   };
   const onMouseLeave = () => {
     setHover(false);
+  };
+  const clickThread = () => {
+    dispatch(loadThread(messageId));
+    history.push(`/client/${chatroomId}/thread/${messageId}`);
   };
   return (
     <MessageContainer ref={messageContainer} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} {...props}>
@@ -67,6 +78,14 @@ const Message: React.FC<MessageProps> = ({ messageId, author, content, src, crea
         <Text fontColor={color.primary} size="small">
           {content}
         </Text>
+        {thread.replyCount !== 0 && (
+          <MessageReplyBar
+            profileImgs={thread.profileUris}
+            replyCount={thread.replyCount}
+            lastRepliedTime={new Date(thread.lastReplyAt)}
+            onClick={clickThread}
+          />
+        )}
       </MessageContent>
       {isHover ? <Actionbar messageId={messageId} {...props} /> : null}
     </MessageContainer>

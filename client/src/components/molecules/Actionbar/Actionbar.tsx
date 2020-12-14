@@ -5,8 +5,9 @@ import { color } from '@theme/index';
 import EmojiIcon from '@imgs/emoji-icon.png';
 import ThreadIcon from '@imgs/thread-icon.png';
 import OptionIcon from '@imgs/option-icon.png';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { loadThread } from '@store/actions/thread-action';
 
 interface ActionbarProps {
   messageId: number;
@@ -24,8 +25,10 @@ const ActionbarContainer = styled.div<any>`
 
 const Actionbar: React.FC<ActionbarProps> = ({ messageId, ...props }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const chatroomId = useSelector((state: any) => state.chatroom.selectedChatroomId);
   const openThread = () => {
+    dispatch(loadThread(messageId));
     history.push(`/client/${chatroomId}/thread/${messageId}`);
   };
   return (

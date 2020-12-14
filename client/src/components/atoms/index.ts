@@ -10,5 +10,22 @@ import { HoverInput } from './HoverInput/HoverInput';
 import { Emoji } from './Emoji/Emoji';
 import { DropMenuBox } from './DropMenuBox/DropMenuBox';
 import { DropMenuItem } from './DropMenuItem/DropMenuItem';
+import { ProfileModalImg } from './ProfileModalImg/ProfileModalImg';
+import { ProfileModalBody } from './ProfileModalBody/ProfileModalBody';
 
-export { ActiveLight, Icon, ProfileImg, Text, Input, Button, LogoImg, ModalBox, HoverInput, Emoji, DropMenuBox, DropMenuItem };
+export {
+  ActiveLight,
+  Icon,
+  ProfileImg,
+  Text,
+  Input,
+  Button,
+  LogoImg,
+  ModalBox,
+  HoverInput,
+  Emoji,
+  DropMenuBox,
+  DropMenuItem,
+  ProfileModalImg,
+  ProfileModalBody
+};

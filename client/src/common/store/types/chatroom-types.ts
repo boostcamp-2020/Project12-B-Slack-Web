@@ -45,6 +45,13 @@ export interface channelState {
   selectedChatroomId: number;
 }
 
+export interface addChannelState {
+  chatroomId: number;
+  chatType: string;
+  isPrivate: boolean;
+  title: string;
+}
+
 export interface messageState {
   message: any;
   chatroomId: number;
@@ -76,7 +83,7 @@ interface InsertMessageAction {
 
 interface AddChannelAction {
   type: typeof ADD_CHANNEL;
-  payload: selectedChatroomState;
+  payload: addChannelState;
 }
 
 interface ResetSelectedChannel {

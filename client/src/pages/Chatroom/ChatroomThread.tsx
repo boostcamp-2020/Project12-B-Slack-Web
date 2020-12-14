@@ -9,11 +9,11 @@ const ChatroomThreadContainer = styled.div<any>`
   height: 100%;
 `;
 
-const ChatroomThread: React.FC<ChatroomProps> = ({ ...props }) => {
+const ChatroomThread: React.FC<ChatroomProps> = () => {
   return (
     <ChatroomThreadContainer>
-      <Chatroom {...props} />
-      <Thread {...props} />
+      <Chatroom />
+      <Thread />
     </ChatroomThreadContainer>
   );
 };

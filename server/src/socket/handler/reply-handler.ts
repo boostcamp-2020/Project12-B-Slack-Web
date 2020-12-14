@@ -10,15 +10,15 @@ const replyHandler = {
     const newReply = await ReplyService.getInstance().getReply(replyId);
     const replyInfo = await ReplyService.getInstance().getReplyInfo(replyId);
     const { chatroomId } = replyInfo.message.chatroom;
-    io.to(String(chatroomId)).emit(eventName.CREATE_REPLY, { ...newReply, chatroomId });
+    io.to(String(chatroomId)).emit(eventName.CREATE_REPLY, { ...newReply, chatroomId, messageId });
   },
 
   async updateReply(io, socket, reply) {
-    const { replyId, content } = reply;
+    const { replyId, content, messageId } = reply;
     await ReplyService.getInstance().updateReply(replyId, content);
     const replyInfo = await ReplyService.getInstance().getReplyInfo(replyId);
     const { chatroomId } = replyInfo.message.chatroom;
-    io.to(String(chatroomId)).emit(eventName.UPDATE_REPLY, { replyId, content, chatroomId });
+    io.to(String(chatroomId)).emit(eventName.UPDATE_REPLY, { replyId, content, chatroomId, messageId });
   },
 
   async deleteReply(io, socket, reply) {
