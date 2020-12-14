@@ -4,7 +4,7 @@ import { Chatroom, Login, LoginLoading, ChannelBrowser, ChatroomThread } from '@
 import { Header, Sidebar, CreateChannelModal, UserBoxModal } from '@components/organisms';
 import { blockPage, uriParser } from '@utils/index';
 import { Main, MainBox, Body } from '@components/templates';
-import { ChannelModal } from '@components/molecules';
+import { ChannelModal, ProfileModal } from '@components/molecules';
 
 const App = () => {
   useEffect(() => {
@@ -30,6 +30,7 @@ const App = () => {
             <CreateChannelModal />
             <ChannelModal />
             <UserBoxModal />
+            <ProfileModal />
           </Body>
         </Fragment>
       </Switch>

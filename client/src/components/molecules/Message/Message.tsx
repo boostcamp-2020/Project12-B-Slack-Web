@@ -7,6 +7,7 @@ import { getTimeConversionValue } from '@utils/time';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadThread } from '@store/actions/thread-action';
+import { profileModalOpen } from '@store/actions/modal-action';
 
 interface MessageProps {
   src: string;
@@ -29,6 +30,7 @@ const MessageContainer = styled.div<any>`
 
 const ProfileImgWrap = styled.div<any>`
   margin-right: 1.5rem;
+  cursor: pointer;
 `;
 
 const MessageContent = styled.div<any>`
@@ -63,9 +65,14 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
     dispatch(loadThread(messageId));
     history.push(`/client/${chatroomId}/thread/${messageId}`);
   };
+  const clickProfileImg = (e: any) => {
+    const x = window.pageXOffset + e.target.getBoundingClientRect().left;
+    const y = window.pageYOffset + e.target.getBoundingClientRect().top;
+    dispatch(profileModalOpen({ x, y }));
+  };
   return (
     <MessageContainer ref={messageContainer} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} {...props}>
-      <ProfileImgWrap>
+      <ProfileImgWrap onClick={clickProfileImg}>
         <ProfileImg size="large" src={src} />
       </ProfileImgWrap>
       <MessageContent>
