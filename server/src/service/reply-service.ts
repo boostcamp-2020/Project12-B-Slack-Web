@@ -77,6 +77,7 @@ class ReplyService {
   }
 
   async getReplies(messageId: number, offsetId: number) {
+    const limit = 20;
     let where = 'reply.messageId = :messageId';
     where += offsetId ? ' AND reply.replyId < :offsetId' : '';
     const replies = await this.replyRepository
@@ -90,7 +91,7 @@ class ReplyService {
       .addSelect(['replyReactions', 'user', 'reaction'])
       .where(where, { messageId, offsetId })
       .orderBy('reply.replyId', 'DESC')
-      .take(10)
+      .take(limit)
       .getMany();
     const formattedReplies = replies.map((reply) => {
       const { replyReactions } = { ...reply };
