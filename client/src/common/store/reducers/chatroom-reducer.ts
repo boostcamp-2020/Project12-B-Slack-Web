@@ -1,5 +1,6 @@
 /* eslint-disable no-case-declarations */
 import { uriParser } from '@utils/index';
+import { joinChatroom } from '@socket/emits/chatroom';
 import {
   chatroomState,
   LOAD,
@@ -63,6 +64,7 @@ export default function chatroomReducer(state = initialState, action: ChatroomTy
     case ADD_CHANNEL:
       const newChannels = state.channels;
       newChannels.push(action.payload);
+      joinChatroom(action.payload.chatroomId);
       return {
         ...state,
         channels: newChannels

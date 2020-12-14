@@ -1,6 +1,6 @@
-import { JOIN_CHATROOM, joinChatroomState } from '@socket/types/chatroom-types';
+import { JOIN_CHATROOM } from '@socket/types/chatroom-types';
 import socket from '../socketIO';
 
-export const joinChatroom = (chatroomId: joinChatroomState) => {
+export const joinChatroom = (chatroomId: number) => {
   socket.emit(JOIN_CHATROOM, { chatroomId });
 };

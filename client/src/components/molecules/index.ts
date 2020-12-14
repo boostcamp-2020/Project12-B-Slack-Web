@@ -23,6 +23,7 @@ import { AddChannelButton } from './AddChannelButton/AddChannelButton';
 import { BrowsePageSearchBar } from './BrowsePageSearchBar/BrowsePageSearchBar';
 import { InputReply } from './InputReply/InputReply';
 import { Reply } from './Reply/Reply';
+import { ProfileModal } from './ProfileModal/ProfileModal';
 
 export {
   Actionbar,
@@ -49,5 +50,6 @@ export {
   AddChannelButton,
   BrowsePageControls,
   WhiteButtonWithIcon,
-  BrowsePageSearchBar
+  BrowsePageSearchBar,
+  ProfileModal
 };
