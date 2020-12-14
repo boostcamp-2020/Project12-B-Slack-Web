@@ -1,3 +1,5 @@
+import { messageState, messagesState } from './message-types';
+
 export const LOAD = 'LOAD';
 export const LOAD_ASYNC = 'LOAD_ASYNC';
 export const INIT_SIDEBAR = 'INIT_SIDEBAR';
@@ -23,8 +25,8 @@ export interface selectedChatroomState {
 }
 
 export interface chatroomState {
+  messages: Array<messageState>;
   selectedChatroom: selectedChatroomState;
-  messages: any;
   starred: Array<object>;
   otherSections: Array<object>;
   channels: Array<object>;
@@ -46,6 +48,13 @@ export interface channelState {
   selectedChatroomId: number;
 }
 
+export interface chatroomThreadState {
+  replyCount: number;
+  lastReplyAt: Date | null;
+  profileUris: Array<string>;
+  files: Array<string>;
+}
+
 export interface addChannelState {
   chatroomId: number;
   chatType: string;
@@ -53,13 +62,8 @@ export interface addChannelState {
   title: string;
 }
 
-export interface messageState {
-  message: any;
+export interface insertMessageState extends messageState {
   chatroomId: number;
-}
-
-export interface messagesState {
-  messages: Array<any>;
 }
 
 export interface updateThreadState {
@@ -84,7 +88,7 @@ interface PickChannelAction {
 
 interface InsertMessageAction {
   type: typeof INSERT_MESSAGE;
-  payload: messageState;
+  payload: insertMessageState;
 }
 
 interface AddChannelAction {
