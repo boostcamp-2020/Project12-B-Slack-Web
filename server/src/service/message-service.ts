@@ -46,11 +46,61 @@ class MessageService {
     const message = await this.MessageRepository.createQueryBuilder('message')
       .leftJoinAndSelect('message.user', 'user')
       .leftJoinAndSelect('message.chatroom', 'chatroom')
+      .leftJoin('message.messageReactions', 'messageReactions')
+      .leftJoin('message.replies', 'replies')
+      .leftJoin('replies.user', 'replyUser')
+      .leftJoin('messageReactions.reaction', 'reaction')
+      .leftJoin('messageReactions.user', 'reactionUser')
       .select(['message', 'user.userId', 'user.profileUri', 'user.displayName', 'chatroom.chatroomId'])
+      .addSelect(['messageReactions.messageReactionId'])
+      .addSelect(['reaction.reactionId', 'reaction.title', 'reaction.emoji'])
+      .addSelect(['reactionUser.displayName'])
+      .addSelect(['replies.createdAt'])
+      .addSelect(['replyUser.profileUri'])
       .where('message.messageId = :messageId', { messageId })
       .getOne();
     if (!message) throw new BadRequestError();
+    this.customMessageReaction(message);
+    this.customMessageReplies(message);
     return message;
+  }
+
+  private async customMessageReplies(message: any) {
+    const maxPrifileUriCount = 5;
+    let lastReplyAtNumber = 0;
+    const replyCount = message.replies.length;
+    const profileUris = [];
+    message.replies.forEach((reply: any) => {
+      lastReplyAtNumber = Math.max(reply.createdAt);
+      if (profileUris.length < maxPrifileUriCount && !profileUris.includes(reply.user.profileUri)) profileUris.push(reply.user.profileUri);
+    });
+    const lastReplyAt = lastReplyAtNumber === 0 ? undefined : new Date(lastReplyAtNumber);
+    delete message.replies;
+    message.thread = {
+      lastReplyAt,
+      replyCount,
+      profileUris
+    };
+  }
+
+  private async customMessageReaction(message: any) {
+    let messageReactions: any = {};
+    message.messageReactions.forEach((messageReaction) => {
+      const { reactionId, title, emoji } = messageReaction.reaction;
+      const { displayName } = messageReaction.user;
+      if (messageReactions[reactionId]) {
+        messageReactions[reactionId].reactionDisplayNames.push(displayName);
+        messageReactions[reactionId].reactionCount = messageReactions[reactionId].reactionDisplayNames.length;
+      } else
+        messageReactions[reactionId] = {
+          reactionId,
+          title,
+          emoji,
+          reactionCount: 1,
+          reactionDisplayNames: [displayName]
+        };
+    });
+    message.messageReactions = messageReactions;
   }
 
   async getMessages(chatroomId: number, offsetId: number) {
@@ -66,19 +116,17 @@ class MessageService {
       .leftJoin('messageReactions.user', 'reactionUser')
       .select(['message.messageId', 'message.createdAt', 'message.updatedAt', 'message.content'])
       .addSelect(['user.userId', 'user.profileUri', 'user.displayName'])
-      .addSelect(['messageReactions.messageReactionId'])
-      .addSelect(['reaction.reactionId', 'reaction.title', 'reaction.imageUri'])
-      .addSelect(['reactionUser.displayName'])
-      .addSelect(['replies.createdAt'])
+      .addSelect(['replies'])
       .addSelect(['replyUser.profileUri'])
+      .addSelect(['messageReactions.messageReactionId'])
+      .addSelect(['reaction.reactionId', 'reaction.title', 'reaction.emoji'])
+      .addSelect(['reactionUser.displayName'])
       .orderBy('message.messageId', 'DESC')
-      .limit(limit)
       .where(where, { chatroomId, offsetId })
+      .take(limit)
       .getMany();
-
     this.customMessagesReaction(messages);
     this.customMessagesReplies(messages);
-
     return messages.reverse();
   }
 
@@ -97,15 +145,18 @@ class MessageService {
     messages.forEach((message: any) => {
       let messageReactions: any = {};
       message.messageReactions.forEach((messageReaction) => {
-        const { reactionId, title, imageUri } = messageReaction.reaction;
+        const { reactionId, title, emoji } = messageReaction.reaction;
         const { displayName } = messageReaction.user;
-        if (messageReactions[reactionId]) messageReactions[reactionId].replyDisplayNames.push(displayName);
-        else
+        if (messageReactions[reactionId]) {
+          messageReactions[reactionId].reactionDisplayNames.push(displayName);
+          messageReactions[reactionId].reactionCount = messageReactions[reactionId].reactionDisplayNames.length;
+        } else
           messageReactions[reactionId] = {
             reactionId,
             title,
-            imageUri,
-            replyDisplayNames: [displayName]
+            emoji,
+            reactionCount: 1,
+            reactionDisplayNames: [displayName]
           };
       });
       message.messageReactions = messageReactions;
@@ -116,14 +167,13 @@ class MessageService {
   private async customMessagesReplies(messages: any) {
     const maxPrifileUriCount = 5;
     messages.forEach((message: any) => {
-      let lastReplyAtNumber = 0;
+      let lastReplyAt = new Date(0);
       const replyCount = message.replies.length;
       const profileUris = [];
       message.replies.forEach((reply: any) => {
-        lastReplyAtNumber = Math.max(reply.createdAt);
-        if (profileUris.length < maxPrifileUriCount) profileUris.push(reply.user.profileUri);
+        if (lastReplyAt < reply.createdAt) lastReplyAt = reply.createdAt;
+        if (profileUris.length < maxPrifileUriCount && !profileUris.includes(reply.user.profileUri)) profileUris.push(reply.user.profileUri);
       });
-      const lastReplyAt = lastReplyAtNumber === 0 ? undefined : new Date(lastReplyAtNumber);
       delete message.replies;
       message.thread = {
         lastReplyAt,

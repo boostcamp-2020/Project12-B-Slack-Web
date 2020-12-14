@@ -4,7 +4,7 @@ import { Input } from '@components/atoms';
 import { SendMessageButton } from '@components/molecules';
 import { color } from '@theme/index';
 import { createMessage } from '@socket/emits/message';
-import { ChatroomEventType } from '@constants/index';
+import { ScrollEventType } from '@constants/index';
 
 interface InputMessageProps {
   isThread?: boolean;
@@ -38,7 +38,7 @@ const InputMessage: React.FC<InputMessageProps> = ({ children, title, isThread, 
 
   const sendMessage = () => {
     if (content === '') return;
-    setEventType(ChatroomEventType.INPUTTEXT);
+    setEventType(ScrollEventType.INPUTTEXT);
     createMessage({ content, chatroomId: chatRoomId });
     setContent('');
   };

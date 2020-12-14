@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { InputMessage, Message } from '@components/molecules';
 import { useDispatch } from 'react-redux';
 import { loadNextMessages } from '@store/actions/chatroom-action';
-import { ChatroomEventType } from '@constants/index';
+import { ScrollEventType } from '@constants/index';
+import { moveScrollToTheBottom } from '@utils/scroll';
 
 interface ChatroomBodyProps {
   title: string;
@@ -30,48 +31,46 @@ const InputBoxWrap = styled.div<any>`
 
 const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId, ...props }) => {
   const MessageBodyEl = useRef<any>();
-  const [eventType, setEventType] = useState(ChatroomEventType.COMMON);
+  const [eventType, setEventType] = useState(ScrollEventType.COMMON);
   const [lastRequestMessageId, setLastRequestMessageId] = useState(0);
   const dispatch = useDispatch();
   const createMessages = () => {
     return messages.map((message: any) => (
       <Message
         key={message.messageId}
+        messageId={message.messageId}
         author={message.user.displayName}
         content={message.content}
         src={message.user.profileUri}
-        createdAt={message.createdAt}></Message>
+        createdAt={message.createdAt}
+        thread={message.thread}
+        user={message.user}
+        {...props}></Message>
     ));
   };
 
   const getCurrentScroll = (e: any) => {
     const offsetMessage: any = messages[0] || null;
-    if (eventType !== ChatroomEventType.LOADING && e.target.scrollTop <= e.target.scrollHeight / 4 && offsetMessage !== null) {
+    if (eventType !== ScrollEventType.LOADING && e.target.scrollTop <= e.target.scrollHeight / 4 && offsetMessage !== null) {
       if (offsetMessage.messageId === lastRequestMessageId) return;
-      setEventType(ChatroomEventType.LOADING);
+      setEventType(ScrollEventType.LOADING);
       dispatch(loadNextMessages({ chatRoomId, offsetMessage }));
       setLastRequestMessageId(offsetMessage.messageId);
     }
   };
 
-  const moveScrollToTheBottom = () => {
-    const { scrollHeight, clientHeight } = MessageBodyEl.current;
-    const maxScrollTop = scrollHeight - clientHeight;
-    MessageBodyEl.current.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
-  };
-
   useEffect(() => {
-    if (eventType !== ChatroomEventType.LOADING && eventType !== ChatroomEventType.COMPLETELOADING) moveScrollToTheBottom();
+    if (eventType !== ScrollEventType.LOADING && eventType !== ScrollEventType.COMPLETELOADING) moveScrollToTheBottom(MessageBodyEl);
     window.addEventListener('scroll', getCurrentScroll);
     return () => window.removeEventListener('scroll', getCurrentScroll);
   });
 
   useEffect(() => {
-    if (eventType === ChatroomEventType.LOADING) setEventType(ChatroomEventType.COMPLETELOADING);
+    if (eventType === ScrollEventType.LOADING) setEventType(ScrollEventType.COMPLETELOADING);
   }, [messages]);
 
   useEffect(() => {
-    moveScrollToTheBottom();
+    moveScrollToTheBottom(MessageBodyEl);
   }, [title]);
 
   return (

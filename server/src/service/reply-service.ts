@@ -76,7 +76,10 @@ class ReplyService {
     return { ...reply, replyReactions: this.formattingReplyReactions(replyReactions) };
   }
 
-  async getRepliesByOffsetId(offsetId: number) {
+  async getReplies(messageId: number, offsetId: number) {
+    const limit = 20;
+    let where = 'reply.messageId = :messageId';
+    where += offsetId ? ' AND reply.replyId < :offsetId' : '';
     const replies = await this.replyRepository
       .createQueryBuilder('reply')
       .leftJoinAndSelect('reply.user', 'writer')
@@ -86,39 +89,16 @@ class ReplyService {
       .select(['reply.replyId', 'reply.content', 'reply.createdAt', 'reply.updatedAt'])
       .addSelect(['writer.userId', 'writer.profileUri', 'writer.displayName'])
       .addSelect(['replyReactions', 'user', 'reaction'])
-      .where('reply.replyId < :offsetId', { offsetId })
+      .where(where, { messageId, offsetId })
       .orderBy('reply.replyId', 'DESC')
-      .take(10)
+      .take(limit)
       .getMany();
-
     const formattedReplies = replies.map((reply) => {
       const { replyReactions } = { ...reply };
       return { ...reply, replyReactions: this.formattingReplyReactions(replyReactions) };
     });
 
-    return formattedReplies;
-  }
-
-  async getRecentReplies() {
-    const replies = await this.replyRepository
-      .createQueryBuilder('reply')
-      .leftJoinAndSelect('reply.user', 'writer')
-      .leftJoinAndSelect('reply.replyReactions', 'replyReactions')
-      .leftJoinAndSelect('replyReactions.user', 'user')
-      .leftJoinAndSelect('replyReactions.reaction', 'reaction')
-      .select(['reply.replyId', 'reply.content', 'reply.createdAt', 'reply.updatedAt'])
-      .addSelect(['writer.userId', 'writer.profileUri', 'writer.displayName'])
-      .addSelect(['replyReactions', 'user', 'reaction'])
-      .orderBy('reply.replyId', 'DESC')
-      .take(10)
-      .getMany();
-
-    const formattedReplies = replies.map((reply) => {
-      const { replyReactions } = { ...reply };
-      return { ...reply, replyReactions: this.formattingReplyReactions(replyReactions) };
-    });
-
-    return formattedReplies;
+    return formattedReplies.reverse();
   }
 
   private formattingReplyReactions(replyReactions: any[]) {
@@ -127,8 +107,8 @@ class ReplyService {
     replyReactions.forEach((replyReaction) => {
       const reactionId = Number(replyReaction.reaction.reactionId);
       if (!reactions[reactionId]) {
-        const { title, imageUri } = replyReaction.reaction;
-        reactions[reactionId] = { reactionId, title, imageUri, replyDisplayNames: [] };
+        const { title, emoji } = replyReaction.reaction;
+        reactions[reactionId] = { reactionId, title, emoji, replyDisplayNames: [] };
       }
       const { displayName } = replyReaction.user;
       reactions[reactionId].replyDisplayNames.push(displayName);
@@ -146,6 +126,12 @@ class ReplyService {
 
   async deleteReply(replyId: number) {
     await this.replyRepository.softDelete(replyId);
+  }
+
+  async getReplyCount(messageId: number) {
+    const message = await this.messageRepository.findOne({ messageId });
+    const replyCount = await this.replyRepository.count({ message });
+    return replyCount;
   }
 }
 

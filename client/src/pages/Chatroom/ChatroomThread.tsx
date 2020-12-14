@@ -2,9 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Chatroom, Thread } from '@pages/index';
 
-interface ChatroomProps {
-  children: React.ReactNode;
-}
+interface ChatroomProps {}
 
 const ChatroomThreadContainer = styled.div<any>`
   display: flex;

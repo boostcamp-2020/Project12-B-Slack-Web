@@ -1,10 +1,11 @@
+import React, { useEffect, useRef, useState } from 'react';
 import { color } from '@theme/index';
-import React from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 interface DropMenuBoxProps {
   children: React.ReactNode;
+  x?: number;
+  y?: number;
   onClick?: () => void;
 }
 
@@ -23,7 +24,6 @@ const InnerModal = styled.div<any>`
   position: absolute;
   top: ${(props) => `${props.y}px`};
   left: ${(props) => `${props.x}px`};
-  padding: 1rem 0rem;
   background-color: ${color.modal_bg_inner_secondary};
   z-index: 999;
   border-radius: 6px;
@@ -31,12 +31,22 @@ const InnerModal = styled.div<any>`
   height: fit-content;
 `;
 
-const DropMenuBox: React.FC<DropMenuBoxProps> = ({ children, onClick, ...props }) => {
-  const { x, y } = useSelector((store: any) => store.modal.channelModal);
+const DropMenuBox: React.FC<DropMenuBoxProps> = ({ children, x = 0, y = 0, onClick, ...props }) => {
+  const innerModalRef = useRef<HTMLDivElement>();
+  const offset = -10;
+  const [nx, setNx] = useState(x);
+  const [ny, setNy] = useState(y);
+  useEffect(() => {
+    const clientWidth = Number(innerModalRef.current?.clientWidth);
+    const clientHeight = Number(innerModalRef.current?.clientHeight);
+    const { innerWidth, innerHeight } = window;
+    if (x + clientWidth >= innerWidth) setNx(innerWidth - clientWidth + offset);
+    if (y + clientHeight >= innerHeight) setNy(innerHeight - clientHeight + offset);
+  }, [x, y]);
   return (
     <>
       <BackgroundModal onClick={onClick} {...props}></BackgroundModal>
-      <InnerModal x={x} y={y}>
+      <InnerModal ref={innerModalRef} x={nx} y={ny}>
         {children}
       </InnerModal>
     </>

@@ -7,7 +7,9 @@ import { BrowsePageChannel } from './BrowsePageChannel/BrowsePageChannel';
 import { CreateChannelModal } from './CreateChannelModal/CreateChannelModal';
 import { BrowsePageHeader } from './BrowsePageHeader/BrowsePageHeader';
 import { UserBoxModal } from './UserBoxModal/UserBoxModal';
+import { ThreadHeader } from './ThreadHeader/ThreadHeader';
 import { BrowsePageChannelList } from './BrowsePageChannelList/BrowsePageChannelList';
+import { ThreadBody } from './ThreadBody/ThreadBody';
 
 export {
   Header,
@@ -19,5 +21,7 @@ export {
   CreateChannelModal,
   BrowsePageHeader,
   UserBoxModal,
+  ThreadBody,
+  ThreadHeader,
   BrowsePageChannelList
 };

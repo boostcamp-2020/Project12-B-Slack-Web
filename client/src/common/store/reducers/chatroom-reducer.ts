@@ -1,5 +1,8 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-case-declarations */
 import { uriParser } from '@utils/index';
+import { joinChatroom } from '@socket/emits/chatroom';
+import { messageState } from '@store/types/message-types';
 import {
   chatroomState,
   LOAD,
@@ -9,7 +12,8 @@ import {
   INSERT_MESSAGE,
   ADD_CHANNEL,
   RESET_SELECTED_CHANNEL,
-  LOAD_NEXT_MESSAGES
+  LOAD_NEXT_MESSAGES,
+  UPDATE_THREAD
 } from '../types/chatroom-types';
 
 const initialState: chatroomState = {
@@ -30,7 +34,7 @@ const initialState: chatroomState = {
   messages: []
 };
 
-export default function chatroomReducer(state = initialState, action: ChatroomTypes) {
+const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
   switch (action.type) {
     case LOAD:
       return {
@@ -63,6 +67,7 @@ export default function chatroomReducer(state = initialState, action: ChatroomTy
     case ADD_CHANNEL:
       const newChannels = state.channels;
       newChannels.push(action.payload);
+      joinChatroom(action.payload.chatroomId);
       return {
         ...state,
         channels: newChannels
@@ -90,7 +95,23 @@ export default function chatroomReducer(state = initialState, action: ChatroomTy
         ...state,
         messages: nextMessages
       };
+    case UPDATE_THREAD:
+      const updateMessages = state.messages;
+      const { messageId, profileUri } = action.payload;
+      updateMessages.forEach((message: messageState) => {
+        if (message.messageId === messageId) {
+          message.thread.profileUris.push(profileUri);
+          message.thread.replyCount += 1;
+          message.thread.lastReplyAt = new Date();
+        }
+      });
+      return {
+        ...state,
+        messages: updateMessages
+      };
     default:
       return state;
   }
-}
+};
+
+export default chatroomReducer;

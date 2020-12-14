@@ -1,6 +1,7 @@
 import HttpStatusCode from '@constants/http-status-code';
 import { NextFunction, Request, Response } from 'express';
 import ReplyService from '@service/reply-service';
+import messageService from '@service/message-service';
 
 const ReplyController = {
   async createReply(req: Request, res: Response, next: NextFunction) {
@@ -23,14 +24,15 @@ const ReplyController = {
     }
   },
   async getReplies(req: Request, res: Response, next: NextFunction) {
-    const { offsetId } = req.params;
+    const { offsetId } = req.query;
+    const { messageId } = req.params;
     try {
-      if (!offsetId) {
-        const recentReplies = await ReplyService.getInstance().getRecentReplies();
-        res.status(HttpStatusCode.OK).json(recentReplies);
-      }
-      const replies = await ReplyService.getInstance().getRepliesByOffsetId(Number(offsetId));
-      res.status(HttpStatusCode.OK).json(replies);
+      const message = await messageService.getInstance().getMessage(Number(messageId));
+      const replies = await ReplyService.getInstance().getReplies(Number(messageId), Number(offsetId));
+      const replyCount = await ReplyService.getInstance().getReplyCount(Number(messageId));
+      res.header('Access-Control-Expose-Headers', 'x-total-count');
+      res.setHeader('x-total-count', replyCount);
+      res.status(HttpStatusCode.OK).json({ message, replies });
     } catch (err) {
       next(err);
     }

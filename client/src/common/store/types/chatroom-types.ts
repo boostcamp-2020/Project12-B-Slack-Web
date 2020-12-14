@@ -1,3 +1,5 @@
+import { messageState, messagesState } from './message-types';
+
 export const LOAD = 'LOAD';
 export const LOAD_ASYNC = 'LOAD_ASYNC';
 export const INIT_SIDEBAR = 'INIT_SIDEBAR';
@@ -10,6 +12,7 @@ export const ADD_CHANNEL_ASYNC = 'ADD_CHANNEL_ASYNC';
 export const RESET_SELECTED_CHANNEL = 'RESET_SELECTED_CHANNEL';
 export const LOAD_NEXT_MESSAGES = 'LOAD_NEXT_MESSAGES';
 export const LOAD_NEXT_MESSAGES_ASYNC = 'LOAD_NEXT_MESSAGES_ASYNC';
+export const UPDATE_THREAD = 'UPDATE_THREAD';
 
 export interface selectedChatroomState {
   chatType: string;
@@ -22,8 +25,8 @@ export interface selectedChatroomState {
 }
 
 export interface chatroomState {
+  messages: Array<messageState>;
   selectedChatroom: selectedChatroomState;
-  messages: Array<object>;
   starred: Array<object>;
   otherSections: Array<object>;
   channels: Array<object>;
@@ -45,13 +48,27 @@ export interface channelState {
   selectedChatroomId: number;
 }
 
-export interface messageState {
-  message: any;
+export interface chatroomThreadState {
+  replyCount: number;
+  lastReplyAt: Date | null;
+  profileUris: Array<string>;
+  files: Array<string>;
+}
+
+export interface addChannelState {
+  chatroomId: number;
+  chatType: string;
+  isPrivate: boolean;
+  title: string;
+}
+
+export interface insertMessageState extends messageState {
   chatroomId: number;
 }
 
-export interface messagesState {
-  messages: Array<any>;
+export interface updateThreadState {
+  profileUri: string;
+  messageId: number;
 }
 
 interface LoadChatroomAction {
@@ -71,12 +88,12 @@ interface PickChannelAction {
 
 interface InsertMessageAction {
   type: typeof INSERT_MESSAGE;
-  payload: messageState;
+  payload: insertMessageState;
 }
 
 interface AddChannelAction {
   type: typeof ADD_CHANNEL;
-  payload: selectedChatroomState;
+  payload: addChannelState;
 }
 
 interface ResetSelectedChannel {
@@ -88,6 +105,11 @@ interface LoadNextAction {
   payload: messagesState;
 }
 
+interface UpdateThread {
+  type: typeof UPDATE_THREAD;
+  payload: updateThreadState;
+}
+
 export type ChatroomTypes =
   | LoadChatroomAction
   | InitSidebarAction
@@ -95,4 +117,5 @@ export type ChatroomTypes =
   | InsertMessageAction
   | AddChannelAction
   | ResetSelectedChannel
-  | LoadNextAction;
+  | LoadNextAction
+  | UpdateThread;

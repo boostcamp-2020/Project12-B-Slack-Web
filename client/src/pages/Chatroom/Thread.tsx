@@ -1,24 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { color } from '@theme/index';
+import { ThreadHeader, ThreadBody } from '@components/organisms';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadThread } from '@store/actions/thread-action';
+import { getThreadId } from '@utils/uriParser';
 
 interface ThreadProps {}
 
 const ThreadContainer = styled.div<any>`
-  width: 70rem;
+  width: 40rem;
   height: 100%;
   border-left: 1px solid ${color.border_primary};
 `;
 
-const ThreadHeader = styled.div<any>`
-  height: 10%;
-  box-shadow: 0 3px 2px -2px ${color.border_primary};
-`;
+const Thread: React.FC<ThreadProps> = () => {
+  const dispatch = useDispatch();
+  const threadId = getThreadId();
 
-const Thread: React.FC<ThreadProps> = ({ ...props }) => {
+  useEffect(() => {
+    dispatch(loadThread(threadId || 0));
+  }, []);
+
   return (
     <ThreadContainer>
       <ThreadHeader />
+      <ThreadBody messageId={threadId} />
     </ThreadContainer>
   );
 };

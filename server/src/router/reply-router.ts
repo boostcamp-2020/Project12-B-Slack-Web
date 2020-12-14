@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.post('/', ReplyController.createReply);
 router.get('/', ReplyController.getReplies);
-router.get('/:offsetId', ReplyController.getReplies);
+router.get('/:messageId', ReplyController.getReplies);
 
 export default router;

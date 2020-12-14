@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, withRouter } from 'react-router-dom';
 import { Chatroom, Login, LoginLoading, ChannelBrowser, ChatroomThread } from '@pages/index';
 import { Header, Sidebar, CreateChannelModal, UserBoxModal } from '@components/organisms';
 import { blockPage, uriParser } from '@utils/index';
 import { Main, MainBox, Body } from '@components/templates';
-import { ChannelModal } from '@components/molecules';
+import { ChannelModal, ProfileModal } from '@components/molecules';
 
 const App = () => {
   useEffect(() => {
@@ -22,14 +22,15 @@ const App = () => {
             <Main>
               <Sidebar />
               <MainBox>
-                <Route exact path="/client/:id" component={Chatroom} />
-                <Route exact path="/client/:id/thread/:threadId" component={ChatroomThread} />
+                <Route exact path="/client/:id" component={withRouter(Chatroom)} />
+                <Route exact path="/client/:id/thread/:threadId" component={withRouter(ChatroomThread)} />
                 <Route exact path="/channel-browser" component={ChannelBrowser} />
               </MainBox>
             </Main>
             <CreateChannelModal />
             <ChannelModal />
             <UserBoxModal />
+            <ProfileModal />
           </Body>
         </Fragment>
       </Switch>

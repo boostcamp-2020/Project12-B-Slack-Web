@@ -5,14 +5,10 @@ import MessageReactionService from '@service/message-reaction-service';
 const MessageReactionController = {
   async createMessageReaction(req: Request, res: Response, next: NextFunction) {
     const { userId } = req.user;
-    const { messageId, reactionId } = req.body;
+    const { messageId, title, emoji } = req.body;
     try {
-      const messageReactionId = await MessageReactionService.getInstance().createMessageReaction(
-        Number(userId),
-        Number(messageId),
-        Number(reactionId)
-      );
-      res.status(HttpStatusCode.CREATED).json({ messageReactionId });
+      const messageReaction = await MessageReactionService.getInstance().createMessageReaction(Number(userId), Number(messageId), title, emoji);
+      res.status(HttpStatusCode.CREATED).json({ messageReaction });
     } catch (err) {
       next(err);
     }

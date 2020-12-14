@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, DeleteDateColumn } from 'typeorm';
 import MessageReaction from '@model/message-reaction';
 import ReplyReaction from '@model/reply-reaction';
-import { IsString, IsUrl } from 'class-validator';
+import { IsString } from 'class-validator';
 
 @Entity({ name: 'reaction' })
 export default class Reaction {
@@ -13,8 +13,8 @@ export default class Reaction {
   title: string;
 
   @Column({ length: 100 })
-  @IsUrl()
-  imageUri: string;
+  @IsString()
+  emoji: string;
 
   @CreateDateColumn()
   createdAt: Date;
