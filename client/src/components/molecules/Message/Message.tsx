@@ -50,6 +50,10 @@ const DateText = styled.p<any>`
   font-size: 0.7rem;
 `;
 
+const AuthorWrap = styled.div`
+  cursor: pointer;
+`;
+
 const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, src, createdAt, user, ...props }) => {
   const [isHover, setHover] = useState(false);
   const history = useHistory();
@@ -66,7 +70,7 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
     dispatch(loadThread(messageId));
     history.push(`/client/${chatroomId}/thread/${messageId}`);
   };
-  const clickProfileImg = (e: any) => {
+  const openProfileModal = (e: any) => {
     const x = window.pageXOffset + e.target.getBoundingClientRect().left;
     const y = window.pageYOffset + e.target.getBoundingClientRect().top;
     const { userId, profileUri, displayName } = user;
@@ -74,14 +78,16 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
   };
   return (
     <MessageContainer ref={messageContainer} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} {...props}>
-      <ProfileImgWrap onClick={clickProfileImg}>
+      <ProfileImgWrap onClick={openProfileModal}>
         <ProfileImg size="large" src={src} />
       </ProfileImgWrap>
       <MessageContent>
         <MessageHeader>
-          <Text fontColor={color.primary} size="small" isBold={true}>
-            {author}
-          </Text>
+          <AuthorWrap onClick={openProfileModal}>
+            <Text fontColor={color.primary} size="small" isBold={true} isHover={true}>
+              {author}
+            </Text>
+          </AuthorWrap>
           <DateText> {getTimeConversionValue(createdAt)}</DateText>
         </MessageHeader>
         <Text fontColor={color.primary} size="small">
