@@ -1,6 +1,8 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-case-declarations */
 import { uriParser } from '@utils/index';
 import { joinChatroom } from '@socket/emits/chatroom';
+import { messageState } from '@store/types/message-types';
 import {
   chatroomState,
   LOAD,
@@ -32,7 +34,7 @@ const initialState: chatroomState = {
   messages: []
 };
 
-export default function chatroomReducer(state = initialState, action: ChatroomTypes) {
+const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
   switch (action.type) {
     case LOAD:
       return {
@@ -96,7 +98,7 @@ export default function chatroomReducer(state = initialState, action: ChatroomTy
     case UPDATE_THREAD:
       const updateMessages = state.messages;
       const { messageId, profileUri } = action.payload;
-      updateMessages.forEach((message: any) => {
+      updateMessages.forEach((message: messageState) => {
         if (message.messageId === messageId) {
           message.thread.profileUris.push(profileUri);
           message.thread.replyCount += 1;
@@ -110,4 +112,6 @@ export default function chatroomReducer(state = initialState, action: ChatroomTy
     default:
       return state;
   }
-}
+};
+
+export default chatroomReducer;

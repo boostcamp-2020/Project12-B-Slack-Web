@@ -18,7 +18,22 @@ const Body: React.FC<any> = ({ children }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     socket.on(CREATE_MESSAGE, (message: any) => {
-      dispatch(insertMessage(message));
+      dispatch(
+        insertMessage({
+          messageId: message.id,
+          createAt: new Date(),
+          updateAt: new Date(),
+          user: message.user,
+          messageReactions: [],
+          thread: {
+            replyCount: 0,
+            lastReplyAt: null,
+            profileUris: [],
+            files: []
+          },
+          chatroomId: message.chatroomId
+        })
+      );
     });
     socket.on(CREATE_REPLY, (reply: any) => {
       dispatch(InsertReply(reply));

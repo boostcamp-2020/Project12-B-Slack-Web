@@ -7,7 +7,6 @@ import CloseIcon from '@imgs/close-icon.png';
 import { useHistory } from 'react-router-dom';
 import { uriParser } from '@utils/index';
 import { useSelector } from 'react-redux';
-import { RootState } from '@store/reducers';
 
 interface ThreadHeaderProps {}
 
@@ -24,7 +23,7 @@ const TextContainer = styled.div<any>``;
 
 const ThreadHeader: React.FC<ThreadHeaderProps> = ({ ...props }) => {
   const history = useHistory();
-  const { title } = useSelector((store: RootState) => store.chatroom.selectedChatroom);
+  const { title } = useSelector((store: any) => store.chatroom.selectedChatroom);
   const handlingCLoseButton = () => {
     history.push(`/client/${uriParser.getChatroomId()}`);
   };
