@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { InputMessage, Message } from '@components/molecules';
 import { useDispatch } from 'react-redux';
 import { loadNextMessages } from '@store/actions/chatroom-action';
-import { ChatroomEventType } from '@constants/index';
+import { ScrollEventType } from '@constants/index';
 
 interface ChatroomBodyProps {
   title: string;
@@ -30,7 +30,7 @@ const InputBoxWrap = styled.div<any>`
 
 const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId, ...props }) => {
   const MessageBodyEl = useRef<any>();
-  const [eventType, setEventType] = useState(ChatroomEventType.COMMON);
+  const [eventType, setEventType] = useState(ScrollEventType.COMMON);
   const [lastRequestMessageId, setLastRequestMessageId] = useState(0);
   const dispatch = useDispatch();
   const createMessages = () => {
@@ -49,9 +49,9 @@ const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId
 
   const getCurrentScroll = (e: any) => {
     const offsetMessage: any = messages[0] || null;
-    if (eventType !== ChatroomEventType.LOADING && e.target.scrollTop <= e.target.scrollHeight / 4 && offsetMessage !== null) {
+    if (eventType !== ScrollEventType.LOADING && e.target.scrollTop <= e.target.scrollHeight / 4 && offsetMessage !== null) {
       if (offsetMessage.messageId === lastRequestMessageId) return;
-      setEventType(ChatroomEventType.LOADING);
+      setEventType(ScrollEventType.LOADING);
       dispatch(loadNextMessages({ chatRoomId, offsetMessage }));
       setLastRequestMessageId(offsetMessage.messageId);
     }
@@ -64,13 +64,13 @@ const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId
   };
 
   useEffect(() => {
-    if (eventType !== ChatroomEventType.LOADING && eventType !== ChatroomEventType.COMPLETELOADING) moveScrollToTheBottom();
+    if (eventType !== ScrollEventType.LOADING && eventType !== ScrollEventType.COMPLETELOADING) moveScrollToTheBottom();
     window.addEventListener('scroll', getCurrentScroll);
     return () => window.removeEventListener('scroll', getCurrentScroll);
   });
 
   useEffect(() => {
-    if (eventType === ChatroomEventType.LOADING) setEventType(ChatroomEventType.COMPLETELOADING);
+    if (eventType === ScrollEventType.LOADING) setEventType(ScrollEventType.COMPLETELOADING);
   }, [messages]);
 
   useEffect(() => {
