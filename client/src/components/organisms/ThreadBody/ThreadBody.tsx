@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { InputReply, Reply } from '@components/molecules';
 import { useSelector } from 'react-redux';
@@ -19,9 +19,21 @@ const InputBoxWrap = styled.div<any>`
 `;
 
 const ThreadBody: React.FC<ThreadBodyProps> = ({ messageId }) => {
+  const ThreadBodyEl = useRef<any>();
   const { message } = useSelector((store: RootState) => store.thread);
+
+  const moveScrollToTheBottom = () => {
+    const { scrollHeight, clientHeight } = ThreadBodyEl.current;
+    const maxScrollTop = scrollHeight - clientHeight;
+    ThreadBodyEl.current.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+  };
+
+  useEffect(() => {
+    moveScrollToTheBottom();
+  });
+
   return (
-    <ThreadBodyContainter>
+    <ThreadBodyContainter ref={ThreadBodyEl}>
       <Reply reply={message} />
       <ThreadReplies messageId={messageId} />
       <InputBoxWrap>
