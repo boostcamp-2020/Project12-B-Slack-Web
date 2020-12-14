@@ -126,6 +126,12 @@ class ReplyService {
   async deleteReply(replyId: number) {
     await this.replyRepository.softDelete(replyId);
   }
+
+  async getReplyCount(messageId: number) {
+    const message = await this.messageRepository.findOne({ messageId });
+    const replyCount = await this.replyRepository.count({ message });
+    return replyCount;
+  }
 }
 
 export default ReplyService;

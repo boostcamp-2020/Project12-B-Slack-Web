@@ -29,6 +29,9 @@ const ReplyController = {
     try {
       const message = await messageService.getInstance().getMessage(Number(messageId));
       const replies = await ReplyService.getInstance().getReplies(Number(messageId), Number(offsetId));
+      const replyCount = await ReplyService.getInstance().getReplyCount(Number(messageId));
+      res.header('Access-Control-Expose-Headers', 'x-total-count');
+      res.setHeader('x-total-count', replyCount);
       res.status(HttpStatusCode.OK).json({ message, replies });
     } catch (err) {
       next(err);
