@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { channelModalClose } from '@store/actions/modal-action';
 import { useDispatch } from 'react-redux';
-import { insertMessage } from '@store/actions/chatroom-action';
+import { insertMessage, updateThread } from '@store/actions/chatroom-action';
 import socket from '@socket/socketIO';
 import { CREATE_MESSAGE } from '@socket/types/message-types';
 import { CREATE_REPLY } from '@socket/types/thread-types';
@@ -22,6 +22,7 @@ const Body: React.FC<any> = ({ children }) => {
     });
     socket.on(CREATE_REPLY, (reply: any) => {
       dispatch(InsertReply(reply));
+      dispatch(updateThread({ messageId: reply.messageId, profileUri: reply.user.profileUri }));
     });
   }, []);
   const handlingLeave = () => {
