@@ -1,10 +1,11 @@
-import { color } from '@theme/index';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { color } from '@theme/index';
 import styled from 'styled-components';
 
 interface DropMenuBoxProps {
   children: React.ReactNode;
+  x?: number;
+  y?: number;
   onClick?: () => void;
 }
 
@@ -31,8 +32,7 @@ const InnerModal = styled.div<any>`
   height: fit-content;
 `;
 
-const DropMenuBox: React.FC<DropMenuBoxProps> = ({ children, onClick, ...props }) => {
-  const { x, y } = useSelector((store: any) => store.modal.channelModal);
+const DropMenuBox: React.FC<DropMenuBoxProps> = ({ children, x = 0, y = 0, onClick, ...props }) => {
   return (
     <>
       <BackgroundModal onClick={onClick} {...props}></BackgroundModal>

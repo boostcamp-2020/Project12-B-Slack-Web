@@ -10,6 +10,7 @@ interface ChannelModalProps {}
 const ChannelModal: React.FC<ChannelModalProps> = ({ ...props }) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { x, y } = useSelector((store: any) => store.modal.channelModal);
 
   const isOpen = useSelector((store: any) => store.modal.channelModal.isOpen);
 
@@ -28,7 +29,7 @@ const ChannelModal: React.FC<ChannelModalProps> = ({ ...props }) => {
   return (
     <>
       {isOpen ? (
-        <DropMenuBox onClick={() => handlingCloseModal()} {...props}>
+        <DropMenuBox x={x} y={y} onClick={() => handlingCloseModal()} {...props}>
           <DropMenuItem onClick={handlingBrowseChannelsClick}> Browse channels </DropMenuItem>
           <DropMenuItem onClick={handlingCreateChannelClick}> Create a channel </DropMenuItem>
         </DropMenuBox>
