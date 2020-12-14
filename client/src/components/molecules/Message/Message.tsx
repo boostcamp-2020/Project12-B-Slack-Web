@@ -7,6 +7,7 @@ import { getTimeConversionValue } from '@utils/time';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadThread } from '@store/actions/thread-action';
+import { profileModalOpen } from '@store/actions/modal-action';
 
 interface MessageProps {
   src: string;
@@ -15,6 +16,7 @@ interface MessageProps {
   messageId: number;
   createdAt: Date;
   thread: any;
+  user: { userId: number; profileUri: string; displayName: string };
 }
 
 const MessageContainer = styled.div<any>`
@@ -29,6 +31,7 @@ const MessageContainer = styled.div<any>`
 
 const ProfileImgWrap = styled.div<any>`
   margin-right: 1.5rem;
+  cursor: pointer;
 `;
 
 const MessageContent = styled.div<any>`
@@ -47,7 +50,11 @@ const DateText = styled.p<any>`
   font-size: 0.7rem;
 `;
 
-const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, src, createdAt, ...props }) => {
+const AuthorWrap = styled.div`
+  cursor: pointer;
+`;
+
+const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, src, createdAt, user, ...props }) => {
   const [isHover, setHover] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -63,16 +70,24 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
     dispatch(loadThread(messageId));
     history.push(`/client/${chatroomId}/thread/${messageId}`);
   };
+  const openProfileModal = (e: any) => {
+    const x = window.pageXOffset + e.target.getBoundingClientRect().left;
+    const y = window.pageYOffset + e.target.getBoundingClientRect().top;
+    const { userId, profileUri, displayName } = user;
+    dispatch(profileModalOpen({ x, y, userId, profileUri, displayName }));
+  };
   return (
     <MessageContainer ref={messageContainer} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} {...props}>
-      <ProfileImgWrap>
+      <ProfileImgWrap onClick={openProfileModal}>
         <ProfileImg size="large" src={src} />
       </ProfileImgWrap>
       <MessageContent>
         <MessageHeader>
-          <Text fontColor={color.primary} size="small" isBold={true}>
-            {author}
-          </Text>
+          <AuthorWrap onClick={openProfileModal}>
+            <Text fontColor={color.primary} size="small" isBold={true} isHover={true}>
+              {author}
+            </Text>
+          </AuthorWrap>
           <DateText> {getTimeConversionValue(createdAt)}</DateText>
         </MessageHeader>
         <Text fontColor={color.primary} size="small">
