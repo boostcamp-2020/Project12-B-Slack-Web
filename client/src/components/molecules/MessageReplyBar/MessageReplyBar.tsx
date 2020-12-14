@@ -37,8 +37,8 @@ const ReplyCountWrap = styled.div<any>`
 
 const MessageReplyBar: React.FC<MessageReplyBarProps> = ({ profileImgs, replyCount, lastRepliedTime, onClick, ...props }) => {
   const profileNum = profileImgs.length >= 5 ? 5 : profileImgs.length;
-
-  const createProfileImg = profileImgs.slice(0, profileNum).map((profileImg) => (
+  const removedOverlapProfileImgs = Array.from(new Set(profileImgs));
+  const createProfileImg = removedOverlapProfileImgs.slice(0, profileNum).map((profileImg) => (
     <ProfileImgWrap>
       <ProfileImg src={profileImg}></ProfileImg>
     </ProfileImgWrap>
