@@ -1,13 +1,13 @@
 import { useDispatch } from 'react-redux';
 import { profileModalOpen } from '@store/actions/modal-action';
 
-interface Iuser {
+interface User {
   userId: number;
   profileUri: string;
   displayName: string;
 }
 
-export const openProfileModal = (user: Iuser) => {
+export const openProfileModal = (user: User) => {
   const dispatch = useDispatch();
   return (e: any) => {
     const x = window.pageXOffset + e.target.getBoundingClientRect().left;
