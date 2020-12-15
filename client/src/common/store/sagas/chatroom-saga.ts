@@ -69,6 +69,7 @@ function* addDM(action: any) {
     const chatroomId = yield call(API.createDM, invitedUserId);
     const { profileUri, displayName } = yield call(API.getUser, invitedUserId);
     yield put({ type: ADD_DM, payload: { chatroomId, chatProfileImg: profileUri, chatType: ChatType.DM, title: displayName } });
+    yield put({ type: PICK_CHANNEL_ASYNC, payload: { selectedChatroomId: chatroomId } });
   } catch (e) {
     console.log(e);
   }

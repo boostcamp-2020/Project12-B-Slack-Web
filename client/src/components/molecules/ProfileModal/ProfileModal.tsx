@@ -4,7 +4,7 @@ import { DropMenuBox, ProfileModalImg, Button, ProfileModalBody } from '@compone
 import { color } from '@theme/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { profileModalClose } from '@store/actions/modal-action';
-import { pickChannel } from '@store/actions/chatroom-action';
+import { addDM, pickChannel } from '@store/actions/chatroom-action';
 import { DMState } from '@store/types/chatroom-types';
 
 interface ProfileModalProps {}
@@ -39,7 +39,9 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ ...props }) => {
     const directMessage = findDirectMessageByTitle(displayName);
     if (directMessage) {
       dispatch(pickChannel({ selectedChatroomId: directMessage.chatroomId }));
+      return;
     }
+    dispatch(addDM({ invitedUserId: userId }));
   };
 
   return (
