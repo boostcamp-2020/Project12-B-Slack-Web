@@ -25,8 +25,8 @@ const Body: React.FC<any> = ({ children }) => {
       dispatch(InsertReply(reply));
       dispatch(updateThread({ messageId: reply.messageId, profileUri: reply.user.profileUri }));
     });
-    socket.on(JOIN_DM, (data: any) => {
-      dispatch(joinDM({ chatroomId: data.chatroomId }));
+    socket.on(JOIN_DM, (directMessage: any) => {
+      dispatch(joinDM({ chatroomId: directMessage.chatroomId }));
     });
   }, []);
   const handlingLeave = () => {
