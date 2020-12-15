@@ -12,6 +12,8 @@ import {
   ADD_CHANNEL,
   ADD_DM_ASYNC,
   ADD_DM,
+  JOIN_DM_ASYNC,
+  JOIN_DM,
   LOAD_NEXT_MESSAGES,
   LOAD_NEXT_MESSAGES_ASYNC
 } from '../types/chatroom-types';
@@ -68,8 +70,19 @@ function* addDM(action: any) {
     const { invitedUserId } = action.payload;
     const chatroomId = yield call(API.createDM, invitedUserId);
     const { profileUri, displayName } = yield call(API.getUser, invitedUserId);
-    yield put({ type: ADD_DM, payload: { chatroomId, chatProfileImg: profileUri, chatType: ChatType.DM, title: displayName } });
+    yield put({ type: ADD_DM, payload: { chatroomId, chatProfileImg: profileUri, chatType: ChatType.DM, title: displayName, invitedUserId } });
     yield put({ type: PICK_CHANNEL_ASYNC, payload: { selectedChatroomId: chatroomId } });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function* joinDM(action: any) {
+  try {
+    const { chatroomId } = action.payload;
+    const DM = yield call(API.getChatroom, chatroomId);
+    const { chatProfileImg, chatType, title } = DM;
+    yield put({ type: JOIN_DM, payload: { chatroomId, chatProfileImg, chatType, title } });
   } catch (e) {
     console.log(e);
   }
@@ -91,5 +104,6 @@ export function* chatroomSaga() {
   yield takeEvery(PICK_CHANNEL_ASYNC, pickChannelSaga);
   yield takeEvery(ADD_CHANNEL_ASYNC, addChannel);
   yield takeEvery(ADD_DM_ASYNC, addDM);
+  yield takeEvery(JOIN_DM_ASYNC, joinDM);
   yield takeEvery(LOAD_NEXT_MESSAGES_ASYNC, loadNextMessages);
 }
