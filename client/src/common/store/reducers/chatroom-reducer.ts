@@ -11,6 +11,7 @@ import {
   INIT_SIDEBAR,
   INSERT_MESSAGE,
   ADD_CHANNEL,
+  ADD_DM,
   RESET_SELECTED_CHANNEL,
   LOAD_NEXT_MESSAGES,
   UPDATE_THREAD
@@ -71,6 +72,14 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
       return {
         ...state,
         channels: newChannels
+      };
+    case ADD_DM:
+      const newDMs = state.directMessages;
+      newDMs.push(action.payload);
+      joinChatroom(action.payload.chatroomId);
+      return {
+        ...state,
+        directMessages: newDMs
       };
     case RESET_SELECTED_CHANNEL:
       const selectedChatroom = {
