@@ -1,10 +1,11 @@
-import { RootState } from '@store/reducers';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { ProfileImg, Text } from '@components/atoms';
 import { color } from '@theme/index';
 import { getTimeConversionValue } from '@utils/time';
+import { profileModalOpen } from '@store/actions/modal-action';
+import { openProfileModal } from '@utils/modal';
 
 interface ReplyProps {
   reply: any;
@@ -22,6 +23,11 @@ const ReplyContainter = styled.div<any>`
 
 const ProfileImgWrap = styled.div<any>`
   margin-right: 1.5rem;
+  cursor: pointer;
+`;
+
+const AuthorWrap = styled.div`
+  cursor: pointer;
 `;
 
 const MessageContent = styled.div<any>`
@@ -43,14 +49,16 @@ const DateText = styled.p<any>`
 const Reply: React.FC<ReplyProps> = ({ reply }) => {
   return (
     <ReplyContainter>
-      <ProfileImgWrap>
+      <ProfileImgWrap onClick={openProfileModal(reply.user)}>
         <ProfileImg size="large" src={reply.user.profileUri} />
       </ProfileImgWrap>
       <MessageContent>
         <MessageHeader>
-          <Text fontColor={color.primary} size="small" isBold={true}>
-            {reply.user.displayName}
-          </Text>
+          <AuthorWrap onClick={openProfileModal(reply.user)}>
+            <Text fontColor={color.primary} size="small" isBold={true} isHover={true}>
+              {reply.user.displayName}
+            </Text>
+          </AuthorWrap>
           <DateText> {getTimeConversionValue(reply.createdAt)}</DateText>
         </MessageHeader>
         <Text fontColor={color.primary} size="small">
