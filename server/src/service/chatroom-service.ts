@@ -177,10 +177,10 @@ class ChatroomService {
     const { chatType } = chatroom;
 
     if (chatType === ChatType.DM) {
-      const profileUri = this.findProfileUri(users, userId);
+      const chatProfileImg = this.findProfileUri(users, userId);
       const title = this.findTitle(users, userId);
       const { description, isPrivate, topic } = chatroom;
-      return { title, description, isPrivate, chatType, topic, profileUri, userCount, users };
+      return { title, description, isPrivate, chatType, topic, chatProfileImg, userCount, users };
     }
 
     return { ...chatroom, userCount, users };
