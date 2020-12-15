@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-case-declarations */
 import { uriParser } from '@utils/index';
-import { joinChatroom } from '@socket/emits/chatroom';
+import { joinChatroom, joinDM } from '@socket/emits/chatroom';
 import { messageState } from '@store/types/message-types';
 import {
   chatroomState,
@@ -12,6 +12,7 @@ import {
   INSERT_MESSAGE,
   ADD_CHANNEL,
   ADD_DM,
+  JOIN_DM,
   RESET_SELECTED_CHANNEL,
   LOAD_NEXT_MESSAGES,
   UPDATE_THREAD
@@ -77,9 +78,18 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
       const newDMs = state.directMessages;
       newDMs.push(action.payload);
       joinChatroom(action.payload.chatroomId);
+      joinDM(action.payload.invitedUserId, action.payload.chatroomId);
       return {
         ...state,
         directMessages: newDMs
+      };
+    case JOIN_DM:
+      const DMs = state.directMessages;
+      DMs.push(action.payload);
+      joinChatroom(action.payload.chatroomId);
+      return {
+        ...state,
+        directMessages: DMs
       };
     case RESET_SELECTED_CHANNEL:
       const selectedChatroom = {
