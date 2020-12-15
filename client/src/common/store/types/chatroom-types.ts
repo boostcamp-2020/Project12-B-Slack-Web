@@ -9,6 +9,8 @@ export const PICK_CHANNEL_ASYNC = 'PICK_CHANNEL_ASYNC';
 export const INSERT_MESSAGE = 'INSERT_MESSAGE';
 export const ADD_CHANNEL = 'ADD_CHANNEL';
 export const ADD_CHANNEL_ASYNC = 'ADD_CHANNEL_ASYNC';
+export const ADD_DM = 'ADD_DM';
+export const ADD_DM_ASYNC = 'ADD_DM_ASYNC';
 export const RESET_SELECTED_CHANNEL = 'RESET_SELECTED_CHANNEL';
 export const LOAD_NEXT_MESSAGES = 'LOAD_NEXT_MESSAGES';
 export const LOAD_NEXT_MESSAGES_ASYNC = 'LOAD_NEXT_MESSAGES_ASYNC';
@@ -48,6 +50,13 @@ export interface channelState {
   selectedChatroomId: number;
 }
 
+export interface DMState {
+  chatProfileImg: string;
+  chatType: string;
+  chatroomId: number;
+  title: string;
+}
+
 export interface chatroomThreadState {
   replyCount: number;
   lastReplyAt: Date | null;
@@ -60,6 +69,14 @@ export interface addChannelState {
   chatType: string;
   isPrivate: boolean;
   title: string;
+}
+
+export interface addDMState {
+  chatroomId: number;
+  chatProfileImg: string;
+  chatType: string;
+  title: string;
+  invitedUserId: number;
 }
 
 export interface insertMessageState extends messageState {
@@ -96,6 +113,11 @@ interface AddChannelAction {
   payload: addChannelState;
 }
 
+interface AddDMAction {
+  type: typeof ADD_DM;
+  payload: addDMState;
+}
+
 interface ResetSelectedChannel {
   type: typeof RESET_SELECTED_CHANNEL;
 }
@@ -116,6 +138,7 @@ export type ChatroomTypes =
   | PickChannelAction
   | InsertMessageAction
   | AddChannelAction
+  | AddDMAction
   | ResetSelectedChannel
   | LoadNextAction
   | UpdateThread;
