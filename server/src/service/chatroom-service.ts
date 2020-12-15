@@ -190,7 +190,10 @@ class ChatroomService {
     const otherUser = users.find((user) => {
       return user.userId !== userId;
     });
-    return otherUser.profileUri;
+    const clientUser = users.find((user) => {
+      return user.userId === userId;
+    });
+    return otherUser ? otherUser.profileUri : clientUser.profileUri;
   }
 
   private findTitle(users: any[], userId: number) {
