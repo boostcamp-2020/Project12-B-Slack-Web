@@ -29,6 +29,11 @@ export default {
     return response.data;
   },
 
+  getUser: async (userId: number) => {
+    const response = await axios.get(`/api/users/${userId}`);
+    return response.data;
+  },
+
   getUserChatroom: async () => {
     const response = await axios.get('/api/user-chatrooms');
     return response.data;
@@ -66,6 +71,16 @@ export default {
       return chatroomId;
     } catch (e) {
       throw new Error('Channel creation failed.');
+    }
+  },
+
+  createDM: async (invitedUserId: number) => {
+    try {
+      const response = await axios.post(`api/chatrooms/dm`, { invitedUserId });
+      const { chatroomId } = response.data;
+      return chatroomId;
+    } catch (e) {
+      throw new Error('DM creation failed.');
     }
   },
 
