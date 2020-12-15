@@ -177,7 +177,7 @@ class ChatroomService {
     const { chatType } = chatroom;
 
     if (chatType === ChatType.DM) {
-      const { profileUri } = this.findProfileUri(users, userId);
+      const profileUri = this.findProfileUri(users, userId);
       const title = this.findTitle(users, userId);
       const { description, isPrivate, topic } = chatroom;
       return { title, description, isPrivate, chatType, topic, profileUri, userCount, users };
@@ -190,7 +190,7 @@ class ChatroomService {
     const otherUser = users.find((user) => {
       return user.userId !== userId;
     });
-    return otherUser;
+    return otherUser.profileUri;
   }
 
   private findTitle(users: any[], userId: number) {
