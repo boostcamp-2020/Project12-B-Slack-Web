@@ -7,7 +7,7 @@ import { getTimeConversionValue } from '@utils/time';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadThread } from '@store/actions/thread-action';
-import { profileModalOpen } from '@store/actions/modal-action';
+import { openProfileModal } from '@utils/modal';
 
 interface MessageProps {
   src: string;
@@ -70,20 +70,14 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
     dispatch(loadThread(messageId));
     history.push(`/client/${chatroomId}/thread/${messageId}`);
   };
-  const openProfileModal = (e: any) => {
-    const x = window.pageXOffset + e.target.getBoundingClientRect().left;
-    const y = window.pageYOffset + e.target.getBoundingClientRect().top;
-    const { userId, profileUri, displayName } = user;
-    dispatch(profileModalOpen({ x, y, userId, profileUri, displayName }));
-  };
   return (
     <MessageContainer ref={messageContainer} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} {...props}>
-      <ProfileImgWrap onClick={openProfileModal}>
+      <ProfileImgWrap onClick={openProfileModal(user)}>
         <ProfileImg size="large" src={src} />
       </ProfileImgWrap>
       <MessageContent>
         <MessageHeader>
-          <AuthorWrap onClick={openProfileModal}>
+          <AuthorWrap onClick={openProfileModal(user)}>
             <Text fontColor={color.primary} size="small" isBold={true} isHover={true}>
               {author}
             </Text>
