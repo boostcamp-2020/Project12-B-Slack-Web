@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { channelModalClose, profileModalClose } from '@store/actions/modal-action';
 import { useDispatch } from 'react-redux';
-import { insertMessage, joinDM, updateThread } from '@store/actions/chatroom-action';
+import { insertMessage, joinDM, updateThread, updateLeaveChatroom } from '@store/actions/chatroom-action';
 import socket from '@socket/socketIO';
 import { CREATE_MESSAGE } from '@socket/types/message-types';
 import { CREATE_REPLY } from '@socket/types/thread-types';
 import { InsertReply } from '@store/actions/thread-action';
-import { JOIN_DM } from '@socket/types/chatroom-types';
+import { JOIN_DM, LEAVE_CHANNEL } from '@socket/types/chatroom-types';
 
 const StyledBody = styled.div`
   position: relative;
@@ -27,6 +27,9 @@ const Body: React.FC<any> = ({ children }) => {
     });
     socket.on(JOIN_DM, (directMessage: any) => {
       dispatch(joinDM({ chatroomId: directMessage.chatroomId }));
+    });
+    socket.on(LEAVE_CHANNEL, (chatroom: any) => {
+      dispatch(updateLeaveChatroom(chatroom));
     });
   }, []);
   const handlingLeave = () => {
