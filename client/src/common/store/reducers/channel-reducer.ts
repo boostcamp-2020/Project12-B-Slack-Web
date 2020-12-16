@@ -1,3 +1,4 @@
+import { leaveChannel } from '@socket/emits/chatroom';
 import { channelState, channelsState, ChannelTypes, INIT_CHANNELS, LOAD_NEXT_CHANNELS, JOIN_CHANNEL, LEAVE_CHANNEL } from '../types/channel-types';
 
 const initialState: channelsState = {
@@ -33,6 +34,7 @@ export default function channelReducer(state = initialState, action: ChannelType
         if (channel.chatroomId === chatroomId) return { ...channel, isJoined: false };
         return channel;
       });
+      leaveChannel(chatroomId);
       return { ...state, channels };
     }
     default: {
