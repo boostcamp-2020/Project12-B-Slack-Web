@@ -1,8 +1,10 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-case-declarations */
 import { uriParser } from '@utils/index';
 import { joinChatroom } from '@socket/emits/chatroom';
 import { messageState } from '@store/types/message-types';
+import { messageReactionsState } from '@store/types/message-reactions-type';
 import {
   chatroomState,
   LOAD,
@@ -14,7 +16,9 @@ import {
   ADD_DM,
   RESET_SELECTED_CHANNEL,
   LOAD_NEXT_MESSAGES,
-  UPDATE_THREAD
+  UPDATE_THREAD,
+  ADD_MESSAGE_REACTION,
+  DELETE_MESSAGE_REACTION
 } from '../types/chatroom-types';
 
 const initialState: chatroomState = {
@@ -118,6 +122,53 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
         ...state,
         messages: updateMessages
       };
+    case ADD_MESSAGE_REACTION:
+      const addReactionMessages = state.messages;
+      if (state.selectedChatroomId === action.payload.chatroomId) {
+        addReactionMessages.forEach((message: messageState) => {
+          if (message.messageId === action.payload.messageId) {
+            let isExistReaction = false;
+            message.messageReactions.forEach((reaction: messageReactionsState) => {
+              if (reaction.reactionId === action.payload.reactionId) {
+                reaction.reactionCount += 1;
+                reaction.reactionDisplayNames = action.payload.authors.reduce((acc: Array<string>, val: any) => {
+                  acc.push(val.displayName);
+                  return acc;
+                }, []);
+                isExistReaction = true;
+              }
+            });
+            if (!isExistReaction) {
+              message.messageReactions.push({
+                reactionCount: 1,
+                emoji: action.payload.emoji,
+                reactionDisplayNames: [action.payload.authors[0].displayName],
+                reactionId: action.payload.reactionId,
+                title: action.payload.title
+              });
+            }
+          }
+        });
+      }
+      return { ...state, messages: addReactionMessages };
+    case DELETE_MESSAGE_REACTION:
+      const deleteReactionMessages = state.messages;
+      if (state.selectedChatroomId === action.payload.chatroomId) {
+        deleteReactionMessages.forEach((message: messageState) => {
+          if (message.messageId === action.payload.messageId) {
+            message.messageReactions.forEach((reaction: messageReactionsState) => {
+              if (reaction.reactionId === action.payload.reactionId) {
+                reaction.reactionCount -= 1;
+                reaction.reactionDisplayNames = action.payload.authors.reduce((acc: Array<string>, val: any) => {
+                  acc.push(val.displayName);
+                  return acc;
+                }, []);
+              }
+            });
+          }
+        });
+      }
+      return { ...state, messages: deleteReactionMessages };
     default:
       return state;
   }
