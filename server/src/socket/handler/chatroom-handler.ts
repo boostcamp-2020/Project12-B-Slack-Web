@@ -40,15 +40,6 @@ const chatroomHandler = {
     await UserChatroomService.getInstance().leaveChatroom(userId, chatroomId);
     const chatroomInfo = await ChatroomService.getInstance().getChatroomInfo(chatroomId, userId);
     io.to(String(chatroomId)).emit(eventName.LEAVE_CHANNEL, { ...chatroomInfo, leaveUserId: userId });
-
-    const socketInfos = await SocketService.getInstance().getSocketId(userId);
-    socketInfos.forEach((socketInfo) => {
-      const { socketId } = socketInfo;
-      io.to(socketId).emit(eventName.UNSUBSCRIBE_CHATROOM, { chatroomId });
-    });
-  },
-  async unsubscribeChatroom(io, socket, chatroom) {
-    const { chatroomId } = chatroom;
     socket.leave(String(chatroomId));
   }
 };
