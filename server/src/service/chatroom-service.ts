@@ -117,7 +117,7 @@ class ChatroomService {
       .leftJoin('chatroom.userChatrooms', 'userChatrooms')
       .leftJoin('userChatrooms.user', 'user')
       .select(['chatroom.chatroomId', 'chatroom.title', 'chatroom.description', 'chatroom.isPrivate'])
-      .addSelect(['userChatrooms.userChatroomId'])
+      .addSelect(['userChatrooms.userChatroomId', 'userChatrooms.deletedAt'])
       .addSelect(['user.userId'])
       .orderBy('chatroom.title')
       .getMany();
@@ -131,7 +131,7 @@ class ChatroomService {
     const filterChatrooms = chatrooms.filter((chatroom) => {
       let isJoined = false;
       chatroom.userChatrooms.forEach((userChatroom) => {
-        if (userChatroom.user.userId === userId) isJoined = true;
+        if (userChatroom.user.userId === userId && userChatroom.deletedAt === null) isJoined = true;
       });
       if (isJoined || !chatroom.isPrivate) isJoinedArr.push(isJoined);
       return !chatroom.isPrivate || isJoined;
