@@ -13,6 +13,7 @@ export const ADD_DM = 'ADD_DM';
 export const ADD_DM_ASYNC = 'ADD_DM_ASYNC';
 export const JOIN_DM = 'JOIN_DM';
 export const JOIN_DM_ASYNC = 'JOIN_DM_ASYNC';
+export const LEAVE_CHATROOM = 'LEAVE_CHATROOM';
 export const RESET_SELECTED_CHANNEL = 'RESET_SELECTED_CHANNEL';
 export const LOAD_NEXT_MESSAGES = 'LOAD_NEXT_MESSAGES';
 export const LOAD_NEXT_MESSAGES_ASYNC = 'LOAD_NEXT_MESSAGES_ASYNC';
@@ -85,6 +86,10 @@ export interface joinDMState {
   chatroomId: number;
 }
 
+export interface leaveChatroomState {
+  chatroomId: number;
+}
+
 export interface insertMessageState extends messageState {
   chatroomId: number;
 }
@@ -129,6 +134,11 @@ interface JoinDMAction {
   payload: joinDMState;
 }
 
+interface LeaveChatroomAction {
+  type: typeof LEAVE_CHATROOM;
+  payload: leaveChatroomState;
+}
+
 interface ResetSelectedChannel {
   type: typeof RESET_SELECTED_CHANNEL;
 }
@@ -151,6 +161,7 @@ export type ChatroomTypes =
   | AddChannelAction
   | AddDMAction
   | JoinDMAction
+  | LeaveChatroomAction
   | ResetSelectedChannel
   | LoadNextAction
   | UpdateThread;

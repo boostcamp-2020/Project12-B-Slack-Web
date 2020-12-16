@@ -6,6 +6,7 @@ import {
   ADD_CHANNEL_ASYNC,
   ADD_DM_ASYNC,
   JOIN_DM_ASYNC,
+  LEAVE_CHATROOM,
   RESET_SELECTED_CHANNEL,
   LOAD_NEXT_MESSAGES_ASYNC,
   UPDATE_THREAD,
@@ -19,6 +20,7 @@ export const insertMessage = (payload: insertMessageState) => ({ type: INSERT_ME
 export const addChannel = (payload: any) => ({ type: ADD_CHANNEL_ASYNC, payload });
 export const addDM = (payload: any) => ({ type: ADD_DM_ASYNC, payload });
 export const joinDM = (payload: any) => ({ type: JOIN_DM_ASYNC, payload });
+export const leaveChatroom = (payload: any) => ({ type: LEAVE_CHATROOM, payload });
 export const resetSelectedChannel = () => ({ type: RESET_SELECTED_CHANNEL });
 export const loadNextMessages = (payload: any) => ({ type: LOAD_NEXT_MESSAGES_ASYNC, payload });
 export const updateThread = (payload: any) => ({ type: UPDATE_THREAD, payload });

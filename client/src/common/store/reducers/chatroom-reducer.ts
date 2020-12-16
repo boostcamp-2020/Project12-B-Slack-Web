@@ -13,6 +13,7 @@ import {
   ADD_CHANNEL,
   ADD_DM,
   JOIN_DM,
+  LEAVE_CHATROOM,
   RESET_SELECTED_CHANNEL,
   LOAD_NEXT_MESSAGES,
   UPDATE_THREAD
@@ -90,6 +91,13 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
       return {
         ...state,
         directMessages: DMs
+      };
+    case LEAVE_CHATROOM:
+      const { chatroomId } = action.payload;
+      const channels = state.channels.filter((channel: any) => channel.chatroomId !== chatroomId);
+      return {
+        ...state,
+        channels
       };
     case RESET_SELECTED_CHANNEL:
       const selectedChatroom = {
