@@ -10,6 +10,7 @@ const enum eventName {
   CREATE_REACTION = 'create reaction',
   DELETE_REACTION = 'delete reaction',
   DISCONNECT = 'disconnect',
-  JOIN_DM = 'join DM'
+  JOIN_DM = 'join DM',
+  LEAVE_CHANNEL = 'leave channel'
 }
 export default eventName;
