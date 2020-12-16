@@ -7,9 +7,9 @@ import { getTimeConversionValue } from '@utils/time';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadThread } from '@store/actions/thread-action';
-import { profileModalOpen } from '@store/actions/modal-action';
 import { messageReactionsState } from '@store/types/message-reactions-type';
 import { RootState } from '@store/reducers';
+import { openProfileModal } from '@utils/modal';
 import { EmojiBox } from '../EmojiBox/EmojiBox';
 
 interface MessageProps {
@@ -80,12 +80,7 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
     dispatch(loadThread(messageId));
     history.push(`/client/${selectedChatroomId}/thread/${messageId}`);
   };
-  const openProfileModal = (e: any) => {
-    const x = window.pageXOffset + e.target.getBoundingClientRect().left;
-    const y = window.pageYOffset + e.target.getBoundingClientRect().top;
-    const { userId, profileUri, displayName } = user;
-    dispatch(profileModalOpen({ x, y, userId, profileUri, displayName }));
-  };
+
   const createEmojiBox = () => {
     const EmojiBoxs = messageReactions.map((reaction) => {
       return (
@@ -104,14 +99,15 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
     });
     return <EmojiBoxWrap>{EmojiBoxs}</EmojiBoxWrap>;
   };
+
   return (
     <MessageContainer ref={messageContainer} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} {...props}>
-      <ProfileImgWrap onClick={openProfileModal}>
+      <ProfileImgWrap onClick={openProfileModal(user)}>
         <ProfileImg size="large" src={src} />
       </ProfileImgWrap>
       <MessageContent>
         <MessageHeader>
-          <AuthorWrap onClick={openProfileModal}>
+          <AuthorWrap onClick={openProfileModal(user)}>
             <Text fontColor={color.primary} size="small" isBold={true} isHover={true}>
               {author}
             </Text>
@@ -131,7 +127,7 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
           />
         )}
       </MessageContent>
-      {isHover ? <Actionbar messageId={messageId} {...props} /> : null}
+      {isHover && <Actionbar messageId={messageId} {...props} />}
     </MessageContainer>
   );
 };

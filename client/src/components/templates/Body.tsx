@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { channelModalClose, emojiPickerClose, profileModalClose } from '@store/actions/modal-action';
 import { useDispatch } from 'react-redux';
-import { insertMessage, updateThread, createMessageReaction, deleteMessageReaction } from '@store/actions/chatroom-action';
+import { insertMessage, updateThread, createMessageReaction, deleteMessageReaction, joinDM } from '@store/actions/chatroom-action';
 import socket from '@socket/socketIO';
 import { CREATE_MESSAGE } from '@socket/types/message-types';
 import { CREATE_REPLY } from '@socket/types/thread-types';
 import { InsertReply } from '@store/actions/thread-action';
 import { socketMessageReactionState, CREATE_MESSAGE_REACTION, DELETE_MESSAGE_REACTION } from '@socket/types/reaction-types';
+import { JOIN_DM } from '@socket/types/chatroom-types';
 
 const StyledBody = styled.div`
   position: relative;
@@ -30,6 +31,9 @@ const Body: React.FC<any> = ({ children }) => {
     });
     socket.on(DELETE_MESSAGE_REACTION, (reaction: any) => {
       dispatch(deleteMessageReaction(reaction));
+    });
+    socket.on(JOIN_DM, (directMessage: any) => {
+      dispatch(joinDM({ chatroomId: directMessage.chatroomId }));
     });
   }, []);
   const handlingLeave = () => {

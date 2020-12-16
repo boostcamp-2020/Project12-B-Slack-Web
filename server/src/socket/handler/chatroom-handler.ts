@@ -30,8 +30,17 @@ const chatroomHandler = {
     const socketInfos = await SocketService.getInstance().getSocketId(userId);
     socketInfos.forEach((socketInfo) => {
       const { socketId } = socketInfo;
-      io.to(socketId).emit('join DM', { chatroomId });
+      io.to(socketId).emit(eventName.JOIN_DM, { chatroomId });
     });
+  },
+  async leaveChatroom(io, socket, chatroom) {
+    const req = socket.request;
+    const { userId } = req.user;
+    const { chatroomId } = chatroom;
+    await UserChatroomService.getInstance().leaveChatroom(userId, chatroomId);
+    const chatroomInfo = await ChatroomService.getInstance().getChatroomInfo(chatroomId, userId);
+    io.to(String(chatroomId)).emit(eventName.LEAVE_CHANNEL, { ...chatroomInfo, chatroomId, leaveUserId: userId });
+    socket.leave(String(chatroomId));
   }
 };
 
