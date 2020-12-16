@@ -8,6 +8,9 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadThread } from '@store/actions/thread-action';
 import { profileModalOpen } from '@store/actions/modal-action';
+import { messageReactionsState } from '@store/types/message-reactions-type';
+import { RootState } from '@store/reducers';
+import { EmojiBox } from '../EmojiBox/EmojiBox';
 
 interface MessageProps {
   src: string;
@@ -17,6 +20,7 @@ interface MessageProps {
   createdAt: Date;
   thread: any;
   user: { userId: number; profileUri: string; displayName: string };
+  messageReactions: Array<messageReactionsState>;
 }
 
 const MessageContainer = styled.div<any>`
@@ -54,11 +58,17 @@ const AuthorWrap = styled.div`
   cursor: pointer;
 `;
 
-const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, src, createdAt, user, ...props }) => {
+const EmojiBoxWrap = styled.div`
+  display: flex;
+  margin-top: 0.3rem;
+`;
+
+const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, src, createdAt, user, messageReactions, ...props }) => {
   const [isHover, setHover] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
-  const chatroomId = useSelector((state: any) => state.chatroom.selectedChatroomId);
+  const { selectedChatroomId } = useSelector((state: any) => state.chatroom);
+  const userName = useSelector((store: RootState) => store.user.displayName);
   const messageContainer = useRef();
   const onMouseEnter = () => {
     setHover(true);
@@ -68,13 +78,31 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
   };
   const clickThread = () => {
     dispatch(loadThread(messageId));
-    history.push(`/client/${chatroomId}/thread/${messageId}`);
+    history.push(`/client/${selectedChatroomId}/thread/${messageId}`);
   };
   const openProfileModal = (e: any) => {
     const x = window.pageXOffset + e.target.getBoundingClientRect().left;
     const y = window.pageYOffset + e.target.getBoundingClientRect().top;
     const { userId, profileUri, displayName } = user;
     dispatch(profileModalOpen({ x, y, userId, profileUri, displayName }));
+  };
+  const createEmojiBox = () => {
+    const EmojiBoxs = messageReactions.map((reaction) => {
+      return (
+        reaction.reactionCount !== 0 && (
+          <EmojiBox
+            key={reaction.reactionId}
+            emoji={reaction.emoji}
+            number={reaction.reactionCount}
+            active={reaction.reactionDisplayNames.includes(userName)}
+            messageId={messageId}
+            reactionId={reaction.reactionId}
+            title={reaction.title}
+          />
+        )
+      );
+    });
+    return <EmojiBoxWrap>{EmojiBoxs}</EmojiBoxWrap>;
   };
   return (
     <MessageContainer ref={messageContainer} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} {...props}>
@@ -93,6 +121,7 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
         <Text fontColor={color.primary} size="small">
           {content}
         </Text>
+        {createEmojiBox()}
         {thread.replyCount !== 0 && (
           <MessageReplyBar
             profileImgs={thread.profileUris}
