@@ -39,7 +39,7 @@ const chatroomHandler = {
     const { chatroomId } = chatroom;
     await UserChatroomService.getInstance().leaveChatroom(userId, chatroomId);
     const chatroomInfo = await ChatroomService.getInstance().getChatroomInfo(chatroomId, userId);
-    io.to(String(chatroomId)).emit(eventName.LEAVE_CHANNEL, { ...chatroomInfo, leaveUserId: userId });
+    io.to(String(chatroomId)).emit(eventName.LEAVE_CHANNEL, { ...chatroomInfo, chatroomId, leaveUserId: userId });
     socket.leave(String(chatroomId));
   }
 };
