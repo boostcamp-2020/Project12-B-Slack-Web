@@ -9,8 +9,10 @@ import {
   LEAVE_CHATROOM,
   RESET_SELECTED_CHANNEL,
   LOAD_NEXT_MESSAGES_ASYNC,
+  UPDATE_LEAVE_CHATROOM,
   UPDATE_THREAD,
-  insertMessageState
+  insertMessageState,
+  updateLeaveChatroomState
 } from '../types/chatroom-types';
 
 export const loadAsync = (payload: any) => ({ type: LOAD_ASYNC, payload });
@@ -23,4 +25,5 @@ export const joinDM = (payload: any) => ({ type: JOIN_DM_ASYNC, payload });
 export const leaveChatroom = (payload: any) => ({ type: LEAVE_CHATROOM, payload });
 export const resetSelectedChannel = () => ({ type: RESET_SELECTED_CHANNEL });
 export const loadNextMessages = (payload: any) => ({ type: LOAD_NEXT_MESSAGES_ASYNC, payload });
+export const updateLeaveChatroom = (payload: updateLeaveChatroomState) => ({ type: UPDATE_LEAVE_CHATROOM, payload });
 export const updateThread = (payload: any) => ({ type: UPDATE_THREAD, payload });
