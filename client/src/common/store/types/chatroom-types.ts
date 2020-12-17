@@ -14,9 +14,11 @@ export const ADD_DM = 'ADD_DM';
 export const ADD_DM_ASYNC = 'ADD_DM_ASYNC';
 export const JOIN_DM = 'JOIN_DM';
 export const JOIN_DM_ASYNC = 'JOIN_DM_ASYNC';
+export const LEAVE_CHATROOM = 'LEAVE_CHATROOM';
 export const RESET_SELECTED_CHANNEL = 'RESET_SELECTED_CHANNEL';
 export const LOAD_NEXT_MESSAGES = 'LOAD_NEXT_MESSAGES';
 export const LOAD_NEXT_MESSAGES_ASYNC = 'LOAD_NEXT_MESSAGES_ASYNC';
+export const UPDATE_LEAVE_CHATROOM = 'UPDATE_LEAVE_CHATROOM';
 export const UPDATE_THREAD = 'UPDATE_THREAD';
 export const ADD_MESSAGE_REACTION = 'ADD_MESSAGE_REACTION';
 export const DELETE_MESSAGE_REACTION = 'DELETE_MESSAGE_REACTION';
@@ -88,8 +90,24 @@ export interface joinDMState {
   chatroomId: number;
 }
 
+export interface leaveChatroomState {
+  chatroomId: number;
+}
+
 export interface insertMessageState extends messageState {
   chatroomId: number;
+}
+
+export interface updateLeaveChatroomState {
+  chatType: string;
+  chatroomId: number;
+  description: string;
+  isPrivate: boolean;
+  leaveUserId: number;
+  title: string;
+  topic: string;
+  userCount: number;
+  users: { userId: number; profileUri: string; displayName: string };
 }
 
 export interface updateThreadState {
@@ -132,6 +150,11 @@ interface JoinDMAction {
   payload: joinDMState;
 }
 
+interface LeaveChatroomAction {
+  type: typeof LEAVE_CHATROOM;
+  payload: leaveChatroomState;
+}
+
 interface ResetSelectedChannel {
   type: typeof RESET_SELECTED_CHANNEL;
 }
@@ -139,6 +162,11 @@ interface ResetSelectedChannel {
 interface LoadNextAction {
   type: typeof LOAD_NEXT_MESSAGES;
   payload: messagesState;
+}
+
+interface UpdateLeaveChatroomAction {
+  type: typeof UPDATE_LEAVE_CHATROOM;
+  payload: updateLeaveChatroomState;
 }
 
 interface UpdateThread {
@@ -164,8 +192,10 @@ export type ChatroomTypes =
   | AddChannelAction
   | AddDMAction
   | JoinDMAction
+  | LeaveChatroomAction
   | ResetSelectedChannel
   | LoadNextAction
+  | UpdateLeaveChatroomAction
   | UpdateThread
   | AddMessageReaction
   | DeleteMessageReaction;

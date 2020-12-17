@@ -6,7 +6,8 @@ import { BrowsePageChannelHeader } from '@components/molecules/BrowsePageChannel
 import { BrowsePageChannelBody } from '@components/molecules/BrowsePageChannelBody/BrowsePageChannelBody';
 import { BrowsePageChannelButton } from '@components/molecules/BrowsePageChannelButton/BrowsePageChannelButton';
 import { useDispatch } from 'react-redux';
-import { joinChannel } from '@store/actions/channel-action';
+import { joinChannel, leaveChannel } from '@store/actions/channel-action';
+import { leaveChatroom } from '@store/actions/chatroom-action';
 
 interface BrowsePageChannelProps {
   chatroomId: number;
@@ -52,7 +53,10 @@ const BrowsePageChannel: React.FC<BrowsePageChannelProps> = ({ chatroomId, title
     dispatch(joinChannel({ chatroomId }));
     history.push(`/client/${chatroomId}`);
   };
-  const handlingLeaveButton = () => {};
+  const handlingLeaveButton = () => {
+    dispatch(leaveChannel({ chatroomId }));
+    dispatch(leaveChatroom({ chatroomId }));
+  };
   return (
     <BrowsePageChannelContainer {...props}>
       <BrowsePageChannelContent>
