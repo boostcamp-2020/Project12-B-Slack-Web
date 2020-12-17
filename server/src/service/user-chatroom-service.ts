@@ -186,7 +186,7 @@ class UserChatroomService {
   async leaveChatroom(userId, chatroomId) {
     const user = await this.userRepository.findOne({ userId });
     const chatroom = await this.chatroomRepository.findOne({ chatroomId });
-    await this.userChatroomRepository.softDelete({ user, chatroom });
+    await this.userChatroomRepository.delete({ user, chatroom });
   }
 }
 
