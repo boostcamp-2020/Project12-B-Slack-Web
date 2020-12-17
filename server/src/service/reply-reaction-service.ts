@@ -6,6 +6,7 @@ import ReactionRepository from '@repository/reacion-repository';
 import BadRequestError from '@error/bad-request-error';
 import ConflictError from '@error/conflict-error';
 import { validate } from 'class-validator';
+import NotFoundError from '@error/not-found-error';
 
 class ReplyReactionService {
   static instance: ReplyReactionService;
@@ -83,6 +84,21 @@ class ReplyReactionService {
     });
 
     return author;
+  }
+
+  async deleteReplyReaction(userId: number, replyId: number, reactionId: number) {
+    const replyReaction = await this.replyReactionRepository
+      .createQueryBuilder('replyReaction')
+      .where('replyReaction.userId = :userId', { userId })
+      .andWhere('replyReaction.replyId = :replyId', { replyId })
+      .andWhere('replyReaction.reactionId = :reactionId', { reactionId })
+      .getOne();
+
+    if (!replyReaction) {
+      throw new NotFoundError();
+    }
+
+    await this.replyReactionRepository.delete(replyReaction.replyReactionId);
   }
 }
 
