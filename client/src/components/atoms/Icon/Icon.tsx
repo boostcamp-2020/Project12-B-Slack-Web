@@ -31,7 +31,7 @@ const Img = styled.img<any>`
 const Icon: React.FC<IconProps> = ({ size = 'medium', isSelect = false, isHover = true, src = '', ...props }) => {
   return (
     <IconContainter size={size} isHover={isHover} {...props}>
-      <Img isSelect={isSelect} isHover={isHover} src={src}></Img>
+      <Img alt="#" isSelect={isSelect} isHover={isHover} src={src}></Img>
     </IconContainter>
   );
 };
