@@ -6,7 +6,9 @@ import {
   USERBOX_MODAL_OPEN,
   USERBOX_MODAL_CLOSE,
   PROFILE_MODAL_OPEN,
-  PROFILE_MODAL_CLOSE
+  PROFILE_MODAL_CLOSE,
+  EMOJI_PICKER_OPEN,
+  EMOJI_PICKER_CLOSE
 } from '@store/types/modal-types';
 
 export const createModalOpen = () => ({ type: CREATE_MODAL_OPEN });
@@ -17,3 +19,5 @@ export const userboxModalOpen = () => ({ type: USERBOX_MODAL_OPEN });
 export const userboxModalClose = () => ({ type: USERBOX_MODAL_CLOSE });
 export const profileModalOpen = (payload: any) => ({ type: PROFILE_MODAL_OPEN, payload });
 export const profileModalClose = () => ({ type: PROFILE_MODAL_CLOSE });
+export const emojiPickerOpen = (payload: any) => ({ type: EMOJI_PICKER_OPEN, payload });
+export const emojiPickerClose = () => ({ type: EMOJI_PICKER_CLOSE });

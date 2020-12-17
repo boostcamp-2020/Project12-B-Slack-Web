@@ -1,3 +1,4 @@
+import { socketMessageReactionState } from '@socket/types/reaction-types';
 import {
   LOAD_ASYNC,
   INIT_SIDEBAR_ASYNC,
@@ -11,6 +12,8 @@ import {
   LOAD_NEXT_MESSAGES_ASYNC,
   UPDATE_LEAVE_CHATROOM,
   UPDATE_THREAD,
+  ADD_MESSAGE_REACTION,
+  DELETE_MESSAGE_REACTION,
   insertMessageState,
   updateLeaveChatroomState
 } from '../types/chatroom-types';
@@ -27,3 +30,5 @@ export const resetSelectedChannel = () => ({ type: RESET_SELECTED_CHANNEL });
 export const loadNextMessages = (payload: any) => ({ type: LOAD_NEXT_MESSAGES_ASYNC, payload });
 export const updateLeaveChatroom = (payload: updateLeaveChatroomState) => ({ type: UPDATE_LEAVE_CHATROOM, payload });
 export const updateThread = (payload: any) => ({ type: UPDATE_THREAD, payload });
+export const createMessageReaction = (payload: socketMessageReactionState) => ({ type: ADD_MESSAGE_REACTION, payload });
+export const deleteMessageReaction = (payload: socketMessageReactionState) => ({ type: DELETE_MESSAGE_REACTION, payload });

@@ -100,7 +100,7 @@ class MessageService {
           reactionDisplayNames: [displayName]
         };
     });
-    message.messageReactions = messageReactions;
+    message.messageReactions = Object.values(messageReactions);
   }
 
   async getMessages(chatroomId: number, offsetId: number) {
@@ -159,7 +159,7 @@ class MessageService {
             reactionDisplayNames: [displayName]
           };
       });
-      message.messageReactions = messageReactions;
+      message.messageReactions = Object.values(messageReactions);
     });
     return messages;
   }

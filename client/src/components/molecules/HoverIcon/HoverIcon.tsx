@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import styled from 'styled-components';
 import { Icon } from '@components/atoms';
@@ -6,7 +7,7 @@ import { color } from '@theme/index';
 interface HoverIconProps {
   size: 'small' | 'medium' | 'large';
   src?: string;
-  onClick?: () => void;
+  onClick?: any;
 }
 
 const StyledHoverIcon = styled.div<HoverIconProps>`
