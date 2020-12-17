@@ -189,7 +189,7 @@ class UserChatroomService {
     await this.userChatroomRepository.delete({ user, chatroom });
   }
 
-  async isJoinChatroon(userId, chatroomId) {
+  async isJoinChatroom(userId, chatroomId) {
     const user = await this.userRepository.findOne({ userId });
     const chatroom = await this.chatroomRepository.findOne({ chatroomId });
     const joinChatroom = await this.userChatroomRepository.findOne({ user, chatroom });
