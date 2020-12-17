@@ -9,7 +9,6 @@ const replyHandler = {
     const { chatroomId, replyId, title, emoji } = messageReaction;
     const newReplyReaction = await ReplyReactionService.getInstance().createReplyReaction(Number(userId), Number(replyId), title, emoji);
     const { messageId } = (await ReplyService.getInstance().getReplyInfo(Number(replyId))).message;
-    console.log({ ...newReplyReaction, messageId, chatroomId });
     io.to(String(chatroomId)).emit(eventName.CREATE_REPLY_REACTION, { ...newReplyReaction, messageId, chatroomId });
   },
 
@@ -20,7 +19,6 @@ const replyHandler = {
     await ReplyReactionService.getInstance().deleteReplyReaction(Number(userId), Number(replyId), Number(reactionId));
     const newReplyReaction = await ReplyReactionService.getInstance().getReplyReaction(Number(replyId), Number(reactionId));
     const { messageId } = (await ReplyService.getInstance().getReplyInfo(Number(replyId))).message;
-    console.log({ ...newReplyReaction, messageId, chatroomId });
     io.to(String(chatroomId)).emit(eventName.DELETE_REPLY_REACTION, { ...newReplyReaction, messageId, chatroomId });
   }
 };
