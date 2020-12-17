@@ -1,5 +1,7 @@
 export const CREATE_MESSAGE_REACTION = 'create reaction';
 export const DELETE_MESSAGE_REACTION = 'delete reaction';
+export const CREATE_REPLY_REACTION = 'create reply reaction';
+export const DELETE_REPLY_REACTION = 'delete reply reaction';
 
 interface userInfo {
   displayName: string;
@@ -14,6 +16,19 @@ export interface createMessageReactionState {
 
 export interface deleteMessageReactionState {
   messageId: number;
+  reactionId: number;
+}
+
+export interface createReplyReactionState {
+  chatroomId: number;
+  replyId: number;
+  title: string;
+  emoji: string;
+}
+
+export interface deleteReplyReactionState {
+  chatroomId: number;
+  replyId: number;
   reactionId: number;
 }
 
