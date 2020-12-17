@@ -127,7 +127,7 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
           />
         )}
       </MessageContent>
-      {isHover && <Actionbar messageId={messageId} {...props} />}
+      {isHover && <Actionbar chatId={messageId} />}
     </MessageContainer>
   );
 };

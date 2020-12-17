@@ -1,11 +1,11 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ProfileImg, Text } from '@components/atoms';
 import { color } from '@theme/index';
 import { getTimeConversionValue } from '@utils/time';
-import { profileModalOpen } from '@store/actions/modal-action';
 import { openProfileModal } from '@utils/modal';
+import { ChatType } from '@constants/index';
+import { Actionbar } from '../Actionbar/Actionbar';
 
 interface ReplyProps {
   reply: any;
@@ -47,8 +47,17 @@ const DateText = styled.p<any>`
 `;
 
 const Reply: React.FC<ReplyProps> = ({ reply }) => {
+  const [isHover, setHover] = useState(false);
+  const { replyId } = reply;
+  const replyContainterEl = useRef();
+  const onMouseEnter = () => {
+    setHover(true);
+  };
+  const onMouseLeave = () => {
+    setHover(false);
+  };
   return (
-    <ReplyContainter>
+    <ReplyContainter ref={replyContainterEl} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <ProfileImgWrap onClick={openProfileModal(reply.user)}>
         <ProfileImg size="large" src={reply.user.profileUri} />
       </ProfileImgWrap>
@@ -65,6 +74,7 @@ const Reply: React.FC<ReplyProps> = ({ reply }) => {
           {reply.content}
         </Text>
       </MessageContent>
+      {isHover && <Actionbar chatId={replyId} actionbarType={ChatType.Reply} />}
     </ReplyContainter>
   );
 };
