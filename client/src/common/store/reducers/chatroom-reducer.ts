@@ -18,7 +18,6 @@ import {
   LEAVE_CHATROOM,
   RESET_SELECTED_CHANNEL,
   LOAD_NEXT_MESSAGES,
-  UPDATE_LEAVE_CHATROOM,
   UPDATE_THREAD,
   ADD_MESSAGE_REACTION,
   DELETE_MESSAGE_REACTION
@@ -98,11 +97,19 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
         directMessages: DMs
       };
     case LEAVE_CHATROOM: {
-      const { chatroomId } = action.payload;
-      const channels = state.channels.filter((channel: any) => channel.chatroomId !== chatroomId);
+      const { chatroomId, userId, leaveUserId } = action.payload;
+      const { selectedChatroomId, channels } = state;
+      const bLeavedUser = userId === leaveUserId;
+      const bSelectedChatroom = chatroomId === selectedChatroomId;
+      let NewChannels = channels;
+
+      if (bLeavedUser) NewChannels = NewChannels.filter((channel: any) => channel.chatroomId !== chatroomId);
+      if (bSelectedChatroom) NewChannels = NewChannels.map((channel: any) => (channel.chatroomId === chatroomId ? action.payload : channel));
+
       return {
         ...state,
-        channels
+        channels: NewChannels,
+        selectedChatroom: bSelectedChatroom ? action.payload : state.selectedChatroom
       };
     }
     case RESET_SELECTED_CHANNEL:
@@ -128,25 +135,6 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
         ...state,
         messages: nextMessages
       };
-    case UPDATE_LEAVE_CHATROOM: {
-      const { chatroomId } = action.payload;
-      const { selectedChatroomId } = state;
-      const channels = state.channels.map((channel: any) => {
-        if (channel.chatroomId === chatroomId) return action.payload;
-        return channel;
-      });
-      if (chatroomId === selectedChatroomId) {
-        return {
-          ...state,
-          selectedChatroom: action.payload,
-          channels
-        };
-      }
-      return {
-        ...state,
-        channels
-      };
-    }
     case UPDATE_THREAD:
       const updateMessages = state.messages;
       const { messageId, profileUri } = action.payload;
