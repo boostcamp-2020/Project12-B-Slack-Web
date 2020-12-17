@@ -11,6 +11,12 @@ const Template: Story<EmojiBoxProps> = (args) => <EmojiBox {...args} />;
 
 export const BlackEmojiBox = Template.bind({});
 BlackEmojiBox.args = {
-  text: ':white_check_mark:',
+  emoji: '✔',
+  number: 1
+};
+
+export const HeartEmojiBox = Template.bind({});
+HeartEmojiBox.args = {
+  emoji: '❤',
   number: 1
 };

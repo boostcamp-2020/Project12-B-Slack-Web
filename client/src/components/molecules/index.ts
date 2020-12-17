@@ -24,12 +24,14 @@ import { BrowsePageSearchBar } from './BrowsePageSearchBar/BrowsePageSearchBar';
 import { InputReply } from './InputReply/InputReply';
 import { Reply } from './Reply/Reply';
 import { ProfileModal } from './ProfileModal/ProfileModal';
+import { EmojiPicker } from './EmojiPicker/EmojiPicker';
 
 export {
   Actionbar,
   ActiveProfileImg,
   Channel,
   DM,
+  EmojiPicker,
   HoverIcon,
   Section,
   InputMessage,

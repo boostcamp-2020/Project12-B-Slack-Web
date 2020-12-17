@@ -11,15 +11,15 @@ const Template: Story<EmojiProps> = (args) => <Emoji {...args} />;
 
 export const GoodEmoji = Template.bind({});
 GoodEmoji.args = {
-  text: ':+1:'
+  text: '👍'
 };
 
 export const HeartEmoji = Template.bind({});
 HeartEmoji.args = {
-  text: ':heart:'
+  text: '❤'
 };
 
 export const CheckEmoji = Template.bind({});
 CheckEmoji.args = {
-  text: ':white_check_mark:'
+  text: '✔'
 };

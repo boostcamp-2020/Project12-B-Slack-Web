@@ -45,6 +45,7 @@ const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId
         createdAt={message.createdAt}
         thread={message.thread}
         user={message.user}
+        messageReactions={message.messageReactions}
         {...props}></Message>
     ));
   };
