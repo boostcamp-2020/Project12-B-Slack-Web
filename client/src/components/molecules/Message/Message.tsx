@@ -7,7 +7,7 @@ import { getTimeConversionValue } from '@utils/time';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadThread } from '@store/actions/thread-action';
-import { messageReactionsState } from '@store/types/message-reactions-type';
+import { reactionsState } from '@store/types/reactions-type';
 import { RootState } from '@store/reducers';
 import { openProfileModal } from '@utils/modal';
 import { EmojiBox } from '../EmojiBox/EmojiBox';
@@ -20,7 +20,7 @@ interface MessageProps {
   createdAt: Date;
   thread: any;
   user: { userId: number; profileUri: string; displayName: string };
-  messageReactions: Array<messageReactionsState>;
+  messageReactions: Array<reactionsState>;
 }
 
 const MessageContainer = styled.div<any>`

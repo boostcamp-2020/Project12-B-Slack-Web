@@ -3,3 +3,5 @@ import { LOAD_THREAD_ASYNC, INSERT_REPLY, LOAD_NEXT_REPLIES_ASYNC, replyState } 
 export const loadThread = (messageId: number) => ({ type: LOAD_THREAD_ASYNC, payload: { messageId } });
 export const InsertReply = (payload: replyState) => ({ type: INSERT_REPLY, payload });
 export const loadNextReplies = (payload: any) => ({ type: LOAD_NEXT_REPLIES_ASYNC, payload });
+// export const createMessageReaction = (payload: socketMessageReactionState) => ({ type: ADD_MESSAGE_REACTION, payload });
+// export const deleteMessageReaction = (payload: socketMessageReactionState) => ({ type: DELETE_MESSAGE_REACTION, payload });

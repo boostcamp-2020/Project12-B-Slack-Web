@@ -1,5 +1,5 @@
 import { userState } from './user-types';
-import { messageReactionsState } from './message-reactions-type';
+import { reactionsState } from './reactions-type';
 import { chatroomThreadState } from './chatroom-types';
 
 export interface messageState {
@@ -7,7 +7,7 @@ export interface messageState {
   createdAt: Date;
   updatedAt: Date;
   user: userState;
-  messageReactions: Array<messageReactionsState>;
+  messageReactions: Array<reactionsState>;
   thread: chatroomThreadState;
 }
 
