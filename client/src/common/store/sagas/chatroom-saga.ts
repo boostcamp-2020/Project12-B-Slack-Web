@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import API from '@utils/api';
-import { ChatType } from '@constants/index';
+import { ChatroomType } from '@constants/index';
 import {
   LOAD,
   LOAD_ASYNC,
@@ -57,7 +57,7 @@ function* pickChannelSaga(action: any) {
 function* addChannel(action: any) {
   try {
     const chatroomId = yield call(API.createChannel, action.payload.title, action.payload.description, action.payload.isPrivate);
-    const payload = { chatroomId, chatType: ChatType.Channel, isPrivate: action.payload.isPrivate, title: action.payload.title };
+    const payload = { chatroomId, chatType: ChatroomType.Channel, isPrivate: action.payload.isPrivate, title: action.payload.title };
     yield put({ type: ADD_CHANNEL, payload });
     yield put({ type: PICK_CHANNEL_ASYNC, payload: { selectedChatroomId: chatroomId } });
   } catch (e) {
