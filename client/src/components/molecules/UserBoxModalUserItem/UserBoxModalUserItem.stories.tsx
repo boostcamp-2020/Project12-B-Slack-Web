@@ -11,6 +11,9 @@ const Template: Story<UserBoxModalUserItemProps> = (args) => <UserBoxModalUserIt
 
 export const BlackUserBoxModalUserItem = Template.bind({});
 BlackUserBoxModalUserItem.args = {
-  src: 'https://avatars2.githubusercontent.com/u/33643752?s=460&u=a9a75e7c6922a23eb365b258a60499bbb9a9c655&v=4',
-  author: 'J030_김도호'
+  user: {
+    displayName: 'J030_김도호',
+    profileUri: 'https://avatars2.githubusercontent.com/u/33643752?s=460&u=a9a75e7c6922a23eb365b258a60499bbb9a9c655&v=4',
+    userId: 1
+  }
 };
