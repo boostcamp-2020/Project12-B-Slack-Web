@@ -50,7 +50,7 @@ const MessageHeader = styled.div<any>`
 
 const DateText = styled.p<any>`
   margin: 0 0.3rem;
-  color: gray;
+  color: ${color.text_senary};
   font-size: 0.7rem;
 `;
 
