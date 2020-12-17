@@ -38,7 +38,7 @@ const Actionbar: React.FC<ActionbarProps> = ({ actionbarType = ChatType.Message,
   const openEmojiPicker = (e: any) => {
     const x = window.pageXOffset + e.target.getBoundingClientRect().left;
     const y = window.pageYOffset + e.target.getBoundingClientRect().top;
-    dispatch(emojiPickerOpen({ x, y, chatId }));
+    dispatch(emojiPickerOpen({ x, y, chatId, type: actionbarType }));
   };
   return (
     <ActionbarContainer {...props}>

@@ -35,7 +35,8 @@ export interface EmojiPickerState {
   isOpen: boolean;
   x: number;
   y: number;
-  messageId: number | null;
+  chatId: number | null;
+  type: string;
 }
 
 export interface ModalState {
