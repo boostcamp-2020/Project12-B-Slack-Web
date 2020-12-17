@@ -100,6 +100,23 @@ class ReplyReactionService {
 
     await this.replyReactionRepository.delete(replyReaction.replyReactionId);
   }
+
+  async getReplyReaction(replyId: number, reactionId: number) {
+    const replyReactions = await this.replyReactionRepository
+      .createQueryBuilder('replyReaction')
+      .leftJoin('replyReaction.user', 'user')
+      .select('replyReaction')
+      .addSelect('user')
+      .where('replyReaction.replyId = :replyId', { replyId })
+      .andWhere('replyReaction.reactionId = :reactionId', { reactionId })
+      .getMany();
+    const authors = replyReactions.map((replyReaction) => {
+      const { userId, displayName } = replyReaction.user;
+      return { userId, displayName };
+    });
+    const { title, emoji } = await this.reactionRepository.findOne({ reactionId });
+    return { reactionId, title, emoji, replyId, authors };
+  }
 }
 
 export default ReplyReactionService;
