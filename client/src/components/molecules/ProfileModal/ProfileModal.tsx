@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { DropMenuBox, ProfileModalImg, Button, ProfileModalBody } from '@components/atoms';
 import { color } from '@theme/index';
 import { useDispatch, useSelector } from 'react-redux';
-import { profileModalClose } from '@store/actions/modal-action';
+import { profileModalClose, userboxModalClose } from '@store/actions/modal-action';
 import { addDM, pickChannel } from '@store/actions/chatroom-action';
 import { DMState } from '@store/types/chatroom-types';
 
@@ -36,6 +36,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ ...props }) => {
 
   const handlingMessageButtonClick = () => {
     dispatch(profileModalClose());
+    dispatch(userboxModalClose());
     const directMessage = findDirectMessageByTitle(displayName);
     if (directMessage) {
       dispatch(pickChannel({ selectedChatroomId: directMessage.chatroomId }));

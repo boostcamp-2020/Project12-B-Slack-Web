@@ -2,10 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import { ProfileImg, Text } from '@components/atoms';
 import { color } from '@theme/index';
+import { openProfileModal } from '@utils/modal';
+
+interface User {
+  displayName: string;
+  profileUri: string;
+  userId: number;
+}
 
 interface UserBoxModalUserItemProps {
-  src: string;
-  author: string;
+  user: User;
 }
 
 const UserBoxModalUserItemContainer = styled.div<any>`
@@ -17,17 +23,24 @@ const UserBoxModalUserItemContainer = styled.div<any>`
   }
 `;
 
-const TextWrap = styled.div<any>`
-  margin-left: 0.5rem;
+const ProfileImgWrap = styled.div<any>`
+  cursor: pointer;
 `;
 
-const UserBoxModalUserItem: React.FC<UserBoxModalUserItemProps> = ({ author, src, ...props }) => {
+const TextWrap = styled.div<any>`
+  margin-left: 0.5rem;
+  cursor: pointer;
+`;
+
+const UserBoxModalUserItem: React.FC<UserBoxModalUserItemProps> = ({ user, ...props }) => {
   return (
     <UserBoxModalUserItemContainer {...props}>
-      <ProfileImg size="large" src={src} />
-      <TextWrap>
-        <Text fontColor={color.primary} size="small" isBold>
-          {author}
+      <ProfileImgWrap onClick={openProfileModal(user)}>
+        <ProfileImg size="large" src={user.profileUri} />
+      </ProfileImgWrap>
+      <TextWrap onClick={openProfileModal(user)}>
+        <Text fontColor={color.primary} size="small" isBold isHover>
+          {user.displayName}
         </Text>
       </TextWrap>
     </UserBoxModalUserItemContainer>
