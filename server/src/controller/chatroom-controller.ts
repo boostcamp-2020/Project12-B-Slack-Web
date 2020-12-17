@@ -1,5 +1,7 @@
 import HttpStatusCode from '@constants/http-status-code';
 import ChatroomService from '@service/chatroom-service';
+import UserChatroomService from '@service/user-chatroom-service';
+import ForbiddenError from '@error/forbidden-error';
 import { NextFunction, Request, Response } from 'express';
 
 const ChatroomController = {
@@ -40,6 +42,8 @@ const ChatroomController = {
     try {
       const { userId } = req.user;
       const { chatroomId } = req.params;
+      const isJoin = await UserChatroomService.getInstance().isJoinChatroon(Number(userId), Number(chatroomId));
+      if (!isJoin) throw new ForbiddenError();
       const chatroomInfo = await ChatroomService.getInstance().getChatroomInfo(Number(chatroomId), Number(userId));
       res.status(HttpStatusCode.OK).json(chatroomInfo);
     } catch (err) {
