@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { HoverIcon, EmojiPicker } from '@components/molecules';
+import { HoverIcon } from '@components/molecules';
 import { color } from '@theme/index';
 import EmojiIcon from '@imgs/emoji-icon.png';
 import ThreadIcon from '@imgs/thread-icon.png';
@@ -9,9 +9,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { loadThread } from '@store/actions/thread-action';
 import { emojiPickerOpen } from '@store/actions/modal-action';
+import { ChatType } from '@constants/index';
 
 interface ActionbarProps {
-  messageId: number;
+  chatId: number;
+  actionbarType?: string;
 }
 
 const ActionbarContainer = styled.div<any>`
@@ -24,24 +26,24 @@ const ActionbarContainer = styled.div<any>`
   border-radius: 0.2rem;
 `;
 
-const Actionbar: React.FC<ActionbarProps> = ({ messageId, ...props }) => {
+const Actionbar: React.FC<ActionbarProps> = ({ actionbarType = ChatType.Message, chatId, ...props }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const chatroomId = useSelector((state: any) => state.chatroom.selectedChatroomId);
 
   const openThread = () => {
-    dispatch(loadThread(messageId));
-    history.push(`/client/${chatroomId}/thread/${messageId}`);
+    dispatch(loadThread(chatId));
+    history.push(`/client/${chatroomId}/thread/${chatId}`);
   };
   const openEmojiPicker = (e: any) => {
     const x = window.pageXOffset + e.target.getBoundingClientRect().left;
     const y = window.pageYOffset + e.target.getBoundingClientRect().top;
-    dispatch(emojiPickerOpen({ x, y, messageId }));
+    dispatch(emojiPickerOpen({ x, y, chatId, type: actionbarType }));
   };
   return (
     <ActionbarContainer {...props}>
       <HoverIcon size="medium" onClick={openEmojiPicker} src={EmojiIcon} />
-      <HoverIcon size="medium" onClick={openThread} src={ThreadIcon} />
+      {actionbarType === ChatType.Message && <HoverIcon size="medium" onClick={openThread} src={ThreadIcon} />}
       <HoverIcon size="medium" src={OptionIcon} />
     </ActionbarContainer>
   );

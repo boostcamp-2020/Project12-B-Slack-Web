@@ -7,9 +7,10 @@ import { getTimeConversionValue } from '@utils/time';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadThread } from '@store/actions/thread-action';
-import { messageReactionsState } from '@store/types/message-reactions-type';
+import { reactionsState } from '@store/types/reactions-type';
 import { RootState } from '@store/reducers';
 import { openProfileModal } from '@utils/modal';
+import { createMessageReaction, deleteMessageReaction } from '@socket/emits/reaction';
 import { EmojiBox } from '../EmojiBox/EmojiBox';
 
 interface MessageProps {
@@ -20,7 +21,7 @@ interface MessageProps {
   createdAt: Date;
   thread: any;
   user: { userId: number; profileUri: string; displayName: string };
-  messageReactions: Array<messageReactionsState>;
+  messageReactions: Array<reactionsState>;
 }
 
 const MessageContainer = styled.div<any>`
@@ -80,6 +81,12 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
     dispatch(loadThread(messageId));
     history.push(`/client/${selectedChatroomId}/thread/${messageId}`);
   };
+  const createReaction = (title: string, emoji: string) => {
+    createMessageReaction({ messageId, title, emoji });
+  };
+  const deleteReaction = (reactionId: number) => {
+    deleteMessageReaction({ messageId, reactionId });
+  };
 
   const createEmojiBox = () => {
     const EmojiBoxs = messageReactions.map((reaction) => {
@@ -90,8 +97,9 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
             emoji={reaction.emoji}
             number={reaction.reactionCount}
             active={reaction.reactionDisplayNames.includes(userName)}
-            messageId={messageId}
             reactionId={reaction.reactionId}
+            createReaction={createReaction}
+            deleteReaction={deleteReaction}
             title={reaction.title}
           />
         )
@@ -127,7 +135,7 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
           />
         )}
       </MessageContent>
-      {isHover && <Actionbar messageId={messageId} {...props} />}
+      {isHover && <Actionbar chatId={messageId} />}
     </MessageContainer>
   );
 };

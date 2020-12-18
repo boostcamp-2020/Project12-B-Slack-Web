@@ -11,5 +11,5 @@ const Template: Story<ActionbarProps> = (args) => <Actionbar {...args} />;
 
 export const BlackActionbar = Template.bind({});
 BlackActionbar.args = {
-  messageId: 1
+  chatId: 1
 };

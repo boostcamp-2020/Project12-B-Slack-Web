@@ -12,13 +12,14 @@ import {
   EMOJI_PICKER_CLOSE,
   EMOJI_PICKER_OPEN
 } from '@store/types/modal-types';
+import { ChatType } from '@constants/index';
 
 const initialState: ModalState = {
   createModal: { isOpen: false },
   channelModal: { isOpen: false, x: 0, y: 0 },
   userboxModal: { isOpen: false },
   profileModal: { isOpen: false, x: 0, y: 0, userId: 0, profileUri: '', displayName: '' },
-  emojiPicker: { isOpen: false, x: 0, y: 0, messageId: null }
+  emojiPicker: { isOpen: false, x: 0, y: 0, chatId: null, type: ChatType.Message }
 };
 
 const ModalReducer = (state = initialState, action: ModalTypes) => {
@@ -41,8 +42,8 @@ const ModalReducer = (state = initialState, action: ModalTypes) => {
     case PROFILE_MODAL_CLOSE:
       return { ...state, profileModal: { isOpen: false } };
     case EMOJI_PICKER_OPEN:
-      const { x, y, messageId } = action.payload;
-      return { ...state, emojiPicker: { isOpen: true, x, y, messageId } };
+      const { x, y, chatId, type } = action.payload;
+      return { ...state, emojiPicker: { isOpen: true, x, y, chatId, type } };
     case EMOJI_PICKER_CLOSE:
       return { ...state, emojiPicker: { isOpen: false } };
     default:
