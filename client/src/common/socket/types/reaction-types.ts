@@ -20,14 +20,12 @@ export interface deleteMessageReactionState {
 }
 
 export interface createReplyReactionState {
-  chatroomId: number;
   replyId: number;
   title: string;
   emoji: string;
 }
 
 export interface deleteReplyReactionState {
-  chatroomId: number;
   replyId: number;
   reactionId: number;
 }
@@ -39,4 +37,13 @@ export interface socketMessageReactionState {
   messageId: number;
   reactionId: number;
   title: string;
+}
+
+export interface socketReplyReactionState {
+  reactionId: number;
+  title: string;
+  emoji: string;
+  replyId: number;
+  authors: Array<userInfo>;
+  messageId: number;
 }
