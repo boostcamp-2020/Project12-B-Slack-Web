@@ -1,4 +1,4 @@
-export interface messageReactionsState {
+export interface reactionsState {
   reactionId: number;
   title: string;
   reactionCount: number;

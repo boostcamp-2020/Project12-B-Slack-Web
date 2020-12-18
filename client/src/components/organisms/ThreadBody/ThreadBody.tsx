@@ -21,6 +21,10 @@ const InputBoxWrap = styled.div<any>`
   margin: 1rem;
 `;
 
+const ReplyTitle = styled.div`
+  margin-top: 1rem;
+`;
+
 const ThreadBody: React.FC<ThreadBodyProps> = ({ messageId }) => {
   const ThreadBodyEl = useRef<any>();
   const [eventType, setEventType] = useState(ScrollEventType.COMMON);
@@ -52,7 +56,9 @@ const ThreadBody: React.FC<ThreadBodyProps> = ({ messageId }) => {
 
   return (
     <ThreadBodyContainter ref={ThreadBodyEl} onScroll={onScrollHandler}>
-      <Reply reply={message} />
+      <ReplyTitle>
+        <Reply reply={message} />
+      </ReplyTitle>
       <ThreadReplies messageId={messageId} />
       <InputBoxWrap>
         <InputReply messageId={messageId} setEventType={setEventType} isThread />

@@ -4,7 +4,7 @@
 import { uriParser } from '@utils/index';
 import { joinChatroom, joinDM } from '@socket/emits/chatroom';
 import { messageState } from '@store/types/message-types';
-import { messageReactionsState } from '@store/types/message-reactions-type';
+import { reactionsState } from '@store/types/reactions-type';
 import {
   chatroomState,
   LOAD,
@@ -155,7 +155,7 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
         addReactionMessages.forEach((message: messageState) => {
           if (message.messageId === action.payload.messageId) {
             let isExistReaction = false;
-            message.messageReactions.forEach((reaction: messageReactionsState) => {
+            message.messageReactions.forEach((reaction: reactionsState) => {
               if (reaction.reactionId === action.payload.reactionId) {
                 reaction.reactionCount += 1;
                 reaction.reactionDisplayNames = action.payload.authors.reduce((acc: Array<string>, val: any) => {
@@ -183,7 +183,7 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
       if (state.selectedChatroomId === action.payload.chatroomId) {
         deleteReactionMessages.forEach((message: messageState) => {
           if (message.messageId === action.payload.messageId) {
-            message.messageReactions.forEach((reaction: messageReactionsState) => {
+            message.messageReactions.forEach((reaction: reactionsState) => {
               if (reaction.reactionId === action.payload.reactionId) {
                 reaction.reactionCount -= 1;
                 reaction.reactionDisplayNames = action.payload.authors.reduce((acc: Array<string>, val: any) => {

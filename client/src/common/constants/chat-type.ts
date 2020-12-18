@@ -1,6 +1,7 @@
 const ChatType = {
-  DM: 'DM',
-  Channel: 'Channel'
+  Message: 'Message',
+  ReplyTitle: 'ReplyTitle',
+  Reply: 'Reply'
 };
 
 export { ChatType };

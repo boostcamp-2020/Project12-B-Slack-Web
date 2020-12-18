@@ -1,3 +1,4 @@
+import { socketReplyReactionState } from '@socket/types/reaction-types';
 import { userState } from '@store/types/user-types';
 
 export const LOAD_THREAD = 'LOAD_THREAD';
@@ -5,6 +6,8 @@ export const LOAD_THREAD_ASYNC = 'LOAD_THREAD_ASYNC';
 export const INSERT_REPLY = 'INSERT_REPLY';
 export const LOAD_NEXT_REPLIES = 'LOAD_NEXT_REPLIES';
 export const LOAD_NEXT_REPLIES_ASYNC = 'LOAD_NEXT_REPLIES_ASYNC';
+export const ADD_REPLY_REACTION = 'ADD_MESSAGE_REACTION';
+export const DELETE_REPLY_REACTION = 'DELETE_MESSAGE_REACTION';
 
 export interface threadMessageState {
   messageId: number;
@@ -18,13 +21,13 @@ export interface threadMessageState {
 }
 
 export interface replyState {
-  messageId?: number;
-  replyId: number;
+  messageId: number;
   content: string;
   createdAt: Date;
-  updateAt: Date;
+  updatedAt: Date;
+  replyId: number;
+  replyReactions: Array<any>;
   user: userState;
-  replyReactions: Array<object>;
 }
 
 export interface repliesState {
@@ -34,6 +37,7 @@ export interface repliesState {
 export interface threadState {
   message: threadMessageState;
   replies: Array<replyState>;
+  selectedThreadId: number | null;
 }
 
 interface LoadThreadAction {
@@ -51,4 +55,14 @@ interface LoadNextReplies {
   payload: repliesState;
 }
 
-export type ThreadTypes = LoadThreadAction | InsertReply | LoadNextReplies;
+interface AddReplyReaction {
+  type: typeof ADD_REPLY_REACTION;
+  payload: socketReplyReactionState;
+}
+
+interface DeleteReplyReaction {
+  type: typeof DELETE_REPLY_REACTION;
+  payload: socketReplyReactionState;
+}
+
+export type ThreadTypes = LoadThreadAction | InsertReply | LoadNextReplies | AddReplyReaction | DeleteReplyReaction;

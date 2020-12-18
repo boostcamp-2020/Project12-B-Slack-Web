@@ -1,11 +1,15 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ProfileImg, Text } from '@components/atoms';
 import { color } from '@theme/index';
 import { getTimeConversionValue } from '@utils/time';
-import { profileModalOpen } from '@store/actions/modal-action';
 import { openProfileModal } from '@utils/modal';
+import { ChatType } from '@constants/index';
+import { useSelector } from 'react-redux';
+import { RootState } from '@store/reducers';
+import { createReplyReaction, deleteReplyReaction } from '@socket/emits/reaction';
+import { Actionbar } from '../Actionbar/Actionbar';
+import { EmojiBox } from '../EmojiBox/EmojiBox';
 
 interface ReplyProps {
   reply: any;
@@ -46,9 +50,52 @@ const DateText = styled.p<any>`
   font-size: 0.7rem;
 `;
 
+const EmojiBoxWrap = styled.div`
+  display: flex;
+  margin-top: 0.3rem;
+`;
+
 const Reply: React.FC<ReplyProps> = ({ reply }) => {
+  const [isHover, setHover] = useState(false);
+  const { replyId, replyReactions } = reply;
+  const userName = useSelector((store: RootState) => store.user.displayName);
+  const replyContainterEl = useRef();
+  const onMouseEnter = () => {
+    setHover(true);
+  };
+  const onMouseLeave = () => {
+    setHover(false);
+  };
+  const createReaction = (title: string, emoji: string) => {
+    createReplyReaction({ replyId, title, emoji });
+  };
+  const deleteReaction = (reactionId: number) => {
+    deleteReplyReaction({ replyId, reactionId });
+  };
+
+  const createEmojiBox = () => {
+    if (replyReactions === undefined) return <></>;
+
+    const EmojiBoxs = replyReactions.map((reaction: any) => {
+      return (
+        reaction.replyDisplayNames.length !== 0 && (
+          <EmojiBox
+            key={reaction.reactionId}
+            emoji={reaction.emoji}
+            number={reaction.replyDisplayNames.length}
+            active={reaction.replyDisplayNames.includes(userName)}
+            reactionId={reaction.reactionId}
+            title={reaction.title}
+            createReaction={createReaction}
+            deleteReaction={deleteReaction}
+          />
+        )
+      );
+    });
+    return <EmojiBoxWrap>{EmojiBoxs}</EmojiBoxWrap>;
+  };
   return (
-    <ReplyContainter>
+    <ReplyContainter ref={replyContainterEl} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <ProfileImgWrap onClick={openProfileModal(reply.user)}>
         <ProfileImg size="large" src={reply.user.profileUri} />
       </ProfileImgWrap>
@@ -64,7 +111,9 @@ const Reply: React.FC<ReplyProps> = ({ reply }) => {
         <Text fontColor={color.primary} size="small">
           {reply.content}
         </Text>
+        {createEmojiBox()}
       </MessageContent>
+      {isHover && <Actionbar chatId={replyId} actionbarType={ChatType.Reply} />}
     </ReplyContainter>
   );
 };
