@@ -9,7 +9,7 @@ const color = {
   text_quaternary: 'rgba(83,83,83,1)',
   text_quinary: 'rgb(160, 158, 169)',
   text_senary: 'rgb(98, 100, 136)',
-  text_septenary: '#1d9bd1',
+  text_septenary: '#186b8e',
   border_primary: '#e2e2e2',
   border_secondary: '#c6c6c6',
   border_tertiary: '#1d9bd1',
