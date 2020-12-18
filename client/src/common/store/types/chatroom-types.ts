@@ -15,10 +15,10 @@ export const ADD_DM_ASYNC = 'ADD_DM_ASYNC';
 export const JOIN_DM = 'JOIN_DM';
 export const JOIN_DM_ASYNC = 'JOIN_DM_ASYNC';
 export const LEAVE_CHATROOM = 'LEAVE_CHATROOM';
+export const LEAVE_CHATROOM_ASYNC = 'LEAVE_CHATROOM_ASYNC';
 export const RESET_SELECTED_CHANNEL = 'RESET_SELECTED_CHANNEL';
 export const LOAD_NEXT_MESSAGES = 'LOAD_NEXT_MESSAGES';
 export const LOAD_NEXT_MESSAGES_ASYNC = 'LOAD_NEXT_MESSAGES_ASYNC';
-export const UPDATE_LEAVE_CHATROOM = 'UPDATE_LEAVE_CHATROOM';
 export const UPDATE_THREAD = 'UPDATE_THREAD';
 export const ADD_MESSAGE_REACTION = 'ADD_MESSAGE_REACTION';
 export const DELETE_MESSAGE_REACTION = 'DELETE_MESSAGE_REACTION';
@@ -91,14 +91,6 @@ export interface joinDMState {
 }
 
 export interface leaveChatroomState {
-  chatroomId: number;
-}
-
-export interface insertMessageState extends messageState {
-  chatroomId: number;
-}
-
-export interface updateLeaveChatroomState {
   chatType: string;
   chatroomId: number;
   description: string;
@@ -108,6 +100,11 @@ export interface updateLeaveChatroomState {
   topic: string;
   userCount: number;
   users: { userId: number; profileUri: string; displayName: string };
+  userId: number;
+}
+
+export interface insertMessageState extends messageState {
+  chatroomId: number;
 }
 
 export interface updateThreadState {
@@ -164,11 +161,6 @@ interface LoadNextAction {
   payload: messagesState;
 }
 
-interface UpdateLeaveChatroomAction {
-  type: typeof UPDATE_LEAVE_CHATROOM;
-  payload: updateLeaveChatroomState;
-}
-
 interface UpdateThread {
   type: typeof UPDATE_THREAD;
   payload: updateThreadState;
@@ -195,7 +187,6 @@ export type ChatroomTypes =
   | LeaveChatroomAction
   | ResetSelectedChannel
   | LoadNextAction
-  | UpdateLeaveChatroomAction
   | UpdateThread
   | AddMessageReaction
   | DeleteMessageReaction;
