@@ -10,11 +10,19 @@ import {
   joinDM,
   updateLeaveChatroom
 } from '@store/actions/chatroom-action';
+import { createReplyReaction, deleteReplyReaction, InsertReply } from '@store/actions/thread-action';
 import socket from '@socket/socketIO';
 import { CREATE_MESSAGE } from '@socket/types/message-types';
 import { CREATE_REPLY } from '@socket/types/thread-types';
-import { InsertReply } from '@store/actions/thread-action';
-import { socketMessageReactionState, CREATE_MESSAGE_REACTION, DELETE_MESSAGE_REACTION } from '@socket/types/reaction-types';
+
+import {
+  socketMessageReactionState,
+  CREATE_MESSAGE_REACTION,
+  DELETE_MESSAGE_REACTION,
+  CREATE_REPLY_REACTION,
+  socketReplyReactionState,
+  DELETE_REPLY_REACTION
+} from '@socket/types/reaction-types';
 import { JOIN_DM, LEAVE_CHANNEL } from '@socket/types/chatroom-types';
 
 const StyledBody = styled.div`
@@ -38,6 +46,12 @@ const Body: React.FC<any> = ({ children }) => {
     });
     socket.on(DELETE_MESSAGE_REACTION, (reaction: any) => {
       dispatch(deleteMessageReaction(reaction));
+    });
+    socket.on(CREATE_REPLY_REACTION, (replyReaction: socketReplyReactionState) => {
+      dispatch(createReplyReaction(replyReaction));
+    });
+    socket.on(DELETE_REPLY_REACTION, (replyReaction: socketReplyReactionState) => {
+      dispatch(deleteReplyReaction(replyReaction));
     });
     socket.on(JOIN_DM, (directMessage: any) => {
       dispatch(joinDM({ chatroomId: directMessage.chatroomId }));
