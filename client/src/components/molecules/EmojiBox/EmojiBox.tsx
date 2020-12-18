@@ -1,17 +1,17 @@
+/* eslint-disable no-unused-expressions */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Emoji } from '@components/atoms';
 import { color } from '@theme/index';
-import { useDispatch } from 'react-redux';
-import { createMessageReaction, deleteMessageReaction } from '@socket/emits/reaction';
 
 interface EmojiBoxProps {
   emoji: string;
   active?: boolean;
   number: number;
-  messageId: number;
   reactionId: number;
   title: string;
+  createReaction: any;
+  deleteReaction: any;
 }
 
 const EmojiBoxContainer = styled.div<any>`
@@ -39,15 +39,11 @@ const EmojiBoxText = styled.p<any>`
   margin: 0;
 `;
 
-const EmojiBox: React.FC<EmojiBoxProps> = ({ messageId, reactionId, title, active = false, number, emoji, ...props }) => {
+const EmojiBox: React.FC<EmojiBoxProps> = ({ reactionId, title, createReaction, deleteReaction, active = false, number, emoji, ...props }) => {
   const [isActive, setActive] = useState(active);
-  const dispatch = useDispatch();
+
   const handlingClick = () => {
-    if (isActive) {
-      deleteMessageReaction({ messageId, reactionId });
-    } else {
-      createMessageReaction({ messageId, title, emoji });
-    }
+    isActive ? deleteReaction(reactionId) : createReaction(title, emoji);
     setActive(!isActive);
   };
 
