@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { logout } from '@utils/index';
+import { HttpStatusCode } from '@constants/index';
 
 axios.defaults.baseURL = process.env.API_URL;
 axios.defaults.headers.common.Authorization = localStorage.getItem('token');
@@ -9,7 +10,17 @@ axios.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response.status === 401) logout();
+    const { status } = error.response;
+    switch (status) {
+      case HttpStatusCode.UNAUTHORIZED:
+        logout();
+        break;
+      case HttpStatusCode.FORBIDDEN:
+        window.location.href = '/client/1';
+        break;
+      default:
+        break;
+    }
     return Promise.reject(error);
   }
 );
