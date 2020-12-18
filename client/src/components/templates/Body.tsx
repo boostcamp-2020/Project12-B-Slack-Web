@@ -8,7 +8,7 @@ import {
   createMessageReaction,
   deleteMessageReaction,
   joinDM,
-  updateLeaveChatroom
+  leaveChatroom
 } from '@store/actions/chatroom-action';
 import { createReplyReaction, deleteReplyReaction, InsertReply } from '@store/actions/thread-action';
 import socket from '@socket/socketIO';
@@ -24,6 +24,7 @@ import {
   DELETE_REPLY_REACTION
 } from '@socket/types/reaction-types';
 import { JOIN_DM, LEAVE_CHANNEL } from '@socket/types/chatroom-types';
+import { leaveChannel } from '@store/actions/channel-action';
 
 const StyledBody = styled.div`
   position: relative;
@@ -33,6 +34,7 @@ const StyledBody = styled.div`
 
 const Body: React.FC<any> = ({ children }) => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     socket.on(CREATE_MESSAGE, (message: any) => {
       dispatch(insertMessage(message));
@@ -57,7 +59,9 @@ const Body: React.FC<any> = ({ children }) => {
       dispatch(joinDM({ chatroomId: directMessage.chatroomId }));
     });
     socket.on(LEAVE_CHANNEL, (chatroom: any) => {
-      dispatch(updateLeaveChatroom(chatroom));
+      const { chatroomId } = chatroom;
+      dispatch(leaveChannel({ chatroomId }));
+      dispatch(leaveChatroom({ ...chatroom }));
     });
   }, []);
   const handlingLeave = () => {

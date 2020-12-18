@@ -15,7 +15,9 @@ import {
   JOIN_DM_ASYNC,
   JOIN_DM,
   LOAD_NEXT_MESSAGES,
-  LOAD_NEXT_MESSAGES_ASYNC
+  LOAD_NEXT_MESSAGES_ASYNC,
+  LEAVE_CHATROOM,
+  LEAVE_CHATROOM_ASYNC
 } from '../types/chatroom-types';
 
 function* loadSaga(action: any) {
@@ -98,6 +100,16 @@ function* loadNextMessages(action: any) {
   }
 }
 
+function* leaveChatroom(action: any) {
+  try {
+    const { userId } = yield call(API.getUserInfo);
+    const payload = { userId, ...action.payload };
+    yield put({ type: LEAVE_CHATROOM, payload });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function* chatroomSaga() {
   yield takeEvery(LOAD_ASYNC, loadSaga);
   yield takeEvery(INIT_SIDEBAR_ASYNC, initSidebarSaga);
@@ -106,4 +118,5 @@ export function* chatroomSaga() {
   yield takeEvery(ADD_DM_ASYNC, addDM);
   yield takeEvery(JOIN_DM_ASYNC, joinDM);
   yield takeEvery(LOAD_NEXT_MESSAGES_ASYNC, loadNextMessages);
+  yield takeEvery(LEAVE_CHATROOM_ASYNC, leaveChatroom);
 }

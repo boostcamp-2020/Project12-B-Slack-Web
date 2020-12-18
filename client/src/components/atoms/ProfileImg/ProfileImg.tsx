@@ -43,7 +43,7 @@ const Img = styled.img<any>`
 const ProfileImg: React.FC<ProfileImgProps> = ({ size = 'medium', isHover = false, src = Logo, ...props }) => {
   return (
     <ProfileImgContainter size={size} isHover={isHover} {...props}>
-      <Img size={size} isHover={isHover} src={src}></Img>
+      <Img alt="#" size={size} isHover={isHover} src={src}></Img>
     </ProfileImgContainter>
   );
 };

@@ -1,4 +1,3 @@
-import { leaveChannel } from '@socket/emits/chatroom';
 import { channelState, channelsState, ChannelTypes, INIT_CHANNELS, LOAD_NEXT_CHANNELS, JOIN_CHANNEL, LEAVE_CHANNEL } from '../types/channel-types';
 
 const initialState: channelsState = {
@@ -23,7 +22,7 @@ export default function channelReducer(state = initialState, action: ChannelType
     case JOIN_CHANNEL: {
       const { chatroomId } = action.payload;
       const channels = state.channels.map((channel: channelState) => {
-        if (channel.chatroomId === chatroomId) return { ...channel, isJoined: true };
+        if (channel.chatroomId === chatroomId) return { ...channel, isJoined: true, members: channel.members + 1 };
         return channel;
       });
       return { ...state, channels };
@@ -31,10 +30,10 @@ export default function channelReducer(state = initialState, action: ChannelType
     case LEAVE_CHANNEL: {
       const { chatroomId } = action.payload;
       const channels = state.channels.map((channel: channelState) => {
-        if (channel.chatroomId === chatroomId) return { ...channel, isJoined: false };
+        if (channel.chatroomId === chatroomId) return { ...channel, isJoined: false, members: channel.members - 1 };
         return channel;
       });
-      leaveChannel(chatroomId);
+
       return { ...state, channels };
     }
     default: {
