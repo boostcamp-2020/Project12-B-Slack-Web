@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { DropMenuBox, ProfileModalImg, Button, ProfileModalBody } from '@components/atoms';
 import { color } from '@theme/index';
 import { useDispatch, useSelector } from 'react-redux';
-import { profileModalClose } from '@store/actions/modal-action';
+import { profileModalClose, userboxModalClose } from '@store/actions/modal-action';
+import { addDM, pickChannel } from '@store/actions/chatroom-action';
+import { DMState } from '@store/types/chatroom-types';
 
 interface ProfileModalProps {}
 
@@ -20,12 +22,27 @@ const MessageButtonWrap = styled.div`
 
 const ProfileModal: React.FC<ProfileModalProps> = ({ ...props }) => {
   const dispatch = useDispatch();
-  const { userId, profileUri, displayName } = useSelector((state: any) => state.modal.profileModal);
-  const { x, y } = useSelector((store: any) => store.modal.profileModal);
+  const { x, y, userId, profileUri, displayName } = useSelector((state: any) => state.modal.profileModal);
+  const { directMessages } = useSelector((state: any) => state.chatroom);
   const isOpen = useSelector((store: any) => store.modal.profileModal.isOpen);
 
   const handlingCloseModal = () => {
     dispatch(profileModalClose());
+  };
+
+  const findDirectMessageByTitle = (title: string): DMState => {
+    return directMessages.find((directMessage: DMState) => directMessage.title === title);
+  };
+
+  const handlingMessageButtonClick = () => {
+    dispatch(profileModalClose());
+    dispatch(userboxModalClose());
+    const directMessage = findDirectMessageByTitle(displayName);
+    if (directMessage) {
+      dispatch(pickChannel({ selectedChatroomId: directMessage.chatroomId }));
+      return;
+    }
+    dispatch(addDM({ invitedUserId: userId }));
   };
 
   return (
@@ -42,6 +59,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ ...props }) => {
                 fontColor={color.primary}
                 width="100%"
                 height="2rem"
+                onClick={handlingMessageButtonClick}
                 {...props}>
                 Message
               </Button>

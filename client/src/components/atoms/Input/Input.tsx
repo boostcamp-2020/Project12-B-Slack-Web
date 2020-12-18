@@ -26,6 +26,7 @@ const Input: React.FC<InputProps> = ({ title, isThread = false, content, setCont
   };
   return (
     <StyledInput
+      id="input"
       placeholder={isThread ? 'Reply...' : `Send a message to #${title}`}
       value={content}
       onKeyPress={handlingKeyPressEnter}

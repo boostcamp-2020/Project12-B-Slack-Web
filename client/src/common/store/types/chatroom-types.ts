@@ -1,3 +1,4 @@
+import { socketMessageReactionState } from '@socket/types/reaction-types';
 import { messageState, messagesState } from './message-types';
 
 export const LOAD = 'LOAD';
@@ -9,10 +10,18 @@ export const PICK_CHANNEL_ASYNC = 'PICK_CHANNEL_ASYNC';
 export const INSERT_MESSAGE = 'INSERT_MESSAGE';
 export const ADD_CHANNEL = 'ADD_CHANNEL';
 export const ADD_CHANNEL_ASYNC = 'ADD_CHANNEL_ASYNC';
+export const ADD_DM = 'ADD_DM';
+export const ADD_DM_ASYNC = 'ADD_DM_ASYNC';
+export const JOIN_DM = 'JOIN_DM';
+export const JOIN_DM_ASYNC = 'JOIN_DM_ASYNC';
+export const LEAVE_CHATROOM = 'LEAVE_CHATROOM';
+export const LEAVE_CHATROOM_ASYNC = 'LEAVE_CHATROOM_ASYNC';
 export const RESET_SELECTED_CHANNEL = 'RESET_SELECTED_CHANNEL';
 export const LOAD_NEXT_MESSAGES = 'LOAD_NEXT_MESSAGES';
 export const LOAD_NEXT_MESSAGES_ASYNC = 'LOAD_NEXT_MESSAGES_ASYNC';
 export const UPDATE_THREAD = 'UPDATE_THREAD';
+export const ADD_MESSAGE_REACTION = 'ADD_MESSAGE_REACTION';
+export const DELETE_MESSAGE_REACTION = 'DELETE_MESSAGE_REACTION';
 
 export interface selectedChatroomState {
   chatType: string;
@@ -48,6 +57,13 @@ export interface channelState {
   selectedChatroomId: number;
 }
 
+export interface DMState {
+  chatProfileImg: string;
+  chatType: string;
+  chatroomId: number;
+  title: string;
+}
+
 export interface chatroomThreadState {
   replyCount: number;
   lastReplyAt: Date | null;
@@ -60,6 +76,31 @@ export interface addChannelState {
   chatType: string;
   isPrivate: boolean;
   title: string;
+}
+
+export interface addDMState {
+  chatroomId: number;
+  chatProfileImg: string;
+  chatType: string;
+  title: string;
+  invitedUserId: number;
+}
+
+export interface joinDMState {
+  chatroomId: number;
+}
+
+export interface leaveChatroomState {
+  chatType: string;
+  chatroomId: number;
+  description: string;
+  isPrivate: boolean;
+  leaveUserId: number;
+  title: string;
+  topic: string;
+  userCount: number;
+  users: { userId: number; profileUri: string; displayName: string };
+  userId: number;
 }
 
 export interface insertMessageState extends messageState {
@@ -96,6 +137,21 @@ interface AddChannelAction {
   payload: addChannelState;
 }
 
+interface AddDMAction {
+  type: typeof ADD_DM;
+  payload: addDMState;
+}
+
+interface JoinDMAction {
+  type: typeof JOIN_DM;
+  payload: joinDMState;
+}
+
+interface LeaveChatroomAction {
+  type: typeof LEAVE_CHATROOM;
+  payload: leaveChatroomState;
+}
+
 interface ResetSelectedChannel {
   type: typeof RESET_SELECTED_CHANNEL;
 }
@@ -110,12 +166,27 @@ interface UpdateThread {
   payload: updateThreadState;
 }
 
+interface AddMessageReaction {
+  type: typeof ADD_MESSAGE_REACTION;
+  payload: socketMessageReactionState;
+}
+
+interface DeleteMessageReaction {
+  type: typeof DELETE_MESSAGE_REACTION;
+  payload: socketMessageReactionState;
+}
+
 export type ChatroomTypes =
   | LoadChatroomAction
   | InitSidebarAction
   | PickChannelAction
   | InsertMessageAction
   | AddChannelAction
+  | AddDMAction
+  | JoinDMAction
+  | LeaveChatroomAction
   | ResetSelectedChannel
   | LoadNextAction
-  | UpdateThread;
+  | UpdateThread
+  | AddMessageReaction
+  | DeleteMessageReaction;

@@ -4,6 +4,7 @@ export const LOAD_NEXT_CHANNELS = 'LOAD_NEXT_CHANNELS';
 export const LOAD_NEXT_CHANNELS_ASYNC = 'LOAD_NEXT_CHANNELS_ASYNC';
 export const JOIN_CHANNEL = 'JOIN_CHANNEL';
 export const JOIN_CHANNEL_ASYNC = 'JOIN_CHANNEL_ASYNC';
+export const LEAVE_CHANNEL = 'LEAVE_CHANNEL';
 
 export interface channelState {
   chatroomId: number;
@@ -23,6 +24,10 @@ export interface joinChannelState {
   chatroomId: number;
 }
 
+export interface leaveChannelState {
+  chatroomId: number;
+}
+
 interface InitChannelsAction {
   type: typeof INIT_CHANNELS;
   payload: channelsState;
@@ -38,4 +43,9 @@ interface JoinChannel {
   payload: joinChannelState;
 }
 
-export type ChannelTypes = InitChannelsAction | LoadNextChannels | JoinChannel;
+interface LeaveChannel {
+  type: typeof LEAVE_CHANNEL;
+  payload: leaveChannelState;
+}
+
+export type ChannelTypes = InitChannelsAction | LoadNextChannels | JoinChannel | LeaveChannel;

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { logout } from '@utils/index';
+import { HttpStatusCode } from '@constants/index';
 
 axios.defaults.baseURL = process.env.API_URL;
 axios.defaults.headers.common.Authorization = localStorage.getItem('token');
@@ -9,7 +10,17 @@ axios.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response.status === 401) logout();
+    const { status } = error.response;
+    switch (status) {
+      case HttpStatusCode.UNAUTHORIZED:
+        logout();
+        break;
+      case HttpStatusCode.FORBIDDEN:
+        window.location.href = '/client/1';
+        break;
+      default:
+        break;
+    }
     return Promise.reject(error);
   }
 );
@@ -26,6 +37,11 @@ export default {
 
   getUserInfo: async () => {
     const response = await axios.get('/api/auth');
+    return response.data;
+  },
+
+  getUser: async (userId: number) => {
+    const response = await axios.get(`/api/users/${userId}`);
     return response.data;
   },
 
@@ -66,6 +82,16 @@ export default {
       return chatroomId;
     } catch (e) {
       throw new Error('Channel creation failed.');
+    }
+  },
+
+  createDM: async (invitedUserId: number) => {
+    try {
+      const response = await axios.post(`api/chatrooms/dm`, { invitedUserId });
+      const { chatroomId } = response.data;
+      return chatroomId;
+    } catch (e) {
+      throw new Error('DM creation failed.');
     }
   },
 

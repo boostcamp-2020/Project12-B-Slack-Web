@@ -98,7 +98,7 @@ class MessageReactionService {
       throw new NotFoundError();
     }
 
-    await this.messageReactionRepository.softDelete(messageReaction.messageReactionId);
+    await this.messageReactionRepository.delete(messageReaction.messageReactionId);
   }
 
   async getMessageReaction(messageId: number, reactionId: number) {

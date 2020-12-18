@@ -6,6 +6,7 @@ import Message from '@model/message';
 import MessageReaction from '@model/message-reaction';
 import Reply from '@model/reply';
 import ReplyReaction from '@model/reply-reaction';
+import Socket from '@model/socket';
 
 @Entity({ name: 'user' })
 export default class User {
@@ -63,4 +64,7 @@ export default class User {
 
   @OneToMany(() => ReplyReaction, (replyReaction) => replyReaction.user)
   replyReactions: ReplyReaction[];
+
+  @OneToMany(() => Socket, (socket) => socket.user)
+  sockets: Socket[];
 }

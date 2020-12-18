@@ -32,7 +32,7 @@ const UserBoxModal: React.FC<UserBoxModalProps> = () => {
   const dispatch = useDispatch();
 
   const createUser = () => {
-    return users.map((member: any) => <UserBoxModalUserItem key={member.userId} author={member.displayName} src={member.profileUri} />);
+    return users.map((member: any) => <UserBoxModalUserItem key={member.userId} user={member} />);
   };
 
   return (

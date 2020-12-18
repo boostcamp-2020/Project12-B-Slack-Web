@@ -182,6 +182,19 @@ class UserChatroomService {
     await validator(newUserChatroom);
     await this.userChatroomRepository.save(newUserChatroom);
   }
+
+  async leaveChatroom(userId, chatroomId) {
+    const user = await this.userRepository.findOne({ userId });
+    const chatroom = await this.chatroomRepository.findOne({ chatroomId });
+    await this.userChatroomRepository.delete({ user, chatroom });
+  }
+
+  async isJoinChatroom(userId, chatroomId) {
+    const user = await this.userRepository.findOne({ userId });
+    const chatroom = await this.chatroomRepository.findOne({ chatroomId });
+    const joinChatroom = await this.userChatroomRepository.findOne({ user, chatroom });
+    return !!joinChatroom;
+  }
 }
 
 export default UserChatroomService;

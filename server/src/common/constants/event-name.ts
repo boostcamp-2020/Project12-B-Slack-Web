@@ -8,6 +8,11 @@ const enum eventName {
   JOIN_CHATROOM = 'join chatroom',
   CREATE_CHATROOM = 'create chatroom',
   CREATE_REACTION = 'create reaction',
-  DELETE_REACTION = 'delete reaction'
+  DELETE_REACTION = 'delete reaction',
+  DISCONNECT = 'disconnect',
+  JOIN_DM = 'join DM',
+  LEAVE_CHANNEL = 'leave channel',
+  CREATE_REPLY_REACTION = 'create reply reaction',
+  DELETE_REPLY_REACTION = 'delete reply reaction'
 }
 export default eventName;

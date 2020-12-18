@@ -177,12 +177,23 @@ class ChatroomService {
     const { chatType } = chatroom;
 
     if (chatType === ChatType.DM) {
+      const chatProfileImg = this.findProfileUri(users, userId);
       const title = this.findTitle(users, userId);
       const { description, isPrivate, topic } = chatroom;
-      return { title, description, isPrivate, chatType, topic, userCount, users };
+      return { title, description, isPrivate, chatType, topic, chatProfileImg, userCount, users };
     }
 
     return { ...chatroom, userCount, users };
+  }
+
+  private findProfileUri(users: any[], userId: number) {
+    const otherUser = users.find((user) => {
+      return user.userId !== userId;
+    });
+    const clientUser = users.find((user) => {
+      return user.userId === userId;
+    });
+    return otherUser ? otherUser.profileUri : clientUser.profileUri;
   }
 
   private findTitle(users: any[], userId: number) {

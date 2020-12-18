@@ -1,8 +1,10 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-case-declarations */
 import { uriParser } from '@utils/index';
-import { joinChatroom } from '@socket/emits/chatroom';
+import { joinChatroom, joinDM } from '@socket/emits/chatroom';
 import { messageState } from '@store/types/message-types';
+import { messageReactionsState } from '@store/types/message-reactions-type';
 import {
   chatroomState,
   LOAD,
@@ -11,9 +13,14 @@ import {
   INIT_SIDEBAR,
   INSERT_MESSAGE,
   ADD_CHANNEL,
+  ADD_DM,
+  JOIN_DM,
+  LEAVE_CHATROOM,
   RESET_SELECTED_CHANNEL,
   LOAD_NEXT_MESSAGES,
-  UPDATE_THREAD
+  UPDATE_THREAD,
+  ADD_MESSAGE_REACTION,
+  DELETE_MESSAGE_REACTION
 } from '../types/chatroom-types';
 
 const initialState: chatroomState = {
@@ -72,6 +79,39 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
         ...state,
         channels: newChannels
       };
+    case ADD_DM:
+      const newDMs = state.directMessages;
+      newDMs.push(action.payload);
+      joinChatroom(action.payload.chatroomId);
+      joinDM(action.payload.invitedUserId, action.payload.chatroomId);
+      return {
+        ...state,
+        directMessages: newDMs
+      };
+    case JOIN_DM:
+      const DMs = state.directMessages;
+      DMs.push(action.payload);
+      joinChatroom(action.payload.chatroomId);
+      return {
+        ...state,
+        directMessages: DMs
+      };
+    case LEAVE_CHATROOM: {
+      const { chatroomId, userId, leaveUserId } = action.payload;
+      const { selectedChatroomId, channels } = state;
+      const bLeavedUser = userId === leaveUserId;
+      const bSelectedChatroom = chatroomId === selectedChatroomId;
+      let NewChannels = channels;
+
+      if (bLeavedUser) NewChannels = NewChannels.filter((channel: any) => channel.chatroomId !== chatroomId);
+      if (bSelectedChatroom) NewChannels = NewChannels.map((channel: any) => (channel.chatroomId === chatroomId ? action.payload : channel));
+
+      return {
+        ...state,
+        channels: NewChannels,
+        selectedChatroom: bSelectedChatroom ? action.payload : state.selectedChatroom
+      };
+    }
     case RESET_SELECTED_CHANNEL:
       const selectedChatroom = {
         chatType: '',
@@ -109,6 +149,53 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
         ...state,
         messages: updateMessages
       };
+    case ADD_MESSAGE_REACTION:
+      const addReactionMessages = state.messages;
+      if (state.selectedChatroomId === action.payload.chatroomId) {
+        addReactionMessages.forEach((message: messageState) => {
+          if (message.messageId === action.payload.messageId) {
+            let isExistReaction = false;
+            message.messageReactions.forEach((reaction: messageReactionsState) => {
+              if (reaction.reactionId === action.payload.reactionId) {
+                reaction.reactionCount += 1;
+                reaction.reactionDisplayNames = action.payload.authors.reduce((acc: Array<string>, val: any) => {
+                  acc.push(val.displayName);
+                  return acc;
+                }, []);
+                isExistReaction = true;
+              }
+            });
+            if (!isExistReaction) {
+              message.messageReactions.push({
+                reactionCount: 1,
+                emoji: action.payload.emoji,
+                reactionDisplayNames: [action.payload.authors[0].displayName],
+                reactionId: action.payload.reactionId,
+                title: action.payload.title
+              });
+            }
+          }
+        });
+      }
+      return { ...state, messages: addReactionMessages };
+    case DELETE_MESSAGE_REACTION:
+      const deleteReactionMessages = state.messages;
+      if (state.selectedChatroomId === action.payload.chatroomId) {
+        deleteReactionMessages.forEach((message: messageState) => {
+          if (message.messageId === action.payload.messageId) {
+            message.messageReactions.forEach((reaction: messageReactionsState) => {
+              if (reaction.reactionId === action.payload.reactionId) {
+                reaction.reactionCount -= 1;
+                reaction.reactionDisplayNames = action.payload.authors.reduce((acc: Array<string>, val: any) => {
+                  acc.push(val.displayName);
+                  return acc;
+                }, []);
+              }
+            });
+          }
+        });
+      }
+      return { ...state, messages: deleteReactionMessages };
     default:
       return state;
   }

@@ -6,6 +6,8 @@ export const USERBOX_MODAL_OPEN = 'USERBOX_MODAL_OPEN';
 export const USERBOX_MODAL_CLOSE = 'USERBOX_MODAL_CLOSE';
 export const PROFILE_MODAL_OPEN = 'PROFILE_MODAL_OPEN';
 export const PROFILE_MODAL_CLOSE = 'PROFILE_MODAL_CLOSE';
+export const EMOJI_PICKER_OPEN = 'EMOJI_PICKER_OPEN';
+export const EMOJI_PICKER_CLOSE = 'EMOJI_PICKER_CLOSE';
 export interface CreateChannelModalState {
   isOpen: boolean;
 }
@@ -29,11 +31,19 @@ export interface ProfileModalState {
   displayName: string;
 }
 
+export interface EmojiPickerState {
+  isOpen: boolean;
+  x: number;
+  y: number;
+  messageId: number | null;
+}
+
 export interface ModalState {
   createModal: CreateChannelModalState;
   channelModal: ChannelModalState;
   userboxModal: UserBoxModalState;
   profileModal: ProfileModalState;
+  emojiPicker: EmojiPickerState;
 }
 
 interface CreateChannelModalOpenAction {
@@ -74,6 +84,16 @@ interface ProfileModalCloseAction {
   payload: ProfileModalState;
 }
 
+interface EmojiPickerOpenAction {
+  type: typeof EMOJI_PICKER_OPEN;
+  payload: EmojiPickerState;
+}
+
+interface EmojiPickerCloseAction {
+  type: typeof EMOJI_PICKER_CLOSE;
+  payload: EmojiPickerState;
+}
+
 export type ModalTypes =
   | CreateChannelModalOpenAction
   | CreateChannelModalCloseAction
@@ -82,4 +102,6 @@ export type ModalTypes =
   | UserBoxModalOpenAction
   | UserBoxModalCloseAction
   | ProfileModalOpenAction
-  | ProfileModalCloseAction;
+  | ProfileModalCloseAction
+  | EmojiPickerOpenAction
+  | EmojiPickerCloseAction;
