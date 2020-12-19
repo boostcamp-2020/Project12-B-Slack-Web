@@ -17,7 +17,6 @@ const ChatroomHeaderContainter = styled.div<any>`
   justify-content: space-between;
   align-items: center;
   height: 10%;
-  width: 100%;
   box-shadow: 0 3px 2px -2px ${color.border_primary};
   background-color: ${color.tertiary};
   z-index: 2;
