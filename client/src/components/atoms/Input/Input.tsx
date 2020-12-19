@@ -15,6 +15,9 @@ const StyledInput = styled.input<any>`
   font-size: 1rem;
   border: none;
   outline: none;
+  :placeholder-shown {
+    text-overflow: ellipsis;
+  }
 `;
 
 const Input: React.FC<InputProps> = ({ title, isThread = false, content, setContent, keyPressEnter, ...props }) => {

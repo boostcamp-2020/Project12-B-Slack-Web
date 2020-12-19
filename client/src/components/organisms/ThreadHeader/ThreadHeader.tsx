@@ -19,7 +19,10 @@ const ThreadHeaderContainter = styled.div<any>`
   box-shadow: 0 3px 2px -2px ${color.border_primary};
 `;
 
-const TextContainer = styled.div<any>``;
+const TitleContainer = styled.div<any>``;
+const TextWrap = styled.div<any>`
+  display: grid;
+`;
 
 const ThreadHeader: React.FC<ThreadHeaderProps> = ({ ...props }) => {
   const history = useHistory();
@@ -30,12 +33,14 @@ const ThreadHeader: React.FC<ThreadHeaderProps> = ({ ...props }) => {
 
   return (
     <ThreadHeaderContainter {...props}>
-      <TextContainer>
+      <TitleContainer>
         <Text fontColor={color.primary} size="small" isBold>
           Thread
         </Text>
-        <Text size="small">{`#${title}`}</Text>
-      </TextContainer>
+        <TextWrap>
+          <Text size="small" isEllipsis>{`#${title}`}</Text>
+        </TextWrap>
+      </TitleContainer>
       <HoverIcon src={CloseIcon} onClick={handlingCLoseButton} size="medium" />
     </ThreadHeaderContainter>
   );
