@@ -13,7 +13,6 @@ interface MessageReplyBarProps {
 
 const MessageReplyBarWrap = styled.div<any>`
   display: flex;
-  width: 40rem;
   margin-top: 0.2rem;
   padding: 0.2rem;
   border-radius: 0.3rem;
