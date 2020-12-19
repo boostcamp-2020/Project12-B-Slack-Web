@@ -10,8 +10,8 @@ export const getCode = () => {
 };
 
 export const getChatroomId = () => {
-  const isChatroomUrlpattern = new RegExp(/^\/client\/[0-9]+(\/thread\/[0-9]+)*$/);
-  if (isChatroomUrlpattern.test(window.location.pathname)) {
+  const chatroomUrlpattern = new RegExp(/^\/client\/[0-9]+(\/thread\/[0-9]+)*$/);
+  if (chatroomUrlpattern.test(window.location.pathname)) {
     const pattern = new RegExp(/[0-9]+/g);
     const code = pattern.exec(window.location.pathname);
     return code ? Number(code[0]) : null;
@@ -20,8 +20,8 @@ export const getChatroomId = () => {
 };
 
 export const getThreadId = () => {
-  const isThreadUrlpattern = new RegExp(/^\/client\/[0-9]+(\/thread\/[0-9]+)$/);
-  if (isThreadUrlpattern.test(window.location.pathname)) {
+  const threadUrlpattern = new RegExp(/^\/client\/[0-9]+(\/thread\/[0-9]+)$/);
+  if (threadUrlpattern.test(window.location.pathname)) {
     const pattern = new RegExp(/[0-9]+$/g);
     const code = pattern.exec(window.location.pathname);
     return code ? Number(code[0]) : null;
