@@ -23,7 +23,7 @@ const TextContainer = styled.div<any>``;
 
 const ThreadHeader: React.FC<ThreadHeaderProps> = ({ ...props }) => {
   const history = useHistory();
-  const { title } = useSelector((store: any) => store.chatroom.selectedChatroom);
+  const { title } = useSelector((store: any) => store.thread);
   const handlingCLoseButton = () => {
     history.push(`/client/${uriParser.getChatroomId()}`);
   };
