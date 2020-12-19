@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import { color } from '@theme/index';
 import { useDispatch } from 'react-redux';
 import { pickChannel } from '@store/actions/chatroom-action';
+import { getThreadId } from '@utils/uriParser';
 
 interface ChannelProps {
   children: React.ReactChild;
@@ -32,7 +33,9 @@ const Channel: React.FC<ChannelProps> = ({ children, chatroomId, isPrivate = fal
   const dispatch = useDispatch();
 
   const handlingClick = () => {
-    if (window.location.pathname !== `/client/${chatroomId}`) history.push(`/client/${chatroomId}`);
+    const threadId = getThreadId();
+    const pathname = `/client/${chatroomId}${threadId && `/thread/${threadId}`}`;
+    if (window.location.pathname !== pathname) history.push(pathname);
     dispatch(pickChannel({ selectedChatroomId: chatroomId }));
   };
 

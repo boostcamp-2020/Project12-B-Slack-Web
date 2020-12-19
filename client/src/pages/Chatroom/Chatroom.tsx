@@ -22,7 +22,7 @@ const Chatroom: React.FC<ChatroomProps & RouteComponentProps> = ({ width }) => {
   const { title, users } = selectedChatroom;
   useEffect(() => {
     if (selectedChatroomId !== null) dispatch(loadAsync({ selectedChatroomId }));
-  }, []);
+  }, [selectedChatroomId]);
 
   return (
     <ChatroomContainer width={width}>
