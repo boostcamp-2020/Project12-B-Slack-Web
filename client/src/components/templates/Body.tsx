@@ -2,14 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { channelModalClose, emojiPickerClose, profileModalClose } from '@store/actions/modal-action';
 import { useDispatch } from 'react-redux';
-import {
-  insertMessage,
-  updateThread,
-  createMessageReaction,
-  deleteMessageReaction,
-  joinDM,
-  leaveChatroom
-} from '@store/actions/chatroom-action';
+import { insertMessage, updateThread, createMessageReaction, deleteMessageReaction, joinDM, leaveChatroom } from '@store/actions/chatroom-action';
 import { createReplyReaction, deleteReplyReaction, InsertReply } from '@store/actions/thread-action';
 import socket from '@socket/socketIO';
 import { CREATE_MESSAGE } from '@socket/types/message-types';
@@ -20,8 +13,8 @@ import {
   CREATE_MESSAGE_REACTION,
   DELETE_MESSAGE_REACTION,
   CREATE_REPLY_REACTION,
-  socketReplyReactionState,
-  DELETE_REPLY_REACTION
+  DELETE_REPLY_REACTION,
+  socketReplyReactionState
 } from '@socket/types/reaction-types';
 import { JOIN_DM, LEAVE_CHANNEL } from '@socket/types/chatroom-types';
 import { leaveChannel } from '@store/actions/channel-action';

@@ -15,7 +15,8 @@ interface SidebarProps {
 const StyledSidebar = styled.div<any>`
   background-color: ${color.sidebar_bg};
   height: 100%;
-  width: 25rem;
+  max-width: 18rem;
+  min-width: 14rem;
 `;
 
 const Workspace = styled.div<any>`
