@@ -42,6 +42,7 @@ const ProfileImgWrap = styled.div<any>`
 const MessageContent = styled.div<any>`
   display: flex;
   flex-direction: column;
+  width: -webkit-fill-available;
 `;
 
 const MessageHeader = styled.div<any>`
