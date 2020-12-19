@@ -15,14 +15,14 @@ interface SidebarProps {
 const StyledSidebar = styled.div<any>`
   background-color: ${color.sidebar_bg};
   height: 100%;
-  max-width: 18rem;
-  min-width: 14rem;
+  width: 22rem;
 `;
 
 const Workspace = styled.div<any>`
   display: flex;
   align-items: center;
   height: 10%;
+  width: 15rem;
   padding-left: 1rem;
   box-shadow: 0 1.5px 2px -2px ${color.border_primary};
 `;
