@@ -20,7 +20,7 @@ export const getChatroomId = () => {
 };
 
 export const getThreadId = () => {
-  const isThreadUrlpattern = new RegExp(/^\/client\/[0-9]+(\/thread\/[0-9]+)*$/);
+  const isThreadUrlpattern = new RegExp(/^\/client\/[0-9]+(\/thread\/[0-9]+)$/);
   if (isThreadUrlpattern.test(window.location.pathname)) {
     const pattern = new RegExp(/[0-9]+$/g);
     const code = pattern.exec(window.location.pathname);
