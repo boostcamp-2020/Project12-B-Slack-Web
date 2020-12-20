@@ -4,6 +4,7 @@ import { KeyCode } from '@constants/index';
 
 interface InputProps {
   title?: string;
+  id: string;
   isThread?: boolean;
   content: string;
   setContent: any;
@@ -20,7 +21,7 @@ const StyledInput = styled.input<any>`
   }
 `;
 
-const Input: React.FC<InputProps> = ({ title, isThread = false, content, setContent, keyPressEnter, ...props }) => {
+const Input: React.FC<InputProps> = ({ id, title, isThread = false, content, setContent, keyPressEnter, ...props }) => {
   const handlingKeyPressEnter = (e: any) => {
     if (e.charCode === KeyCode.ENTER) keyPressEnter(e.target.value);
   };
@@ -29,7 +30,7 @@ const Input: React.FC<InputProps> = ({ title, isThread = false, content, setCont
   };
   return (
     <StyledInput
-      id="input"
+      id={id}
       placeholder={isThread ? 'Reply...' : `Send a message to #${title}`}
       value={content}
       onKeyPress={handlingKeyPressEnter}
