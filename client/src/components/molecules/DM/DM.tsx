@@ -7,6 +7,7 @@ import { color } from '@theme/index';
 import { useDispatch } from 'react-redux';
 import { pickChannel } from '@store/actions/chatroom-action';
 import { getThreadId } from '@utils/uriParser';
+import { Size } from '@constants/index';
 
 interface DMProps {
   children: React.ReactChild;
@@ -43,7 +44,7 @@ const DM: React.FC<DMProps> = ({ children, src, chatroomId, isSelect = false, ..
     <DMContainter isSelect={isSelect} onClick={handlingClick} {...props}>
       <ActiveProfileImg src={src} />
       <TextWrap>
-        <Text size="small" isBold={false} isSelect={isSelect} children={children} isEllipsis></Text>
+        <Text size={Size.SMALL} isBold={false} isSelect={isSelect} children={children} isEllipsis></Text>
       </TextWrap>
     </DMContainter>
   );

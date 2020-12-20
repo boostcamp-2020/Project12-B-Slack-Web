@@ -4,7 +4,7 @@ import SearchIcon from '@imgs/search-icon.png';
 import CloseFilledIcon from '@imgs/close-filled-icon.png';
 import { Icon } from '@components/atoms';
 import { color } from '@theme/index';
-import { KeyCode } from '@constants/index';
+import { KeyCode, Size } from '@constants/index';
 
 interface UserBoxModalSearchBarProps {}
 
@@ -66,7 +66,7 @@ const UserBoxModalSearchBar: React.FC<UserBoxModalSearchBarProps> = ({ ...props 
   return (
     <UserBoxModalSearchBarWrap ref={ContainerEl} {...props}>
       <SearchIconWrap>
-        <Icon size="medium" src={SearchIcon} isHover={false} />
+        <Icon size={Size.MEDIUM} src={SearchIcon} isHover={false} />
       </SearchIconWrap>
       <StyledInput
         ref={searchInput}
@@ -78,7 +78,7 @@ const UserBoxModalSearchBar: React.FC<UserBoxModalSearchBarProps> = ({ ...props 
       />
       {searchWord && (
         <CloseFilledIconWrap onClick={clearInputValue}>
-          <Icon size="medium" src={CloseFilledIcon} isHover={false} />
+          <Icon size={Size.MEDIUM} src={CloseFilledIcon} isHover={false} />
         </CloseFilledIconWrap>
       )}
     </UserBoxModalSearchBarWrap>

@@ -4,3 +4,5 @@ export const ScrollEventType = {
   COMPLETELOADING: 'Complete loading',
   INPUTTEXT: 'Input Text'
 };
+
+export type ScrollEventTypes = typeof ScrollEventType[keyof typeof ScrollEventType];

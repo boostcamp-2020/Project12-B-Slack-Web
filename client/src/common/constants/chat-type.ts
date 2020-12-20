@@ -1,7 +1,7 @@
-const ChatType = {
+export const ChatType = {
   Message: 'Message',
   ReplyTitle: 'ReplyTitle',
   Reply: 'Reply'
 };
 
-export { ChatType };
+export type ChatTypes = typeof ChatType[keyof typeof ChatType];

@@ -4,7 +4,7 @@ import { ProfileImg, Text } from '@components/atoms';
 import { color } from '@theme/index';
 import { getTimeConversionValue } from '@utils/time';
 import { openProfileModal } from '@utils/modal';
-import { ChatType } from '@constants/index';
+import { ChatType, Size } from '@constants/index';
 import { useSelector } from 'react-redux';
 import { RootState } from '@store/reducers';
 import { createReplyReaction, deleteReplyReaction } from '@socket/emits/reaction';
@@ -97,18 +97,18 @@ const Reply: React.FC<ReplyProps> = ({ reply }) => {
   return (
     <ReplyContainter ref={replyContainterEl} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <ProfileImgWrap onClick={openProfileModal(reply.user)}>
-        <ProfileImg size="large" src={reply.user.profileUri} />
+        <ProfileImg size={Size.LARGE} src={reply.user.profileUri} />
       </ProfileImgWrap>
       <MessageContent>
         <MessageHeader>
           <AuthorWrap onClick={openProfileModal(reply.user)}>
-            <Text fontColor={color.primary} size="small" isBold={true} isHover={true}>
+            <Text fontColor={color.primary} size={Size.SMALL} isBold={true} isHover={true}>
               {reply.user.displayName}
             </Text>
           </AuthorWrap>
           <DateText> {getTimeConversionValue(reply.createdAt)}</DateText>
         </MessageHeader>
-        <Text fontColor={color.primary} size="small">
+        <Text fontColor={color.primary} size={Size.SMALL}>
           {reply.content}
         </Text>
         {createEmojiBox()}

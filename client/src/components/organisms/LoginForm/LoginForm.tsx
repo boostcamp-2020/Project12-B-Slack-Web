@@ -3,6 +3,7 @@ import { Text, LogoImg } from '@components/atoms';
 import { GithubLoginButton } from '@components/molecules';
 import styled from 'styled-components';
 import { color } from '@theme/index';
+import { Size } from '@constants/index';
 
 interface LoginFormProps {}
 
@@ -17,8 +18,8 @@ const StyledLoginForm = styled.div`
 const LoginForm: React.FC<LoginFormProps> = () => {
   return (
     <StyledLoginForm>
-      <LogoImg size="large" />
-      <Text size="big" fontColor={color.primary} isBold={true}>
+      <LogoImg size={Size.LARGE} />
+      <Text size={Size.BIG} fontColor={color.primary} isBold={true}>
         Black에 로그인
       </Text>
       <Text fontColor={color.text_quinary} isBold={true}>
