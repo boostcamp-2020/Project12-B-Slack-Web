@@ -11,6 +11,7 @@ import { reactionsState } from '@store/types/reactions-type';
 import { RootState } from '@store/reducers';
 import { openProfileModal } from '@utils/modal';
 import { createMessageReaction, deleteMessageReaction } from '@socket/emits/reaction';
+import { Size } from '@constants/index';
 import { EmojiBox } from '../EmojiBox/EmojiBox';
 
 interface MessageProps {
@@ -112,18 +113,18 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
   return (
     <MessageContainer ref={messageContainer} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} {...props}>
       <ProfileImgWrap onClick={openProfileModal(user)}>
-        <ProfileImg size="large" src={src} />
+        <ProfileImg size={Size.LARGE} src={src} />
       </ProfileImgWrap>
       <MessageContent>
         <MessageHeader>
           <AuthorWrap onClick={openProfileModal(user)}>
-            <Text fontColor={color.primary} size="small" isBold={true} isHover={true}>
+            <Text fontColor={color.primary} size={Size.SMALL} isBold={true} isHover={true}>
               {author}
             </Text>
           </AuthorWrap>
           <DateText> {getTimeConversionValue(createdAt)}</DateText>
         </MessageHeader>
-        <Text fontColor={color.primary} size="small">
+        <Text fontColor={color.primary} size={Size.SMALL}>
           {content}
         </Text>
         {createEmojiBox()}

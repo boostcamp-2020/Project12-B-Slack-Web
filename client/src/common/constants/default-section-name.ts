@@ -1,7 +1,7 @@
-const DefaultSectionName = {
+export const DefaultSectionName = {
   CHANNELS: 'Channels',
   DIRECT_MESSAGES: 'Direct Messages',
   STARRED: 'Starred'
 };
 
-export { DefaultSectionName };
+export type DefaultSectionNames = typeof DefaultSectionName[keyof typeof DefaultSectionName];

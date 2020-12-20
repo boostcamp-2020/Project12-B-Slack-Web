@@ -13,6 +13,7 @@ import Sort from '@imgs/sort-icon.png';
 import Filter from '@imgs/filter-icon.png';
 import Search from '@imgs/search-icon.png';
 import CloseFilled from '@imgs/close-filled-icon.png';
+import { Size } from '@constants/index';
 import { Icon, IconProps } from './Icon';
 
 export default {
@@ -24,78 +25,78 @@ const Template: Story<IconProps> = (args) => <Icon {...args} />;
 
 export const LogoIcon = Template.bind({});
 LogoIcon.args = {
-  size: 'medium',
+  size: Size.MEDIUM,
   src: Logo
 };
 
 export const ChannelIcon = Template.bind({});
 ChannelIcon.args = {
-  size: 'medium',
+  size: Size.MEDIUM,
   src: Channel
 };
 
 export const LockIcon = Template.bind({});
 LockIcon.args = {
-  size: 'medium',
+  size: Size.MEDIUM,
   src: Lock
 };
 
 export const StarIcon = Template.bind({});
 StarIcon.args = {
-  size: 'medium',
+  size: Size.MEDIUM,
   src: Star
 };
 
 export const BlueStarIcon = Template.bind({});
 BlueStarIcon.args = {
-  size: 'medium',
+  size: Size.MEDIUM,
   src: BlueStar
 };
 
 export const PlusIcon = Template.bind({});
 PlusIcon.args = {
-  size: 'medium',
+  size: Size.MEDIUM,
   src: Plus
 };
 
 export const DetailIcon = Template.bind({});
 DetailIcon.args = {
-  size: 'medium',
+  size: Size.MEDIUM,
   src: Detail
 };
 
 export const UserIcon = Template.bind({});
 UserIcon.args = {
-  size: 'medium',
+  size: Size.MEDIUM,
   src: User
 };
 
 export const OptionIcon = Template.bind({});
 OptionIcon.args = {
-  size: 'medium',
+  size: Size.MEDIUM,
   src: Option
 };
 
 export const SortIcon = Template.bind({});
 SortIcon.args = {
-  size: 'medium',
+  size: Size.MEDIUM,
   src: Sort
 };
 
 export const FilterIcon = Template.bind({});
 FilterIcon.args = {
-  size: 'medium',
+  size: Size.MEDIUM,
   src: Filter
 };
 
 export const SearchIcon = Template.bind({});
 SearchIcon.args = {
-  size: 'medium',
+  size: Size.MEDIUM,
   src: Search
 };
 
 export const CloseFilledIcon = Template.bind({});
 CloseFilledIcon.args = {
-  size: 'medium',
+  size: Size.MEDIUM,
   src: CloseFilled
 };

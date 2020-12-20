@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Icon } from '@components/atoms';
 import SendMessageIcon from '@imgs/send-message-icon.png';
 import { color } from '@theme/index';
+import { Size } from '@constants/index';
 
 interface SendMessageButtonProps {
   isActive: boolean;
@@ -26,7 +27,7 @@ const SendMessageButton: React.FC<SendMessageButtonProps> = ({ isActive, sendMes
   };
   return (
     <SendMessageButtonContainer onClick={handlingClick} isActive={isActive} {...props}>
-      <Icon size="small" src={SendMessageIcon} isHover={false} isSelect={isActive} />
+      <Icon size={Size.SMALL} src={SendMessageIcon} isHover={false} isSelect={isActive} />
     </SendMessageButtonContainer>
   );
 };

@@ -4,6 +4,7 @@ import Plus from '@imgs/plus-icon.png';
 import { Icon } from '@components/atoms';
 import { useDispatch } from 'react-redux';
 import { channelModalOpen } from '@store/actions/modal-action';
+import { Size } from '@constants/index';
 
 interface AddChannelButtonProps {
   sectionName: string;
@@ -26,7 +27,7 @@ const AddChannelButton: React.FC<AddChannelButtonProps> = ({ setHover, sectionNa
   return (
     <>
       <IconWrap onClick={handlingHoverIconClick}>
-        <Icon size="small" src={Plus} isHover={false} />
+        <Icon size={Size.SMALL} src={Plus} isHover={false} />
       </IconWrap>
     </>
   );

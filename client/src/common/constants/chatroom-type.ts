@@ -1,6 +1,6 @@
-const ChatroomType = {
+export const ChatroomType = {
   DM: 'DM',
   Channel: 'Channel'
 };
 
-export { ChatroomType };
+export type ChatroomTypes = typeof ChatroomType[keyof typeof ChatroomType];

@@ -5,6 +5,7 @@ import { color } from '@theme/index';
 import { UserBoxModalSearchBar, UserBoxModalUserItem } from '@components/molecules';
 import { useDispatch, useSelector } from 'react-redux';
 import { userboxModalClose } from '@store/actions/modal-action';
+import { Size } from '@constants/index';
 
 interface UserBoxModalProps {}
 
@@ -40,10 +41,10 @@ const UserBoxModal: React.FC<UserBoxModalProps> = () => {
       {isOpen ? (
         <ModalBox onClick={() => dispatch(userboxModalClose())}>
           <UserBoxModalHeader>
-            <Text fontColor={color.primary} size="medium" isBold>
+            <Text fontColor={color.primary} size={Size.MEDIUM} isBold>
               {`${users.length} members in #${title}`}
             </Text>
-            <Text fontColor={color.text_septenary} size="small" isBold>
+            <Text fontColor={color.text_septenary} size={Size.SMALL} isBold>
               Add People
             </Text>
             <UserBoxModalSearchBar />

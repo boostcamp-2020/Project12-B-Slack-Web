@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Text } from '@components/atoms';
 import { color } from '@theme/index';
+import { Size } from '@constants/index';
 
 interface BrowsePageChannelBodyProps {
   isJoined?: boolean;
@@ -20,15 +21,15 @@ const BrowsePageChannelBody: React.FC<BrowsePageChannelBodyProps> = ({ isJoined,
   return (
     <BrowsePageChannelBodyWrap {...props}>
       {isJoined && (
-        <Text fontColor={color.button_secondary} size="superSmall" isBold={true}>
+        <Text fontColor={color.button_secondary} size={Size.SUPER_SMALL} isBold={true}>
           {`✓ Joined ·`}
         </Text>
       )}
-      <Text fontColor={color.text_tertiary} size="superSmall">
+      <Text fontColor={color.text_tertiary} size={Size.SUPER_SMALL}>
         {`${members} members`}
       </Text>
       {description && (
-        <Text fontColor={color.text_tertiary} size="superSmall">
+        <Text fontColor={color.text_tertiary} size={Size.SUPER_SMALL}>
           {`· ${description}`}
         </Text>
       )}

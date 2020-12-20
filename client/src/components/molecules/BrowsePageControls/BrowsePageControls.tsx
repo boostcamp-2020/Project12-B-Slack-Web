@@ -5,20 +5,11 @@ import { color } from '@theme/index';
 import { WhiteButtonWithIcon } from '@components/molecules';
 import SortIcon from '@imgs/sort-icon.png';
 import FilterIcon from '@imgs/filter-icon.png';
+import { Size, SortMethod, SortMethods } from '@constants/index';
 
 interface BrowsePageControlsProps {
   channelCount: number;
 }
-
-export const SortMethods = {
-  NEWEST_CHANNEL: 'Newest channel',
-  OLDEST_CHANNEL: 'Oldest channel',
-  MOST_MEMBERS: 'Most members',
-  A_TO_Z: 'A to Z',
-  Z_TO_A: 'Z to A'
-};
-
-type SortMethod = typeof SortMethods[keyof typeof SortMethods];
 
 const BrowsePageControlsWrap = styled.div<any>`
   display: flex;
@@ -36,14 +27,14 @@ const BrowsePageControlsButtonWrap = styled.div<any>`
 `;
 
 const BrowsePageControls: React.FC<BrowsePageControlsProps> = ({ channelCount, ...props }) => {
-  const [sortMethod, setSortMethod] = useState<SortMethod>(SortMethods.A_TO_Z);
+  const [sortMethod, setSortMethod] = useState<SortMethods>(SortMethod.A_TO_Z);
 
   const handlingSortButton = () => {};
   const handlingFilterButton = () => {};
 
   return (
     <BrowsePageControlsWrap {...props}>
-      <Text fontColor={color.primary} size="superSmall">
+      <Text fontColor={color.primary} size={Size.SUPER_SMALL}>
         {`${channelCount} channels`}
       </Text>
       <BrowsePageControlsButtonWrap>
