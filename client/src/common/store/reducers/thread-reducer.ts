@@ -27,6 +27,7 @@ const initialState: threadState = {
     chatroom: {},
     messageReactions: []
   },
+  title: '',
   replies: [],
   selectedThreadId: uriParser.getThreadId()
 };
@@ -38,6 +39,7 @@ export default function threadReducer(state = initialState, action: ThreadTypes)
         ...state,
         message: action.payload.message,
         replies: action.payload.replies,
+        title: action.payload.title,
         selectedThreadId: uriParser.getThreadId()
       };
     case INSERT_REPLY:

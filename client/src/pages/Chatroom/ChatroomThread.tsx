@@ -14,7 +14,7 @@ const ChatroomThread: React.FC<ChatroomThreadProps & RouteComponentProps> = ({ .
   return (
     <ChatroomThreadContainer>
       <Chatroom width="65%" {...props} />
-      <Thread />
+      <Thread {...props} />
     </ChatroomThreadContainer>
   );
 };

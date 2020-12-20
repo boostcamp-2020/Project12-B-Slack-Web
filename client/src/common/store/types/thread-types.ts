@@ -36,6 +36,7 @@ export interface repliesState {
 
 export interface threadState {
   message: threadMessageState;
+  title: string;
   replies: Array<replyState>;
   selectedThreadId: number | null;
 }
