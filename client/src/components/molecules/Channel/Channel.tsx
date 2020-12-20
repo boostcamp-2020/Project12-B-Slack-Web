@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import { color } from '@theme/index';
 import { useDispatch } from 'react-redux';
 import { pickChannel } from '@store/actions/chatroom-action';
+import { Size } from '@constants/index';
 
 interface ChannelProps {
   children: React.ReactChild;
@@ -38,9 +39,9 @@ const Channel: React.FC<ChannelProps> = ({ children, chatroomId, isPrivate = fal
 
   return (
     <ChannelContainter isSelect={isSelect} {...props} onClick={handlingClick}>
-      <Icon size="small" isSelect={isSelect} src={isPrivate ? LockIcon : ChannelIcon} isHover={false} />
+      <Icon size={Size.SMALL} isSelect={isSelect} src={isPrivate ? LockIcon : ChannelIcon} isHover={false} />
       <TextWrap>
-        <Text size="small" isBold={false} isSelect={isSelect} children={children}></Text>
+        <Text size={Size.SMALL} isBold={false} isSelect={isSelect} children={children}></Text>
       </TextWrap>
     </ChannelContainter>
   );

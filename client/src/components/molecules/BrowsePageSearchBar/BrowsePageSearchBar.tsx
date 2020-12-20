@@ -4,7 +4,7 @@ import SearchIcon from '@imgs/search-icon.png';
 import CloseFilledIcon from '@imgs/close-filled-icon.png';
 import { Icon, Text } from '@components/atoms';
 import { color } from '@theme/index';
-import { KeyCode } from '@constants/index';
+import { KeyCode, Size } from '@constants/index';
 
 interface BrowsePageSearchBarProps {}
 
@@ -59,7 +59,7 @@ const BrowsePageSearchBar: React.FC<BrowsePageSearchBarProps> = ({ ...props }) =
   return (
     <BrowsePageSearchBarWrap {...props}>
       <SearchIconWrap>
-        <Icon size="medium" src={SearchIcon} isHover={false} />
+        <Icon size={Size.MEDIUM} src={SearchIcon} isHover={false} />
       </SearchIconWrap>
       <StyledInput
         ref={searchInput}
@@ -70,12 +70,12 @@ const BrowsePageSearchBar: React.FC<BrowsePageSearchBarProps> = ({ ...props }) =
       {searchWord && (
         <>
           <InputHintWrap>
-            <Text fontColor={color.primary} size="superSmall" isBold={true} width="max-content">
+            <Text fontColor={color.primary} size={Size.SUPER_SMALL} isBold={true} width="max-content">
               Press enter to search
             </Text>
           </InputHintWrap>
           <CloseFilledIconWrap onClick={clearInputValue}>
-            <Icon size="medium" src={CloseFilledIcon} isHover={false} />
+            <Icon size={Size.MEDIUM} src={CloseFilledIcon} isHover={false} />
           </CloseFilledIconWrap>
         </>
       )}

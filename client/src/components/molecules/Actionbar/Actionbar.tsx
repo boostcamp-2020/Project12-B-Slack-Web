@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { loadThread } from '@store/actions/thread-action';
 import { emojiPickerOpen } from '@store/actions/modal-action';
-import { ChatType } from '@constants/index';
+import { ChatType, Size } from '@constants/index';
 
 interface ActionbarProps {
   chatId: number;
@@ -42,9 +42,9 @@ const Actionbar: React.FC<ActionbarProps> = ({ actionbarType = ChatType.Message,
   };
   return (
     <ActionbarContainer {...props}>
-      <HoverIcon size="medium" onClick={openEmojiPicker} src={EmojiIcon} />
-      {actionbarType === ChatType.Message && <HoverIcon size="medium" onClick={openThread} src={ThreadIcon} />}
-      <HoverIcon size="medium" src={OptionIcon} />
+      <HoverIcon size={Size.MEDIUM} onClick={openEmojiPicker} src={EmojiIcon} />
+      {actionbarType === ChatType.Message && <HoverIcon size={Size.MEDIUM} onClick={openThread} src={ThreadIcon} />}
+      <HoverIcon size={Size.MEDIUM} src={OptionIcon} />
     </ActionbarContainer>
   );
 };
