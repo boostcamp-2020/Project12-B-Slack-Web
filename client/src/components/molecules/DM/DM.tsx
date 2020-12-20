@@ -25,6 +25,7 @@ const DMContainter = styled.div<any>`
 
 const TextWrap = styled.div<any>`
   margin-left: 1rem;
+  width: -webkit-fill-available;
 `;
 
 const DM: React.FC<DMProps> = ({ children, src, chatroomId, isSelect = false, ...props }) => {
@@ -40,7 +41,7 @@ const DM: React.FC<DMProps> = ({ children, src, chatroomId, isSelect = false, ..
     <DMContainter isSelect={isSelect} onClick={handlingClick} {...props}>
       <ActiveProfileImg src={src} />
       <TextWrap>
-        <Text size={Size.SMALL} isBold={false} isSelect={isSelect} children={children}></Text>
+        <Text size={Size.SMALL} isBold={false} isSelect={isSelect} children={children} isEllipsis></Text>
       </TextWrap>
     </DMContainter>
   );

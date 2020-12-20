@@ -23,8 +23,8 @@ const IconContainter = styled.div<IconProps>`
 `;
 
 const Img = styled.img<IconProps>`
-  width: 100%;
-  height: 100%;
+  width: inherit;
+  height: inherit;
   ${({ isHover }) => (isHover ? '&:hover { opacity: .5; };' : '')}
   ${({ isSelect }) => (isSelect ? 'filter: brightness(1.25);' : '')}
 `;

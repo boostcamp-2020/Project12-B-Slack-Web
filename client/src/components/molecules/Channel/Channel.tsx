@@ -8,6 +8,7 @@ import { color } from '@theme/index';
 import { useDispatch } from 'react-redux';
 import { pickChannel } from '@store/actions/chatroom-action';
 import { Size } from '@constants/index';
+import { getThreadId } from '@utils/uriParser';
 
 interface ChannelProps {
   children: React.ReactChild;
@@ -26,6 +27,7 @@ const ChannelContainter = styled.div<any>`
 
 const TextWrap = styled.div<any>`
   margin-left: 1rem;
+  width: -webkit-fill-available;
 `;
 
 const Channel: React.FC<ChannelProps> = ({ children, chatroomId, isPrivate = false, isSelect = false, ...props }) => {
@@ -33,7 +35,9 @@ const Channel: React.FC<ChannelProps> = ({ children, chatroomId, isPrivate = fal
   const dispatch = useDispatch();
 
   const handlingClick = () => {
-    if (window.location.pathname !== `/client/${chatroomId}`) history.push(`/client/${chatroomId}`);
+    const threadId = getThreadId();
+    const pathname = `/client/${chatroomId}${threadId && `/thread/${threadId}`}`;
+    if (window.location.pathname !== pathname) history.push(pathname);
     dispatch(pickChannel({ selectedChatroomId: chatroomId }));
   };
 
@@ -41,7 +45,7 @@ const Channel: React.FC<ChannelProps> = ({ children, chatroomId, isPrivate = fal
     <ChannelContainter isSelect={isSelect} {...props} onClick={handlingClick}>
       <Icon size={Size.SMALL} isSelect={isSelect} src={isPrivate ? LockIcon : ChannelIcon} isHover={false} />
       <TextWrap>
-        <Text size={Size.SMALL} isBold={false} isSelect={isSelect} children={children}></Text>
+        <Text size={Size.SMALL} isBold={false} isSelect={isSelect} children={children} isEllipsis></Text>
       </TextWrap>
     </ChannelContainter>
   );

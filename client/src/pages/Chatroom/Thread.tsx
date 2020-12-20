@@ -2,14 +2,15 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { color } from '@theme/index';
 import { ThreadHeader, ThreadBody } from '@components/organisms';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loadThread } from '@store/actions/thread-action';
 import { getThreadId } from '@utils/uriParser';
 
 interface ThreadProps {}
 
 const ThreadContainer = styled.div<any>`
-  width: 40rem;
+  width: 35%;
+  min-width: 25rem;
   height: 100%;
   border-left: 1px solid ${color.border_primary};
 `;

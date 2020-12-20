@@ -22,7 +22,7 @@ const ChatroomBodyContainter = styled.div<any>`
 
 const InputMessageWrap = styled.div<any>`
   padding-top: 1rem;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 const InputBoxWrap = styled.div<any>`
