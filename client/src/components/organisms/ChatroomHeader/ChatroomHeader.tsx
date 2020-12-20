@@ -6,6 +6,7 @@ import BlueStar from '@imgs/star-blue.png';
 import { color } from '@theme/index';
 import userIcon from '@imgs/user-icon.png';
 import DetailIcon from '@imgs/detail-icon.png';
+import { Size } from '@constants/index';
 
 interface ChatroomHeaderProps {
   title: string;
@@ -43,18 +44,18 @@ const ChatroomHeader: React.FC<ChatroomHeaderProps> = ({ title, users, ...props 
   return (
     <ChatroomHeaderContainter {...props}>
       <TextContainer>
-        <Text size="small" fontColor={color.primary} isBold={true}>{`# ${title}`}</Text>
+        <Text size={Size.SMALL} fontColor={color.primary} isBold={true}>{`# ${title}`}</Text>
         <IconWrap>
-          <Icon size="small" src={BlueStar} isHover={false} />
+          <Icon size={Size.SMALL} src={BlueStar} isHover={false} />
         </IconWrap>
       </TextContainer>
       <MenuContainer>
         <UserBox member={users} />
         <IconWrap>
-          <HoverIcon size="medium" src={userIcon} />
+          <HoverIcon size={Size.MEDIUM} src={userIcon} />
         </IconWrap>
         <IconWrap>
-          <HoverIcon size="medium" src={DetailIcon} />
+          <HoverIcon size={Size.MEDIUM} src={DetailIcon} />
         </IconWrap>
       </MenuContainer>
     </ChatroomHeaderContainter>

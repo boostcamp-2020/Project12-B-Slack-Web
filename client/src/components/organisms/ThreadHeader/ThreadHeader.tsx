@@ -7,6 +7,7 @@ import CloseIcon from '@imgs/close-icon.png';
 import { useHistory } from 'react-router-dom';
 import { uriParser } from '@utils/index';
 import { useSelector } from 'react-redux';
+import { Size } from '@constants/index';
 
 interface ThreadHeaderProps {}
 
@@ -31,12 +32,12 @@ const ThreadHeader: React.FC<ThreadHeaderProps> = ({ ...props }) => {
   return (
     <ThreadHeaderContainter {...props}>
       <TextContainer>
-        <Text fontColor={color.primary} size="small" isBold>
+        <Text fontColor={color.primary} size={Size.SMALL} isBold>
           Thread
         </Text>
-        <Text size="small">{`#${title}`}</Text>
+        <Text size={Size.SMALL}>{`#${title}`}</Text>
       </TextContainer>
-      <HoverIcon src={CloseIcon} onClick={handlingCLoseButton} size="medium" />
+      <HoverIcon src={CloseIcon} onClick={handlingCLoseButton} size={Size.MEDIUM} />
     </ThreadHeaderContainter>
   );
 };
