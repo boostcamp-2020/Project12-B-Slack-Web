@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { loadNextMessages } from '@store/actions/chatroom-action';
 import { ScrollEventType } from '@constants/index';
 import { moveScrollToTheBottom } from '@utils/scroll';
+import { THROTTLETIME } from '@constants/scroll-event-type';
+import _ from 'lodash';
 
 interface ChatroomBodyProps {
   title: string;
@@ -62,7 +64,7 @@ const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId
 
   useEffect(() => {
     if (eventType !== ScrollEventType.LOADING && eventType !== ScrollEventType.COMPLETELOADING) moveScrollToTheBottom(MessageBodyEl);
-    window.addEventListener('scroll', getCurrentScroll);
+    window.addEventListener('scroll', _.throttle(getCurrentScroll, THROTTLETIME));
     return () => window.removeEventListener('scroll', getCurrentScroll);
   });
 

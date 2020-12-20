@@ -5,4 +5,6 @@ export const ScrollEventType = {
   INPUTTEXT: 'Input Text'
 };
 
+export const THROTTLETIME = 50;
+
 export type ScrollEventTypes = typeof ScrollEventType[keyof typeof ScrollEventType];
