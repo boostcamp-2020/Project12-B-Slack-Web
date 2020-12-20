@@ -13,6 +13,7 @@ import {
   UPDATE_THREAD,
   ADD_MESSAGE_REACTION,
   DELETE_MESSAGE_REACTION,
+  UPDATE_CHATROOM,
   insertMessageState
 } from '../types/chatroom-types';
 
@@ -29,3 +30,4 @@ export const loadNextMessages = (payload: any) => ({ type: LOAD_NEXT_MESSAGES_AS
 export const updateThread = (payload: any) => ({ type: UPDATE_THREAD, payload });
 export const createMessageReaction = (payload: socketMessageReactionState) => ({ type: ADD_MESSAGE_REACTION, payload });
 export const deleteMessageReaction = (payload: socketMessageReactionState) => ({ type: DELETE_MESSAGE_REACTION, payload });
+export const updateChatroom = (payload: any) => ({ type: UPDATE_CHATROOM, payload });

@@ -20,7 +20,8 @@ import {
   LOAD_NEXT_MESSAGES,
   UPDATE_THREAD,
   ADD_MESSAGE_REACTION,
-  DELETE_MESSAGE_REACTION
+  DELETE_MESSAGE_REACTION,
+  UPDATE_CHATROOM
 } from '../types/chatroom-types';
 
 const initialState: chatroomState = {
@@ -112,7 +113,7 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
         selectedChatroom: bSelectedChatroom ? action.payload : state.selectedChatroom
       };
     }
-    case RESET_SELECTED_CHANNEL:
+    case RESET_SELECTED_CHANNEL: {
       const selectedChatroom = {
         chatType: '',
         description: '',
@@ -128,6 +129,7 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
         selectedChatroomId: null,
         messages: []
       };
+    }
     case LOAD_NEXT_MESSAGES:
       const nextMessages = action.payload.messages;
       nextMessages.push(...state.messages);
@@ -196,6 +198,19 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
         });
       }
       return { ...state, messages: deleteReactionMessages };
+    case UPDATE_CHATROOM: {
+      const { chatroomId, users, userCount } = action.payload;
+      const { selectedChatroomId, channels, selectedChatroom } = state;
+      const bSelectedChatroom = chatroomId === selectedChatroomId;
+
+      const NewChannels = channels.map((channel: any) => (channel.chatroomId === chatroomId ? { ...channel, users, userCount } : channel));
+
+      return {
+        ...state,
+        channels: NewChannels,
+        selectedChatroom: bSelectedChatroom ? { ...selectedChatroom, users, userCount } : selectedChatroom
+      };
+    }
     default:
       return state;
   }
