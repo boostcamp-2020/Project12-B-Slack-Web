@@ -1,4 +1,5 @@
 import { socketMessageReactionState } from '@socket/types/reaction-types';
+import { userState } from '@store/types/user-types';
 import { messageState, messagesState } from './message-types';
 
 export const LOAD = 'LOAD';
@@ -23,12 +24,6 @@ export const UPDATE_THREAD = 'UPDATE_THREAD';
 export const ADD_MESSAGE_REACTION = 'ADD_MESSAGE_REACTION';
 export const DELETE_MESSAGE_REACTION = 'DELETE_MESSAGE_REACTION';
 export const UPDATE_CHATROOM = `UPDATE_CHATROOM`;
-
-interface user {
-  userId: number;
-  profileUri: string;
-  displayName: string;
-}
 
 export interface selectedChatroomState {
   chatType: string;
@@ -106,14 +101,14 @@ export interface leaveChatroomState {
   title: string;
   topic: string;
   userCount: number;
-  users: Array<user>;
+  users: Array<userState>;
   userId: number;
 }
 
 export interface updateChatroomState {
   chatroomId: number;
   userCount: number;
-  users: Array<user>;
+  users: Array<userState>;
 }
 
 export interface insertMessageState extends messageState {
