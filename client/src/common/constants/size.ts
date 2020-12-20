@@ -1,4 +1,5 @@
 export const Size = {
+  BIG: 'big',
   LARGE: 'large',
   MEDIUM: 'medium',
   SMALL: 'small',
