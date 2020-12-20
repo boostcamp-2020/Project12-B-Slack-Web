@@ -26,6 +26,7 @@ const ChannelContainter = styled.div<any>`
 
 const TextWrap = styled.div<any>`
   margin-left: 1rem;
+  width: -webkit-fill-available;
 `;
 
 const Channel: React.FC<ChannelProps> = ({ children, chatroomId, isPrivate = false, isSelect = false, ...props }) => {
@@ -43,7 +44,7 @@ const Channel: React.FC<ChannelProps> = ({ children, chatroomId, isPrivate = fal
     <ChannelContainter isSelect={isSelect} {...props} onClick={handlingClick}>
       <Icon size="small" isSelect={isSelect} src={isPrivate ? LockIcon : ChannelIcon} isHover={false} />
       <TextWrap>
-        <Text size="small" isBold={false} isSelect={isSelect} children={children}></Text>
+        <Text size="small" isBold={false} isSelect={isSelect} children={children} isEllipsis></Text>
       </TextWrap>
     </ChannelContainter>
   );

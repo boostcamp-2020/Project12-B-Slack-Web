@@ -11,6 +11,7 @@ interface TextProps {
   isTitle?: boolean;
   width?: string;
   isHover?: boolean;
+  isEllipsis?: boolean;
 }
 
 const StyledText = styled.p<any>`
@@ -26,6 +27,7 @@ const StyledText = styled.p<any>`
   margin: 0;
   width: ${(props) => props.width};
   ${(props) => props.isHover && `&:hover { text-decoration: underline }`}
+  ${(props) => props.isEllipsis && `overflow: hidden; text-overflow: ellipsis; white-space: nowrap;`}
 `;
 
 const Text: React.FC<TextProps> = ({
@@ -37,10 +39,20 @@ const Text: React.FC<TextProps> = ({
   isSelect = false,
   width = 'auto',
   isHover = false,
+  isEllipsis = false,
   ...props
 }) => {
   return (
-    <StyledText size={size} isTitle={isTitle} color={fontColor} isBold={isBold} isSelect={isSelect} width={width} isHover={isHover} {...props}>
+    <StyledText
+      size={size}
+      isTitle={isTitle}
+      color={fontColor}
+      isBold={isBold}
+      isSelect={isSelect}
+      width={width}
+      isHover={isHover}
+      isEllipsis={isEllipsis}
+      {...props}>
       {children}
     </StyledText>
   );

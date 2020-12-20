@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { DefaultSectionName } from '@constants/index';
 import { AddChannelButton } from '../AddChannelButton/AddChannelButton';
 
 interface SectionProps {
@@ -43,7 +44,7 @@ const Section: React.FC<SectionProps> = ({ children, sectionName = 'Section', is
 
   return (
     <SectionWrap>
-      {isHover && (
+      {isHover && DefaultSectionName.CHANNELS === sectionName && (
         <AddChannelButtonWrap onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
           <AddChannelButton setHover={setHover} sectionName={sectionName} />
         </AddChannelButtonWrap>

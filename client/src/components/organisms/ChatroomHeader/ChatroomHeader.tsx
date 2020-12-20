@@ -22,10 +22,14 @@ const ChatroomHeaderContainter = styled.div<any>`
   z-index: 2;
 `;
 
-const TextContainer = styled.div<any>`
+const TitleContainer = styled.div<any>`
   display: flex;
   align-items: baseline;
   padding: 0rem 1rem;
+`;
+
+const TextWrap = styled.div<any>`
+  display: grid;
 `;
 
 const IconWrap = styled.div<any>`
@@ -41,12 +45,14 @@ const MenuContainer = styled.div<any>`
 const ChatroomHeader: React.FC<ChatroomHeaderProps> = ({ title, users, ...props }) => {
   return (
     <ChatroomHeaderContainter {...props}>
-      <TextContainer>
-        <Text size="small" fontColor={color.primary} isBold={true}>{`# ${title}`}</Text>
+      <TitleContainer>
+        <TextWrap>
+          <Text size="small" fontColor={color.primary} isBold={true} isEllipsis>{`# ${title}`}</Text>
+        </TextWrap>
         <IconWrap>
           <Icon size="small" src={BlueStar} isHover={false} />
         </IconWrap>
-      </TextContainer>
+      </TitleContainer>
       <MenuContainer>
         <UserBox member={users} />
         <IconWrap>
