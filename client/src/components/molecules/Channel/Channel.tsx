@@ -35,7 +35,7 @@ const Channel: React.FC<ChannelProps> = ({ children, chatroomId, isPrivate = fal
 
   const handlingClick = () => {
     const threadId = getThreadId();
-    const pathname = `/client/${chatroomId}${threadId && `/thread/${threadId}`}`;
+    const pathname = threadId ? `/client/${chatroomId}/thread/${threadId}` : `/client/${chatroomId}`;
     if (window.location.pathname !== pathname) history.push(pathname);
     dispatch(pickChannel({ selectedChatroomId: chatroomId }));
   };
