@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ProfileImg, Text } from '@components/atoms';
 import { color } from '@theme/index';
 import { timeAgo } from '@utils/time';
+import { Size } from '@constants/index';
 
 interface MessageReplyBarProps {
   profileImgs: Array<string>;
@@ -13,7 +14,6 @@ interface MessageReplyBarProps {
 
 const MessageReplyBarWrap = styled.div<any>`
   display: flex;
-  width: 40rem;
   margin-top: 0.2rem;
   padding: 0.2rem;
   border-radius: 0.3rem;
@@ -48,11 +48,11 @@ const MessageReplyBar: React.FC<MessageReplyBarProps> = ({ profileImgs, replyCou
     <MessageReplyBarWrap onClick={onClick} {...props}>
       {createProfileImg}
       <ReplyCountWrap>
-        <Text fontColor={color.text_septenary} size="superSmall" isBold={true}>
+        <Text fontColor={color.text_septenary} size={Size.SUPER_SMALL} isBold={true}>
           {`${replyCount} ${replyCount === 1 ? 'reply' : 'replies'}`}
         </Text>
       </ReplyCountWrap>
-      <Text fontColor={color.primary} size="superSmall" isBold={false}>
+      <Text fontColor={color.primary} size={Size.SUPER_SMALL} isBold={false}>
         {timeAgo(lastRepliedTime)}
       </Text>
     </MessageReplyBarWrap>

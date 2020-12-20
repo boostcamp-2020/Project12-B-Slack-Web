@@ -4,7 +4,7 @@ import { Input } from '@components/atoms';
 import { color } from '@theme/index';
 import { SendMessageButton } from '@components/molecules';
 import { createReply } from '@socket/emits/thread';
-import { ScrollEventType } from '@constants/index';
+import { ScrollEventType, ChatType } from '@constants/index';
 
 interface InputReplyProps {
   isThread?: boolean;
@@ -44,7 +44,7 @@ const InputReply: React.FC<InputReplyProps> = ({ children, messageId, isThread, 
   return (
     <InputReplyContainer {...props}>
       <InputWrap>
-        <Input isThread={isThread} content={content} keyPressEnter={sendReply} setContent={setContent} />
+        <Input id={ChatType.Reply} isThread={isThread} content={content} keyPressEnter={sendReply} setContent={setContent} />
       </InputWrap>
       <ButtonWrap>
         <SendMessageButton sendMessage={sendReply} isActive />

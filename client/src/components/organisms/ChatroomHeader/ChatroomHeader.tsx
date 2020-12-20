@@ -6,6 +6,7 @@ import BlueStar from '@imgs/star-blue.png';
 import { color } from '@theme/index';
 import userIcon from '@imgs/user-icon.png';
 import DetailIcon from '@imgs/detail-icon.png';
+import { Size } from '@constants/index';
 
 interface ChatroomHeaderProps {
   title: string;
@@ -17,16 +18,19 @@ const ChatroomHeaderContainter = styled.div<any>`
   justify-content: space-between;
   align-items: center;
   height: 10%;
-  width: 100%;
   box-shadow: 0 3px 2px -2px ${color.border_primary};
   background-color: ${color.tertiary};
   z-index: 2;
 `;
 
-const TextContainer = styled.div<any>`
+const TitleContainer = styled.div<any>`
   display: flex;
   align-items: baseline;
   padding: 0rem 1rem;
+`;
+
+const TextWrap = styled.div<any>`
+  display: grid;
 `;
 
 const IconWrap = styled.div<any>`
@@ -42,19 +46,21 @@ const MenuContainer = styled.div<any>`
 const ChatroomHeader: React.FC<ChatroomHeaderProps> = ({ title, users, ...props }) => {
   return (
     <ChatroomHeaderContainter {...props}>
-      <TextContainer>
-        <Text size="small" fontColor={color.primary} isBold={true}>{`# ${title}`}</Text>
+      <TitleContainer>
+        <TextWrap>
+          <Text size={Size.SMALL} fontColor={color.primary} isBold={true} isEllipsis>{`# ${title}`}</Text>
+        </TextWrap>
         <IconWrap>
-          <Icon size="small" src={BlueStar} isHover={false} />
+          <Icon size={Size.SMALL} src={BlueStar} isHover={false} />
         </IconWrap>
-      </TextContainer>
+      </TitleContainer>
       <MenuContainer>
         <UserBox member={users} />
         <IconWrap>
-          <HoverIcon size="medium" src={userIcon} />
+          <HoverIcon size={Size.MEDIUM} src={userIcon} />
         </IconWrap>
         <IconWrap>
-          <HoverIcon size="medium" src={DetailIcon} />
+          <HoverIcon size={Size.MEDIUM} src={DetailIcon} />
         </IconWrap>
       </MenuContainer>
     </ChatroomHeaderContainter>

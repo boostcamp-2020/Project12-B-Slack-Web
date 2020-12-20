@@ -4,6 +4,7 @@ import { KeyCode } from '@constants/index';
 
 interface InputProps {
   title?: string;
+  id: string;
   isThread?: boolean;
   content: string;
   setContent: any;
@@ -15,9 +16,18 @@ const StyledInput = styled.input<any>`
   font-size: 1rem;
   border: none;
   outline: none;
+  :placeholder-shown {
+    text-overflow: ellipsis;
+  }
 `;
 
-const Input: React.FC<InputProps> = ({ title, isThread = false, content, setContent, keyPressEnter, ...props }) => {
+const Label = styled.label`
+  position: absolute;
+  font-size: 0;
+  color: white;
+`;
+
+const Input: React.FC<InputProps> = ({ id, title, isThread = false, content, setContent, keyPressEnter, ...props }) => {
   const handlingKeyPressEnter = (e: any) => {
     if (e.charCode === KeyCode.ENTER) keyPressEnter(e.target.value);
   };
@@ -25,14 +35,17 @@ const Input: React.FC<InputProps> = ({ title, isThread = false, content, setCont
     setContent(e.target.value);
   };
   return (
-    <StyledInput
-      id="input"
-      placeholder={isThread ? 'Reply...' : `Send a message to #${title}`}
-      value={content}
-      onKeyPress={handlingKeyPressEnter}
-      onChange={handlingChange}
-      {...props}
-    />
+    <>
+      <StyledInput
+        id={id}
+        placeholder={isThread ? 'Reply...' : `Send a message to #${title}`}
+        value={content}
+        onKeyPress={handlingKeyPressEnter}
+        onChange={handlingChange}
+        {...props}
+      />
+      <Label htmlFor={id}>hidden Label</Label>
+    </>
   );
 };
 

@@ -1,30 +1,31 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { channelModalClose, emojiPickerClose, profileModalClose } from '@store/actions/modal-action';
+import socket from '@socket/socketIO';
 import { useDispatch } from 'react-redux';
+import { channelModalClose, emojiPickerClose, profileModalClose } from '@store/actions/modal-action';
 import {
   insertMessage,
   updateThread,
   createMessageReaction,
   deleteMessageReaction,
   joinDM,
-  leaveChatroom
+  leaveChatroom,
+  updateChatroom
 } from '@store/actions/chatroom-action';
 import { createReplyReaction, deleteReplyReaction, InsertReply } from '@store/actions/thread-action';
-import socket from '@socket/socketIO';
 import { CREATE_MESSAGE } from '@socket/types/message-types';
 import { CREATE_REPLY } from '@socket/types/thread-types';
-
 import {
   socketMessageReactionState,
   CREATE_MESSAGE_REACTION,
   DELETE_MESSAGE_REACTION,
   CREATE_REPLY_REACTION,
-  socketReplyReactionState,
-  DELETE_REPLY_REACTION
+  DELETE_REPLY_REACTION,
+  socketReplyReactionState
 } from '@socket/types/reaction-types';
-import { JOIN_DM, LEAVE_CHANNEL } from '@socket/types/chatroom-types';
+import { JOIN_DM, LEAVE_CHANNEL, JOIN_CHATROOM } from '@socket/types/chatroom-types';
 import { leaveChannel } from '@store/actions/channel-action';
+import { updateChatroomState } from '@store/types/chatroom-types';
 
 const StyledBody = styled.div`
   position: relative;
@@ -62,6 +63,9 @@ const Body: React.FC<any> = ({ children }) => {
       const { chatroomId } = chatroom;
       dispatch(leaveChannel({ chatroomId }));
       dispatch(leaveChatroom({ ...chatroom }));
+    });
+    socket.on(JOIN_CHATROOM, (chatroom: updateChatroomState) => {
+      dispatch(updateChatroom(chatroom));
     });
   }, []);
   const handlingLeave = () => {

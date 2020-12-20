@@ -6,6 +6,8 @@ import { RootState } from '@store/reducers';
 import { moveScrollToTheBottom } from '@utils/scroll';
 import { ScrollEventType } from '@constants/index';
 import { loadNextReplies } from '@store/actions/thread-action';
+import _ from 'lodash';
+import { THROTTLETIME } from '@constants/scroll-event-type';
 import { ThreadReplies } from './ThreadReplies';
 
 interface ThreadBodyProps {
@@ -55,7 +57,7 @@ const ThreadBody: React.FC<ThreadBodyProps> = ({ messageId }) => {
   }, [message]);
 
   return (
-    <ThreadBodyContainter ref={ThreadBodyEl} onScroll={onScrollHandler}>
+    <ThreadBodyContainter ref={ThreadBodyEl} onScroll={_.throttle(onScrollHandler, THROTTLETIME)}>
       <ReplyTitle>
         <Reply reply={message} />
       </ReplyTitle>

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { initSidebarAsync } from '@store/actions/chatroom-action';
 import { RootState } from '@store/reducers';
 import { DefaultSectionName } from '@constants/default-section-name';
+import { Size } from '@constants/index';
 
 interface SidebarProps {
   children?: React.ReactNode;
@@ -15,13 +16,14 @@ interface SidebarProps {
 const StyledSidebar = styled.div<any>`
   background-color: ${color.sidebar_bg};
   height: 100%;
-  width: 25rem;
+  width: 18rem;
 `;
 
 const Workspace = styled.div<any>`
   display: flex;
   align-items: center;
   height: 10%;
+  width: 18rem;
   padding-left: 1rem;
   box-shadow: 0 1.5px 2px -2px ${color.border_primary};
 `;
@@ -76,7 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, ...props }) => {
   return (
     <StyledSidebar {...props}>
       <Workspace>
-        <Text isBold={true} size="small" isTitle={true}>
+        <Text isBold={true} size={Size.SMALL} isTitle={true}>
           부스트캠프 2020 멤버십
         </Text>
       </Workspace>

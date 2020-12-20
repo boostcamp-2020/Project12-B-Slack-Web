@@ -6,7 +6,8 @@ function* loadThreadSaga(action: any) {
   try {
     const { messageId } = action.payload;
     const payload = yield call(API.getThread, messageId);
-    yield put({ type: LOAD_THREAD, payload });
+    const { title } = yield call(API.getChatroom, payload.message.chatroom.chatroomId);
+    yield put({ type: LOAD_THREAD, payload: { ...payload, title } });
   } catch (e) {
     console.log(e);
   }

@@ -5,6 +5,7 @@ import { color } from '@theme/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { createModalClose } from '@store/actions/modal-action';
 import { addChannel } from '@store/actions/chatroom-action';
+import { Size } from '@constants/index';
 
 interface CreateChannelModalProps {}
 
@@ -74,17 +75,17 @@ const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ ...props }) => 
         <ModalBox onClick={() => dispatch(createModalClose())} {...props}>
           <StyledCreateChannelModal>
             <NodeWrap>
-              <Text fontColor={color.primary} isBold size="large">
+              <Text fontColor={color.primary} isBold size={Size.LARGE}>
                 Create a Channel
               </Text>
             </NodeWrap>
             <NodeWrap>
-              <Text fontColor={color.text_tertiary} size="small">
+              <Text fontColor={color.text_tertiary} size={Size.SMALL}>
                 Channels are where your team communicates. They’re best when organized around a topic — #marketing, for example
               </Text>
             </NodeWrap>
             <NodeWrap>
-              <Text fontColor={color.primary} size="small" isBold>
+              <Text fontColor={color.primary} size={Size.SMALL} isBold>
                 Name
               </Text>
               <InputWrap>
@@ -92,19 +93,19 @@ const CreateChannelModal: React.FC<CreateChannelModalProps> = ({ ...props }) => 
               </InputWrap>
             </NodeWrap>
             <NodeWrap>
-              <Text fontColor={color.primary} size="small" isBold>
+              <Text fontColor={color.primary} size={Size.SMALL} isBold>
                 Description
               </Text>
               <InputWrap>
                 <HoverInput onChange={onChangeDescription} />
               </InputWrap>
-              <Text fontColor={color.text_tertiary} size="small">
+              <Text fontColor={color.text_tertiary} size={Size.SMALL}>
                 What’s this channel about?
               </Text>
             </NodeWrap>
             <NodeWrap>
               <CheckboxContainer>
-                <Text fontColor={color.primary} size="small" isBold>
+                <Text fontColor={color.primary} size={Size.SMALL} isBold>
                   Make private
                 </Text>
                 <Checkbox type="checkbox" onChange={onChangeIsPrivate} />

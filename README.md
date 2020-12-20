@@ -30,8 +30,11 @@
   <img src='https://img.shields.io/static/v1?label=MySQL&message=5.7.0&color=lightgrey'/>
   <img src='https://img.shields.io/static/v1?label=Jest&message=26.6.1&color=important'/>
 </p>
+<br />
 
-## :house: [HomePage](http://black-boostcamp.kro.kr)
+## :house: HomePage
+
+Black 프로젝트가 궁금하다면 [홈페이지](http://black-boostcamp.kro.kr)를 방문해주세요 :wink:
 
 <br />
 
@@ -43,28 +46,15 @@
 
 ## :gear: 주요 기능
 
-### :speech_balloon: Channel / DM
+![image](https://user-images.githubusercontent.com/33643752/102715963-f9db2a00-431b-11eb-83a1-c55ac3887fa9.png)
 
-- 채널 목록 조회
-- 채널 생성 (Private / Public)
-- 채널에 참여중인 사용자 조회
-- DM 생성
+<br />
 
-### :family: User
+### :link: How to start
 
-- GitHub 로그인
-- 프로필 확인
-- 로그아웃
+- [Client](https://github.com/boostcamp-2020/Project12-B-Slack-Web/blob/develop/client/README.md)
 
-### :email: Message
-
-- 실시간 메시지 보내기
-- 실시간 메시지 리액션 추가
-
-### :incoming_envelope: Thread
-
-- 실시간 댓글 추가
-- 실시간 댓글 리액션 추가
+- [Server](https://github.com/boostcamp-2020/Project12-B-Slack-Web/blob/develop/server/README.md)
 
 <br />
 

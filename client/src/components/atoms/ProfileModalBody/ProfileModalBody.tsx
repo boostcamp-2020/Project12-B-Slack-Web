@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { color } from '@theme/index';
 import { ActiveLight, Text } from '@components/atoms';
 import { getTimeConversionValue } from '@utils/time';
+import { Size } from '@constants/index';
 
 interface ProfileModalBodyProps {
   displayName: string;
@@ -41,16 +42,16 @@ const ProfileModalBody: React.FC<ProfileModalBodyProps> = ({ displayName, ...pro
   return (
     <ProfileModalBodyContainter {...props}>
       <DisplayNameWrap>
-        <Text fontColor={color.primary} size="medium" isBold={true}>
+        <Text fontColor={color.primary} size={Size.MEDIUM} isBold={true}>
           {displayName}
         </Text>
-        <ActiveLight size="medium" />
+        <ActiveLight size={Size.MEDIUM} />
       </DisplayNameWrap>
       <LocalTimeWrap>
-        <Text fontColor={color.text_tertiary} size="superSmall">
+        <Text fontColor={color.text_tertiary} size={Size.SUPER_SMALL}>
           Local time
         </Text>
-        <Text fontColor={color.primary} size="small">
+        <Text fontColor={color.primary} size={Size.SMALL}>
           {localTime}
         </Text>
       </LocalTimeWrap>

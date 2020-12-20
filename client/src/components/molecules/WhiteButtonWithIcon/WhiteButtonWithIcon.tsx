@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button, Text, Icon } from '@components/atoms';
 import { color } from '@theme/index';
+import { Size } from '@constants/index';
 
 interface WhiteButtonWithIconProps {
   children: React.ReactChild;
@@ -27,8 +28,8 @@ const WhiteButtonWithIcon: React.FC<WhiteButtonWithIconProps> = ({ children, ico
         fontColor={color.primary}
         hoverColor={color.hover_primary}
         {...props}>
-        <Icon size="small" src={iconSrc} isHover={false} />
-        <Text fontColor={color.primary} size="superSmall">
+        <Icon size={Size.SMALL} src={iconSrc} isHover={false} />
+        <Text fontColor={color.primary} size={Size.SUPER_SMALL}>
           {children}
         </Text>
       </Button>

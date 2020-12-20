@@ -4,9 +4,7 @@ import styled from 'styled-components';
 import { API } from '@utils/index';
 import { color } from '@theme/index';
 
-interface GithubLoginButtonProps {
-  size?: 'small' | 'large';
-}
+interface GithubLoginButtonProps {}
 
 const TextWrap = styled.div`
   margin-left: 1rem;

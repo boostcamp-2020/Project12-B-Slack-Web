@@ -4,7 +4,7 @@ import { Input } from '@components/atoms';
 import { SendMessageButton } from '@components/molecules';
 import { color } from '@theme/index';
 import { createMessage } from '@socket/emits/message';
-import { ScrollEventType } from '@constants/index';
+import { ChatType, ScrollEventType } from '@constants/index';
 
 interface InputMessageProps {
   isThread?: boolean;
@@ -46,7 +46,7 @@ const InputMessage: React.FC<InputMessageProps> = ({ children, title, isThread, 
   return (
     <InputMessageContainer {...props}>
       <InputWrap>
-        <Input isThread={isThread} title={title} content={content} keyPressEnter={sendMessage} setContent={setContent} />
+        <Input id={ChatType.Message} isThread={isThread} title={title} content={content} keyPressEnter={sendMessage} setContent={setContent} />
       </InputWrap>
       <ButtonWrap>
         <SendMessageButton isActive={true} sendMessage={sendMessage} />

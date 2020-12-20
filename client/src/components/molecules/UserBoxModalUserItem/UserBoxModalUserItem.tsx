@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ProfileImg, Text } from '@components/atoms';
 import { color } from '@theme/index';
 import { openProfileModal } from '@utils/modal';
+import { Size } from '@constants/index';
 
 interface User {
   displayName: string;
@@ -36,10 +37,10 @@ const UserBoxModalUserItem: React.FC<UserBoxModalUserItemProps> = ({ user, ...pr
   return (
     <UserBoxModalUserItemContainer {...props}>
       <ProfileImgWrap onClick={openProfileModal(user)}>
-        <ProfileImg size="large" src={user.profileUri} />
+        <ProfileImg size={Size.LARGE} src={user.profileUri} />
       </ProfileImgWrap>
       <TextWrap onClick={openProfileModal(user)}>
-        <Text fontColor={color.primary} size="small" isBold isHover>
+        <Text fontColor={color.primary} size={Size.SMALL} isBold isHover>
           {user.displayName}
         </Text>
       </TextWrap>

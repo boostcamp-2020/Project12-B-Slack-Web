@@ -1,4 +1,5 @@
 import { socketMessageReactionState } from '@socket/types/reaction-types';
+import { userState } from '@store/types/user-types';
 import { messageState, messagesState } from './message-types';
 
 export const LOAD = 'LOAD';
@@ -22,6 +23,7 @@ export const LOAD_NEXT_MESSAGES_ASYNC = 'LOAD_NEXT_MESSAGES_ASYNC';
 export const UPDATE_THREAD = 'UPDATE_THREAD';
 export const ADD_MESSAGE_REACTION = 'ADD_MESSAGE_REACTION';
 export const DELETE_MESSAGE_REACTION = 'DELETE_MESSAGE_REACTION';
+export const UPDATE_CHATROOM = `UPDATE_CHATROOM`;
 
 export interface selectedChatroomState {
   chatType: string;
@@ -99,8 +101,14 @@ export interface leaveChatroomState {
   title: string;
   topic: string;
   userCount: number;
-  users: { userId: number; profileUri: string; displayName: string };
+  users: Array<userState>;
   userId: number;
+}
+
+export interface updateChatroomState {
+  chatroomId: number;
+  userCount: number;
+  users: Array<userState>;
 }
 
 export interface insertMessageState extends messageState {
@@ -176,6 +184,11 @@ interface DeleteMessageReaction {
   payload: socketMessageReactionState;
 }
 
+interface UpdateChatroomAction {
+  type: typeof UPDATE_CHATROOM;
+  payload: updateChatroomState;
+}
+
 export type ChatroomTypes =
   | LoadChatroomAction
   | InitSidebarAction
@@ -189,4 +202,5 @@ export type ChatroomTypes =
   | LoadNextAction
   | UpdateThread
   | AddMessageReaction
-  | DeleteMessageReaction;
+  | DeleteMessageReaction
+  | UpdateChatroomAction;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
+import { Size } from '@constants/index';
 import { ActiveLight, ActiveLightProps } from './ActiveLight';
 
 export default {
@@ -11,15 +12,15 @@ const Template: Story<ActiveLightProps> = (args) => <ActiveLight {...args} />;
 
 export const LargeActiveLight = Template.bind({});
 LargeActiveLight.args = {
-  size: 'large'
+  size: Size.LARGE
 };
 
 export const MediumActiveLight = Template.bind({});
 MediumActiveLight.args = {
-  size: 'medium'
+  size: Size.MEDIUM
 };
 
 export const SmallActiveLight = Template.bind({});
 SmallActiveLight.args = {
-  size: 'small'
+  size: Size.SMALL
 };

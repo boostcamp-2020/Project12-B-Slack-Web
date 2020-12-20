@@ -1,5 +1,6 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
+import { Size } from '@constants/index';
 import { ProfileImg, ProfileImgProps } from './ProfileImg';
 
 export default {
@@ -11,15 +12,15 @@ const Template: Story<ProfileImgProps> = (args) => <ProfileImg {...args} />;
 
 export const LargeProfileImg = Template.bind({});
 LargeProfileImg.args = {
-  size: 'large'
+  size: Size.LARGE
 };
 
 export const MediumProfileImg = Template.bind({});
 MediumProfileImg.args = {
-  size: 'medium'
+  size: Size.MEDIUM
 };
 
 export const SmallProfileImg = Template.bind({});
 SmallProfileImg.args = {
-  size: 'small'
+  size: Size.SMALL
 };

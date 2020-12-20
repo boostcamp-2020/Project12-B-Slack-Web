@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Text, Button } from '@components/atoms';
 import { color } from '@theme/index';
+import { Size } from '@constants/index';
 
 interface BrowsePageHeaderProps {
   onClick?: () => void;
@@ -28,7 +29,7 @@ const BrowsePageHeader: React.FC<BrowsePageHeaderProps> = ({ onClick, ...props }
   return (
     <BrowsePageHeaderWrap {...props}>
       <ContentWrap>
-        <Text size="small" fontColor={color.primary} isBold={true}>
+        <Text size={Size.SMALL} fontColor={color.primary} isBold={true}>
           Channel browser
         </Text>
       </ContentWrap>
