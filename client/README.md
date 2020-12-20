@@ -9,12 +9,25 @@ API_URL=
 NODE_ENV=
 ```
 
-### start
-> install
+### Start
+> Install
 ```
 npm install
 ```
-> start
+> Start
 ```
 npm run start
 ```
+
+> Storybook
+
+```
+npm run storybook
+```
+
+> Build
+
+```
+npm run build
+```
+
