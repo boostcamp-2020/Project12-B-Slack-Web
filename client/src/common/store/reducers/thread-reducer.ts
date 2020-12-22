@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign */
-import { reactionsState } from '@store/types/reactions-type';
 import {
   LOAD_THREAD,
   threadState,
@@ -8,7 +7,7 @@ import {
   LOAD_NEXT_REPLIES,
   ADD_REPLY_REACTION,
   DELETE_REPLY_REACTION,
-  replyState
+  ReplyState
 } from '@store/types/thread-types';
 import { uriParser } from '@utils/index';
 
@@ -62,7 +61,7 @@ export default function threadReducer(state = initialState, action: ThreadTypes)
       const NewReplies = state.replies;
       const { messageId, reactionId, replyId } = action.payload;
       if (state.selectedThreadId === messageId) {
-        NewReplies.forEach((reply: replyState) => {
+        NewReplies.forEach((reply: ReplyState) => {
           if (reply.replyId === replyId) {
             let bExistReaction = false;
             reply.replyReactions.forEach((reaction: any) => {
@@ -94,7 +93,7 @@ export default function threadReducer(state = initialState, action: ThreadTypes)
       const NewReplies = state.replies;
       const { messageId, reactionId, replyId } = action.payload;
       if (state.selectedThreadId === messageId) {
-        NewReplies.forEach((reply: replyState) => {
+        NewReplies.forEach((reply: ReplyState) => {
           if (reply.replyId === replyId) {
             reply.replyReactions.forEach((reaction: any) => {
               if (reaction.reactionId === action.payload.reactionId) {

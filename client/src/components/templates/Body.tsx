@@ -25,7 +25,7 @@ import {
 } from '@socket/types/reaction-types';
 import { JOIN_DM, LEAVE_CHANNEL, JOIN_CHATROOM } from '@socket/types/chatroom-types';
 import { leaveChannel } from '@store/actions/channel-action';
-import { updateChatroomState } from '@store/types/chatroom-types';
+import { UpdateChatroomState } from '@store/types/chatroom-types';
 
 const StyledBody = styled.div`
   position: relative;
@@ -64,7 +64,7 @@ const Body: React.FC<any> = ({ children }) => {
       dispatch(leaveChannel({ chatroomId }));
       dispatch(leaveChatroom({ ...chatroom }));
     });
-    socket.on(JOIN_CHATROOM, (chatroom: updateChatroomState) => {
+    socket.on(JOIN_CHATROOM, (chatroom: UpdateChatroomState) => {
       dispatch(updateChatroom(chatroom));
     });
   }, []);

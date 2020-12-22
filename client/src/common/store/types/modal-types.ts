@@ -8,6 +8,7 @@ export const PROFILE_MODAL_OPEN = 'PROFILE_MODAL_OPEN';
 export const PROFILE_MODAL_CLOSE = 'PROFILE_MODAL_CLOSE';
 export const EMOJI_PICKER_OPEN = 'EMOJI_PICKER_OPEN';
 export const EMOJI_PICKER_CLOSE = 'EMOJI_PICKER_CLOSE';
+
 export interface CreateChannelModalState {
   isOpen: boolean;
 }

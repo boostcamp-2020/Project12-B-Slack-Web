@@ -1,14 +1,14 @@
-import { userState } from './user-types';
-import { reactionsState } from './reactions-type';
-import { chatroomThreadState } from './chatroom-types';
+import { UserState } from './user-types';
+import { ReactionsState } from './reactions-type';
+import { ChatroomThreadState } from './chatroom-types';
 
 export interface messageState {
   messageId: number;
   createdAt: Date;
   updatedAt: Date;
-  user: userState;
-  messageReactions: Array<reactionsState>;
-  thread: chatroomThreadState;
+  user: UserState;
+  messageReactions: Array<ReactionsState>;
+  thread: ChatroomThreadState;
 }
 
 export interface messagesState {

@@ -2,19 +2,19 @@ export const LOGIN = 'LOGIN';
 export const LOGIN_ASYNC = 'LOGIN_ASYNC';
 export const LOGOUT = 'LOGOUT';
 
-export interface userState {
+export interface UserState {
   userId: number | null;
   profileUri: string;
   displayName: string;
 }
 
-interface userLoginAction {
+interface UserLoginAction {
   type: typeof LOGIN;
-  payload: userState;
+  payload: UserState;
 }
 
-interface userLogoutAction {
+interface UserLogoutAction {
   type: typeof LOGOUT;
 }
 
-export type UserTypes = userLoginAction | userLogoutAction;
+export type UserTypes = UserLoginAction | UserLogoutAction;

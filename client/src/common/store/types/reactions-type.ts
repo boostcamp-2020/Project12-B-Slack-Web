@@ -1,4 +1,4 @@
-export interface reactionsState {
+export interface ReactionsState {
   reactionId: number;
   title: string;
   reactionCount: number;
@@ -6,7 +6,7 @@ export interface reactionsState {
   emoji: string;
 }
 
-export interface replyReactionsState {
+export interface ReplyReactionsState {
   reactionId: number;
   title: string;
   reactionCount: number;

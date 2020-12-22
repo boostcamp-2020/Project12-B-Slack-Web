@@ -18,16 +18,16 @@ import {
   LOAD_NEXT_MESSAGES_ASYNC,
   LEAVE_CHATROOM,
   LEAVE_CHATROOM_ASYNC,
-  asyncLoad,
-  asyncPickChannel,
-  asyncAddChannel,
-  asyncAddDM,
-  asyncJoinDM,
-  asyncLoadNextMessages,
-  asyncLeaveChatroom
+  AsyncLoad,
+  AsyncPickChannel,
+  AsyncAddChannel,
+  AsyncAddDM,
+  AsyncJoinDM,
+  AsyncLoadNextMessages,
+  AsyncLeaveChatroom
 } from '../types/chatroom-types';
 
-function* loadSaga(action: asyncLoad) {
+function* loadSaga(action: AsyncLoad) {
   try {
     const { selectedChatroomId } = action.payload;
     const payload = yield call(API.getChatroom, selectedChatroomId);
@@ -47,7 +47,7 @@ function* initSidebarSaga() {
   }
 }
 
-function* pickChannelSaga(action: asyncPickChannel) {
+function* pickChannelSaga(action: AsyncPickChannel) {
   try {
     const { selectedChatroomId } = action.payload;
     const chatroom = yield call(API.getChatroom, selectedChatroomId);
@@ -65,7 +65,7 @@ function* pickChannelSaga(action: asyncPickChannel) {
   }
 }
 
-function* addChannel(action: asyncAddChannel) {
+function* addChannel(action: AsyncAddChannel) {
   try {
     const { title, description, isPrivate } = action.payload;
     const chatroomId = yield call(API.createChannel, title, description, isPrivate);
@@ -77,7 +77,7 @@ function* addChannel(action: asyncAddChannel) {
   }
 }
 
-function* addDM(action: asyncAddDM) {
+function* addDM(action: AsyncAddDM) {
   try {
     const { invitedUserId } = action.payload;
     const chatroomId = yield call(API.createDM, invitedUserId);
@@ -89,7 +89,7 @@ function* addDM(action: asyncAddDM) {
   }
 }
 
-function* joinDM(action: asyncJoinDM) {
+function* joinDM(action: AsyncJoinDM) {
   try {
     const { chatroomId } = action.payload;
     const DM = yield call(API.getChatroom, chatroomId);
@@ -100,7 +100,7 @@ function* joinDM(action: asyncJoinDM) {
   }
 }
 
-function* loadNextMessages(action: asyncLoadNextMessages) {
+function* loadNextMessages(action: AsyncLoadNextMessages) {
   try {
     const { offsetMessage, chatroomId } = action.payload;
     const offsetId = offsetMessage.messageId;
@@ -111,7 +111,7 @@ function* loadNextMessages(action: asyncLoadNextMessages) {
   }
 }
 
-function* leaveChatroom(action: asyncLeaveChatroom) {
+function* leaveChatroom(action: AsyncLeaveChatroom) {
   try {
     const { userId } = yield call(API.getUserInfo);
     const payload = { userId, ...action.payload };

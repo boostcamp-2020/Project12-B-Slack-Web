@@ -6,7 +6,7 @@ export const JOIN_CHANNEL = 'JOIN_CHANNEL';
 export const JOIN_CHANNEL_ASYNC = 'JOIN_CHANNEL_ASYNC';
 export const LEAVE_CHANNEL = 'LEAVE_CHANNEL';
 
-export interface channelState {
+export interface ChannelState {
   chatroomId: number;
   title: string;
   description?: string;
@@ -15,51 +15,51 @@ export interface channelState {
   isJoined: boolean;
 }
 
-export interface channelsState {
+export interface ChannelsState {
   channelCount: number;
-  channels: Array<channelState>;
+  channels: Array<ChannelState>;
 }
 
-export interface joinChannelState {
+export interface JoinChannelState {
   chatroomId: number;
 }
 
-export interface leaveChannelState {
+export interface LeaveChannelState {
   chatroomId: number;
 }
 
-export interface loadNextChannelState {
+export interface LoadNextChannelState {
   title: string;
 }
 
 export interface AsyncLoadNextChannels {
   type: typeof LOAD_NEXT_CHANNELS_ASYNC;
-  payload: loadNextChannelState;
+  payload: LoadNextChannelState;
 }
 
 export interface AsyncJoinChannel {
   type: typeof JOIN_CHANNEL_ASYNC;
-  payload: joinChannelState;
+  payload: JoinChannelState;
 }
 
 interface InitChannelsAction {
   type: typeof INIT_CHANNELS;
-  payload: channelsState;
+  payload: ChannelsState;
 }
 
 interface LoadNextChannels {
   type: typeof LOAD_NEXT_CHANNELS;
-  payload: channelsState;
+  payload: ChannelsState;
 }
 
 interface JoinChannel {
   type: typeof JOIN_CHANNEL;
-  payload: joinChannelState;
+  payload: JoinChannelState;
 }
 
 interface LeaveChannel {
   type: typeof LEAVE_CHANNEL;
-  payload: leaveChannelState;
+  payload: LeaveChannelState;
 }
 
 export type ChannelTypes = InitChannelsAction | LoadNextChannels | JoinChannel | LeaveChannel;

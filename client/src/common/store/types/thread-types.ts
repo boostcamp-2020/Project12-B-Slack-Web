@@ -1,6 +1,6 @@
 import { socketReplyReactionState } from '@socket/types/reaction-types';
-import { userState } from '@store/types/user-types';
-import { reactionsState, replyReactionsState } from '@store/types/reactions-type';
+import { UserState } from '@store/types/user-types';
+import { ReactionsState, ReplyReactionsState } from '@store/types/reactions-type';
 
 export const LOAD_THREAD = 'LOAD_THREAD';
 export const LOAD_THREAD_ASYNC = 'LOAD_THREAD_ASYNC';
@@ -10,55 +10,55 @@ export const LOAD_NEXT_REPLIES_ASYNC = 'LOAD_NEXT_REPLIES_ASYNC';
 export const ADD_REPLY_REACTION = 'ADD_MESSAGE_REACTION';
 export const DELETE_REPLY_REACTION = 'DELETE_MESSAGE_REACTION';
 
-export interface threadMessageState {
+export interface ThreadMessageState {
   messageId: number;
   content: string;
   createdAt: Date;
   updateAt: Date;
   deleteAt: Date;
-  user: userState;
+  user: UserState;
   chatroom: Object;
-  messageReactions: Array<reactionsState>;
+  messageReactions: Array<ReactionsState>;
 }
 
-export interface replyState {
+export interface ReplyState {
   messageId: number;
   content: string;
   createdAt: Date;
   updatedAt: Date;
   replyId: number;
-  replyReactions: Array<replyReactionsState>;
-  user: userState;
+  replyReactions: Array<ReplyReactionsState>;
+  user: UserState;
 }
 
-export interface repliesState {
-  replies: Array<replyState>;
+export interface RepliesState {
+  replies: Array<ReplyState>;
 }
 
 export interface threadState {
-  message: threadMessageState;
+  message: ThreadMessageState;
   title: string;
-  replies: Array<replyState>;
+  replies: Array<ReplyState>;
   selectedThreadId: number | null;
 }
 
-export interface asyncLoadThreadState {
+export interface AsyncLoadThreadState {
   messageId: number;
 }
 
-export interface asyncloadNextReplysState {
+export interface AsyncloadNextReplysState {
   messageId: number;
-  offsetReply: replyState;
+  offsetReply: ReplyState;
 }
 
 export interface AsyncLoadThread {
   type: typeof LOAD_THREAD_ASYNC;
-  payload: asyncLoadThreadState;
+  payload: AsyncLoadThreadState;
 }
 
 export interface AsyncLoadNextThreadReplys {
   type: typeof LOAD_NEXT_REPLIES_ASYNC;
-  payload: asyncloadNextReplysState;
+  payload: AsyncloadNextReplysState;
 }
 
 interface LoadThreadAction {
@@ -68,12 +68,12 @@ interface LoadThreadAction {
 
 interface InsertReply {
   type: typeof INSERT_REPLY;
-  payload: replyState;
+  payload: ReplyState;
 }
 
 interface LoadNextReplies {
   type: typeof LOAD_NEXT_REPLIES;
-  payload: repliesState;
+  payload: RepliesState;
 }
 
 interface AddReplyReaction {

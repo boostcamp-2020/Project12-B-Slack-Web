@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { BrowsePageChannel } from '@components/organisms';
 import { useDispatch } from 'react-redux';
-import { channelState } from '@store/types/channel-types';
+import { ChannelState } from '@store/types/channel-types';
 import { loadNextChannels } from '@store/actions/channel-action';
 
 interface BrowsePageChannelListProps {
-  channels: Array<channelState>;
+  channels: Array<ChannelState>;
 }
 
 const BrowsePageChannelListContainter = styled.div<any>`
