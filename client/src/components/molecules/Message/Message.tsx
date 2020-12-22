@@ -80,7 +80,7 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
     setHover(false);
   };
   const clickThread = () => {
-    dispatch(loadThread(messageId));
+    dispatch(loadThread({ messageId }));
     history.push(`/client/${selectedChatroomId}/thread/${messageId}`);
   };
   const createReaction = (title: string, emoji: string) => {

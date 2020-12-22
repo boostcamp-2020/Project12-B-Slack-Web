@@ -11,7 +11,7 @@ import { THROTTLETIME } from '@constants/scroll-event-type';
 import { ThreadReplies } from './ThreadReplies';
 
 interface ThreadBodyProps {
-  messageId: number | null;
+  messageId: number;
 }
 
 const ThreadBodyContainter = styled.div`
