@@ -8,12 +8,13 @@ export const PROFILE_MODAL_OPEN = 'PROFILE_MODAL_OPEN';
 export const PROFILE_MODAL_CLOSE = 'PROFILE_MODAL_CLOSE';
 export const EMOJI_PICKER_OPEN = 'EMOJI_PICKER_OPEN';
 export const EMOJI_PICKER_CLOSE = 'EMOJI_PICKER_CLOSE';
+
 export interface CreateChannelModalState {
   isOpen: boolean;
 }
 
 export interface ChannelModalState {
-  isOpen: boolean;
+  isOpen?: boolean;
   x: number;
   y: number;
 }
@@ -23,7 +24,7 @@ export interface UserBoxModalState {
 }
 
 export interface ProfileModalState {
-  isOpen: boolean;
+  isOpen?: boolean;
   x: number;
   y: number;
   userId: number;
@@ -32,7 +33,7 @@ export interface ProfileModalState {
 }
 
 export interface EmojiPickerState {
-  isOpen: boolean;
+  isOpen?: boolean;
   x: number;
   y: number;
   chatId: number | null;

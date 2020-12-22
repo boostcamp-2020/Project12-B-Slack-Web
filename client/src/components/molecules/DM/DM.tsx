@@ -13,7 +13,7 @@ interface DMProps {
   children: React.ReactChild;
   isSelect?: boolean;
   src?: string;
-  chatroomId?: number;
+  chatroomId: number;
 }
 
 const DMContainter = styled.div<{ isSelect: boolean }>`

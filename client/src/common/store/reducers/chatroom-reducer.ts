@@ -4,9 +4,9 @@
 import { uriParser } from '@utils/index';
 import { joinChatroom, joinDM } from '@socket/emits/chatroom';
 import { messageState } from '@store/types/message-types';
-import { reactionsState } from '@store/types/reactions-type';
+import { ReactionsState } from '@store/types/reactions-type';
 import {
-  chatroomState,
+  ChatroomState,
   LOAD,
   ChatroomTypes,
   PICK_CHANNEL,
@@ -24,7 +24,7 @@ import {
   UPDATE_CHATROOM
 } from '../types/chatroom-types';
 
-const initialState: chatroomState = {
+const initialState: ChatroomState = {
   selectedChatroom: {
     chatType: '',
     description: '',
@@ -157,7 +157,7 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
         addReactionMessages.forEach((message: messageState) => {
           if (message.messageId === action.payload.messageId) {
             let isExistReaction = false;
-            message.messageReactions.forEach((reaction: reactionsState) => {
+            message.messageReactions.forEach((reaction: ReactionsState) => {
               if (reaction.reactionId === action.payload.reactionId) {
                 reaction.reactionCount += 1;
                 reaction.reactionDisplayNames = action.payload.authors.reduce((acc: Array<string>, val: any) => {
@@ -185,7 +185,7 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
       if (state.selectedChatroomId === action.payload.chatroomId) {
         deleteReactionMessages.forEach((message: messageState) => {
           if (message.messageId === action.payload.messageId) {
-            message.messageReactions.forEach((reaction: reactionsState) => {
+            message.messageReactions.forEach((reaction: ReactionsState) => {
               if (reaction.reactionId === action.payload.reactionId) {
                 reaction.reactionCount -= 1;
                 reaction.reactionDisplayNames = action.payload.authors.reduce((acc: Array<string>, val: any) => {

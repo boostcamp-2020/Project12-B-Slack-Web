@@ -17,13 +17,21 @@ import {
   LOAD_NEXT_MESSAGES,
   LOAD_NEXT_MESSAGES_ASYNC,
   LEAVE_CHATROOM,
-  LEAVE_CHATROOM_ASYNC
+  LEAVE_CHATROOM_ASYNC,
+  AsyncLoad,
+  AsyncPickChannel,
+  AsyncAddChannel,
+  AsyncAddDM,
+  AsyncJoinDM,
+  AsyncLoadNextMessages,
+  AsyncLeaveChatroom
 } from '../types/chatroom-types';
 
-function* loadSaga(action: any) {
+function* loadSaga(action: AsyncLoad) {
   try {
-    const payload = yield call(API.getChatroom, action.payload.selectedChatroomId);
-    const messages = yield call(API.getMessages, action.payload.selectedChatroomId);
+    const { selectedChatroomId } = action.payload;
+    const payload = yield call(API.getChatroom, selectedChatroomId);
+    const messages = yield call(API.getMessages, selectedChatroomId);
     yield put({ type: LOAD, payload: { selectedChatroom: payload, messages } });
   } catch (e) {
     console.log(e);
@@ -39,10 +47,11 @@ function* initSidebarSaga() {
   }
 }
 
-function* pickChannelSaga(action: any) {
+function* pickChannelSaga(action: AsyncPickChannel) {
   try {
-    const chatroom = yield call(API.getChatroom, action.payload.selectedChatroomId);
-    const messages = yield call(API.getMessages, action.payload.selectedChatroomId);
+    const { selectedChatroomId } = action.payload;
+    const chatroom = yield call(API.getChatroom, selectedChatroomId);
+    const messages = yield call(API.getMessages, selectedChatroomId);
     yield put({
       type: PICK_CHANNEL,
       payload: {
@@ -56,10 +65,11 @@ function* pickChannelSaga(action: any) {
   }
 }
 
-function* addChannel(action: any) {
+function* addChannel(action: AsyncAddChannel) {
   try {
-    const chatroomId = yield call(API.createChannel, action.payload.title, action.payload.description, action.payload.isPrivate);
-    const payload = { chatroomId, chatType: ChatroomType.Channel, isPrivate: action.payload.isPrivate, title: action.payload.title };
+    const { title, description, isPrivate } = action.payload;
+    const chatroomId = yield call(API.createChannel, title, description, isPrivate);
+    const payload = { chatroomId, chatType: ChatroomType.Channel, isPrivate, title };
     yield put({ type: ADD_CHANNEL, payload });
     yield put({ type: PICK_CHANNEL_ASYNC, payload: { selectedChatroomId: chatroomId } });
   } catch (e) {
@@ -67,7 +77,7 @@ function* addChannel(action: any) {
   }
 }
 
-function* addDM(action: any) {
+function* addDM(action: AsyncAddDM) {
   try {
     const { invitedUserId } = action.payload;
     const chatroomId = yield call(API.createDM, invitedUserId);
@@ -79,7 +89,7 @@ function* addDM(action: any) {
   }
 }
 
-function* joinDM(action: any) {
+function* joinDM(action: AsyncJoinDM) {
   try {
     const { chatroomId } = action.payload;
     const DM = yield call(API.getChatroom, chatroomId);
@@ -90,17 +100,18 @@ function* joinDM(action: any) {
   }
 }
 
-function* loadNextMessages(action: any) {
+function* loadNextMessages(action: AsyncLoadNextMessages) {
   try {
-    const offsetId = action.payload.offsetMessage.messageId;
-    const nextMessages = yield call(API.getNextMessages, action.payload.chatRoomId, offsetId);
+    const { offsetMessage, chatroomId } = action.payload;
+    const offsetId = offsetMessage.messageId;
+    const nextMessages = yield call(API.getNextMessages, chatroomId, offsetId);
     yield put({ type: LOAD_NEXT_MESSAGES, payload: { messages: nextMessages } });
   } catch (e) {
     console.log(e);
   }
 }
 
-function* leaveChatroom(action: any) {
+function* leaveChatroom(action: AsyncLeaveChatroom) {
   try {
     const { userId } = yield call(API.getUserInfo);
     const payload = { userId, ...action.payload };

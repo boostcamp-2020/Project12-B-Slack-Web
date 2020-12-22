@@ -7,7 +7,7 @@ import { getTimeConversionValue } from '@utils/time';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadThread } from '@store/actions/thread-action';
-import { reactionsState } from '@store/types/reactions-type';
+import { ReactionsState } from '@store/types/reactions-type';
 import { RootState } from '@store/reducers';
 import { openProfileModal } from '@utils/modal';
 import { createMessageReaction, deleteMessageReaction } from '@socket/emits/reaction';
@@ -22,7 +22,7 @@ interface MessageProps {
   createdAt: Date;
   thread: any;
   user: { userId: number; profileUri: string; displayName: string };
-  messageReactions: Array<reactionsState>;
+  messageReactions: Array<ReactionsState>;
 }
 
 const MessageContainer = styled.div`
@@ -80,7 +80,7 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
     setHover(false);
   };
   const clickThread = () => {
-    dispatch(loadThread(messageId));
+    dispatch(loadThread({ messageId }));
     history.push(`/client/${selectedChatroomId}/thread/${messageId}`);
   };
   const createReaction = (title: string, emoji: string) => {

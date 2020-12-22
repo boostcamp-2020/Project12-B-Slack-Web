@@ -1,5 +1,5 @@
 import { socketMessageReactionState } from '@socket/types/reaction-types';
-import { userState } from '@store/types/user-types';
+import { UserState } from '@store/types/user-types';
 import { messageState, messagesState } from './message-types';
 
 export const LOAD = 'LOAD';
@@ -23,9 +23,9 @@ export const LOAD_NEXT_MESSAGES_ASYNC = 'LOAD_NEXT_MESSAGES_ASYNC';
 export const UPDATE_THREAD = 'UPDATE_THREAD';
 export const ADD_MESSAGE_REACTION = 'ADD_MESSAGE_REACTION';
 export const DELETE_MESSAGE_REACTION = 'DELETE_MESSAGE_REACTION';
-export const UPDATE_CHATROOM = `UPDATE_CHATROOM`;
+export const UPDATE_CHATROOM = 'UPDATE_CHATROOM';
 
-export interface selectedChatroomState {
+export interface SelectedChatroomState {
   chatType: string;
   description?: string;
   isPrivate: boolean;
@@ -35,9 +35,9 @@ export interface selectedChatroomState {
   users: Array<object>;
 }
 
-export interface chatroomState {
+export interface ChatroomState {
   messages: Array<messageState>;
-  selectedChatroom: selectedChatroomState;
+  selectedChatroom: SelectedChatroomState;
   starred: Array<object>;
   otherSections: Array<object>;
   channels: Array<object>;
@@ -45,7 +45,7 @@ export interface chatroomState {
   selectedChatroomId: number | null;
 }
 
-export interface sidebarState {
+export interface SidebarState {
   starred: Array<object>;
   otherSections: Array<object>;
   channels: Array<object>;
@@ -53,8 +53,8 @@ export interface sidebarState {
   selectedChatroomId: number | null;
 }
 
-export interface channelState {
-  chatroom: selectedChatroomState;
+export interface ChannelState {
+  chatroom: SelectedChatroomState;
   messages: Array<object>;
   selectedChatroomId: number;
 }
@@ -66,21 +66,21 @@ export interface DMState {
   title: string;
 }
 
-export interface chatroomThreadState {
+export interface ChatroomThreadState {
   replyCount: number;
   lastReplyAt: Date | null;
   profileUris: Array<string>;
   files: Array<string>;
 }
 
-export interface addChannelState {
+export interface AddChannelState {
   chatroomId: number;
   chatType: string;
   isPrivate: boolean;
   title: string;
 }
 
-export interface addDMState {
+export interface AddDMState {
   chatroomId: number;
   chatProfileImg: string;
   chatType: string;
@@ -88,11 +88,11 @@ export interface addDMState {
   invitedUserId: number;
 }
 
-export interface joinDMState {
+export interface JoinDMState {
   chatroomId: number;
 }
 
-export interface leaveChatroomState {
+export interface LeaveChatroomState {
   chatType: string;
   chatroomId: number;
   description: string;
@@ -101,63 +101,121 @@ export interface leaveChatroomState {
   title: string;
   topic: string;
   userCount: number;
-  users: Array<userState>;
+  users: Array<UserState>;
   userId: number;
 }
 
-export interface updateChatroomState {
+export interface UpdateChatroomState {
   chatroomId: number;
   userCount: number;
-  users: Array<userState>;
+  users: Array<UserState>;
 }
 
-export interface insertMessageState extends messageState {
+export interface InsertMessageState extends messageState {
   chatroomId: number;
 }
 
-export interface updateThreadState {
+export interface UpdateThreadState {
   profileUri: string;
   messageId: number;
 }
 
+export interface LoadState {
+  selectedChatroomId: number;
+}
+
+export interface AsyncAddChannelState {
+  title: string;
+  description: string;
+  isPrivate: boolean;
+}
+
+export interface AsyncAddDMState {
+  invitedUserId: number;
+}
+
+export interface AsyncJoinDMState {
+  chatroomId: number;
+}
+
+export interface AsyncLoadNextMessagesState {
+  chatroomId: number;
+  offsetMessage: messageState;
+}
+
+export interface AsyncLoad {
+  type: typeof LOAD_ASYNC;
+  payload: LoadState;
+}
+
+export interface AsyncPickChannel {
+  type: typeof PICK_CHANNEL_ASYNC;
+  payload: LoadState;
+}
+
+export interface AsyncAddChannel {
+  type: typeof ADD_CHANNEL_ASYNC;
+  payload: AsyncAddChannelState;
+}
+
+export interface AsyncAddDM {
+  type: typeof ADD_DM_ASYNC;
+  payload: AsyncAddDMState;
+}
+
+export interface AsyncJoinDM {
+  type: typeof JOIN_DM_ASYNC;
+  payload: AsyncJoinDMState;
+}
+
+export interface AsyncLoadNextMessages {
+  type: typeof LOAD_NEXT_MESSAGES_ASYNC;
+  payload: AsyncLoadNextMessagesState;
+}
+
+export interface AsyncLeaveChatroom {
+  type: typeof LEAVE_CHATROOM_ASYNC;
+  payload: SelectedChatroomState;
+}
+
 interface LoadChatroomAction {
   type: typeof LOAD;
-  payload: chatroomState;
+  payload: ChatroomState;
 }
 
 interface InitSidebarAction {
   type: typeof INIT_SIDEBAR;
-  payload: sidebarState;
+  payload: SidebarState;
 }
 
 interface PickChannelAction {
   type: typeof PICK_CHANNEL;
-  payload: channelState;
+  payload: ChannelState;
 }
 
 interface InsertMessageAction {
   type: typeof INSERT_MESSAGE;
-  payload: insertMessageState;
+  payload: InsertMessageState;
 }
 
 interface AddChannelAction {
   type: typeof ADD_CHANNEL;
-  payload: addChannelState;
+  payload: AddChannelState;
 }
 
 interface AddDMAction {
   type: typeof ADD_DM;
-  payload: addDMState;
+  payload: AddDMState;
 }
 
 interface JoinDMAction {
   type: typeof JOIN_DM;
-  payload: joinDMState;
+  payload: JoinDMState;
 }
 
 interface LeaveChatroomAction {
   type: typeof LEAVE_CHATROOM;
-  payload: leaveChatroomState;
+  payload: LeaveChatroomState;
 }
 
 interface ResetSelectedChannel {
@@ -171,7 +229,7 @@ interface LoadNextAction {
 
 interface UpdateThread {
   type: typeof UPDATE_THREAD;
-  payload: updateThreadState;
+  payload: UpdateThreadState;
 }
 
 interface AddMessageReaction {
@@ -186,7 +244,7 @@ interface DeleteMessageReaction {
 
 interface UpdateChatroomAction {
   type: typeof UPDATE_CHATROOM;
-  payload: updateChatroomState;
+  payload: UpdateChatroomState;
 }
 
 export type ChatroomTypes =

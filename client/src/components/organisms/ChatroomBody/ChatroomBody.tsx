@@ -11,7 +11,7 @@ import _ from 'lodash';
 interface ChatroomBodyProps {
   title: string;
   messages: Array<object>;
-  chatRoomId: number | null;
+  chatroomId: number;
 }
 
 const ChatroomBodyContainter = styled.div`
@@ -31,7 +31,7 @@ const InputBoxWrap = styled.div`
   margin: 1rem;
 `;
 
-const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId, ...props }) => {
+const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatroomId, ...props }) => {
   const MessageBodyEl = useRef() as React.MutableRefObject<HTMLDivElement>;
   const [eventType, setEventType] = useState(ScrollEventType.COMMON);
   const [lastRequestMessageId, setLastRequestMessageId] = useState(0);
@@ -57,7 +57,7 @@ const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId
     if (eventType !== ScrollEventType.LOADING && e.target.scrollTop <= e.target.scrollHeight / 4 && offsetMessage !== null) {
       if (offsetMessage.messageId === lastRequestMessageId) return;
       setEventType(ScrollEventType.LOADING);
-      dispatch(loadNextMessages({ chatRoomId, offsetMessage }));
+      dispatch(loadNextMessages({ chatroomId, offsetMessage }));
       setLastRequestMessageId(offsetMessage.messageId);
     }
   };
@@ -82,7 +82,7 @@ const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId
         {createMessages()}
       </InputMessageWrap>
       <InputBoxWrap>
-        <InputMessage title={title} chatRoomId={chatRoomId} setEventType={setEventType} />
+        <InputMessage title={title} chatroomId={chatroomId} setEventType={setEventType} />
       </InputBoxWrap>
     </ChatroomBodyContainter>
   );

@@ -1,6 +1,6 @@
-import { userState, UserTypes } from '@store/types/user-types';
+import { UserState, UserTypes } from '@store/types/user-types';
 
-const initialState: userState = {
+const initialState: UserState = {
   userId: null,
   profileUri: '',
   displayName: ''

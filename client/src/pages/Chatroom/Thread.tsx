@@ -20,7 +20,7 @@ const Thread: React.FC<ThreadProps> = () => {
   const threadId = getThreadId();
 
   useEffect(() => {
-    dispatch(loadThread(threadId || 0));
+    dispatch(loadThread({ messageId: threadId || 0 }));
   }, []);
 
   return (

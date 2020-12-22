@@ -10,7 +10,7 @@ interface InputMessageProps {
   isThread?: boolean;
   title: string;
   setEventType: any;
-  chatRoomId: number | null;
+  chatroomId: number;
 }
 
 const InputMessageContainer = styled.div`
@@ -33,13 +33,13 @@ const ButtonWrap = styled.div`
   margin-right: 1rem;
 `;
 
-const InputMessage: React.FC<InputMessageProps> = ({ children, title, isThread, chatRoomId, setEventType, ...props }) => {
+const InputMessage: React.FC<InputMessageProps> = ({ children, title, isThread, chatroomId, setEventType, ...props }) => {
   const [content, setContent] = useState('');
 
   const sendMessage = () => {
     if (content === '') return;
     setEventType(ScrollEventType.INPUTTEXT);
-    createMessage({ content, chatroomId: chatRoomId });
+    createMessage({ content, chatroomId });
     setContent('');
   };
 

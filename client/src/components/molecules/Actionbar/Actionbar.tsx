@@ -32,7 +32,7 @@ const Actionbar: React.FC<ActionbarProps> = ({ actionbarType = ChatType.Message,
   const chatroomId = useSelector((state: any) => state.chatroom.selectedChatroomId);
 
   const openThread = () => {
-    dispatch(loadThread(chatId));
+    dispatch(loadThread({ messageId: chatId }));
     history.push(`/client/${chatroomId}/thread/${chatId}`);
   };
   const openEmojiPicker = (e: any) => {
