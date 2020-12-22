@@ -9,11 +9,11 @@ export default {
 } as Meta;
 
 const mockChannelChildren = ['5주-그룹-프로젝트-슬랙', 'boost-ajae', '어몽어스'].map((item) => {
-  return <Channel>{item}</Channel>;
+  return <Channel chatroomId={1}>{item}</Channel>;
 });
 
 const mockDMChildren = ['J003_강동훈', 'J030_김도호', 'J211_탁성건'].map((item) => {
-  return <DM>{item}</DM>;
+  return <DM chatroomId={1}>{item}</DM>;
 });
 
 const mockChildren = [

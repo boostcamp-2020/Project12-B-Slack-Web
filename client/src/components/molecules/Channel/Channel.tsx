@@ -14,7 +14,7 @@ interface ChannelProps {
   children: React.ReactChild;
   isPrivate?: boolean;
   isSelect?: boolean;
-  chatroomId?: number;
+  chatroomId: number;
 }
 
 const ChannelContainter = styled.div<any>`
