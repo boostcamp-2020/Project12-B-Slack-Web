@@ -23,7 +23,7 @@ export const LOAD_NEXT_MESSAGES_ASYNC = 'LOAD_NEXT_MESSAGES_ASYNC';
 export const UPDATE_THREAD = 'UPDATE_THREAD';
 export const ADD_MESSAGE_REACTION = 'ADD_MESSAGE_REACTION';
 export const DELETE_MESSAGE_REACTION = 'DELETE_MESSAGE_REACTION';
-export const UPDATE_CHATROOM = `UPDATE_CHATROOM`;
+export const UPDATE_CHATROOM = 'UPDATE_CHATROOM';
 
 export interface selectedChatroomState {
   chatType: string;
