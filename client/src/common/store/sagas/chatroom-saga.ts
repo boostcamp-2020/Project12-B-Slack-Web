@@ -60,8 +60,9 @@ function* pickChannelSaga(action: any) {
 
 function* addChannel(action: any) {
   try {
-    const chatroomId = yield call(API.createChannel, action.payload.title, action.payload.description, action.payload.isPrivate);
-    const payload = { chatroomId, chatType: ChatroomType.Channel, isPrivate: action.payload.isPrivate, title: action.payload.title };
+    const { title, description, isPrivate } = action.payload;
+    const chatroomId = yield call(API.createChannel, title, description, isPrivate);
+    const payload = { chatroomId, chatType: ChatroomType.Channel, isPrivate, title };
     yield put({ type: ADD_CHANNEL, payload });
     yield put({ type: PICK_CHANNEL_ASYNC, payload: { selectedChatroomId: chatroomId } });
   } catch (e) {
@@ -94,8 +95,9 @@ function* joinDM(action: any) {
 
 function* loadNextMessages(action: any) {
   try {
-    const offsetId = action.payload.offsetMessage.messageId;
-    const nextMessages = yield call(API.getNextMessages, action.payload.chatRoomId, offsetId);
+    const { offsetMessage, chatRoomId } = action.payload;
+    const offsetId = offsetMessage.messageId;
+    const nextMessages = yield call(API.getNextMessages, chatRoomId, offsetId);
     yield put({ type: LOAD_NEXT_MESSAGES, payload: { messages: nextMessages } });
   } catch (e) {
     console.log(e);
