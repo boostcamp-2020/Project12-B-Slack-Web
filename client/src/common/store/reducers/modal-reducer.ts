@@ -28,22 +28,26 @@ const ModalReducer = (state = initialState, action: ModalTypes) => {
       return { ...state, createModal: { isOpen: true }, channelModal: { isOpen: false } };
     case CREATE_MODAL_CLOSE:
       return { ...state, createModal: { isOpen: false } };
-    case CHANNEL_MODAL_OPEN:
-      return { ...state, channelModal: { isOpen: true, x: action.payload.x, y: action.payload.y } };
+    case CHANNEL_MODAL_OPEN: {
+      const { x, y } = action.payload;
+      return { ...state, channelModal: { isOpen: true, x, y } };
+    }
     case CHANNEL_MODAL_CLOSE:
       return { ...state, channelModal: { isOpen: false } };
     case USERBOX_MODAL_OPEN:
       return { ...state, userboxModal: { isOpen: true } };
     case USERBOX_MODAL_CLOSE:
       return { ...state, userboxModal: { isOpen: false } };
-    case PROFILE_MODAL_OPEN:
-      const { userId, profileUri, displayName } = action.payload;
-      return { ...state, profileModal: { isOpen: true, x: action.payload.x, y: action.payload.y, userId, profileUri, displayName } };
+    case PROFILE_MODAL_OPEN: {
+      const { x, y, userId, profileUri, displayName } = action.payload;
+      return { ...state, profileModal: { isOpen: true, x, y, userId, profileUri, displayName } };
+    }
     case PROFILE_MODAL_CLOSE:
       return { ...state, profileModal: { isOpen: false } };
-    case EMOJI_PICKER_OPEN:
+    case EMOJI_PICKER_OPEN: {
       const { x, y, chatId, type } = action.payload;
       return { ...state, emojiPicker: { isOpen: true, x, y, chatId, type } };
+    }
     case EMOJI_PICKER_CLOSE:
       return { ...state, emojiPicker: { isOpen: false } };
     default:

@@ -13,7 +13,7 @@ export interface CreateChannelModalState {
 }
 
 export interface ChannelModalState {
-  isOpen: boolean;
+  isOpen?: boolean;
   x: number;
   y: number;
 }
@@ -23,7 +23,7 @@ export interface UserBoxModalState {
 }
 
 export interface ProfileModalState {
-  isOpen: boolean;
+  isOpen?: boolean;
   x: number;
   y: number;
   userId: number;
@@ -32,7 +32,7 @@ export interface ProfileModalState {
 }
 
 export interface EmojiPickerState {
-  isOpen: boolean;
+  isOpen?: boolean;
   x: number;
   y: number;
   chatId: number | null;
