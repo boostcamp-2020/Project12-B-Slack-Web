@@ -120,6 +120,29 @@ export interface updateThreadState {
   messageId: number;
 }
 
+export interface loadState {
+  selectedChatroomId: number;
+}
+
+export interface asyncAddChannelState {
+  title: string;
+  description: string;
+  isPrivate: boolean;
+}
+
+export interface asyncAddDMState {
+  invitedUserId: number;
+}
+
+export interface asyncJoinDMState {
+  chatroomId: number;
+}
+
+export interface asyncLoadNextMessagesState {
+  chatroomId: number;
+  offsetMessage: messageState | null;
+}
+
 interface LoadChatroomAction {
   type: typeof LOAD;
   payload: chatroomState;
