@@ -16,7 +16,7 @@ interface ActionbarProps {
   actionbarType?: string;
 }
 
-const ActionbarContainer = styled.div<any>`
+const ActionbarContainer = styled.div`
   display: flex;
   position: absolute;
   top: -1rem;

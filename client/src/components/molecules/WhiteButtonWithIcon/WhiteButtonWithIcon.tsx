@@ -10,7 +10,7 @@ interface WhiteButtonWithIconProps {
   onClick: () => void;
 }
 
-const WhiteButtonWithIconWrap = styled.div<any>`
+const WhiteButtonWithIconWrap = styled.div`
   display: flex;
   width: fit-content;
   p {

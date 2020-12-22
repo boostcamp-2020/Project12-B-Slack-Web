@@ -14,7 +14,7 @@ interface EmojiBoxProps {
   deleteReaction: any;
 }
 
-const EmojiBoxContainer = styled.div<any>`
+const EmojiBoxContainer = styled.div<{ isActive: boolean }>`
   display: flex;
   justify-content: space-evenly;
   align-items: center;

@@ -17,7 +17,7 @@ interface ChannelProps {
   chatroomId?: number;
 }
 
-const ChannelContainter = styled.div<any>`
+const ChannelContainter = styled.div<{ isSelect: boolean }>`
   display: flex;
   align-items: baseline;
   padding: 0.4rem 1rem;
@@ -25,7 +25,7 @@ const ChannelContainter = styled.div<any>`
   ${(props) => (props.isSelect ? `background-color: ${color.selected_chatroom}` : `&:hover { background-color: ${color.primary};}`)}
 `;
 
-const TextWrap = styled.div<any>`
+const TextWrap = styled.div`
   margin-left: 1rem;
   width: -webkit-fill-available;
 `;

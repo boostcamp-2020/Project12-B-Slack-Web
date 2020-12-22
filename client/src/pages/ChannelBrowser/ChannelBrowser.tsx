@@ -12,13 +12,13 @@ interface ChannelBrowserProps {
   children: React.ReactNode;
 }
 
-const ChannelBrowserContainer = styled.div<any>`
+const ChannelBrowserContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
 `;
 
-const SearchBarWrap = styled.div<any>`
+const SearchBarWrap = styled.div`
   padding: 1rem 1.5rem;
 `;
 

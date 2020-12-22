@@ -15,7 +15,7 @@ interface ReplyProps {
   reply: any;
 }
 
-const ReplyContainter = styled.div<any>`
+const ReplyContainter = styled.div`
   display: flex;
   position: relative;
   padding: 1rem 1rem;
@@ -25,7 +25,7 @@ const ReplyContainter = styled.div<any>`
   }
 `;
 
-const ProfileImgWrap = styled.div<any>`
+const ProfileImgWrap = styled.div`
   margin-right: 1.5rem;
   cursor: pointer;
 `;
@@ -34,17 +34,17 @@ const AuthorWrap = styled.div`
   cursor: pointer;
 `;
 
-const MessageContent = styled.div<any>`
+const MessageContent = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const MessageHeader = styled.div<any>`
+const MessageHeader = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const DateText = styled.p<any>`
+const DateText = styled.p`
   margin: 0 0.3rem;
   color: gray;
   font-size: 0.7rem;
@@ -59,7 +59,7 @@ const Reply: React.FC<ReplyProps> = ({ reply }) => {
   const [isHover, setHover] = useState(false);
   const { replyId, replyReactions } = reply;
   const userName = useSelector((store: RootState) => store.user.displayName);
-  const replyContainterEl = useRef();
+  const replyContainterEl = useRef() as React.MutableRefObject<HTMLDivElement>;
   const onMouseEnter = () => {
     setHover(true);
   };

@@ -9,20 +9,18 @@ interface ThreadRepliesProps {
   messageId: number | null;
 }
 
-const ThreadRepliesContainter = styled.div<any>``;
-
-const ReplyBarContainer = styled.div<any>`
+const ReplyBarContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-const ReplyBarText = styled.p<any>`
+const ReplyBarText = styled.p`
   margin: 0;
   color: ${color.text_primary};
 `;
 
-const ReplyBarLine = styled.div<any>`
+const ReplyBarLine = styled.div`
   height: 2px;
   width: 80%;
   background-color: ${color.quaternary};
@@ -37,7 +35,7 @@ const ThreadReplies: React.FC<ThreadRepliesProps> = () => {
   };
   const replyLength = replies.length;
   return (
-    <ThreadRepliesContainter>
+    <>
       {replyLength !== 0 ? (
         <ReplyBarContainer>
           <ReplyBarText>{replyLength} reply</ReplyBarText>
@@ -45,7 +43,7 @@ const ThreadReplies: React.FC<ThreadRepliesProps> = () => {
         </ReplyBarContainer>
       ) : null}
       {replyLength !== 0 ? createReplies() : null}
-    </ThreadRepliesContainter>
+    </>
   );
 };
 

@@ -8,7 +8,7 @@ import { KeyCode, Size } from '@constants/index';
 
 interface BrowsePageSearchBarProps {}
 
-const BrowsePageSearchBarWrap = styled.div<any>`
+const BrowsePageSearchBarWrap = styled.div`
   display: flex;
   align-items: center;
   border: 1px solid ${color.secondary};
@@ -16,23 +16,23 @@ const BrowsePageSearchBarWrap = styled.div<any>`
   padding: 0.5rem 0.6rem;
 `;
 
-const StyledInput = styled.input<any>`
+const StyledInput = styled.input`
   border: 0 none;
   outline: none;
   width: fill-available;
   font-size: 0.9rem;
 `;
 
-const InputHintWrap = styled.div<any>`
+const InputHintWrap = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const SearchIconWrap = styled.div<any>`
+const SearchIconWrap = styled.div`
   margin-right: 0.5rem;
 `;
 
-const CloseFilledIconWrap = styled.div<any>`
+const CloseFilledIconWrap = styled.div`
   cursor: pointer;
   margin-left: 0.5rem;
 `;

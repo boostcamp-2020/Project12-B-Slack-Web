@@ -15,7 +15,7 @@ interface UserBoxModalUserItemProps {
   user: User;
 }
 
-const UserBoxModalUserItemContainer = styled.div<any>`
+const UserBoxModalUserItemContainer = styled.div`
   display: flex;
   align-items: center;
   padding: 0.5rem 0;
@@ -24,11 +24,11 @@ const UserBoxModalUserItemContainer = styled.div<any>`
   }
 `;
 
-const ProfileImgWrap = styled.div<any>`
+const ProfileImgWrap = styled.div`
   cursor: pointer;
 `;
 
-const TextWrap = styled.div<any>`
+const TextWrap = styled.div`
   margin-left: 0.5rem;
   cursor: pointer;
 `;

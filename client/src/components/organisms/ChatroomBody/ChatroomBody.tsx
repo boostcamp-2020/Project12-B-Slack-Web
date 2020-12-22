@@ -14,7 +14,7 @@ interface ChatroomBodyProps {
   chatRoomId: number | null;
 }
 
-const ChatroomBodyContainter = styled.div<any>`
+const ChatroomBodyContainter = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -22,17 +22,17 @@ const ChatroomBodyContainter = styled.div<any>`
   height: 90%;
 `;
 
-const InputMessageWrap = styled.div<any>`
+const InputMessageWrap = styled.div`
   padding-top: 1rem;
   overflow-y: auto;
 `;
 
-const InputBoxWrap = styled.div<any>`
+const InputBoxWrap = styled.div`
   margin: 1rem;
 `;
 
 const ChatroomBody: React.FC<ChatroomBodyProps> = ({ title, messages, chatRoomId, ...props }) => {
-  const MessageBodyEl = useRef<any>();
+  const MessageBodyEl = useRef() as React.MutableRefObject<HTMLDivElement>;
   const [eventType, setEventType] = useState(ScrollEventType.COMMON);
   const [lastRequestMessageId, setLastRequestMessageId] = useState(0);
   const dispatch = useDispatch();

@@ -11,7 +11,7 @@ interface BrowsePageControlsProps {
   channelCount: number;
 }
 
-const BrowsePageControlsWrap = styled.div<any>`
+const BrowsePageControlsWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,7 +22,7 @@ const BrowsePageControlsWrap = styled.div<any>`
   border-bottom: 0.5px solid ${color.border_secondary};
 `;
 
-const BrowsePageControlsButtonWrap = styled.div<any>`
+const BrowsePageControlsButtonWrap = styled.div`
   display: flex;
 `;
 

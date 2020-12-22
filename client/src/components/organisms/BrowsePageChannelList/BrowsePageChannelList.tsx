@@ -9,7 +9,7 @@ interface BrowsePageChannelListProps {
   channels: Array<channelState>;
 }
 
-const BrowsePageChannelListContainter = styled.div<any>`
+const BrowsePageChannelListContainter = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
