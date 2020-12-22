@@ -27,7 +27,7 @@ const Chatroom: React.FC<ChatroomProps & RouteComponentProps> = ({ width }) => {
   return (
     <ChatroomContainer width={width}>
       <ChatroomHeader title={title} users={users} />
-      <ChatroomBody title={title} messages={messages} chatRoomId={selectedChatroomId} />
+      <ChatroomBody title={title} messages={messages} chatroomId={selectedChatroomId} />
     </ChatroomContainer>
   );
 };
