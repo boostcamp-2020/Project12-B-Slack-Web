@@ -41,6 +41,25 @@ export interface threadState {
   selectedThreadId: number | null;
 }
 
+export interface asyncLoadThreadState {
+  messageId: number;
+}
+
+export interface asyncloadNextReplysState {
+  messageId: number;
+  offsetReply: replyState;
+}
+
+export interface AsyncLoadThread {
+  type: typeof LOAD_THREAD_ASYNC;
+  payload: asyncLoadThreadState;
+}
+
+export interface AsyncLoadNextThreadReplys {
+  type: typeof LOAD_NEXT_REPLIES_ASYNC;
+  payload: asyncloadNextReplysState;
+}
+
 interface LoadThreadAction {
   type: typeof LOAD_THREAD;
   payload: threadState;

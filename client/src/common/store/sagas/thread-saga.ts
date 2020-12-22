@@ -1,8 +1,15 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import API from '@utils/api';
-import { LOAD_THREAD, LOAD_THREAD_ASYNC, LOAD_NEXT_REPLIES, LOAD_NEXT_REPLIES_ASYNC } from '@store/types/thread-types';
+import {
+  LOAD_THREAD,
+  LOAD_THREAD_ASYNC,
+  LOAD_NEXT_REPLIES,
+  LOAD_NEXT_REPLIES_ASYNC,
+  AsyncLoadThread,
+  AsyncLoadNextThreadReplys
+} from '@store/types/thread-types';
 
-function* loadThreadSaga(action: any) {
+function* loadThreadSaga(action: AsyncLoadThread) {
   try {
     const { messageId } = action.payload;
     const payload = yield call(API.getThread, messageId);
@@ -13,10 +20,11 @@ function* loadThreadSaga(action: any) {
   }
 }
 
-function* loadNextReplies(action: any) {
+function* loadNextReplies(action: AsyncLoadNextThreadReplys) {
   try {
-    const offsetId = action.payload.offsetReply.replyId;
-    const { replies } = yield call(API.getNextReplies, action.payload.messageId, offsetId);
+    const { offsetReply, messageId } = action.payload;
+    const offsetId = offsetReply.replyId;
+    const { replies } = yield call(API.getNextReplies, messageId, offsetId);
     yield put({ type: LOAD_NEXT_REPLIES, payload: { replies } });
   } catch (e) {
     console.log(e);
