@@ -1,5 +1,6 @@
 import { socketReplyReactionState } from '@socket/types/reaction-types';
 import { userState } from '@store/types/user-types';
+import { reactionsState, replyReactionsState } from '@store/types/reactions-type';
 
 export const LOAD_THREAD = 'LOAD_THREAD';
 export const LOAD_THREAD_ASYNC = 'LOAD_THREAD_ASYNC';
@@ -17,7 +18,7 @@ export interface threadMessageState {
   deleteAt: Date;
   user: userState;
   chatroom: Object;
-  messageReactions: any;
+  messageReactions: Array<reactionsState>;
 }
 
 export interface replyState {
@@ -26,7 +27,7 @@ export interface replyState {
   createdAt: Date;
   updatedAt: Date;
   replyId: number;
-  replyReactions: Array<any>;
+  replyReactions: Array<replyReactionsState>;
   user: userState;
 }
 
