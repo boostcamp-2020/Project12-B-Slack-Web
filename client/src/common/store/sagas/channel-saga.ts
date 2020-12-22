@@ -1,6 +1,8 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import API from '@utils/api';
 import {
+  AsyncLoadNextChannels,
+  AsyncJoinChannel,
   INIT_CHANNELS,
   INIT_CHANNELS_ASYNC,
   JOIN_CHANNEL,
@@ -19,7 +21,7 @@ function* initChannelsSaga() {
   }
 }
 
-function* loadNextChannels(action: any) {
+function* loadNextChannels(action: AsyncLoadNextChannels) {
   try {
     const { title } = action.payload;
     const nextChannels = yield call(API.getNextChannels, title);
@@ -29,7 +31,7 @@ function* loadNextChannels(action: any) {
   }
 }
 
-function* joinChannel(action: any) {
+function* joinChannel(action: AsyncJoinChannel) {
   try {
     const { chatroomId } = action.payload;
     yield call(API.joinChannel, chatroomId);

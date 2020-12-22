@@ -28,6 +28,20 @@ export interface leaveChannelState {
   chatroomId: number;
 }
 
+export interface loadNextChannelState {
+  title: string;
+}
+
+export interface AsyncLoadNextChannels {
+  type: typeof LOAD_NEXT_CHANNELS_ASYNC;
+  payload: loadNextChannelState;
+}
+
+export interface AsyncJoinChannel {
+  type: typeof JOIN_CHANNEL_ASYNC;
+  payload: joinChannelState;
+}
+
 interface InitChannelsAction {
   type: typeof INIT_CHANNELS;
   payload: channelsState;
