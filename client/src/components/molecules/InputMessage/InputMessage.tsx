@@ -13,7 +13,7 @@ interface InputMessageProps {
   chatRoomId: number | null;
 }
 
-const InputMessageContainer = styled.div<any>`
+const InputMessageContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,12 +24,12 @@ const InputMessageContainer = styled.div<any>`
   border-radius: 0.3rem;
 `;
 
-const InputWrap = styled.div<any>`
+const InputWrap = styled.div`
   margin-left: 1rem;
   width: 70%;
 `;
 
-const ButtonWrap = styled.div<any>`
+const ButtonWrap = styled.div`
   margin-right: 1rem;
 `;
 

@@ -11,7 +11,7 @@ interface BrowsePageChannelHeaderProps {
   isPrivate?: boolean;
 }
 
-const BrowsePageChannelHeaderWrap = styled.div<any>`
+const BrowsePageChannelHeaderWrap = styled.div`
   display: flex;
   p {
     margin-left: 0.3rem;

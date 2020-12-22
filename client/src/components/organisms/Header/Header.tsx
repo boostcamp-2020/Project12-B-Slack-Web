@@ -9,7 +9,7 @@ import { loginAsync } from '@store/actions/user-action';
 
 interface HeaderProps {}
 
-const HeaderContainter = styled.div<any>`
+const HeaderContainter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;

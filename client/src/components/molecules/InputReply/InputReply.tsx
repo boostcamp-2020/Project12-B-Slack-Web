@@ -12,7 +12,7 @@ interface InputReplyProps {
   setEventType: any;
 }
 
-const InputReplyContainer = styled.div<any>`
+const InputReplyContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,12 +23,12 @@ const InputReplyContainer = styled.div<any>`
   border-radius: 0.3rem;
 `;
 
-const InputWrap = styled.div<any>`
+const InputWrap = styled.div`
   margin-left: 1rem;
   width: 70%;
 `;
 
-const ButtonWrap = styled.div<any>`
+const ButtonWrap = styled.div`
   margin-right: 1rem;
 `;
 
