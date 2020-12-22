@@ -140,7 +140,42 @@ export interface asyncJoinDMState {
 
 export interface asyncLoadNextMessagesState {
   chatroomId: number;
-  offsetMessage: messageState | null;
+  offsetMessage: messageState;
+}
+
+export interface asyncLoad {
+  type: typeof LOAD_ASYNC;
+  payload: loadState;
+}
+
+export interface asyncPickChannel {
+  type: typeof PICK_CHANNEL_ASYNC;
+  payload: loadState;
+}
+
+export interface asyncAddChannel {
+  type: typeof ADD_CHANNEL_ASYNC;
+  payload: asyncAddChannelState;
+}
+
+export interface asyncAddDM {
+  type: typeof ADD_DM_ASYNC;
+  payload: asyncAddDMState;
+}
+
+export interface asyncJoinDM {
+  type: typeof JOIN_DM_ASYNC;
+  payload: asyncJoinDMState;
+}
+
+export interface asyncLoadNextMessages {
+  type: typeof LOAD_NEXT_MESSAGES_ASYNC;
+  payload: asyncLoadNextMessagesState;
+}
+
+export interface asyncLeaveChatroom {
+  type: typeof LEAVE_CHATROOM_ASYNC;
+  payload: selectedChatroomState;
 }
 
 interface LoadChatroomAction {
