@@ -11,7 +11,7 @@ interface AddChannelButtonProps {
   setHover: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const IconWrap = styled.div<any>`
+const IconWrap = styled.div`
   display: flex;
   cursor: pointer;
 `;

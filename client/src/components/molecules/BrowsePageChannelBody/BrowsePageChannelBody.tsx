@@ -10,7 +10,7 @@ interface BrowsePageChannelBodyProps {
   description?: string;
 }
 
-const BrowsePageChannelBodyWrap = styled.div<any>`
+const BrowsePageChannelBodyWrap = styled.div`
   display: flex;
   p {
     margin-right: 0.3rem;

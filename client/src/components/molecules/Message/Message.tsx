@@ -25,7 +25,7 @@ interface MessageProps {
   messageReactions: Array<ReactionsState>;
 }
 
-const MessageContainer = styled.div<any>`
+const MessageContainer = styled.div`
   display: flex;
   position: relative;
   padding: 1rem 1rem;
@@ -35,23 +35,23 @@ const MessageContainer = styled.div<any>`
   }
 `;
 
-const ProfileImgWrap = styled.div<any>`
+const ProfileImgWrap = styled.div`
   margin-right: 1.5rem;
   cursor: pointer;
 `;
 
-const MessageContent = styled.div<any>`
+const MessageContent = styled.div`
   display: flex;
   flex-direction: column;
   width: -webkit-fill-available;
 `;
 
-const MessageHeader = styled.div<any>`
+const MessageHeader = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const DateText = styled.p<any>`
+const DateText = styled.p`
   margin: 0 0.3rem;
   color: ${color.text_senary};
   font-size: 0.7rem;
@@ -72,7 +72,7 @@ const Message: React.FC<MessageProps> = ({ messageId, author, thread, content, s
   const dispatch = useDispatch();
   const { selectedChatroomId } = useSelector((state: any) => state.chatroom);
   const userName = useSelector((store: RootState) => store.user.displayName);
-  const messageContainer = useRef();
+  const messageContainer = useRef() as React.MutableRefObject<HTMLDivElement>;
   const onMouseEnter = () => {
     setHover(true);
   };

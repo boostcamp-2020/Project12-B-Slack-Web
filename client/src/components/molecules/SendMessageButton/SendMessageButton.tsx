@@ -10,7 +10,7 @@ interface SendMessageButtonProps {
   sendMessage: () => void;
 }
 
-const SendMessageButtonContainer = styled.div<any>`
+const SendMessageButtonContainer = styled.div<{ isActive: boolean }>`
   display: flex;
   justify-content: center;
   align-items: baseline;

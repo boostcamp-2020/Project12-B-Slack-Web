@@ -5,7 +5,7 @@ import { RouteComponentProps } from 'react-router-dom';
 
 interface ChatroomThreadProps {}
 
-const ChatroomThreadContainer = styled.div<any>`
+const ChatroomThreadContainer = styled.div`
   display: flex;
   height: 100%;
 `;

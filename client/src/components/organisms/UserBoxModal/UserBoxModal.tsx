@@ -9,7 +9,7 @@ import { Size } from '@constants/index';
 
 interface UserBoxModalProps {}
 
-const UserBoxModalHeader = styled.div<any>`
+const UserBoxModalHeader = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -17,7 +17,7 @@ const UserBoxModalHeader = styled.div<any>`
   height: 7rem;
 `;
 
-const UserBoxModalBody = styled.div<any>`
+const UserBoxModalBody = styled.div`
   overflow-y: scroll;
   padding: 0rem 1rem;
   max-height: 18rem;

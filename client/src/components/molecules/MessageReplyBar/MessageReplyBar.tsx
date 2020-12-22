@@ -12,7 +12,7 @@ interface MessageReplyBarProps {
   onClick?: () => void;
 }
 
-const MessageReplyBarWrap = styled.div<any>`
+const MessageReplyBarWrap = styled.div`
   display: flex;
   margin-top: 0.2rem;
   padding: 0.2rem;
@@ -23,11 +23,11 @@ const MessageReplyBarWrap = styled.div<any>`
   }
 `;
 
-const ProfileImgWrap = styled.div<any>`
+const ProfileImgWrap = styled.div`
   margin: 0rem 0.05rem;
 `;
 
-const ReplyCountWrap = styled.div<any>`
+const ReplyCountWrap = styled.div`
   display: flex;
   margin: 0rem 0.5rem;
   p:hover {

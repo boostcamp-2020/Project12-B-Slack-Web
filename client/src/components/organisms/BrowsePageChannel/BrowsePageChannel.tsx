@@ -18,7 +18,7 @@ interface BrowsePageChannelProps {
   isJoined?: boolean;
 }
 
-const BrowsePageChannelContainer = styled.div<any>`
+const BrowsePageChannelContainer = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 1rem 1rem;
@@ -31,14 +31,14 @@ const BrowsePageChannelContainer = styled.div<any>`
   }
 `;
 
-const BrowsePageChannelContent = styled.div<any>`
+const BrowsePageChannelContent = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   margin-left: 0.5rem;
 `;
 
-const ButtonWrap = styled.div<any>`
+const ButtonWrap = styled.div`
   display: flex;
   margin-right: 0.5rem;
   button {

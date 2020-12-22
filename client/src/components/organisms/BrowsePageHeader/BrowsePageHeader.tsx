@@ -8,7 +8,7 @@ interface BrowsePageHeaderProps {
   onClick?: () => void;
 }
 
-const BrowsePageHeaderWrap = styled.div<any>`
+const BrowsePageHeaderWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,7 +19,7 @@ const BrowsePageHeaderWrap = styled.div<any>`
   z-index: 2;
 `;
 
-const ContentWrap = styled.div<any>`
+const ContentWrap = styled.div`
   display: flex;
   align-items: center;
   padding: 0rem 1.6rem;

@@ -13,7 +13,7 @@ interface ChatroomHeaderProps {
   users: Array<object>;
 }
 
-const ChatroomHeaderContainter = styled.div<any>`
+const ChatroomHeaderContainter = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,21 +23,21 @@ const ChatroomHeaderContainter = styled.div<any>`
   z-index: 2;
 `;
 
-const TitleContainer = styled.div<any>`
+const TitleContainer = styled.div`
   display: flex;
   align-items: baseline;
   padding: 0rem 1rem;
 `;
 
-const TextWrap = styled.div<any>`
+const TextWrap = styled.div`
   display: grid;
 `;
 
-const IconWrap = styled.div<any>`
+const IconWrap = styled.div`
   margin-left: 0.5rem;
 `;
 
-const MenuContainer = styled.div<any>`
+const MenuContainer = styled.div`
   display: flex;
   align-items: baseline;
   padding: 0rem 1rem;

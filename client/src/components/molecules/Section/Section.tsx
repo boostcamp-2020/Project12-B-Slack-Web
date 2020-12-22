@@ -9,23 +9,23 @@ interface SectionProps {
   isSelect?: boolean;
 }
 
-const SectionWrap = styled.div<any>`
+const SectionWrap = styled.div`
   position: relative;
 `;
 
-const AddChannelButtonWrap = styled.div<any>`
+const AddChannelButtonWrap = styled.div`
   position: absolute;
   top: 0;
   right: 0.5rem;
 `;
 
-const StyledSection = styled.details<any>`
+const StyledSection = styled.details`
   color: rgb(198, 199, 200);
   font-size: 1rem;
   margin-bottom: 1rem;
 `;
 
-const Summary = styled.summary<any>`
+const Summary = styled.summary`
   outline: none;
   cursor: pointer;
   margin-bottom: 0.3rem;
@@ -49,7 +49,7 @@ const Section: React.FC<SectionProps> = ({ children, sectionName = 'Section', is
           <AddChannelButton setHover={setHover} sectionName={sectionName} />
         </AddChannelButtonWrap>
       )}
-      <StyledSection isSelect={isSelect} {...props} open>
+      <StyledSection {...props} open>
         <Summary onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
           {sectionName}
         </Summary>

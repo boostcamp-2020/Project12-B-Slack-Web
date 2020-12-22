@@ -8,7 +8,7 @@ import { getThreadId } from '@utils/uriParser';
 
 interface ThreadProps {}
 
-const ThreadContainer = styled.div<any>`
+const ThreadContainer = styled.div`
   width: 35%;
   min-width: 25rem;
   height: 100%;

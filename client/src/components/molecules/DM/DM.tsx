@@ -16,7 +16,7 @@ interface DMProps {
   chatroomId: number;
 }
 
-const DMContainter = styled.div<any>`
+const DMContainter = styled.div<{ isSelect: boolean }>`
   display: flex;
   align-items: center;
   padding: 0.4rem 1rem;
@@ -24,7 +24,7 @@ const DMContainter = styled.div<any>`
   ${(props) => (props.isSelect ? `background-color: ${color.selected_chatroom}` : `&:hover { background-color: ${color.primary};}`)}
 `;
 
-const TextWrap = styled.div<any>`
+const TextWrap = styled.div`
   margin-left: 1rem;
   width: -webkit-fill-available;
 `;

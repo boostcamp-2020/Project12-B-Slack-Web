@@ -9,7 +9,7 @@ interface UserBoxProps {
   member: Array<any>;
 }
 
-const UserBoxWrap = styled.div<any>`
+const UserBoxWrap = styled.div`
   display: flex;
   align-items: center;
   padding-right: 1rem;
@@ -20,13 +20,13 @@ const UserBoxWrap = styled.div<any>`
   cursor: pointer;
 `;
 
-const ProfileImgWrap = styled.div<any>`
+const ProfileImgWrap = styled.div`
   border: 2px solid white;
   border-radius: 0.5rem;
   margin-left: -0.4rem;
 `;
 
-const Text = styled.div<any>`
+const Text = styled.div`
   margin-left: 0.7rem;
   color: ${color.text_senary};
   font-weight: 600;

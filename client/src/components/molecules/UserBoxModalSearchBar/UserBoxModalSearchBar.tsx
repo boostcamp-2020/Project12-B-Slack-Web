@@ -8,7 +8,7 @@ import { KeyCode, Size } from '@constants/index';
 
 interface UserBoxModalSearchBarProps {}
 
-const UserBoxModalSearchBarWrap = styled.div<any>`
+const UserBoxModalSearchBarWrap = styled.div`
   display: flex;
   align-items: center;
   border: 1px solid ${color.secondary};
@@ -17,18 +17,18 @@ const UserBoxModalSearchBarWrap = styled.div<any>`
   width: 30rem;
 `;
 
-const StyledInput = styled.input<any>`
+const StyledInput = styled.input`
   border: 0 none;
   outline: none;
   width: fill-available;
   font-size: 1rem;
 `;
 
-const SearchIconWrap = styled.div<any>`
+const SearchIconWrap = styled.div`
   margin-right: 0.5rem;
 `;
 
-const CloseFilledIconWrap = styled.div<any>`
+const CloseFilledIconWrap = styled.div`
   cursor: pointer;
   margin-left: 0.5rem;
 `;

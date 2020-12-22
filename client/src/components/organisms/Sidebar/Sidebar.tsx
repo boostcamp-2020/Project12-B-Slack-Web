@@ -13,13 +13,13 @@ interface SidebarProps {
   children?: React.ReactNode;
 }
 
-const StyledSidebar = styled.div<any>`
+const StyledSidebar = styled.div`
   background-color: ${color.sidebar_bg};
   height: 100%;
   width: 18rem;
 `;
 
-const Workspace = styled.div<any>`
+const Workspace = styled.div`
   display: flex;
   align-items: center;
   height: 10%;
@@ -28,7 +28,7 @@ const Workspace = styled.div<any>`
   box-shadow: 0 1.5px 2px -2px ${color.border_primary};
 `;
 
-const ChildrenWrap = styled.div<any>`
+const ChildrenWrap = styled.div`
   overflow-y: scroll;
   padding: 0rem 1rem;
   height: 90%;
@@ -38,7 +38,7 @@ const ChildrenWrap = styled.div<any>`
   }
 `;
 
-const SectionWrap = styled.div<any>`
+const SectionWrap = styled.div`
   padding: 1rem 0rem;
 `;
 
