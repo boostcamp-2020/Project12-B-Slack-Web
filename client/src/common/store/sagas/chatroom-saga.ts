@@ -22,8 +22,9 @@ import {
 
 function* loadSaga(action: any) {
   try {
-    const payload = yield call(API.getChatroom, action.payload.selectedChatroomId);
-    const messages = yield call(API.getMessages, action.payload.selectedChatroomId);
+    const { selectedChatroomId } = action.payload;
+    const payload = yield call(API.getChatroom, selectedChatroomId);
+    const messages = yield call(API.getMessages, selectedChatroomId);
     yield put({ type: LOAD, payload: { selectedChatroom: payload, messages } });
   } catch (e) {
     console.log(e);
@@ -41,8 +42,9 @@ function* initSidebarSaga() {
 
 function* pickChannelSaga(action: any) {
   try {
-    const chatroom = yield call(API.getChatroom, action.payload.selectedChatroomId);
-    const messages = yield call(API.getMessages, action.payload.selectedChatroomId);
+    const { selectedChatroomId } = action.payload;
+    const chatroom = yield call(API.getChatroom, selectedChatroomId);
+    const messages = yield call(API.getMessages, selectedChatroomId);
     yield put({
       type: PICK_CHANNEL,
       payload: {
