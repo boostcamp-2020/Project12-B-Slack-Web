@@ -19,7 +19,7 @@ const ThreadBodyContainter = styled.div`
   height: 90%;
 `;
 
-const InputBoxWrap = styled.div<any>`
+const InputBoxWrap = styled.div`
   margin: 1rem;
 `;
 
