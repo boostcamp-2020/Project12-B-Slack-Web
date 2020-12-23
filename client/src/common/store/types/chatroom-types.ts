@@ -1,6 +1,6 @@
 import { socketMessageReactionState } from '@socket/types/reaction-types';
 import { UserState } from '@store/types/user-types';
-import { messageState, messagesState } from './message-types';
+import { MessageState, MessagesState } from './message-types';
 
 export const LOAD = 'LOAD';
 export const LOAD_ASYNC = 'LOAD_ASYNC';
@@ -36,7 +36,7 @@ export interface SelectedChatroomState {
 }
 
 export interface ChatroomState {
-  messages: Array<messageState>;
+  messages: Array<MessageState>;
   selectedChatroom: SelectedChatroomState;
   starred: Array<object>;
   otherSections: Array<object>;
@@ -111,7 +111,7 @@ export interface UpdateChatroomState {
   users: Array<UserState>;
 }
 
-export interface InsertMessageState extends messageState {
+export interface InsertMessageState extends MessageState {
   chatroomId: number;
 }
 
@@ -140,7 +140,7 @@ export interface AsyncJoinDMState {
 
 export interface AsyncLoadNextMessagesState {
   chatroomId: number;
-  offsetMessage: messageState;
+  offsetMessage: MessageState;
 }
 
 export interface AsyncLoad {
@@ -224,7 +224,7 @@ interface ResetSelectedChannelAction {
 
 interface LoadNextMessagesAction {
   type: typeof LOAD_NEXT_MESSAGES;
-  payload: messagesState;
+  payload: MessagesState;
 }
 
 interface UpdateThreadAction {

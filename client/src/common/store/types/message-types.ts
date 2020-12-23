@@ -2,7 +2,7 @@ import { UserState } from './user-types';
 import { ReactionsState } from './reactions-type';
 import { ChatroomThreadState } from './chatroom-types';
 
-export interface messageState {
+export interface MessageState {
   messageId: number;
   createdAt: Date;
   updatedAt: Date;
@@ -11,6 +11,6 @@ export interface messageState {
   thread: ChatroomThreadState;
 }
 
-export interface messagesState {
-  messages: Array<messageState>;
+export interface MessagesState {
+  messages: Array<MessageState>;
 }

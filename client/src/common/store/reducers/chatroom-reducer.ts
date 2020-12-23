@@ -3,7 +3,7 @@
 /* eslint-disable no-case-declarations */
 import { uriParser } from '@utils/index';
 import { joinChatroom, joinDM } from '@socket/emits/chatroom';
-import { messageState } from '@store/types/message-types';
+import { MessageState } from '@store/types/message-types';
 import { ReactionsState } from '@store/types/reactions-type';
 import {
   ChatroomState,
@@ -140,7 +140,7 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
     case UPDATE_THREAD:
       const updateMessages = state.messages;
       const { messageId, profileUri } = action.payload;
-      updateMessages.forEach((message: messageState) => {
+      updateMessages.forEach((message: MessageState) => {
         if (message.messageId === messageId) {
           message.thread.profileUris.push(profileUri);
           message.thread.replyCount += 1;
@@ -154,7 +154,7 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
     case ADD_MESSAGE_REACTION:
       const addReactionMessages = state.messages;
       if (state.selectedChatroomId === action.payload.chatroomId) {
-        addReactionMessages.forEach((message: messageState) => {
+        addReactionMessages.forEach((message: MessageState) => {
           if (message.messageId === action.payload.messageId) {
             let isExistReaction = false;
             message.messageReactions.forEach((reaction: ReactionsState) => {
@@ -183,7 +183,7 @@ const chatroomReducer = (state = initialState, action: ChatroomTypes) => {
     case DELETE_MESSAGE_REACTION:
       const deleteReactionMessages = state.messages;
       if (state.selectedChatroomId === action.payload.chatroomId) {
-        deleteReactionMessages.forEach((message: messageState) => {
+        deleteReactionMessages.forEach((message: MessageState) => {
           if (message.messageId === action.payload.messageId) {
             message.messageReactions.forEach((reaction: ReactionsState) => {
               if (reaction.reactionId === action.payload.reactionId) {
