@@ -66,24 +66,24 @@ interface LoadThreadAction {
   payload: threadState;
 }
 
-interface InsertReply {
+interface InsertReplyAction {
   type: typeof INSERT_REPLY;
   payload: ReplyState;
 }
 
-interface LoadNextReplies {
+interface LoadNextRepliesAction {
   type: typeof LOAD_NEXT_REPLIES;
   payload: RepliesState;
 }
 
-interface AddReplyReaction {
+interface AddReplyReactionAction {
   type: typeof ADD_REPLY_REACTION;
   payload: socketReplyReactionState;
 }
 
-interface DeleteReplyReaction {
+interface DeleteReplyReactionAction {
   type: typeof DELETE_REPLY_REACTION;
   payload: socketReplyReactionState;
 }
 
-export type ThreadTypes = LoadThreadAction | InsertReply | LoadNextReplies | AddReplyReaction | DeleteReplyReaction;
+export type ThreadTypes = LoadThreadAction | InsertReplyAction | LoadNextRepliesAction | AddReplyReactionAction | DeleteReplyReactionAction;
