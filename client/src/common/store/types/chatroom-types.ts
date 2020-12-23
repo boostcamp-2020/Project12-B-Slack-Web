@@ -218,26 +218,26 @@ interface LeaveChatroomAction {
   payload: LeaveChatroomState;
 }
 
-interface ResetSelectedChannel {
+interface ResetSelectedChannelAction {
   type: typeof RESET_SELECTED_CHANNEL;
 }
 
-interface LoadNextAction {
+interface LoadNextMessagesAction {
   type: typeof LOAD_NEXT_MESSAGES;
   payload: messagesState;
 }
 
-interface UpdateThread {
+interface UpdateThreadAction {
   type: typeof UPDATE_THREAD;
   payload: UpdateThreadState;
 }
 
-interface AddMessageReaction {
+interface AddMessageReactionAction {
   type: typeof ADD_MESSAGE_REACTION;
   payload: socketMessageReactionState;
 }
 
-interface DeleteMessageReaction {
+interface DeleteMessageReactionAction {
   type: typeof DELETE_MESSAGE_REACTION;
   payload: socketMessageReactionState;
 }
@@ -256,9 +256,9 @@ export type ChatroomTypes =
   | AddDMAction
   | JoinDMAction
   | LeaveChatroomAction
-  | ResetSelectedChannel
-  | LoadNextAction
-  | UpdateThread
-  | AddMessageReaction
-  | DeleteMessageReaction
+  | ResetSelectedChannelAction
+  | LoadNextMessagesAction
+  | UpdateThreadAction
+  | AddMessageReactionAction
+  | DeleteMessageReactionAction
   | UpdateChatroomAction;
