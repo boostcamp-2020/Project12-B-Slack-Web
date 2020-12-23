@@ -1,6 +1,6 @@
 import { socketMessageReactionState } from '@socket/types/reaction-types';
 import { UserState } from '@store/types/user-types';
-import { messageState, messagesState } from './message-types';
+import { MessageState, MessagesState } from './message-types';
 
 export const LOAD = 'LOAD';
 export const LOAD_ASYNC = 'LOAD_ASYNC';
@@ -36,7 +36,7 @@ export interface SelectedChatroomState {
 }
 
 export interface ChatroomState {
-  messages: Array<messageState>;
+  messages: Array<MessageState>;
   selectedChatroom: SelectedChatroomState;
   starred: Array<object>;
   otherSections: Array<object>;
@@ -111,7 +111,7 @@ export interface UpdateChatroomState {
   users: Array<UserState>;
 }
 
-export interface InsertMessageState extends messageState {
+export interface InsertMessageState extends MessageState {
   chatroomId: number;
 }
 
@@ -140,7 +140,7 @@ export interface AsyncJoinDMState {
 
 export interface AsyncLoadNextMessagesState {
   chatroomId: number;
-  offsetMessage: messageState;
+  offsetMessage: MessageState;
 }
 
 export interface AsyncLoad {
@@ -218,26 +218,26 @@ interface LeaveChatroomAction {
   payload: LeaveChatroomState;
 }
 
-interface ResetSelectedChannel {
+interface ResetSelectedChannelAction {
   type: typeof RESET_SELECTED_CHANNEL;
 }
 
-interface LoadNextAction {
+interface LoadNextMessagesAction {
   type: typeof LOAD_NEXT_MESSAGES;
-  payload: messagesState;
+  payload: MessagesState;
 }
 
-interface UpdateThread {
+interface UpdateThreadAction {
   type: typeof UPDATE_THREAD;
   payload: UpdateThreadState;
 }
 
-interface AddMessageReaction {
+interface AddMessageReactionAction {
   type: typeof ADD_MESSAGE_REACTION;
   payload: socketMessageReactionState;
 }
 
-interface DeleteMessageReaction {
+interface DeleteMessageReactionAction {
   type: typeof DELETE_MESSAGE_REACTION;
   payload: socketMessageReactionState;
 }
@@ -256,9 +256,9 @@ export type ChatroomTypes =
   | AddDMAction
   | JoinDMAction
   | LeaveChatroomAction
-  | ResetSelectedChannel
-  | LoadNextAction
-  | UpdateThread
-  | AddMessageReaction
-  | DeleteMessageReaction
+  | ResetSelectedChannelAction
+  | LoadNextMessagesAction
+  | UpdateThreadAction
+  | AddMessageReactionAction
+  | DeleteMessageReactionAction
   | UpdateChatroomAction;

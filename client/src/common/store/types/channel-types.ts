@@ -47,19 +47,19 @@ interface InitChannelsAction {
   payload: ChannelsState;
 }
 
-interface LoadNextChannels {
+interface LoadNextChannelsAction {
   type: typeof LOAD_NEXT_CHANNELS;
   payload: ChannelsState;
 }
 
-interface JoinChannel {
+interface JoinChannelAction {
   type: typeof JOIN_CHANNEL;
   payload: JoinChannelState;
 }
 
-interface LeaveChannel {
+interface LeaveChannelAction {
   type: typeof LEAVE_CHANNEL;
   payload: LeaveChannelState;
 }
 
-export type ChannelTypes = InitChannelsAction | LoadNextChannels | JoinChannel | LeaveChannel;
+export type ChannelTypes = InitChannelsAction | LoadNextChannelsAction | JoinChannelAction | LeaveChannelAction;
