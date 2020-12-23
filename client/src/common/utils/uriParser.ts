@@ -24,7 +24,7 @@ export const getThreadId = () => {
   if (threadUrlpattern.test(window.location.pathname)) {
     const pattern = new RegExp(/[0-9]+$/g);
     const code = pattern.exec(window.location.pathname);
-    return code ? Number(code[0]) : -1;
+    return code ? Number(code[0]) : null;
   }
-  return -1;
+  return null;
 };

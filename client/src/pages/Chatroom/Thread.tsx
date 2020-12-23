@@ -20,13 +20,13 @@ const Thread: React.FC<ThreadProps> = () => {
   const threadId = getThreadId();
 
   useEffect(() => {
-    dispatch(loadThread({ messageId: threadId || 0 }));
+    if (threadId) dispatch(loadThread({ messageId: threadId }));
   }, []);
 
   return (
     <ThreadContainer>
       <ThreadHeader />
-      <ThreadBody messageId={threadId} />
+      {threadId && <ThreadBody messageId={threadId} />}
     </ThreadContainer>
   );
 };
